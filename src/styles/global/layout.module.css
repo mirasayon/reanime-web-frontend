@@ -1,0 +1,32 @@
+.root_light_app {
+    color: black;
+    background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);
+}
+
+.root_dark_app {
+    color: white;
+    background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);
+}
+
+.root_light_web {
+    padding: 0% 8% 3% 8%;
+    color: black;
+    background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);
+}
+
+.root_dark_web {
+    padding: 0% 8% 3% 8%;
+    color: white;
+    background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);
+}
+
+@media (max-width: 600px) {
+    .root_dark_web {
+        font-size: smaller;
+        padding: 0px;
+    }
+    .root_light_web {
+        font-size: smaller;
+        padding: 0% 8% 3% 8%;
+    }
+}

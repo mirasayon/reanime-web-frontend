@@ -1,0 +1,12 @@
+# dependencies
+/node_modules  
+# next.js
+/.next 
+# Environment
+.env
+.env.* 
+# typescript
+*.tsbuildinfo
+next-env.d.ts 
+# file explorer settings files
+desktop.ini

@@ -1,0 +1,18 @@
+.rea_wrapper_border {
+    border-style: solid;
+    border-color: rgba(59, 131, 246, 0.897);
+    border-width: 3px;
+    margin: 0.4rem;
+}
+
+.docs {
+    .h1 {
+        font-size: larger;
+    }
+    .h2 {
+        font-size: large;
+    }
+    .strong {
+        font-weight: bold;
+    }
+}
