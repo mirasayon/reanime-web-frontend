@@ -22,9 +22,9 @@ export function FramesAnime({
             <span className="text-lg px-3">Кадры</span>
 
             <div
-                className={`flex flex-wrap justify-evenly overflow-hidden  ${
-                    is_extended ? "h-max" : "h-[240px]"
-                }`}
+                className={`flex flex-wrap justify-evenly overflow-y-scroll scrollbar 
+                        ease-in-out duration-400  
+                    ${is_extended ? "h-[720px]" : "h-[240px]"}`}
             >
                 {screenshots.map((img_url, ind) => {
                     const alt_string: string = `кадры от ${title_of_anime}, N-${ind + 1}`;
@@ -40,15 +40,13 @@ export function FramesAnime({
                         />
                     );
                 })}
-                <div className={"p-2 "}>
-                    <div className={"block min-w-[640px]"}>
-                        <AdsRSYA.BannerInFrames is_dark={is_dark} />
-                    </div>
-                </div>
+            </div>
+            <div className={"p-2 flex justify-center"}>
+                <AdsRSYA.BannerInFrames is_dark={is_dark} />
             </div>
             <button
                 type="button"
-                className="p-2 m-2 bg-slate-800 hover:bg-slate-700 rounded-lg w-32 text-center cursor-pointer"
+                className={`p-2 m-2 border-2 border-blue-400 hover:bg-blue-700/20 rounded-sm w-32 text-center cursor-pointer`}
                 onClick={() => set_extended((pr) => !pr)}
                 title="Раскрыть"
             >

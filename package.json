@@ -4,8 +4,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "devt": "dotenv -e .env.development -- next dev --turbopack --port 3301",
-        "dev": "dotenv -e .env.development -- next dev --port 3301",
+        "dev": "dotenv -e .env.development -- next dev --turbopack --port 3301",
         "build": "dotenv -e .env.production -- next build",
         "build-prod": "dotenv -e .env.production -- next build --no-lint",
         "start-test": "dotenv -e .env.test -- next start --port 3301",

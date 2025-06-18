@@ -114,7 +114,7 @@ class AdsRSYAClass {
             </div>
         );
     };
-    /** Banner ads */
+    /** Banner Used in Frames */
     BannerInFrames = ({ is_dark }: { is_dark: boolean }) => {
         if (!EnvConfig.mode.prod) {
             return;
