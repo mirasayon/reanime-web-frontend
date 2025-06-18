@@ -17,8 +17,8 @@ export default async function __Contacts_page() {
                     </UtilityJSX.LinkX>
                 </span>
                 <span className="">
-                    Для поддержки пользователей или сообщению об ошибках (контакты разработчиков):{" "}
-                    <UtilityJSX.LinkX is_dark={is_dark} email href={`${WebsiteConfigs.mail}`}>
+                    Для поддержки пользователей или сообщению об ошибках (контакт разработчика):{" "}
+                    <UtilityJSX.LinkX is_dark={is_dark} email href={`${WebsiteConfigs.devs_mail}`}>
                         {WebsiteConfigs.devs_mail}
                     </UtilityJSX.LinkX>
                 </span>

@@ -9,13 +9,13 @@
 }
 
 .root_light_web {
-    padding: 0% 8% 3% 8%;
+    margin: 5% 10% 12% 10%;
     color: black;
     background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);
 }
 
 .root_dark_web {
-    padding: 0% 8% 3% 8%;
+    margin: 5% 10% 12% 10%;
     color: white;
     background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);
 }

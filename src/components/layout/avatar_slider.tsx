@@ -20,12 +20,11 @@ export function Avatar_slider({
 }) {
     const [_slide, set_slide] = useState(false);
     const [_zone, set_zone] = useState(false);
-    const [sendS, sendSet] = useAtom(sendMsgAtom);
-    function serviceDown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const [sendS, send_set] = useAtom(sendMsgAtom);
+    function service_Is_Down(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
-        sendSet({
-            message:
-                "Регистрация и логин пользователей временно приостаноавлена. Мы работаетаем над этим...",
+        send_set({
+            message: "Сервис временно недоступен. Мы работаетаем над этим...",
         });
     }
     const style = `${
@@ -74,7 +73,6 @@ export function Avatar_slider({
             </button>
             {_slide &&
                 (img_src ? (
-                    // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                     <div
                         className=" w-screen m-0 p-0 h-screen absolute top-0 right-0 bg-black/40"
                         onTouchStart={(_e) => set_zone((_pv) => false)}
@@ -89,7 +87,7 @@ export function Avatar_slider({
                         <div
                             className={` ${
                                 is_dark ? "bg-slate-800" : "bg-slate-400"
-                            } absolute  top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 `}
+                            } absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 `}
                             onMouseEnter={(e) => {
                                 e.preventDefault();
                                 set_zone((_pv) => true);
@@ -160,13 +158,13 @@ export function Avatar_slider({
                                     <div className={" flex gap-2 flex-col"}>
                                         <button
                                             type="button"
-                                            onClick={serviceDown}
+                                            onClick={service_Is_Down}
                                             className={`m-1 cursor-pointer flex justify-between text-center ${style} ${__hovertw}`}
                                         >
                                             <span className="m-1 text-center">Войти</span>
                                         </button>
                                         <button
-                                            onClick={serviceDown}
+                                            onClick={service_Is_Down}
                                             type="button"
                                             className={`m-1 cursor-pointer flex justify-between text-center ${style} ${__hovertw}`}
                                         >

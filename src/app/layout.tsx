@@ -13,19 +13,19 @@ import { inter } from "#/fonts/import";
 import type { NextTN } from "#T/next";
 import { WebsiteConfigs } from "#/configs/website";
 import type { JSX } from "react";
+import { EnvConfig } from "#/configs/env";
 
 export default async function Root_layout(props: NextTN.LayoutProps): Promise<JSX.Element> {
     const { is_dark, cookieStore } = await ServerSideThemeCookie();
     const ui_formatt = cookieStore.get("rea_interface_format")?.value as "web" | "app" | undefined;
-    const isWebf = ui_formatt ? ui_formatt === "web" : true;
-    const cavatar = cookieStore.get("rea_user_avatar")?.value || null;
+    const is_web_format = ui_formatt ? ui_formatt === "web" : true;
     const root_styles = is_dark
-        ? isWebf
+        ? is_web_format
             ? rea_layout_globals.root_dark_web
             : rea_layout_globals.root_dark_app
-        : isWebf
-          ? rea_layout_globals.root_light_web
-          : rea_layout_globals.root_light_app;
+        : is_web_format
+        ? rea_layout_globals.root_light_web
+        : rea_layout_globals.root_light_app;
 
     return (
         <html lang="ru">
@@ -35,9 +35,9 @@ export default async function Root_layout(props: NextTN.LayoutProps): Promise<JS
             <ReaGA.TagManager />
             <body className={`${inter.className} ${root_styles}`}>
                 <LayoutJSX.Header
-                    is_web_format={isWebf}
+                    is_web_format={is_web_format}
                     is_dark={is_dark}
-                    current_user_avatar={cavatar}
+                    current_user_avatar={null}
                 />
                 {props.children}
                 <Messanger is_dark={is_dark} />
@@ -50,7 +50,6 @@ export default async function Root_layout(props: NextTN.LayoutProps): Promise<JS
                 <ReaYMA.Mekrika />
                 <script
                     type="application/ld+json"
-                    // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                     dangerouslySetInnerHTML={{ __html: JsonLDStr }}
                 />
             </body>

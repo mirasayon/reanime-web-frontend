@@ -33,11 +33,13 @@ export function Anime_description({
     return (
         <>
             <div className={`  flex flex-wrap ${rea_wrapper_border}`}>
-                <span className="text-slate-500 p-3">{anime.nms.ru} </span>
+                <span className={`p-3`}>{anime.nms.ru}</span>
                 {anime.season && <span className="p-3">{anime.season} сезон</span>} {"\t"}
                 <span className="text-slate-500 p-3">{anime.nms.ofc}</span>
                 <span
-                    className={`p-3 float-end ${is_dark ? "bg-slate-200 text-black" : "bg-slate-400 text-blue-900 "}  `}
+                    className={`p-3 float-end ${
+                        is_dark ? "bg-slate-200 text-black" : "bg-slate-400 text-blue-900 "
+                    }  `}
                 >
                     {type_ru}
                 </span>
@@ -148,7 +150,11 @@ export function Anime_description({
                             <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
                                 {ind !== 0 && ","}{" "}
                                 <span
-                                    className={`${is_dark ? "hover:text-cyan-300 text-violet-400" : "text-indigo-800 "} font-bold`}
+                                    className={`${
+                                        is_dark
+                                            ? "hover:text-cyan-300 text-violet-400"
+                                            : "text-indigo-800 "
+                                    } font-bold`}
                                 >
                                     {genre.russian}
                                 </span>
@@ -172,11 +178,11 @@ export function Anime_description({
                     {!anime.desc && <UtilityJSX.It_will_be_known_soon />}
                 </div>
             </div>
+
             {anime.desc && (
-                <div className={`${rea_wrapper_border} p-2`}>
-                    <UtilityJSX.BoldX>Описание: </UtilityJSX.BoldX> <br />
-                    <span className="text-wrap">{anime.desc}</span>
-                    <br />
+                <div className={`${rea_wrapper_border} p-4`}>
+                    <UtilityJSX.BoldX>Описание:</UtilityJSX.BoldX>
+                    <p className="text-wrap whitespace-pre-wrap mt-2">{anime.desc}</p>
                 </div>
             )}
         </>

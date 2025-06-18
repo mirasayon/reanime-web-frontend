@@ -13,28 +13,45 @@ export function Episodes_List_Component({
     current_episode: number;
 }) {
     return (
-        <section className="flex flex-col flex-wrap">
+        <section className="flex flex-wrap">
             <div
-                className={`p-1 mt-0 overflow-scroll flex flex-wrap max-h-[200px] ${rea_wrapper_border}`}
+                className={`
+          ${rea_wrapper_border}
+          mt-0 max-h-[200px] overflow-y-scroll scrollbar p-1 flex flex-wrap
+        `}
             >
-                <span className={`p-1 ${is_dark ? "bg-slate-800" : "bg-blue-200"}`}>Серии:</span>
-                {array_of_episodes.map((item) => {
-                    const seria = Number(item.key);
+                <span
+                    className={`p-1 rounded font-medium text-sm
+            ${is_dark ? "bg-slate-800 text-white" : "bg-blue-200 text-black"}`}
+                >
+                    Серии:
+                </span>
+
+                {array_of_episodes.map(({ key }) => {
+                    const seria = Number(key);
                     const link_url = new URLSearchParams({
-                        sid: `${current_studio_id}`,
-                        episode: `${seria}`,
+                        sid: String(current_studio_id),
+                        episode: String(seria),
                     });
+
+                    const isCurrent = seria === current_episode;
+
                     return (
                         <Link
+                            key={key}
                             href={`?${link_url}#play`}
-                            className={`${
-                                seria === current_episode
-                                    ? "bg-purple-900"
-                                    : `${is_dark ? "bg-slate-700" : "bg-slate-200"} `
-                            } hover:bg-slate-500 p-1 px-5 font-bold`}
-                            key={item.key}
+                            className={`
+                px-5 py-1 m-1 rounded font-bold transition-colors duration-200
+                ${
+                    isCurrent
+                        ? "bg-purple-900 text-white"
+                        : is_dark
+                        ? "bg-slate-700 text-white hover:bg-slate-600"
+                        : "bg-slate-200 text-black hover:bg-slate-300"
+                }
+              `}
                         >
-                            {item.key}
+                            {key}
                         </Link>
                     );
                 })}

@@ -84,6 +84,15 @@ class LayoutClass {
                         >
                             Контакты и поддержка
                         </UtilityJSX.LinkX>
+
+                        {/* <UtilityJSX.LinkX
+                            is_dark={is_dark}
+                            className={style}
+                            href={"/info/support_us"}
+                        >
+                            Поддержите нас
+                        </UtilityJSX.LinkX> */}
+
                         <UtilityJSX.LinkX
                             className={` p-2  ${
                                 is_dark ? "hover:bg-violet-500/10" : "hover:bg-blue-300/40"

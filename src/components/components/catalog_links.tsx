@@ -278,14 +278,17 @@ export function Filter_animes_links({ is_dark }: { is_dark: boolean }) {
                         e.preventDefault();
                         return setter((pv) => !pv);
                     }}
-                    className={`  p-1 border-4 border-transparent  hover:border-violet-500  ${is_open && "border-b-violet-500 "} ${is_dark ? "bg-gray-700 " : "bg-violet-200 hover:bg-violet-200"}`}
+                    className={`  p-1 border-4 border-transparent  hover:border-violet-500  ${
+                        is_open && "border-b-violet-500 "
+                    } ${is_dark ? "bg-gray-700 " : "bg-violet-200 hover:bg-violet-200"}`}
                     type="button"
                 >
                     {text}
                 </button>
-                {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
                 <div
-                    className={` absolute top-9 left-0 flex flex-col z-10 transition-all  ${overflow ? " overflow-y-scroll scrollbar " : " overflow-hidden "} duration-500 ease-in-out ${is_open ? " h-64 " : "h-0 "} `}
+                    className={` absolute top-9 left-0 flex flex-col z-10 transition-all  ${
+                        overflow ? " overflow-y-scroll scrollbar " : " overflow-hidden "
+                    } duration-500 ease-in-out ${is_open ? " h-64 " : "h-0 "} `}
                     onMouseLeave={(e) => {
                         e.preventDefault();
                         return setter((pv) => false);
@@ -307,7 +310,15 @@ export function Filter_animes_links({ is_dark }: { is_dark: boolean }) {
                         const is_active = pathname === arr[index].link_url;
                         return (
                             <Link
-                                className={` p-2 ${is_dark ? `hover:bg-gray-800 ${is_active ? "bg-blue-800" : " bg-gray-700"} ` : `hover:bg-blue-200  ${is_active ? "bg-blue-400 " : "bg-slate-100"}  `} `}
+                                className={` p-2 ${
+                                    is_dark
+                                        ? `hover:bg-gray-800 ${
+                                              is_active ? "bg-blue-800" : " bg-gray-700"
+                                          } `
+                                        : `hover:bg-blue-200  ${
+                                              is_active ? "bg-blue-400 " : "bg-slate-100"
+                                          }  `
+                                } `}
                                 key={item.link_url}
                                 href={item.link_url}
                             >
