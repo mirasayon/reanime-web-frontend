@@ -11,7 +11,7 @@ class Fetcher {
             // console.log({ url: `${this.baseUrl}${url}` });
             const res = await fetch(`${this.baseUrl}${url}`, {
                 method: "GET",
-                cache: EnvConfig.mode.prod ? "default" : "no-cache",
+                cache: EnvConfig.mode.prod ? "force-cache" : "no-cache",
                 next: { revalidate: EnvConfig.mode.prod ? 86400 : 0 /** 24 Hours */ },
                 headers: {
                     "x-resource-service-api-key":
