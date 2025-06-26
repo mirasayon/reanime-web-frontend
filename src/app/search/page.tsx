@@ -3,12 +3,12 @@ import type { JSX } from "react";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
-import { ReaApi } from "#/services/apis/rea_api";
 import { Current_page_switcher } from "#/components/components/current_page_switcher";
 import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
 import { ApplicationConfig } from "#/configs/application";
 import { WebsiteConfigs } from "#/configs/website";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
 
 export default async function Root_search_page({
     searchParams,
@@ -23,7 +23,7 @@ export default async function Root_search_page({
     }
     const page = sq.c_page ? Number(sq.c_page) || 1 : 1;
     const raw_query = decodeURI(search_query);
-    const p_ = await ReaApi.core.search(raw_query, page);
+    const p_ = await Reanime_Resource_Service_Api_Integrator.core.search(raw_query, page);
 
     if (!p_) {
         return <Found_no_animes is_dark={is_dark} />;

@@ -2,7 +2,7 @@ import { UtilityJSX } from "#/components/utilities/x_components";
 import Link from "next/link";
 import type { JsonDB } from "#T/shared/json_db";
 import { JSX } from "react";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
 
 const max = 40;
 export function Anime_card_main({
@@ -25,13 +25,16 @@ export function Anime_card_main({
         <div
             className={` p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
         >
-            <Link href={Utils.getUrlReaAnime(data)} id={index === 0 ? "a_list" : "randomx_list"}>
+            <Link
+                href={Global_Utilities.get_anime_url_by_id_and_type(data)}
+                id={index === 0 ? "a_list" : "randomx_list"}
+            >
                 {render_images ? (
                     <img
                         width={200}
                         height={270}
                         loading="lazy"
-                        src={Utils.getReaPosterFinal(is_dark, data.img)}
+                        src={Global_Utilities.get_rea_poster(is_dark, data.img)}
                         alt={`Обложка от аниме ${data.nms.ru}`}
                         className="object-cover h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px]"
                     />
@@ -62,7 +65,7 @@ export function Anime_card_main({
                         {any_title}
                     </span>
                     <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">
-                        {Utils.getTypeOfAnimeRea(data)}
+                        {Global_Utilities.get_type_of_anime(data)}
                     </span>
                 </div>
 

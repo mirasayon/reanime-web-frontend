@@ -12,15 +12,15 @@ type categories = {
 const _categories: categories[] = [
     {
         title: "Фильмы",
-        link_url: "/list/movies",
+        link_url: "/list/movie",
     },
     {
         title: "Сериалы",
-        link_url: "/list/serials",
+        link_url: "/list/series",
     },
     {
         title: "Онгоинги",
-        link_url: "/list/ongoings",
+        link_url: "/list/ongoing",
     },
     {
         title: "Завершённые",
@@ -28,7 +28,7 @@ const _categories: categories[] = [
     },
     {
         title: "Популярные",
-        link_url: "/list/populars",
+        link_url: "/list/popular",
     },
     {
         title: "Этот год",

@@ -4,10 +4,10 @@ import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { notFound } from "next/navigation";
 import React from "react";
 import { Current_page_switcher } from "#/components/components/current_page_switcher";
-import { ReaApi } from "#/services/apis/rea_api";
 import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
 export default async function GenresPage({
     params,
     searchParams,
@@ -18,14 +18,17 @@ export default async function GenresPage({
     const p = await params;
     const sp = await searchParams;
     const genre_en = decodeURI(p.genre_en);
-    const desc = (await ReaApi.internals.desc_genres()).find(
+    const desc = (await Reanime_Resource_Service_Api_Integrator.internals.get_desc_genres()).find(
         (g) => g.english_name.toLowerCase() === genre_en,
     );
     if (!desc) {
         return notFound();
     }
     const { is_dark } = await ServerSideThemeCookie();
-    const _p = await ReaApi.core.by_genre(genre_en, Number(sp.c_page) || 1);
+    const _p = await Reanime_Resource_Service_Api_Integrator.core.by_genre(
+        genre_en,
+        Number(sp.c_page) || 1,
+    );
     if (!_p) {
         return notFound();
     }
@@ -56,7 +59,7 @@ export async function generateMetadata({
     params: NextTN.Params<{ genre_en: string }>;
 }): Promise<Metadata> {
     const genre_en = decodeURI((await params).genre_en);
-    const desc = (await ReaApi.internals.desc_genres()).find(
+    const desc = (await Reanime_Resource_Service_Api_Integrator.internals.get_desc_genres()).find(
         (g) => g.english_name.toLowerCase() === genre_en,
     );
     if (!desc) {

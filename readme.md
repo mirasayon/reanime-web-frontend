@@ -2,8 +2,6 @@
 
 [reanime.art](https://reanime.art)
 
-Tech stack: Next.js, React, TypeScript ESM, Node.js v22+
-
 Curent prod public domain: [reanime.art](https://reanime.art/)
 
 ## Project history
@@ -13,3 +11,5 @@ Curent prod public domain: [reanime.art](https://reanime.art/)
 3. Moved from <xcanime.com> to new domain <reanime.art> at 2024.06.09
 
 Homepage: <https://github.com/mirasayon/reanime-web-frontend#readme>
+
+### Tech stack: Next.js, React, TypeScript ESM, Node.js v22+

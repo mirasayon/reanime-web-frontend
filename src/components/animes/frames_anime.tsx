@@ -1,7 +1,7 @@
 "use client";
 import { rea_wrapper_border } from "#/styles/provider";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
 import { useState } from "react";
 export function FramesAnime({
     title_of_anime,
@@ -35,7 +35,7 @@ export function FramesAnime({
                             height={img_height}
                             key={img_url}
                             width={img_width}
-                            src={Utils.ReaScreenshots(img_src, shiki_id)}
+                            src={Global_Utilities.get_anime_frame_image_url(img_src, shiki_id)}
                             alt={alt_string}
                         />
                     );

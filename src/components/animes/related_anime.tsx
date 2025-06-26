@@ -1,8 +1,8 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import Link from "next/link";
-import { ReaApi } from "#/services/apis/rea_api";
 import type { JsonDB } from "#T/shared/json_db";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
 class RelatedAnimesClass {
     RelatedCardForAnime = async ({
         shiki_id,
@@ -11,15 +11,19 @@ class RelatedAnimesClass {
         shiki_id: number;
         relation: string;
     }) => {
-        const data: JsonDB.ftype | null = await ReaApi.core.byid.any(shiki_id);
+        const data: JsonDB.ftype | null =
+            await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shiki_id);
         return (
             data && (
                 <Link
-                    href={Utils.getUrlReaAnime(data)}
+                    href={Global_Utilities.get_anime_url_by_id_and_type(data)}
                     className="w-[20rem] border-4 h-[240px] flex m-2 border-violet-300 p-2"
                 >
                     <img
-                        src={Utils.SetREAPIUrl(data.img) || UtilityJSX.Default_poster(true)}
+                        src={
+                            Global_Utilities.get_poster_image_url_by_filename(data.img) ||
+                            UtilityJSX.Default_poster(true)
+                        }
                         alt={`Обложка от аниме ${data.nms.ru}`}
                         className="rounded-sm object-cover h-[212px] w-[150px]"
                     />
@@ -32,7 +36,7 @@ class RelatedAnimesClass {
                         <br />
                         <span>
                             <UtilityJSX.BoldX>Тип: </UtilityJSX.BoldX>
-                            {Utils.getTypeOfAnimeRea(data)}
+                            {Global_Utilities.get_type_of_anime(data)}
                         </span>
                     </div>
                 </Link>

@@ -7,17 +7,17 @@ import { Related_animes } from "#/components/animes/related_animes";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 // import { Comments_section } from "#/components/components/сomments_section";
 import { Trailer_Component } from "#/components/animes/promo_content";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
 import type { JsonDB } from "#T/shared/json_db";
-import { ReaApi } from "#/services/apis/rea_api";
 import type { NextTN } from "#T/next";
 import { UtilsWatch } from "#/utils/watch";
 import type { JSX } from "react";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
 
 export default async function Movie_shiki_id_page({
     params,
@@ -31,12 +31,13 @@ export default async function Movie_shiki_id_page({
     const shikimori_id_web = p.shikimori_id;
     if (
         Number.isNaN(shikimori_id_web) ||
-        !Utils.is_contains_only_numeric_string(shikimori_id_web)
+        !Global_Utilities.is_contains_only_numeric_string(shikimori_id_web)
     ) {
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const movie: JsonDB.ftype | null = await ReaApi.core.byid.movie(current_shikimori_id);
+    const movie: JsonDB.ftype | null =
+        await Reanime_Resource_Service_Api_Integrator.core.byid.movie_by_id(current_shikimori_id);
     if (!movie) {
         return notFound();
     }
@@ -58,7 +59,10 @@ export default async function Movie_shiki_id_page({
     return (
         <>
             <Anime_description
-                cover_image_src={Utils.SetREAPIUrl(movie.img) || UtilityJSX.Default_poster(is_dark)}
+                cover_image_src={
+                    Global_Utilities.get_poster_image_url_by_filename(movie.img) ||
+                    UtilityJSX.Default_poster(is_dark)
+                }
                 is_dark={is_dark}
                 current_user={null}
                 anime={movie}

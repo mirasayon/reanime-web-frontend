@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TopChartCarousel } from "./top_chart_animes_slider";
 import type { i_top_charts_anime_json } from "#T/userinserface";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
 
 export function ChartCarouselWrapper({
     animes,
@@ -21,7 +21,9 @@ export function ChartCarouselWrapper({
                                     height={200}
                                     loading={"lazy"}
                                     alt={` ${one_slide.title}'s cover`}
-                                    src={Utils.SetREAPITopChartsUrl(one_slide.cover)}
+                                    src={Global_Utilities.set_top_chart_animes_image_url(
+                                        one_slide.cover,
+                                    )}
                                     className={"h-[300px] object-cover object-top w-max "}
                                 />
                             ) : (

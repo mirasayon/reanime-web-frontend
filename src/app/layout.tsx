@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import "#/styles/global/main.tailwind.css";
+import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
 import { LayoutJSX } from "#/components/layout/globals";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
@@ -13,7 +13,6 @@ import { inter } from "#/fonts/import";
 import type { NextTN } from "#T/next";
 import { WebsiteConfigs } from "#/configs/website";
 import type { JSX } from "react";
-import { EnvConfig } from "#/configs/env";
 
 export default async function Root_layout(props: NextTN.LayoutProps): Promise<JSX.Element> {
     const { is_dark, cookieStore } = await ServerSideThemeCookie();

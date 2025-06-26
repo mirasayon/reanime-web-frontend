@@ -25,17 +25,17 @@ class ApplicationConfigClass {
         title: "Страница не найдена, 404",
         robots: "noindex, nofollow",
     };
-    api_current_url = EnvConfig.mode.prod
-        ? EnvConfig.server.urls.api.prod
-        : EnvConfig.server.urls.api.dev;
+    current_resource_service_api_url = EnvConfig.mode.prod
+        ? EnvConfig.integration_with_other_services.resource_service_api.url.prod
+        : EnvConfig.integration_with_other_services.resource_service_api.url.dev;
     list_anime_ru: { [key in filter_search_params]: string } = {
         released: "Завершенные аниме",
-        movies: "Аниме фильмы",
-        ongoings: "Онгоинги",
-        populars: "Популярные аниме",
-        serials: "Аниме сериалы",
+        movie: "Аниме фильмы",
+        ongoing: "Онгоинги",
+        popular: "Популярные аниме",
+        series: "Аниме сериалы",
         this_year: "Этот сезон",
     };
-    filters_uids = ["populars", "serials", "released", "movies", "ongoings", "this_year"] as const;
+    filters_uids = ["popular", "series", "released", "movie", "ongoing", "this_year"] as const;
 }
 export const ApplicationConfig = new ApplicationConfigClass();

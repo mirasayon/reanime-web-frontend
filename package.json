@@ -1,7 +1,12 @@
 {
     "name": "reanime.art-web-frontend",
-    "version": "1.0.0",
+    "version": "1.4.0",
     "private": true,
+    "author": {
+        "name": "MiraSayon",
+        "url": "https://mirasayon.com"
+    },
+    "description": "Reanime.art Web Fronytend Project. By Next.js",
     "type": "module",
     "scripts": {
         "dev": "dotenv -e .env.development -- next dev --turbopack --port 3301",
@@ -9,7 +14,7 @@
         "build-prod": "dotenv -e .env.production -- next build --no-lint",
         "start-test": "dotenv -e .env.test -- next start --port 3301",
         "standalone": "dotenv -e .env.production -- node ./.next/standalone/server.js",
-        "tsw": "tsc --watch --noEmit --project ./tsconfig.json",
+        "tsi": "tsc --watch --noEmit --project ./tsconfig.json",
         "start-prod": "dotenv -e .env.production -- next start -p 4839 --hostname 192.168.0.105"
     },
     "dependencies": {

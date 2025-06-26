@@ -24,7 +24,7 @@ export function Avatar_slider({
     function service_Is_Down(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         send_set({
-            message: "Сервис временно недоступен. Мы работаетаем над этим...",
+            message: "Часть сервиса временно недоступен.",
         });
     }
     const style = `${

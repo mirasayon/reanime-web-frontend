@@ -7,16 +7,16 @@ import { Anime_description } from "#/components/components/anime_description";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/serial_player";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
-import { Utils } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
 // import { Comments_section } from "#/components/components/сomments_section";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
-import { ReaApi } from "#/services/apis/rea_api";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextTN } from "#T/next";
 import { UtilsWatch } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -29,13 +29,14 @@ export default async function __Serial_shikimori_id_page({
     const shikimori_id_web = rp.shikimori_id;
     if (
         Number.isNaN(shikimori_id_web) ||
-        !Utils.is_contains_only_numeric_string(shikimori_id_web)
+        !Global_Utilities.is_contains_only_numeric_string(shikimori_id_web)
     ) {
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
-    const anime: JsonDB.ftype | null = await ReaApi.core.byid.serial(current_shikimori_id);
+    const anime: JsonDB.ftype | null =
+        await Reanime_Resource_Service_Api_Integrator.core.byid.series_by_id(current_shikimori_id);
 
     if (!anime) {
         return notFound();
@@ -114,7 +115,10 @@ export default async function __Serial_shikimori_id_page({
     return (
         <>
             <Anime_description
-                cover_image_src={Utils.SetREAPIUrl(anime.img) || UtilityJSX.Default_poster(is_dark)}
+                cover_image_src={
+                    Global_Utilities.get_poster_image_url_by_filename(anime.img) ||
+                    UtilityJSX.Default_poster(is_dark)
+                }
                 is_dark={is_dark}
                 current_user={null}
                 // current_user={current_user}
