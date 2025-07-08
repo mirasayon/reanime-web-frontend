@@ -5,10 +5,10 @@ import { Current_page_switcher } from "#/components/components/current_page_swit
 import type { NextTN } from "#T/next";
 import { ApplicationConfig } from "#/configs/application";
 import type { Metadata } from "next";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 import { paginated } from "#T/apis/resource_service_integrator";
 
-export type filter_search_params = (typeof ApplicationConfig.filters_uids)[number];
+export type filter_search_params = keyof typeof ApplicationConfig.list_anime_ru;
 export default async function List_Page({
     params,
     searchParams,

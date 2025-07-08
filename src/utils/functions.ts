@@ -1,13 +1,14 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { ApplicationConfig } from "#/configs/application";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { EnvConfig } from "#/configs/env";
 class UtilsClass {
     get_poster_image_url_by_filename = (filename?: string) => {
         if (!filename) {
             return undefined;
         }
-        return `${ApplicationConfig.current_resource_service_api_url}/storage/anime/poster_image/${filename}` as const;
+        return `${EnvConfig.partners.resource_service.url.current}/storage/anime/poster_image/${filename}` as const;
     };
     get_rea_poster = (is_dark: boolean, img?: string) => {
         return this.get_poster_image_url_by_filename(img) || UtilityJSX.Default_poster(is_dark);
@@ -19,7 +20,7 @@ class UtilsClass {
         `/${data.t ? "m" : "s"}/${data.sid}` as const;
 
     set_top_chart_animes_image_url = (segment: string) =>
-        `${ApplicationConfig.current_resource_service_api_url}/storage/animes/tcaps/${segment}` as const;
+        `${EnvConfig.partners.resource_service.url.current}/storage/animes/tcaps/${segment}` as const;
 
     sleepX = async (milliseconds: number): Promise<void> => {
         return await new Promise((_void) => setTimeout(_void, milliseconds));
@@ -93,7 +94,7 @@ class UtilsClass {
         return is_contain;
     }
     get_anime_frame_image_url = (filename: string, anime_id: number) => {
-        return `${ApplicationConfig.current_resource_service_api_url}/storage/animes/screenshots/${anime_id}/${filename}`;
+        return `${EnvConfig.partners.resource_service.url.current}/storage/animes/screenshots/${anime_id}/${filename}`;
     };
 }
 export const Global_Utilities = new UtilsClass();

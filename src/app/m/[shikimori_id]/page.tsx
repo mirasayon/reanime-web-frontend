@@ -17,7 +17,7 @@ import type { NextTN } from "#T/next";
 import { UtilsWatch } from "#/utils/watch";
 import type { JSX } from "react";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
 export default async function Movie_shiki_id_page({
     params,

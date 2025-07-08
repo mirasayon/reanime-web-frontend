@@ -3,20 +3,16 @@ import type { JsonDB } from "#T/shared/json_db";
 import type { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface";
 import { EnvConfig } from "#/configs/env";
 import { ApplicationConfig } from "#/configs/application";
-// const root = EnvConfig.mode.prod ? EnvConfig.server.urls.api.prod : EnvConfig.server.urls.api.dev;
 class Fetcher {
-    private baseUrl = ApplicationConfig.current_resource_service_api_url;
+    private baseUrl = EnvConfig.partners.resource_service.url.current;
     get = async <T>(url: URL | string) => {
         try {
-            // console.log({ url: `${this.baseUrl}${url}` });
             const res = await fetch(`${this.baseUrl}${url}`, {
                 method: "GET",
                 cache: EnvConfig.mode.prod ? "force-cache" : "no-cache",
                 next: { revalidate: EnvConfig.mode.prod ? 86400 : 0 /** 24 Hours */ },
                 headers: {
-                    "x-resource-service-api-key":
-                        EnvConfig.integration_with_other_services.resource_service_api.secrets
-                            .api_key,
+                    "x-resource-service-api-key": EnvConfig.partners.resource_service.api_key,
                 },
             });
             if (res.status === 200) {

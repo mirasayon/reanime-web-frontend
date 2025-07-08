@@ -11,8 +11,6 @@ class ApplicationConfigClass {
     birth_year = 2024;
     page_index_interval = 30;
     valid_extensions = ["jpeg", "png", "jpg"];
-    route__404 = new NextResponse("Not found", { status: 404 });
-    possible_profile_tab_value_patter: RegExp = /(watching|liked|inplan|dumped|viewed)/;
     /** @name path for getting avatar images */
     internal_avatar_storage_path_url = "/api/v1/storage/avatars/" as const;
     __default_user_avatar = "/_assets/default_avatar.png" as const;
@@ -25,17 +23,15 @@ class ApplicationConfigClass {
         title: "Страница не найдена, 404",
         robots: "noindex, nofollow",
     };
-    current_resource_service_api_url = EnvConfig.mode.prod
-        ? EnvConfig.integration_with_other_services.resource_service_api.url.prod
-        : EnvConfig.integration_with_other_services.resource_service_api.url.dev;
-    list_anime_ru: { [key in filter_search_params]: string } = {
+
+    list_anime_ru = {
         released: "Завершенные аниме",
         movie: "Аниме фильмы",
         ongoing: "Онгоинги",
         popular: "Популярные аниме",
         series: "Аниме сериалы",
         this_year: "Этот сезон",
-    };
-    filters_uids = ["popular", "series", "released", "movie", "ongoing", "this_year"] as const;
+    } as const;
+    filters_uids = Object.keys(this.list_anime_ru) as filter_search_params[];
 }
 export const ApplicationConfig = new ApplicationConfigClass();

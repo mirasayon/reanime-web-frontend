@@ -8,7 +8,7 @@ import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
 import { ApplicationConfig } from "#/configs/application";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
 export default async function Root_search_page({
     searchParams,

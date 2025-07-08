@@ -4,7 +4,7 @@ import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
 class UtilsWatchClass {
     setMetadata = async (shikimori_id: string) => {

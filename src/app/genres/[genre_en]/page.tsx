@@ -7,7 +7,7 @@ import { Current_page_switcher } from "#/components/components/current_page_swit
 import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/reanime_resource_service_integrator";
+import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 export default async function GenresPage({
     params,
     searchParams,
