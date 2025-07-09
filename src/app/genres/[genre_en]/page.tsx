@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { notFound } from "next/navigation";
 import React from "react";
-import { Current_page_switcher } from "#/components/components/current_page_switcher";
+import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";

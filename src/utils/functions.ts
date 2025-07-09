@@ -1,6 +1,5 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { ApplicationConfig } from "#/configs/application";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 import { EnvConfig } from "#/configs/env";
 class UtilsClass {

@@ -2,7 +2,6 @@ import type { paginated } from "#T/apis/resource_service_integrator";
 import type { JsonDB } from "#T/shared/json_db";
 import type { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface";
 import { EnvConfig } from "#/configs/env";
-import { ApplicationConfig } from "#/configs/application";
 class Fetcher {
     private baseUrl = EnvConfig.partners.resource_service.url.current;
     get = async <T>(url: URL | string) => {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { JSX } from "react";
 import { ApplicationConfig } from "#/configs/application";
-import { Anime_card_main } from "#/components/components/anime_card_main";
+import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import type { JsonDB } from "#T/shared/json_db";
 class UtilityJSXClass {
     LinkX = ({
@@ -19,7 +19,11 @@ class UtilityJSXClass {
     }) => {
         return (
             <Link
-                className={` ${is_dark ? "text-blue-400 hover:text-blue-400" : "text-blue-700 hover:text-blue-900"} ${className || ""}`}
+                className={` ${
+                    is_dark
+                        ? "text-blue-400 hover:text-blue-400"
+                        : "text-blue-700 hover:text-blue-900"
+                } ${className || ""}`}
                 href={email ? `mailto:${href}` : href}
             >
                 {children}

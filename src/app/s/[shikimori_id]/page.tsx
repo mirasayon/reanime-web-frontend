@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
-import { Anime_description } from "#/components/components/anime_description";
+import { Anime_description } from "#/components/anime_page/anime_description";
 // import { get_user_from_cookies } from "#server/auth/get_user_from_cookies";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/serial_player";

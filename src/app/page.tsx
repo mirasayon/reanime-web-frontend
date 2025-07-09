@@ -1,12 +1,11 @@
 import { ChartCarouselWrapper } from "#/components/animes/chart_animes_wrapper";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
-import { Current_page_switcher } from "#/components/components/current_page_switcher";
+import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
 import { notFound } from "next/navigation";
 import type { JSX } from "react";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
-import { User_service_base } from "#/integrators/user_service/base";
 
 export default async function RootPage({
     searchParams,
@@ -21,7 +20,6 @@ export default async function RootPage({
         return notFound();
     }
 
-    console.log((await User_service_base.ping()).data);
     return (
         <>
             {/* <Welcome_for_home_page is_guest={is_guest} /> */}

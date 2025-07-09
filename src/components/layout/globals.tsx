@@ -1,11 +1,11 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { Filter_animes_links } from "#/components/components/catalog_links";
+import { Filter_animes_links } from "#/components/anime_page/catalog_links";
 import { ApplicationConfig } from "#/configs/application";
 import { Avatar_slider } from "#/components/layout/avatar_slider";
 import Link from "next/link";
 import { Init_Theme_UI_format } from "#/components/layout/reusable";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { Search_anime_element } from "#/components/components/search_anime";
+import { Search_anime_element } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 class LayoutClass {
     Header = ({

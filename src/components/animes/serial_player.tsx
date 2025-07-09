@@ -37,16 +37,17 @@ export function Serial_Player_Component({
     const is_only_one_episode: boolean = lastPossibleEp !== 1;
     const is_show_next_ep_button: boolean = lastPossibleEp !== current_episode;
     const is_show_prev_ep_button: boolean = firstPossibleEp !== current_episode;
-    function submit_episode(event: React.FormEvent<HTMLFormElement>): void {
-        const e_episode: FormDataEntryValue | null = event.currentTarget.episode.value;
+    function submit_episode(event: FormData): void {
+        const e_episode: FormDataEntryValue | null = event.get("episode");
+        console.log(e_episode);
+        if (!e_episode) {
+            return;
+        }
         const new_url = `?${new URLSearchParams({
             dsid: `${current_studio_id}`,
             episode: `${e_episode}`,
         })}#play`;
-        if (!e_episode) {
-            return;
-        }
-        router.push(new_url);
+        return router.push(new_url);
     }
     const current_video_url = `https:${iframeUrl}`;
     return (
@@ -70,10 +71,7 @@ export function Serial_Player_Component({
                 />
                 <div className="flex flex-wrap">
                     {is_only_one_episode && (
-                        <form
-                            className="flex justify-center items-center"
-                            onSubmit={submit_episode}
-                        >
+                        <form className="flex justify-center items-center" action={submit_episode}>
                             <label htmlFor="episode" className="m-2 text-sm">
                                 Укажите нужную серию
                             </label>

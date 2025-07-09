@@ -6,17 +6,6 @@ import type { JsonDB } from "#T/shared/json_db";
 import Link from "next/link";
 import { rea_wrapper_border } from "#/styles/provider";
 import type { JSX } from "react";
-type User = {
-    name: string;
-    id: number;
-    created_at: Date;
-    update_at: Date;
-    username: string;
-    avatar_image: string | null;
-    email: string | null;
-    password: string;
-    about: string | null;
-};
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function Anime_description({
     is_dark,
@@ -27,7 +16,7 @@ export function Anime_description({
     cover_image_src: string;
     is_dark: boolean;
     anime: JsonDB.ftype;
-    current_user: User | null;
+    current_user: null;
 }): JSX.Element {
     const type_ru = anime.t ? "Фильм" : "ТВ Сериал";
     return (

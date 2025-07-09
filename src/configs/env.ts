@@ -2,13 +2,13 @@ class EnvConfigClass {
     constructor(required_env_variables: string[]) {
         for (const eVar of required_env_variables) {
             if (!Object.hasOwn(process.env, eVar)) {
-                throw new Error(`Env var ${eVar} is required!`);
+                // throw new Error(`Env var ${eVar} is required!`);
             }
             if (typeof process.env[eVar] !== "string") {
-                throw new Error(`Env var ${eVar} must be a string!`);
+                // throw new Error(`Env var ${eVar} must be a string!`);
             }
             if (!["development", "test", "production"].includes(process.env.NODE_ENV!)) {
-                throw new Error(`Invalid NODE_ENV value: ${process.env.NODE_ENV}`);
+                // throw new Error(`Invalid NODE_ENV value: ${env.NODE_ENV}`);
             }
         }
     }
@@ -17,9 +17,9 @@ class EnvConfigClass {
     NODE_ENV = process.env.NODE_ENV as "development" | "production" | "test";
     /** Working mode */
     mode = {
-        prod: this.NODE_ENV === "production",
-        dev: this.NODE_ENV === "development",
-        test: this.NODE_ENV === "test",
+        prod: process.env.NODE_ENV === "production",
+        dev: process.env.NODE_ENV === "development",
+        test: process.env.NODE_ENV === "test",
     };
     partners = {
         /** For avatars and covers */
@@ -55,6 +55,7 @@ class EnvConfigClass {
         },
     };
 }
+
 /** Environment variables */
 export const EnvConfig = new EnvConfigClass([
     "NODE_ENV",

@@ -46,7 +46,6 @@ export function TopChartCarousel({
                     } as Record<string, string | number>
                 }
             >
-                {" "}
                 {children}
             </div>
             <button

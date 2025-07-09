@@ -1,4 +1,4 @@
-import { Anime_description } from "#/components/components/anime_description";
+import { Anime_description } from "#/components/anime_page/anime_description";
 // import { ApplicationConfig } from "#/configs/application";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";

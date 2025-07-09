@@ -1,7 +1,7 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { notFound } from "next/navigation";
-import { Current_page_switcher } from "#/components/components/current_page_switcher";
+import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
 import { ApplicationConfig } from "#/configs/application";
 import type { Metadata } from "next";
