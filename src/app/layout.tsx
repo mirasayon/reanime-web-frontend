@@ -26,18 +26,8 @@ export default async function Root_layout(props: NextTN.LayoutProps) {
             <ReaGA.TagManager />
             <body className={`${inter.className} ${themesSCC.rootweb}  `}>
                 <ThemeProvider enableSystem>
-                    <div
-                        className={""}
-                        //     className={`
-                        //         dark:bg-amber-50
-                        //      [background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);]
-                        // dark:[background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);]
-                        //     `}
-                    >
-                        <LayoutJSX.Header
-                            is_web_format={is_web_format}
-                            current_user_avatar={null}
-                        />
+                    <div>
+                        <LayoutJSX.Header current_user_avatar={null} />
                         {props.children}
                         <Messanger />
                         {/* <AdsRSYA.PCFLoorAds is_dark={isDark} /> */}

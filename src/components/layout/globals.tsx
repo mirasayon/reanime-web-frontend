@@ -3,19 +3,12 @@ import { Filter_animes_links } from "#/components/anime_page/catalog_links";
 import { ApplicationConfig } from "#/configs/application";
 import { Avatar_slider } from "#/components/layout/avatar_slider";
 import Link from "next/link";
-import { Init_Theme_UI_format } from "#/components/layout/reusable";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { Search_anime_element } from "#/components/anime_page/search_anime";
+import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 import { UI_Menu } from "./menu";
 class LayoutClass {
-    Header = ({
-        is_web_format,
-        current_user_avatar,
-    }: {
-        current_user_avatar: string | null;
-        is_web_format: boolean;
-    }): React.JSX.Element => {
+    Header = ({ current_user_avatar }: { current_user_avatar: string | null }) => {
         const is_def_avatar = current_user_avatar?.endsWith("default_avatar.png") === true;
         const avatar = current_user_avatar
             ? is_def_avatar
@@ -24,7 +17,6 @@ class LayoutClass {
             : null;
         return (
             <>
-                <Init_Theme_UI_format ui_format="web" theme="dark" />
                 <header
                     className={`max-md:flex-col max-md:w-full shadow-violet-500/50 shadow-lg flex sticky top-0 z-2 justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100 `}
                     id="home"
@@ -34,7 +26,6 @@ class LayoutClass {
                             <img
                                 src={"/icon.png"}
                                 className=" w-[40px] h-[40px]  object-cover"
-                                //  width={50} height={50}
                                 alt={`${WebsiteConfigs.name}'s icon`}
                             />
                         </Link>
@@ -43,8 +34,8 @@ class LayoutClass {
                     <div>
                         <UI_Menu />
                     </div>
-                    <div className=" flex flex-wrap justify-between">
-                        <Search_anime_element />
+                    <div className=" flex flex-wrap justify-end">
+                        <Search_Anime_in_Header />
                         <Avatar_slider img_src={avatar} />
                     </div>
                 </header>

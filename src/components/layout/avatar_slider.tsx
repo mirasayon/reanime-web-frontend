@@ -1,5 +1,5 @@
 "use client";
-import { Logout_user } from "#/components/layout/reusable";
+
 import { sendMsgAtom } from "#/stores/g_messanger";
 import { useAtom } from "jotai";
 import Link from "next/link";
@@ -59,7 +59,7 @@ export function Avatar_slider({ img_src }: { img_src: string | null }) {
                     >
                         <div
                             className={
-                                " dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 "
+                                " dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px]"
                             }
                             onMouseEnter={(e) => {
                                 e.preventDefault();
@@ -99,7 +99,7 @@ export function Avatar_slider({ img_src }: { img_src: string | null }) {
                                 </div>
                                 <div className=" bottom-4 absolute ">
                                     <div className={` ${style} ${__hovertw}`}>
-                                        <Logout_user />
+                                        {/* <Logout_user /> */}
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ export function Avatar_slider({ img_src }: { img_src: string | null }) {
                     >
                         <div
                             className={
-                                "dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0"
+                                "dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px]"
                             }
                             onMouseEnter={(e) => {
                                 e.preventDefault();

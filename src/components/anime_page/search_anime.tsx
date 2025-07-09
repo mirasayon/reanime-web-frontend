@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type JSX, useState } from "react";
 export const search_query_name = "search_query" as const;
-export function Search_anime_element(): JSX.Element {
+export function Search_Anime_in_Header(): JSX.Element {
     const router = useRouter();
     const sp = useSearchParams().get(search_query_name);
     const [searhQ, setQ] = useState(sp ?? "");
