@@ -1,5 +1,4 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { notFound } from "next/navigation";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
@@ -16,7 +15,6 @@ export default async function List_Page({
     params: NextTN.Params<{ filter_uid: string }>;
     searchParams: NextTN.SearchParams;
 }) {
-    const { is_dark } = await ServerSideThemeCookie();
     const filter = (await params).filter_uid as filter_search_params;
     if (!ApplicationConfig.filters_uids.includes(filter)) {
         return notFound();
@@ -36,11 +34,7 @@ export default async function List_Page({
                 current_page={_p.current_page}
                 is_over_now={_p.is_over_now}
             />
-            <UtilityJSX.Anime_List_Component
-                render_images={true}
-                is_dark={is_dark}
-                kodiks={_p.paginated}
-            />
+            <UtilityJSX.Anime_List_Component render_images={true} kodiks={_p.paginated} />
         </>
     );
 }

@@ -7,23 +7,19 @@ class UtilityJSXClass {
     LinkX = ({
         children,
         href,
-        is_dark,
         email,
         className,
     }: {
         className?: string | undefined;
-        is_dark: boolean;
         children: React.ReactNode;
         email?: boolean;
         href: string;
     }) => {
         return (
             <Link
-                className={` ${
-                    is_dark
-                        ? "text-blue-400 hover:text-blue-400"
-                        : "text-blue-700 hover:text-blue-900"
-                } ${className || ""}`}
+                className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${
+                    className || ""
+                }`}
                 href={email ? `mailto:${href}` : href}
             >
                 {children}
@@ -35,9 +31,9 @@ class UtilityJSXClass {
         return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
     };
 
-    AnimeListsIsNotPermitted = ({ is_dark }: { is_dark: boolean }) => {
+    AnimeListsIsNotPermitted = () => {
         return (
-            // <this.LinkX is_dark={is_dark} className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
+            // <this.LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
             // 	<span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
             // </this.LinkX>
             <></>
@@ -45,11 +41,9 @@ class UtilityJSXClass {
     };
     Anime_List_Component = ({
         kodiks,
-        is_dark,
         render_images,
     }: {
         kodiks: JsonDB.ftype[];
-        is_dark: boolean;
         render_images: boolean;
     }): React.JSX.Element => {
         return (
@@ -58,7 +52,6 @@ class UtilityJSXClass {
                     <Anime_card_main
                         index={arr_ind}
                         render_images={render_images}
-                        is_dark={is_dark}
                         key={kodik.sid}
                         data={kodik}
                     />

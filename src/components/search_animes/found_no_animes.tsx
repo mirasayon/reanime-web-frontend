@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { rea_wrapper_border } from "#/styles/provider";
-export function Found_no_animes({ is_dark }: { is_dark: boolean }) {
+export function Found_no_animes() {
     return (
         <div className="justify-center content-center text-center grid text-xl mb-40">
             <Link href="/" className="flex justify-center">
@@ -15,7 +15,8 @@ export function Found_no_animes({ is_dark }: { is_dark: boolean }) {
                 <p className="text-2xl">Ничего не найдено по вашему запросу.</p>
                 <br />
                 <Link
-                    className={`no-underline ${is_dark ? "text-white hover:bg-slate-700" : " text-black hover:bg-white"}  text-xl p-2.5  ${rea_wrapper_border}  `}
+                    className={`no-underline dark:text-white hover:dark:bg-slate-700 text-black hover:bg-white
+                    text-xl p-2.5  ${rea_wrapper_border}  `}
                     href="/"
                 >
                     Вернуться на главную страницу

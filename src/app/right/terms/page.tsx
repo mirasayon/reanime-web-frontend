@@ -1,5 +1,4 @@
 import { rea_docs_wrapper, rea_wrapper_border } from "#/styles/provider";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
     robots: { index: true, follow: true },
 };
 export default async function TermsPage() {
-    const { is_dark } = await ServerSideThemeCookie();
     return (
         <main className={` ${rea_docs_wrapper} mx-4 p-6 ${rea_wrapper_border} `}>
             <h1 className={"h1"}>Пользовательское соглашение</h1>
@@ -28,14 +26,12 @@ export default async function TermsPage() {
             <h2 className={"h2"}>1. О пользовательском соглашении</h2>
             Используя/посещая Ресурс (включая весь контент, размещенный на ресурсе), вы соглашаетесь
             с Настоящим ПОЛЬЗОВАТЕЛЬСКИМ СОГЛАШЕНИЕМ, размещенным по адресу{" "}
-            <UtilityJSX.LinkX is_dark={is_dark} href={curl}>
-                {curl}
-            </UtilityJSX.LinkX>{" "}
-            Если вы не согласны с любым из пунктов данного пользовательского соглашения, пожалуйста,
-            покиньте ресурс. ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ может быть изменено Администрацией без
-            какого-либо уведомления пользователей. Новая версия ПС вступает в силу по истечении 3
-            (трех) дней с момента ее размещения, если иное не предусмотрено новой редакцией
-            ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ.
+            <UtilityJSX.LinkX href={curl}>{curl}</UtilityJSX.LinkX> Если вы не согласны с любым из
+            пунктов данного пользовательского соглашения, пожалуйста, покиньте ресурс.
+            ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ может быть изменено Администрацией без какого-либо
+            уведомления пользователей. Новая версия ПС вступает в силу по истечении 3 (трех) дней с
+            момента ее размещения, если иное не предусмотрено новой редакцией ПОЛЬЗОВАТЕЛЬСКОГО
+            СОГЛАШЕНИЯ.
             <h2 className={"h2"}>2. Условия ограничения ответственности</h2>
             Пользователь прямо соглашается c тем, что использует Ресурс на свой собственный риск.
             Пользователь знает, и согласен с тем, что Ресурс имеет дело с материалами и данными,

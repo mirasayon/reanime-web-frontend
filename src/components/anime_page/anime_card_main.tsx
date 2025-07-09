@@ -7,13 +7,11 @@ import { Global_Utilities } from "#/utils/functions";
 const max = 40;
 export function Anime_card_main({
     data,
-    is_dark,
     index,
     render_images,
 }: {
     render_images: boolean;
     data: JsonDB.ftype;
-    is_dark: boolean;
     index: number;
 }): JSX.Element {
     let any_title = data.nms.all.find((t) => !!t) || "";
@@ -34,7 +32,7 @@ export function Anime_card_main({
                         width={200}
                         height={270}
                         loading="lazy"
-                        src={Global_Utilities.get_rea_poster(is_dark, data.img)}
+                        src={Global_Utilities.get_rea_poster(data.img)}
                         alt={`Обложка от аниме ${data.nms.ru}`}
                         className="object-cover h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px]"
                     />
@@ -53,9 +51,7 @@ export function Anime_card_main({
                 )}
 
                 <div
-                    className={`${
-                        is_dark ? "bg-blue-950 " : "  bg-blue-500 "
-                    }  text-white  absolute  p-1 bottom-8 left-0 font-bold`}
+                    className={`dark:bg-blue-950  bg-blue-500 text-white  absolute  p-1 bottom-8 left-0 font-bold`}
                 >
                     {data.rel_date}
                 </div>

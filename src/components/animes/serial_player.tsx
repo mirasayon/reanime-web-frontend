@@ -20,13 +20,11 @@ export function Serial_Player_Component({
     prevEp,
     nextEp,
     ds_arrays,
-    is_dark,
 }: {
     array_of_episodes: { url: string; key: string }[];
     current_episode: number;
     current_studio_id: number;
     iframeUrl: string;
-    is_dark: boolean;
     firstPossibleEp: number;
     lastPossibleEp: number;
     nextEp: number;
@@ -53,7 +51,6 @@ export function Serial_Player_Component({
     return (
         <section className={`flex flex-col p-2 ${rea_wrapper_border}`} id="play">
             <Localization_Studios_List_Component
-                is_dark={is_dark}
                 current_studio_id={current_studio_id}
                 current_episode={current_episode}
                 ds_arrays={ds_arrays}
@@ -130,7 +127,6 @@ export function Serial_Player_Component({
                 </div>
             </div>
             <Episodes_List_Component
-                is_dark={is_dark}
                 array_of_episodes={array_of_episodes}
                 current_studio_id={current_studio_id}
                 current_episode={current_episode}

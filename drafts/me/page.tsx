@@ -41,7 +41,6 @@ export default async function __MePage({
         <>
             <Data_About_User_Component purpose="me" current_user={current_user} />
             <Switch_tab_component
-                is_dark={is_dark}
                 tab_value={tab_valie_valid}
                 liked_animes_kodiks={List.liked_animes_kodiks}
                 inplan_animes_kodiks={List.inplan_animes_kodiks}

@@ -1,36 +1,23 @@
 import { ChartCarouselWrapper } from "#/components/animes/chart_animes_wrapper";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
 import { notFound } from "next/navigation";
-import type { JSX } from "react";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
-export default async function RootPage({
-    searchParams,
-}: {
-    searchParams: NextTN.SearchParams;
-}): Promise<JSX.Element> {
-    const { is_dark } = await ServerSideThemeCookie();
-    // const { is_guest } = await ServerSide_get_avatar_cookies();
+export default async function RootPage({ searchParams }: { searchParams: NextTN.SearchParams }) {
     const page = Number((await searchParams).c_page) || 1;
     const p_ = await Reanime_Resource_Service_Api_Integrator.cate.list_all(page);
     if (!p_) {
         return notFound();
     }
-
     return (
         <>
             {/* <Welcome_for_home_page is_guest={is_guest} /> */}
             <ChartCarouselWrapper
                 animes={await Reanime_Resource_Service_Api_Integrator.internals.top_chart_animes()}
             />
-            <UtilityJSX.Anime_List_Component
-                render_images={true}
-                is_dark={is_dark}
-                kodiks={p_.paginated}
-            />
+            <UtilityJSX.Anime_List_Component render_images={true} kodiks={p_.paginated} />
             <Current_page_switcher
                 is_start_now={p_.is_start_now}
                 current_page={p_.current_page}

@@ -46,9 +46,7 @@ class RelatedAnimesClass {
     RelatedCardForManga({
         data,
         relation,
-        is_dark,
     }: {
-        is_dark: boolean;
         data: JsonDB.ftype["rels"][number]["manga"];
         relation: string;
     }) {
@@ -71,9 +69,7 @@ class RelatedAnimesClass {
                     className="rounded-sm object-cover h-[212px] w-[150px]"
                 />
                 <div className="m-2">
-                    <UtilityJSX.BoldX
-                        className={` p-1 ${is_dark ? "bg-slate-700" : "bg-slate-300"}`}
-                    >
+                    <UtilityJSX.BoldX className={` p-1 dark:bg-slate-700 bg-slate-300 `}>
                         {relation}
                     </UtilityJSX.BoldX>
                     <br />

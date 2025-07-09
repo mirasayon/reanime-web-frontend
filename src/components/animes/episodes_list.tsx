@@ -5,9 +5,7 @@ export function Episodes_List_Component({
     array_of_episodes,
     current_studio_id,
     current_episode,
-    is_dark,
 }: {
-    is_dark: boolean;
     array_of_episodes: { url: string; key: string }[];
     current_studio_id: number;
     current_episode: number;
@@ -21,8 +19,9 @@ export function Episodes_List_Component({
         `}
             >
                 <span
-                    className={`p-1 rounded font-medium text-sm
-            ${is_dark ? "bg-slate-800 text-white" : "bg-blue-200 text-black"}`}
+                    className={
+                        "p-1 rounded font-medium text-sm dark:bg-slate-800 dark:text-white bg-blue-200 text-black "
+                    }
                 >
                     Серии:
                 </span>
@@ -45,10 +44,9 @@ export function Episodes_List_Component({
                 ${
                     isCurrent
                         ? "bg-purple-900 text-white"
-                        : is_dark
-                        ? "bg-slate-700 text-white hover:bg-slate-600"
-                        : "bg-slate-200 text-black hover:bg-slate-300"
-                }
+                        : "dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600  bg-slate-200 text-black hover:bg-slate-300"
+                }   
+               
               `}
                         >
                             {key}

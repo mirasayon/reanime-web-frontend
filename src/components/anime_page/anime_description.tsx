@@ -8,13 +8,11 @@ import { rea_wrapper_border } from "#/styles/provider";
 import type { JSX } from "react";
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function Anime_description({
-    is_dark,
     current_user,
     anime,
     cover_image_src,
 }: {
     cover_image_src: string;
-    is_dark: boolean;
     anime: JsonDB.ftype;
     current_user: null;
 }): JSX.Element {
@@ -26,9 +24,7 @@ export function Anime_description({
                 {anime.season && <span className="p-3">{anime.season} сезон</span>} {"\t"}
                 <span className="text-slate-500 p-3">{anime.nms.ofc}</span>
                 <span
-                    className={`p-3 float-end ${
-                        is_dark ? "bg-slate-200 text-black" : "bg-slate-400 text-blue-900 "
-                    }  `}
+                    className={`p-3 float-end dark:bg-slate-200 dark:text-black bg-slate-400 text-blue-900`}
                 >
                     {type_ru}
                 </span>
@@ -49,7 +45,7 @@ export function Anime_description({
                                 {/* <UserList.Add_to_viewed_list_element userP={current_user} p_shiki_id={shikimori_id} /> */}
                             </>
                         ) : (
-                            <UtilityJSX.AnimeListsIsNotPermitted is_dark={is_dark} />
+                            <UtilityJSX.AnimeListsIsNotPermitted />
                         )}
                     </div>
                 </div>
@@ -85,7 +81,6 @@ export function Anime_description({
                     <br />
                     <UtilityJSX.BoldX>Возрастной рейтинг: </UtilityJSX.BoldX>
                     <Normalize_age_rating
-                        is_dark={is_dark}
                         minimal_age={anime.minimal_age || null}
                         rating={anime.rating_mpaa}
                     />
@@ -139,11 +134,7 @@ export function Anime_description({
                             <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
                                 {ind !== 0 && ","}{" "}
                                 <span
-                                    className={`${
-                                        is_dark
-                                            ? "hover:text-cyan-300 text-violet-400"
-                                            : "text-indigo-800 "
-                                    } font-bold`}
+                                    className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}
                                 >
                                     {genre.russian}
                                 </span>

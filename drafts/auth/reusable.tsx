@@ -61,7 +61,9 @@ export function Adaptive_error_message({
 }) {
     return (
         <div
-            className={` text-wrap flex text-[90%] p-1 rounded-lg mt-2 ${is_dark ? "border-4 border-red-500/50 text-slate-300" : "bg-red-300 text-black"}`}
+            className={` text-wrap flex text-[90%] p-1 rounded-lg mt-2 ${
+                is_dark ? "border-4 border-red-500/50 text-slate-300" : "bg-red-300 text-black"
+            }`}
         >
             <span>{message}</span>
         </div>
@@ -142,7 +144,6 @@ export function Adaptive_errors_container({
                         <Adaptive_error_message
                             key={`${errindex} ${err.message}`}
                             message={err.message}
-                            is_dark={is_dark}
                         />
                     )
                 );

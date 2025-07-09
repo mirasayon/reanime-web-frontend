@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type JSX, useState } from "react";
 export const search_query_name = "search_query" as const;
-export function Search_anime_element({ is_dark }: { is_dark: boolean }): JSX.Element {
+export function Search_anime_element(): JSX.Element {
     const router = useRouter();
     const sp = useSearchParams().get(search_query_name);
     const [searhQ, setQ] = useState(sp ?? "");
@@ -29,15 +29,14 @@ export function Search_anime_element({ is_dark }: { is_dark: boolean }): JSX.Ele
                     setQ(() => e.target.value);
                 }}
                 name="search_query"
-                className={`px-2  min-w-80 max-[600px]:min-w-60 bg-transparent rounded-md outline-hidden ${
-                    is_dark ? " text-white " : " text-black"
-                }`}
+                className={`px-2  min-w-80 max-[600px]:min-w-60 bg-transparent rounded-md outline-hidden  
+                     dark:text-white  text-black 
+                `}
                 placeholder={"Что ищем, сэмпай?"}
             />
             <button
-                className={`${
-                    is_dark ? "bg-blue-800" : "bg-blue-300"
-                } p-2 cursor-pointer rounded-e-md hover:bg-blue-900/50`}
+                className={`dark:bg-blue-800 bg-blue-300 
+                  p-2 cursor-pointer rounded-e-md hover:bg-blue-900/50`}
                 type="submit"
             >
                 Поиск

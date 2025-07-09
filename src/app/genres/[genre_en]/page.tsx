@@ -1,6 +1,5 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { rea_wrapper_border } from "#/styles/provider";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { notFound } from "next/navigation";
 import React from "react";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
@@ -24,7 +23,6 @@ export default async function GenresPage({
     if (!desc) {
         return notFound();
     }
-    const { is_dark } = await ServerSideThemeCookie();
     const _p = await Reanime_Resource_Service_Api_Integrator.core.by_genre(
         genre_en,
         Number(sp.c_page) || 1,
@@ -44,11 +42,7 @@ export default async function GenresPage({
                 current_page={_p.current_page}
                 is_over_now={_p.is_over_now}
             />
-            <UtilityJSX.Anime_List_Component
-                render_images={true}
-                is_dark={is_dark}
-                kodiks={_p.paginated}
-            />
+            <UtilityJSX.Anime_List_Component render_images={true} kodiks={_p.paginated} />
         </>
     );
 }

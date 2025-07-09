@@ -1,12 +1,10 @@
 import { redirect } from "next/navigation";
 import type { JSX } from "react";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextTN } from "#T/next";
 import type { Metadata } from "next";
-import { ApplicationConfig } from "#/configs/application";
 import { WebsiteConfigs } from "#/configs/website";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
@@ -17,7 +15,6 @@ export default async function Root_search_page({
 }): Promise<JSX.Element> {
     const sq = await searchParams;
     const search_query = sq.search_query as string | undefined;
-    const { is_dark } = await ServerSideThemeCookie();
     if (!search_query || !/\S/.test(search_query)) {
         return redirect("/");
     }
@@ -26,15 +23,11 @@ export default async function Root_search_page({
     const p_ = await Reanime_Resource_Service_Api_Integrator.core.search(raw_query, page);
 
     if (!p_) {
-        return <Found_no_animes is_dark={is_dark} />;
+        return <Found_no_animes />;
     }
     return (
         <>
-            <UtilityJSX.Anime_List_Component
-                is_dark={is_dark}
-                kodiks={p_.paginated}
-                render_images={true}
-            />
+            <UtilityJSX.Anime_List_Component kodiks={p_.paginated} render_images={true} />
             <Current_page_switcher
                 is_start_now={p_.is_start_now}
                 current_page={p_.current_page}

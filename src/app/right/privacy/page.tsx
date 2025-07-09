@@ -1,5 +1,4 @@
 import { rea_wrapper_border, rea_docs_wrapper } from "#/styles/provider";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
@@ -14,7 +13,6 @@ const name = WebsiteConfigs.name;
 const mail = WebsiteConfigs.mail;
 const curl = `https://${domain}/right/privacy`;
 export default async function PrivacyPage() {
-    const { is_dark } = await ServerSideThemeCookie();
     return (
         <div className={` ${rea_docs_wrapper} p-4 ${rea_wrapper_border} `}>
             <h1 className={"h1"}>Политика конфиденциальности персональных данных</h1>
@@ -189,13 +187,11 @@ export default async function PrivacyPage() {
             ее размещения на сайте {name}, если иное не предусмотрено новой редакцией Политики
             конфиденциальности. 9.3. Все предложения или вопросы касательно настоящей Политики
             конфиденциальности следует сообщать по адресу:{" "}
-            <UtilityJSX.LinkX is_dark={is_dark} email href={mail}>
+            <UtilityJSX.LinkX email href={mail}>
                 {mail}
             </UtilityJSX.LinkX>{" "}
             9.4. Действующая Политика конфиденциальности размещена на странице по адресу{" "}
-            <UtilityJSX.LinkX is_dark={is_dark} href={curl}>
-                {curl}
-            </UtilityJSX.LinkX>
+            <UtilityJSX.LinkX href={curl}>{curl}</UtilityJSX.LinkX>
             <br />
             Обновлено: 28 Марта 2024 года
         </div>

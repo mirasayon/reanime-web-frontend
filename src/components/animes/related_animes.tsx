@@ -3,10 +3,8 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { RelatedAnimes } from "#/components/animes/related_anime";
 export function Related_animes({
     related,
-    is_dark,
 }: {
     related: JsonDB.ftype["rels"];
-    is_dark: boolean;
 }): React.JSX.Element | undefined {
     return !related ? undefined : (
         <section className={rea_wrapper_border}>
@@ -27,7 +25,6 @@ export function Related_animes({
                             {item?.manga?.id && (
                                 <div>
                                     <RelatedAnimes.RelatedCardForManga
-                                        is_dark={is_dark}
                                         relation={item.rel_ru}
                                         data={item.manga}
                                     />

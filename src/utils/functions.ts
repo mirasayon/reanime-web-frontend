@@ -9,8 +9,8 @@ class UtilsClass {
         }
         return `${EnvConfig.partners.resource_service.url.current}/storage/anime/poster_image/${filename}` as const;
     };
-    get_rea_poster = (is_dark: boolean, img?: string) => {
-        return this.get_poster_image_url_by_filename(img) || UtilityJSX.Default_poster(is_dark);
+    get_rea_poster = (img?: string) => {
+        return this.get_poster_image_url_by_filename(img) || UtilityJSX.Default_poster();
     };
     get_type_of_anime = (data: JsonDB.ftype) => {
         return data.t ? "Фильм" : ("ТВ Сериал" as const);

@@ -2,8 +2,6 @@ import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
 import { LayoutJSX } from "#/components/layout/globals";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
-import { rea_layout_globals } from "#/styles/provider";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
 import { Messanger } from "#/components/ui/messanger";
 import { ReaGA } from "#/components/analytics/google-a";
@@ -12,40 +10,44 @@ import { JsonLDStr } from "#/meta/json_ld";
 import { inter } from "#/fonts/import";
 import type { NextTN } from "#T/next";
 import { WebsiteConfigs } from "#/configs/website";
-import type { JSX } from "react";
-
-export default async function Root_layout(props: NextTN.LayoutProps): Promise<JSX.Element> {
-    const { is_dark, cookieStore } = await ServerSideThemeCookie();
-    const ui_formatt = cookieStore.get("rea_interface_format")?.value as "web" | "app" | undefined;
+import { ThemeProvider } from "next-themes";
+// import { ThemeProvider } from "#/components/themes/theme-provider";
+import themesSCC from "#/styles/global/layout.module.css";
+export default async function Root_layout(props: NextTN.LayoutProps) {
+    // const ui_formatt = cookieStore.get("rea_interface_format")?.value as "web" | "app" | undefined;
+    const ui_formatt = "web" as "web" | "app" | undefined;
     const is_web_format = ui_formatt ? ui_formatt === "web" : true;
-    const root_styles = is_dark
-        ? is_web_format
-            ? rea_layout_globals.root_dark_web
-            : rea_layout_globals.root_dark_app
-        : is_web_format
-        ? rea_layout_globals.root_light_web
-        : rea_layout_globals.root_light_app;
 
     return (
-        <html lang="ru">
+        <html lang="ru" suppressHydrationWarning>
             <head>
                 <AdsRSYA.InitHead />
             </head>
             <ReaGA.TagManager />
-            <body className={`${inter.className} ${root_styles}`}>
-                <LayoutJSX.Header
-                    is_web_format={is_web_format}
-                    is_dark={is_dark}
-                    current_user_avatar={null}
-                />
-                {props.children}
-                <Messanger is_dark={is_dark} />
-                {/* <AdsRSYA.PCFLoorAds is_dark={isDark} /> */}
-                {/* <AdsRSYA.MobileFloorAds is_dark={isDark} /> */}
-                <LayoutJSX.Footer is_dark={is_dark} />
-                <Cookie_consent_banner is_dark={is_dark} />
-                <AdsRSYA.PCFLoorAds is_dark={is_dark} />
-                <AdsRSYA.MobileFloorAds is_dark={is_dark} />
+            <body className={`${inter.className} ${themesSCC.rootweb}  `}>
+                <ThemeProvider enableSystem>
+                    <div
+                        className={""}
+                        //     className={`
+                        //         dark:bg-amber-50
+                        //      [background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);]
+                        // dark:[background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);]
+                        //     `}
+                    >
+                        <LayoutJSX.Header
+                            is_web_format={is_web_format}
+                            current_user_avatar={null}
+                        />
+                        {props.children}
+                        <Messanger />
+                        {/* <AdsRSYA.PCFLoorAds is_dark={isDark} /> */}
+                        {/* <AdsRSYA.MobileFloorAds is_dark={isDark} /> */}
+                        <LayoutJSX.Footer />
+                        <Cookie_consent_banner />
+                    </div>
+                </ThemeProvider>
+                <AdsRSYA.PCFLoorAds />
+                <AdsRSYA.MobileFloorAds />
                 <ReaYMA.Mekrika />
                 <script
                     type="application/ld+json"

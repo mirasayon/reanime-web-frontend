@@ -3,11 +3,9 @@ import type { JsonDB } from "#T/shared/json_db";
 import { useState } from "react";
 
 export function Normalize_age_rating({
-    is_dark,
     rating,
     minimal_age,
 }: {
-    is_dark: boolean;
     rating: JsonDB.ftype["rating_mpaa"];
     minimal_age: number | null;
 }) {
@@ -60,7 +58,7 @@ export function Normalize_age_rating({
             {age_rating_number} <span className="text-slate-500">{normal_age_rating}</span>
             {is_hover && (
                 <span
-                    className={`delay-150 ease-in-out absolute right-[-40px]  w-max font-bold bottom-[20px] p-2 transition-all ${is_dark ? " bg-slate-950" : "bg-violet-200  "}`}
+                    className={`delay-150 ease-in-out absolute right-[-40px]  w-max font-bold bottom-[20px] p-2 transition-all dark:bg-slate-950 bg-violet-200 `}
                 >
                     {rating_description}
                 </span>

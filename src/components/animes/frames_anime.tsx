@@ -6,12 +6,10 @@ import { Global_Utilities } from "#/utils/functions";
 export function FramesAnime({
     title_of_anime,
     shiki_id,
-    is_dark,
     screenshots,
 }: {
     shiki_id: number;
     screenshots: string[];
-    is_dark: boolean;
     title_of_anime: string;
 }) {
     // const [is_extended, set_extended] = useState(false);
@@ -43,7 +41,7 @@ export function FramesAnime({
                 })}
             </div>
             <div className={"p-2 flex justify-center"}>
-                <AdsRSYA.BannerInFrames is_dark={is_dark} />
+                <AdsRSYA.BannerInFrames />
             </div>
             {/* <button
                 type="button"

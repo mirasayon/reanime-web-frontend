@@ -46,7 +46,8 @@ class AdsRSYAClass {
         );
     };
     /** Bottom block of advertising For Desktops */
-    PCFLoorAds = ({ is_dark }: { is_dark: boolean }): JSX.Element | undefined => {
+    PCFLoorAds = (): JSX.Element | undefined => {
+        let is_dark = true;
         if (!EnvConfig.mode.prod) {
             return;
         }
@@ -66,7 +67,8 @@ class AdsRSYAClass {
         );
     };
     /** Bottom block of advertising For phones */
-    MobileFloorAds = ({ is_dark }: { is_dark: boolean }): JSX.Element | undefined => {
+    MobileFloorAds = (): JSX.Element | undefined => {
+        let is_dark = true;
         if (!EnvConfig.mode.prod) {
             return;
         }
@@ -85,13 +87,8 @@ class AdsRSYAClass {
             </Script>
         );
     };
-    UniversalBanner = ({
-        className = "",
-        is_dark,
-    }: {
-        is_dark: boolean;
-        className?: string;
-    }): JSX.Element | undefined => {
+    UniversalBanner = ({ className = "" }: { className?: string }): JSX.Element | undefined => {
+        let is_dark = false;
         if (!EnvConfig.mode.prod) {
             return;
         }
@@ -115,7 +112,8 @@ class AdsRSYAClass {
         );
     };
     /** Banner Used in Frames */
-    BannerInFrames = ({ is_dark }: { is_dark: boolean }) => {
+    BannerInFrames = () => {
+        let is_dark = true;
         if (!EnvConfig.mode.prod) {
             return;
         }

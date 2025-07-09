@@ -6,7 +6,6 @@ import { Anime_description } from "#/components/anime_page/anime_description";
 // import { get_user_from_cookies } from "#server/auth/get_user_from_cookies";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/serial_player";
-import { ServerSideThemeCookie } from "#/components/hooks/server_side_cookies";
 import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
@@ -43,8 +42,6 @@ export default async function __Serial_shikimori_id_page({
     }
     const _R = anime.w.at(-1)?.ser;
     const v2 = _R ? Object.entries(_R).at(-1)?.[0] : null;
-
-    const { is_dark } = await ServerSideThemeCookie();
 
     let current_studio_id: number = Number(sp.sid) || anime.w[0].sid; //** *
 
@@ -117,9 +114,8 @@ export default async function __Serial_shikimori_id_page({
             <Anime_description
                 cover_image_src={
                     Global_Utilities.get_poster_image_url_by_filename(anime.img) ||
-                    UtilityJSX.Default_poster(is_dark)
+                    UtilityJSX.Default_poster()
                 }
-                is_dark={is_dark}
                 current_user={null}
                 // current_user={current_user}
                 anime={anime}
@@ -127,10 +123,9 @@ export default async function __Serial_shikimori_id_page({
             <Trailer_Component trailer={anime.promo} />
 
             {anime.hdp ? (
-                <DMCA_Protected is_dark={is_dark} />
+                <DMCA_Protected />
             ) : (
                 <Serial_Player_Component
-                    is_dark={is_dark}
                     current_studio_id={current_studio_id}
                     firstPossibleEp={first_possible_ep}
                     lastPossibleEp={last_possible_ep}
@@ -145,13 +140,12 @@ export default async function __Serial_shikimori_id_page({
 
             <FramesAnime
                 screenshots={anime.frms}
-                is_dark={is_dark}
                 title_of_anime={anime.nms.kkru}
                 shiki_id={anime.sid}
             />
-            <Related_animes is_dark={is_dark} related={anime.rels} />
-            {/* <Comments_section is_dark={is_dark} shikimori_id={current_shikimori_id} current_user={current_user} /> */}
-            <AdsRSYA.UniversalBanner is_dark={is_dark} />
+            <Related_animes related={anime.rels} />
+            {/* <Comments_section shikimori_id={current_shikimori_id} current_user={current_user} /> */}
+            <AdsRSYA.UniversalBanner />
         </>
     );
 }

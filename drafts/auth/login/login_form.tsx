@@ -57,7 +57,6 @@ export function Login_Component({
                     </label>
                     <Password_input input_id="password" />
                     <Adaptive_errors_container
-                        is_dark={is_dark}
                         errors={[
                             {
                                 activation: is_incorrect_password || is_no_user_found,

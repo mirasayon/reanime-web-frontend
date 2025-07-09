@@ -13,7 +13,7 @@ import {
     Password_input,
     Text_input,
 } from "./reusable";
-export function Register_Component({ is_dark }: { is_dark: boolean }): JSX.Element {
+export function Register_Component(): JSX.Element {
     const [is_matching, set_is_not_matcing] = useState<boolean>(false);
     const [first_char_is_not_valid, setfcharIsnotvalid] = useState<boolean>(false);
     const [is_owned_login, set_is_owned_login] = useState<boolean>(false);
@@ -59,7 +59,9 @@ export function Register_Component({ is_dark }: { is_dark: boolean }): JSX.Eleme
                 className={` ${rea_wrapper_border} rounded-lg p-4 flex text-xl flex-col m-4 `}
             >
                 <h1
-                    className={`w-full font-bold flex-col ${is_dark ? "text-slate-300 " : "text-slate-800 "} flex items-center`}
+                    className={`w-full font-bold flex-col ${
+                        is_dark ? "text-slate-300 " : "text-slate-800 "
+                    } flex items-center`}
                 >
                     Добро пожаловать!
                 </h1>
@@ -73,7 +75,6 @@ export function Register_Component({ is_dark }: { is_dark: boolean }): JSX.Eleme
                 </label>
                 <Login_input input_id={"login"} />
                 <Adaptive_errors_container
-                    is_dark={is_dark}
                     errors={[
                         {
                             activation: first_char_is_not_valid,

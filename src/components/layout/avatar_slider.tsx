@@ -1,23 +1,11 @@
 "use client";
 import { Logout_user } from "#/components/layout/reusable";
-import {
-    Switch_interface_format_button,
-    Switch_themes_button,
-} from "#/components/themes/switch_themes";
 import { sendMsgAtom } from "#/stores/g_messanger";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { useState } from "react";
 
-export function Avatar_slider({
-    img_src,
-    is_dark,
-    is_web_format,
-}: {
-    is_dark: boolean;
-    is_web_format: boolean;
-    img_src: string | null;
-}) {
+export function Avatar_slider({ img_src }: { img_src: string | null }) {
     const [_slide, set_slide] = useState(false);
     const [_zone, set_zone] = useState(false);
     const [sendS, send_set] = useAtom(sendMsgAtom);
@@ -27,22 +15,9 @@ export function Avatar_slider({
             message: "Часть сервиса временно недоступен.",
         });
     }
-    const style = `${
-        is_dark ? "hover:border-blue-800 " : "hover:border-blue-800 "
-    }   border-2  border-transparent`;
-    const __hovertw = is_dark ? "hover:bg-black" : ("hover:bg-blue-400/20" as const);
-    function UI_Parameters() {
-        return (
-            <>
-                <div className={`m-1 flex ${style} ${__hovertw}`}>
-                    <Switch_themes_button is_dark={is_dark} />
-                </div>
-                <div className={`m-1 flex ${style} ${__hovertw}`}>
-                    <Switch_interface_format_button is_web={is_web_format} />
-                </div>
-            </>
-        );
-    }
+    const style = "dark:hover:border-blue-800 hover:border-blue-800 border-2  border-transparent";
+    const __hovertw = "dark:hover:bg-black hover:bg-blue-400/20";
+
     return (
         <div className="relative">
             <button
@@ -61,11 +36,9 @@ export function Avatar_slider({
                     />
                 ) : (
                     <span
-                        className={` p-2 flex rounded-sm border-4 ${
-                            is_dark
-                                ? "border-blue-600/80 hover:bg-blue-600"
-                                : "border-blue-400/80 hover:bg-blue-400"
-                        }`}
+                        className={
+                            "p-2 flex rounded-sm border-4 dark:border-blue-600/80 dark:hover:bg-blue-600 border-blue-400/80 hover:bg-blue-400 "
+                        }
                     >
                         Войти
                     </span>
@@ -85,9 +58,9 @@ export function Avatar_slider({
                         }}
                     >
                         <div
-                            className={` ${
-                                is_dark ? "bg-slate-800" : "bg-slate-400"
-                            } absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 `}
+                            className={
+                                " dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 "
+                            }
                             onMouseEnter={(e) => {
                                 e.preventDefault();
                                 set_zone((_pv) => true);
@@ -122,7 +95,6 @@ export function Avatar_slider({
                                                 <span className="m-1 text-center">Профиль</span>
                                             </div>
                                         </Link>
-                                        <UI_Parameters />
                                     </div>
                                 </div>
                                 <div className=" bottom-4 absolute ">
@@ -141,9 +113,9 @@ export function Avatar_slider({
                         }}
                     >
                         <div
-                            className={` ${
-                                is_dark ? "bg-slate-800" : "bg-slate-400"
-                            } absolute  top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0 `}
+                            className={
+                                "dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px] z-0"
+                            }
                             onMouseEnter={(e) => {
                                 e.preventDefault();
                                 set_zone((_pv) => true);
@@ -172,7 +144,6 @@ export function Avatar_slider({
                                                 Зарегистрироваться
                                             </span>
                                         </button>
-                                        <UI_Parameters />
                                     </div>
                                 </div>
                             </div>

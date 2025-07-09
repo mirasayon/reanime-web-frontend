@@ -45,11 +45,7 @@ export async function Comments_section({
         <section className={rea_wrapper_border}>
             <div className="m-2">
                 <div>Комментарии</div>
-                <Add_comment_form
-                    user={current_user}
-                    is_dark={is_dark}
-                    animeid={Number(shikimori_id)}
-                />
+                <Add_comment_form user={current_user} animeid={Number(shikimori_id)} />
                 <div className="grid">
                     {comment_full_list.map((item) => {
                         const user = item.comment_owner;
@@ -87,7 +83,9 @@ export async function Comments_section({
                                 <div className="grid items-center">
                                     <span
                                         id={`comment_id_${item.commentdata.id}`}
-                                        className={` p-2 m-2 w-full ${is_dark ? "bg-slate-800" : "bg-slate-100"}`}
+                                        className={` p-2 m-2 w-full ${
+                                            is_dark ? "bg-slate-800" : "bg-slate-100"
+                                        }`}
                                     >
                                         {item.commentdata.text}
                                         {/* {item.id} */}

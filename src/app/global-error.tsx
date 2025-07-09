@@ -34,7 +34,7 @@ export default function GlobalError({
                     </div>
                 </div>
                 <div className=" sticky bottom-0">
-                    <LayoutJSX.Footer is_dark={!!1} />
+                    <LayoutJSX.Footer />
                 </div>
             </body>
         </html>

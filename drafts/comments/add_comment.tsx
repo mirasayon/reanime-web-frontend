@@ -18,7 +18,7 @@ export function Add_comment_form({
     const router = useRouter();
     if (!user) {
         return (
-            <UtilityJSX.LinkX is_dark={is_dark} href="/auth/login">
+            <UtilityJSX.LinkX href="/auth/login">
                 Залогинтесь чтобы оставлять комментарии
             </UtilityJSX.LinkX>
         );
@@ -59,7 +59,9 @@ export function Add_comment_form({
                 <UtilityJSX.BoldX className="text-blue-700">{userName}</UtilityJSX.BoldX>
             </div>
             <textarea
-                className={`min-h-8 rounded w-full outline-none ${is_dark ? "bg-slate-900" : "bg-blue-100"}  h-20`}
+                className={`min-h-8 rounded w-full outline-none ${
+                    is_dark ? "bg-slate-900" : "bg-blue-100"
+                }  h-20`}
                 placeholder="Оставить комментарий"
                 name="comment_content"
                 id="comment_content"
@@ -68,7 +70,9 @@ export function Add_comment_form({
             />
             <button
                 type="submit"
-                className={`p-1 border-4 border-transparent ${is_dark ? "bg-blue-950" : " bg-blue-200"} active:bg-blue-400 hover:border-sky-600`}
+                className={`p-1 border-4 border-transparent ${
+                    is_dark ? "bg-blue-950" : " bg-blue-200"
+                } active:bg-blue-400 hover:border-sky-600`}
             >
                 Сохранить
             </button>

@@ -24,25 +24,33 @@ export function Switch_tab_component({
             <div className="flex gap-2" id="list">
                 <Link
                     href="?tab=liked"
-                    className={`${tab_value === "liked" ? style : "bg-slate-100"} ${is_dark ? "bg-slate-700" : ""} p-2  hover:bg-blue-400`}
+                    className={`${tab_value === "liked" ? style : "bg-slate-100"} ${
+                        is_dark ? "bg-slate-700" : ""
+                    } p-2  hover:bg-blue-400`}
                 >
                     Понравившиеся
                 </Link>
                 <Link
                     href="?tab=watching"
-                    className={`${tab_value === "watching" ? style : "bg-slate-100"} ${is_dark ? "bg-slate-700" : ""} p-2 hover:bg-blue-400`}
+                    className={`${tab_value === "watching" ? style : "bg-slate-100"} ${
+                        is_dark ? "bg-slate-700" : ""
+                    } p-2 hover:bg-blue-400`}
                 >
                     Сейчас смотрю
                 </Link>
                 <Link
                     href="?tab=inplan"
-                    className={`${tab_value === "inplan" ? style : "bg-slate-100"}  ${is_dark ? "bg-slate-700" : ""} p-2 hover:bg-blue-400`}
+                    className={`${tab_value === "inplan" ? style : "bg-slate-100"}  ${
+                        is_dark ? "bg-slate-700" : ""
+                    } p-2 hover:bg-blue-400`}
                 >
                     В планах
                 </Link>{" "}
                 <Link
                     href="?tab=viewed"
-                    className={`${tab_value === "viewed" ? style : "bg-slate-100"}  ${is_dark ? "bg-slate-700" : ""} p-2 hover:bg-blue-400`}
+                    className={`${tab_value === "viewed" ? style : "bg-slate-100"}  ${
+                        is_dark ? "bg-slate-700" : ""
+                    } p-2 hover:bg-blue-400`}
                 >
                     Просмотрено
                 </Link>
@@ -52,46 +60,22 @@ export function Switch_tab_component({
                 {tab_value === "liked" &&
                     liked_animes_kodiks.map(
                         (item) =>
-                            item && (
-                                <Anime_card_for_profile_page
-                                    key={item.sid}
-                                    data={item}
-                                    is_dark={is_dark}
-                                />
-                            ),
+                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "watching" &&
                     watching_animes_kodiks.map(
                         (item) =>
-                            item && (
-                                <Anime_card_for_profile_page
-                                    key={item.sid}
-                                    data={item}
-                                    is_dark={is_dark}
-                                />
-                            ),
+                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "inplan" &&
                     inplan_animes_kodiks.map(
                         (item) =>
-                            item && (
-                                <Anime_card_for_profile_page
-                                    key={item.sid}
-                                    data={item}
-                                    is_dark={is_dark}
-                                />
-                            ),
+                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "viewed" &&
                     viewed_animes_kodiks.map(
                         (item) =>
-                            item && (
-                                <Anime_card_for_profile_page
-                                    key={item.sid}
-                                    data={item}
-                                    is_dark={is_dark}
-                                />
-                            ),
+                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
             </div>
         </div>
