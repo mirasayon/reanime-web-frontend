@@ -1,5 +1,3 @@
-import Link from "next/link";
-import type { JSX } from "react";
 import { ApplicationConfig } from "#/configs/application";
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import type { JsonDB } from "#T/shared/json_db";
@@ -16,14 +14,14 @@ class UtilityJSXClass {
         href: string;
     }) => {
         return (
-            <Link
+            <a
                 className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${
                     className || ""
                 }`}
                 href={email ? `mailto:${href}` : href}
             >
                 {children}
-            </Link>
+            </a>
         );
     };
 
@@ -60,7 +58,7 @@ class UtilityJSXClass {
         );
     };
 
-    It_will_be_known_soon = ({ className }: { className?: string }): JSX.Element => {
+    It_will_be_known_soon = ({ className }: { className?: string }) => {
         const styles = className === undefined ? "" : className;
         return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
     };

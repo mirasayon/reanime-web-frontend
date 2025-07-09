@@ -4,13 +4,19 @@ export default {
     async redirects() {
         return [
             {
-                source: "/movie/:path*",
-                destination: "/m/:path*",
+                source: "/serial/:path*",
+                destination: "/s/:path*",
+                permanent: true,
+            },
+
+            {
+                source: "/m/:path*",
+                destination: "/movie/:path*",
                 permanent: true,
             },
             {
-                source: "/serial/:path*",
-                destination: "/s/:path*",
+                source: "/s/:path*",
+                destination: "/series/:path*",
                 permanent: true,
             },
         ];
@@ -18,6 +24,6 @@ export default {
     devIndicators: {
         position: "bottom-left",
     },
-
+    experimental: {},
     poweredByHeader: false,
 } satisfies NextConfig;

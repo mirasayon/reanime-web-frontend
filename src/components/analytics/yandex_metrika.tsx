@@ -1,10 +1,9 @@
 import { EnvConfig } from "#/configs/env";
 import Script from "next/script";
-import type { JSX } from "react";
 
 class ReaYMAClass {
     /** Yandex Metrika Analytics */
-    Mekrika = (): JSX.Element | undefined => {
+    Mekrika = () => {
         if (!EnvConfig.mode.prod) {
             return;
         }

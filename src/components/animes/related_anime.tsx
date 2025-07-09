@@ -1,5 +1,4 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import Link from "next/link";
 import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
@@ -15,7 +14,7 @@ class RelatedAnimesClass {
             await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shiki_id);
         return (
             data && (
-                <Link
+                <a
                     href={Global_Utilities.get_anime_url_by_id_and_type(data)}
                     className="w-[20rem] border-4 h-[240px] flex m-2 border-violet-300 p-2"
                 >
@@ -39,7 +38,7 @@ class RelatedAnimesClass {
                             {Global_Utilities.get_type_of_anime(data)}
                         </span>
                     </div>
-                </Link>
+                </a>
             )
         );
     };

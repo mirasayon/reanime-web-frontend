@@ -5,29 +5,16 @@ import { getCookie, setCookie } from "cookies-next/client";
 import { ApplicationConfig } from "#/configs/application";
 export function Cookie_consent_banner() {
     const [render, set_render] = useState<boolean>(false);
-    const cookiesConsent = getCookie("cookiesConsent") as undefined | string | boolean;
+    const r6_cookies_consent = getCookie("r6_cookies_consent") as undefined | string | boolean;
     useEffect(() => {
-        if (!cookiesConsent) {
+        if (!r6_cookies_consent) {
             return set_render(() => true);
         }
         return set_render(() => false);
-    }, [cookiesConsent]);
+    }, [r6_cookies_consent]);
     return (
         render && (
-            <button
-                type="button"
-                onClick={(event) => {
-                    event.preventDefault();
-                    set_render((pr) => false);
-                    setCookie("cookiesConsent", "ok", {
-                        maxAge: ApplicationConfig.two_thousand_year,
-                        path: "/",
-                        httpOnly: false,
-                        secure: false,
-                    });
-                }}
-                className="sticky flex text-wrap bottom-2"
-            >
+            <div className="sticky flex text-wrap bottom-2">
                 <div
                     className={`${rea_wrapper_border} flex z-10 w-max  
                        dark:bg-zinc-900 bg-blue-100/90 
@@ -36,15 +23,26 @@ export function Cookie_consent_banner() {
                     <span className="p-2">
                         Мы используем файлы куки, без них ничего не работает!
                     </span>
-                    <span
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            set_render((pr) => false);
+                            setCookie("r6_cookies_consent", "TRUE", {
+                                maxAge: ApplicationConfig.two_thousand_year,
+                                path: "/",
+                                httpOnly: false,
+                                secure: false,
+                            });
+                        }}
+                        type="button"
                         className={
-                            "font-bold p-2 dark:bg-blue-300 dark:text-black dark:hover:bg-blue-400bg-blue-300 text-black  hover:bg-blue-400"
+                            "cursor-pointer font-bold p-2 dark:bg-blue-300 dark:text-black dark:hover:bg-blue-400bg-blue-300 text-black  hover:bg-blue-400"
                         }
                     >
                         Хорошо
-                    </span>
+                    </button>
                 </div>
-            </button>
+            </div>
         )
     );
 }

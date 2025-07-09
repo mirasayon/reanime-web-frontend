@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { TopChartCarousel } from "./top_chart_animes_slider";
 import type { i_top_charts_anime_json } from "#T/userinserface";
 import { Global_Utilities } from "#/utils/functions";
@@ -15,7 +14,7 @@ export function ChartCarouselWrapper({
             {animes.map((one_slide, slide_index) => {
                 return (
                     <div key={one_slide.page_url}>
-                        <Link href={one_slide.page_url} className={"flex w-screen text-sm"}>
+                        <a href={one_slide.page_url} className={"flex w-screen text-sm"}>
                             {render_images ? (
                                 <img
                                     height={200}
@@ -39,7 +38,7 @@ export function ChartCarouselWrapper({
                                 <h1 className={"text-lg h-max font-bold"}>{one_slide.title}</h1>
                                 <div>{one_slide.description}</div>
                             </section>
-                        </Link>
+                        </a>
                     </div>
                 );
             })}

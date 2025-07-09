@@ -1,48 +1,38 @@
 import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
-import { LayoutJSX } from "#/components/layout/globals";
+import { Footer, Header } from "#/components/layout/globals";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
-import { Messanger } from "#/components/ui/messanger";
-import { ReaGA } from "#/components/analytics/google-a";
 import { ReaYMA } from "#/components/analytics/yandex_metrika";
 import { JsonLDStr } from "#/meta/json_ld";
 import { inter } from "#/fonts/import";
-import type { NextTN } from "#T/next";
+import type { NextJS_Types } from "#T/next";
 import { WebsiteConfigs } from "#/configs/website";
-import { ThemeProvider } from "next-themes";
-// import { ThemeProvider } from "#/components/themes/theme-provider";
 import themesSCC from "#/styles/global/layout.module.css";
-export default async function Root_layout(props: NextTN.LayoutProps) {
-    // const ui_formatt = cookieStore.get("rea_interface_format")?.value as "web" | "app" | undefined;
-    const ui_formatt = "web" as "web" | "app" | undefined;
-    const is_web_format = ui_formatt ? ui_formatt === "web" : true;
-
+import { ReaGA } from "#/components/analytics/google-analytics";
+import { ThemeProviderCustom } from "#/components/themes/provider.themes";
+export default function Root_layout(props: NextJS_Types.LayoutProps) {
     return (
-        <html lang="ru" suppressHydrationWarning>
+        <html lang="ru">
             <head>
+                <link rel="manifest" href="manifest.webmanifest" />
                 <AdsRSYA.InitHead />
             </head>
             <ReaGA.TagManager />
             <body className={`${inter.className} ${themesSCC.rootweb}  `}>
-                <ThemeProvider enableSystem>
-                    <div>
-                        <LayoutJSX.Header current_user_avatar={null} />
-                        {props.children}
-                        <Messanger />
-                        {/* <AdsRSYA.PCFLoorAds is_dark={isDark} /> */}
-                        {/* <AdsRSYA.MobileFloorAds is_dark={isDark} /> */}
-                        <LayoutJSX.Footer />
-                        <Cookie_consent_banner />
-                    </div>
-                </ThemeProvider>
+                <ThemeProviderCustom>
+                    <Header />
+                    {props.children}
+                    {/* <AdsRSYA.PCFLoorAds is_dark={isDark} /> */}
+                    {/* <AdsRSYA.MobileFloorAds is_dark={isDark} /> */}
+                    <Footer />
+                    <Cookie_consent_banner />
+                </ThemeProviderCustom>
+
                 <AdsRSYA.PCFLoorAds />
                 <AdsRSYA.MobileFloorAds />
                 <ReaYMA.Mekrika />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JsonLDStr }}
-                />
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JsonLDStr }} />
             </body>
             <ReaGA.Analytics />
         </html>

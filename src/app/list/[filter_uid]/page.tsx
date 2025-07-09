@@ -1,7 +1,7 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { notFound } from "next/navigation";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
-import type { NextTN } from "#T/next";
+import type { NextJS_Types } from "#T/next";
 import { ApplicationConfig } from "#/configs/application";
 import type { Metadata } from "next";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
@@ -12,8 +12,8 @@ export default async function List_Page({
     params,
     searchParams,
 }: {
-    params: NextTN.Params<{ filter_uid: string }>;
-    searchParams: NextTN.SearchParams;
+    params: NextJS_Types.Params<{ filter_uid: string }>;
+    searchParams: NextJS_Types.SearchParams;
 }) {
     const filter = (await params).filter_uid as filter_search_params;
     if (!ApplicationConfig.filters_uids.includes(filter)) {
@@ -42,7 +42,7 @@ export default async function List_Page({
 export async function generateMetadata({
     params,
 }: {
-    params: NextTN.Params<{ filter_uid: string }>;
+    params: NextJS_Types.Params<{ filter_uid: string }>;
 }): Promise<Metadata> {
     const filter = (await params).filter_uid as filter_search_params;
     if (!ApplicationConfig.filters_uids.includes(filter)) {

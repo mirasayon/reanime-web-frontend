@@ -3,19 +3,10 @@ import { UtilityJSX } from "#/components/utilities/x_components";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
 import type { JsonDB } from "#T/shared/json_db";
-import Link from "next/link";
 import { rea_wrapper_border } from "#/styles/provider";
-import type { JSX } from "react";
+
 // import { UserList } from "#/components/animes/options/user_list_animes";
-export function Anime_description({
-    current_user,
-    anime,
-    cover_image_src,
-}: {
-    cover_image_src: string;
-    anime: JsonDB.ftype;
-    current_user: null;
-}): JSX.Element {
+export function Anime_description({ current_user, anime, cover_image_src }: { cover_image_src: string; anime: JsonDB.ftype; current_user: null }) {
     const type_ru = anime.t ? "Фильм" : "ТВ Сериал";
     return (
         <>
@@ -23,31 +14,24 @@ export function Anime_description({
                 <span className={`p-3`}>{anime.nms.ru}</span>
                 {anime.season && <span className="p-3">{anime.season} сезон</span>} {"\t"}
                 <span className="text-slate-500 p-3">{anime.nms.ofc}</span>
-                <span
-                    className={`p-3 float-end dark:bg-slate-200 dark:text-black bg-slate-400 text-blue-900`}
-                >
-                    {type_ru}
-                </span>
+                <span className={`p-3 float-end dark:bg-slate-200 dark:text-black bg-slate-400 text-blue-900`}>{type_ru}</span>
             </div>
 
             <div className={`${rea_wrapper_border} p-4 flex-row flex max-md:grid`}>
                 <div className="min-w-max flex flex-col">
-                    <CoverImage
-                        image_src={cover_image_src}
-                        anime_title={`Обложка от аниме ${anime.nms.ru}`}
-                    />
-                    <div className="flex justify-between flex-wrap border-4 border-blue-400 mr-4">
+                    <CoverImage image_src={cover_image_src} anime_title={`Обложка от аниме ${anime.nms.ru}`} />
+                    {/* <div className="flex justify-between flex-wrap border-4 border-blue-400 mr-4">
                         {current_user ? (
                             <>
-                                {/* <UserList.Add_to_liked_list_element userP={current_user} p_shiki_id={shikimori_id} /> */}
-                                {/* <UserList.Add_to_watch_list_element userP={current_user} p_shiki_id={shikimori_id} /> */}
-                                {/* <UserList.Add_to_plan_list_element userP={current_user} p_shiki_id={shikimori_id} /> */}
-                                {/* <UserList.Add_to_viewed_list_element userP={current_user} p_shiki_id={shikimori_id} /> */}
+                                <UserList.Add_to_liked_list_element userP={current_user} p_shiki_id={shikimori_id} />
+                                <UserList.Add_to_watch_list_element userP={current_user} p_shiki_id={shikimori_id} />
+                                <UserList.Add_to_plan_list_element userP={current_user} p_shiki_id={shikimori_id} />
+                                <UserList.Add_to_viewed_list_element userP={current_user} p_shiki_id={shikimori_id} />
                             </>
                         ) : (
                             <UtilityJSX.AnimeListsIsNotPermitted />
                         )}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div>
@@ -72,18 +56,14 @@ export function Anime_description({
                         </>
                     )}
                     <span className="flex">
-                        <UtilityJSX.BoldX>Рейтинг (от шикимори): </UtilityJSX.BoldX>{" "}
-                        <SiShikimori className="p-1" size={25} />{" "}
+                        <UtilityJSX.BoldX>Рейтинг (от шикимори): </UtilityJSX.BoldX> <SiShikimori className="p-1" size={25} />{" "}
                         {anime.rating ? `${anime.rating}/10` : "неизвестно"}
                     </span>
                     <UtilityJSX.BoldX>Статус: </UtilityJSX.BoldX>
                     <UtilityJSX.Normalize_anime_status str={anime.status} />
                     <br />
                     <UtilityJSX.BoldX>Возрастной рейтинг: </UtilityJSX.BoldX>
-                    <Normalize_age_rating
-                        minimal_age={anime.minimal_age || null}
-                        rating={anime.rating_mpaa}
-                    />
+                    <Normalize_age_rating minimal_age={anime.minimal_age || null} rating={anime.rating_mpaa} />
                     <br />
                     {!anime.t && (
                         <>
@@ -131,14 +111,10 @@ export function Anime_description({
                         <UtilityJSX.It_will_be_known_soon />
                     ) : (
                         anime.genres_ShM.map((genre, ind) => (
-                            <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
+                            <a href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
                                 {ind !== 0 && ","}{" "}
-                                <span
-                                    className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}
-                                >
-                                    {genre.russian}
-                                </span>
-                            </Link>
+                                <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre.russian}</span>
+                            </a>
                         ))
                     )}
                     <br />

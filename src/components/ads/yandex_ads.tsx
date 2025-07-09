@@ -1,10 +1,10 @@
 import { EnvConfig } from "#/configs/env";
 import Script from "next/script";
-import type { JSX } from "react";
+
 /** Class for all Yendex Ads */
 class AdsRSYAClass {
     /** Ads init */
-    InitHead = (): JSX.Element | undefined => {
+    InitHead = () => {
         if (!EnvConfig.mode.prod) {
             return;
         }
@@ -23,7 +23,7 @@ class AdsRSYAClass {
         );
     };
 
-    FeedAds = ({ is_dark }: { is_dark?: boolean }): JSX.Element | undefined => {
+    FeedAds = ({ is_dark }: { is_dark?: boolean }) => {
         if (!EnvConfig.mode.prod) {
             return;
         }
@@ -46,7 +46,7 @@ class AdsRSYAClass {
         );
     };
     /** Bottom block of advertising For Desktops */
-    PCFLoorAds = (): JSX.Element | undefined => {
+    PCFLoorAds = () => {
         let is_dark = true;
         if (!EnvConfig.mode.prod) {
             return;
@@ -67,7 +67,7 @@ class AdsRSYAClass {
         );
     };
     /** Bottom block of advertising For phones */
-    MobileFloorAds = (): JSX.Element | undefined => {
+    MobileFloorAds = () => {
         let is_dark = true;
         if (!EnvConfig.mode.prod) {
             return;
@@ -87,7 +87,7 @@ class AdsRSYAClass {
             </Script>
         );
     };
-    UniversalBanner = ({ className = "" }: { className?: string }): JSX.Element | undefined => {
+    UniversalBanner = ({ className = "" }: { className?: string }) => {
         let is_dark = false;
         if (!EnvConfig.mode.prod) {
             return;

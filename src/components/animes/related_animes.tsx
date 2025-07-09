@@ -6,7 +6,8 @@ export function Related_animes({
 }: {
     related: JsonDB.ftype["rels"];
 }): React.JSX.Element | undefined {
-    return !related ? undefined : (
+    const pass = related && related.length > 0;
+    return !pass ? undefined : (
         <section className={rea_wrapper_border}>
             <span className="m-2">Связанные:</span>
             <div className="flex flex-wrap">

@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
 import React from "react";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
-import type { NextTN } from "#T/next";
+import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
@@ -11,8 +11,8 @@ export default async function GenresPage({
     params,
     searchParams,
 }: {
-    params: NextTN.Params<{ genre_en: string }>;
-    searchParams: NextTN.SearchParams;
+    params: NextJS_Types.Params<{ genre_en: string }>;
+    searchParams: NextJS_Types.SearchParams;
 }) {
     const p = await params;
     const sp = await searchParams;
@@ -50,7 +50,7 @@ export default async function GenresPage({
 export async function generateMetadata({
     params,
 }: {
-    params: NextTN.Params<{ genre_en: string }>;
+    params: NextJS_Types.Params<{ genre_en: string }>;
 }): Promise<Metadata> {
     const genre_en = decodeURI((await params).genre_en);
     const desc = (await Reanime_Resource_Service_Api_Integrator.internals.get_desc_genres()).find(

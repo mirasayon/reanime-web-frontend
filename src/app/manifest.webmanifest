@@ -1,0 +1,17 @@
+{
+    "name": "reanime.art",
+    "short_name": "REAnime",
+    "description": "Веб платформа для просмотра аниме",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        }
+    ]
+}

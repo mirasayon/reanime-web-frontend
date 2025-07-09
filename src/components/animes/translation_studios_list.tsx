@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { JsonDB } from "#T/shared/json_db";
 
 export function Localization_Studios_List_Component({
@@ -22,7 +21,7 @@ export function Localization_Studios_List_Component({
                     : { sid: `${item.sid}` };
                 const link_url = new URLSearchParams(search_params);
                 return (
-                    <Link
+                    <a
                         key={item.sid}
                         className={`hover:bg-slate-500 hover:text-white p-2 ${
                             current_studio_id === item.sid ? "bg-violet-400 text-white" : ""
@@ -30,7 +29,7 @@ export function Localization_Studios_List_Component({
                         href={`?${link_url}#play`}
                     >
                         {item.std}
-                    </Link>
+                    </a>
                 );
             })}
         </div>

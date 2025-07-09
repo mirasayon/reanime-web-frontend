@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
-import type { JSX } from "react";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
-import type { NextTN } from "#T/next";
+import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
@@ -11,8 +10,8 @@ import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_
 export default async function Root_search_page({
     searchParams,
 }: {
-    searchParams: NextTN.SearchParams;
-}): Promise<JSX.Element> {
+    searchParams: NextJS_Types.SearchParams;
+}) {
     const sq = await searchParams;
     const search_query = sq.search_query as string | undefined;
     if (!search_query || !/\S/.test(search_query)) {
@@ -40,7 +39,7 @@ export default async function Root_search_page({
 export async function generateMetadata({
     searchParams,
 }: {
-    searchParams: NextTN.SearchParams;
+    searchParams: NextJS_Types.SearchParams;
 }): Promise<Metadata> {
     const sq = (await searchParams).q;
     return {

@@ -12,8 +12,8 @@ import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
 import type { JsonDB } from "#T/shared/json_db";
-import type { NextTN } from "#T/next";
-import { UtilsWatch } from "#/utils/watch";
+import type { NextJS_Types } from "#T/next";
+import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 
@@ -21,8 +21,8 @@ export default async function Movie_shiki_id_page({
     params,
     searchParams,
 }: {
-    params: NextTN.Params<{ shikimori_id: string }>;
-    searchParams: NextTN.SearchParams;
+    params: NextJS_Types.Params<{ shikimori_id: string }>;
+    searchParams: NextJS_Types.SearchParams;
 }) {
     const p = await params;
     const sp = await searchParams;
@@ -86,7 +86,7 @@ export default async function Movie_shiki_id_page({
 export async function generateMetadata({
     params,
 }: {
-    params: NextTN.Params<{ shikimori_id: string }>;
+    params: NextJS_Types.Params<{ shikimori_id: string }>;
 }): Promise<Metadata> {
-    return await UtilsWatch.setMetadata((await params).shikimori_id);
+    return await Anime_Series_Utils.setMetadata((await params).shikimori_id);
 }

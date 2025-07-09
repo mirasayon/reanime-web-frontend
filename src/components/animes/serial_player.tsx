@@ -1,10 +1,7 @@
 "use client";
 import { Localization_Studios_List_Component } from "./translation_studios_list";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaArrowRightLong } from "react-icons/fa6";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import type { JSX } from "react";
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import type { JsonDB } from "#T/shared/json_db";
 import { Episodes_List_Component } from "./episodes_list";
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
@@ -30,7 +27,7 @@ export function Serial_Player_Component({
     nextEp: number;
     prevEp: number;
     ds_arrays: JsonDB.ftype["w"];
-}): JSX.Element {
+}) {
     const router = useRouter();
     const is_only_one_episode: boolean = lastPossibleEp !== 1;
     const is_show_next_ep_button: boolean = lastPossibleEp !== current_episode;
@@ -89,7 +86,7 @@ export function Serial_Player_Component({
                     )}
                     <div className="flex justify-center text-sm items-center">
                         {is_show_prev_ep_button && (
-                            <Link
+                            <a
                                 href={`?${new URLSearchParams({
                                     sid: `${current_studio_id}`,
                                     episode: `${prevEp}`,
@@ -104,11 +101,11 @@ export function Serial_Player_Component({
                                     </span>
                                     <span className="m-1">Предыдущий эпизод</span>
                                 </span>
-                            </Link>
+                            </a>
                         )}
 
                         {is_show_next_ep_button && (
-                            <Link
+                            <a
                                 href={`?${new URLSearchParams({
                                     sid: `${current_studio_id}`,
                                     episode: `${nextEp}`,
@@ -121,7 +118,7 @@ export function Serial_Player_Component({
                                         <FaArrowRightLong size={10} />
                                     </span>
                                 </span>
-                            </Link>
+                            </a>
                         )}
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 import { rea_wrapper_border } from "#/styles/provider";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export function Current_page_switcher({
     is_start_now,
@@ -32,34 +32,26 @@ export function Current_page_switcher({
     const next = params.ind === 0 ? `?${ps.next}#a_list` : `${params.params}&${ps.next}`;
     const prev = params.ind === 0 ? `?${ps.prev}#a_list` : `${params.params}&${ps.prev}`;
     return (
-        <div id="m_switcher" className={`flex justify-between items-center ${rea_wrapper_border} `}>
-            {is_start_now ? (
-                <div className={"m-2 text-slate-500 hover:cursor-not-allowed"}>
-                    Предыдущая страница
-                </div>
-            ) : (
-                <Link
-                    href={prev}
-                    className={`hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}
-                >
-                    Предыдущая страница
-                </Link>
-            )}
-            <span>
-                Страница <span className=" font-bold">{current_page}</span>
-            </span>
-            {is_over_now ? (
-                <div className={" m-2 text-slate-500 hover:cursor-not-allowed "}>
-                    Следующая страница
-                </div>
-            ) : (
-                <Link
-                    href={next}
-                    className={` hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}
-                >
-                    Следующая страница
-                </Link>
-            )}
-        </div>
+        <Suspense fallback={<span>Loading...</span>}>
+            <div id="m_switcher" className={`flex justify-between items-center ${rea_wrapper_border} `}>
+                {is_start_now ? (
+                    <div className={"m-2 text-slate-500 hover:cursor-not-allowed"}>Предыдущая страница</div>
+                ) : (
+                    <a href={prev} className={`hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
+                        Предыдущая страница
+                    </a>
+                )}
+                <span>
+                    Страница <span className=" font-bold">{current_page}</span>
+                </span>
+                {is_over_now ? (
+                    <div className={" m-2 text-slate-500 hover:cursor-not-allowed "}>Следующая страница</div>
+                ) : (
+                    <a href={next} className={` hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
+                        Следующая страница
+                    </a>
+                )}
+            </div>
+        </Suspense>
     );
 }

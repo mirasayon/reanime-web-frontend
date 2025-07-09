@@ -1,164 +1,54 @@
 "use client";
-
-import { sendMsgAtom } from "#/stores/g_messanger";
-import { useAtom } from "jotai";
-import Link from "next/link";
 import { useState } from "react";
-
-export function Avatar_slider({ img_src }: { img_src: string | null }) {
-    const [_slide, set_slide] = useState(false);
-    const [_zone, set_zone] = useState(false);
-    const [sendS, send_set] = useAtom(sendMsgAtom);
-    function service_Is_Down(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        e.preventDefault();
-        send_set({
-            message: "Часть сервиса временно недоступен.",
-        });
-    }
-    const style = "dark:hover:border-blue-800 hover:border-blue-800 border-2  border-transparent";
-    const __hovertw = "dark:hover:bg-black hover:bg-blue-400/20";
-
+import { CgProfile } from "react-icons/cg";
+import { FaRegRegistered } from "react-icons/fa";
+import { MdCancelPresentation } from "react-icons/md";
+import { MdOutlineLogin } from "react-icons/md";
+export function Avatar_slider() {
+    const [is_open, set_is_open] = useState(false);
     return (
-        <div className="relative">
-            <button
-                className="m-2 "
-                type={"button"}
-                onClick={(e) => {
-                    e.preventDefault();
-                    set_slide((pv) => !pv);
-                }}
-            >
-                {img_src ? (
-                    <img
-                        src={img_src}
-                        alt="avatar"
-                        className="rounded-sm w-[50px] h-[50px] object-cover"
-                    />
-                ) : (
-                    <span
-                        className={
-                            "p-2 flex rounded-sm border-4 dark:border-blue-600/80 dark:hover:bg-blue-600 border-blue-400/80 hover:bg-blue-400 "
-                        }
-                    >
-                        Войти
-                    </span>
-                )}
-            </button>
-            {_slide &&
-                (img_src ? (
-                    <div
-                        className=" w-screen m-0 p-0 h-screen absolute top-0 right-0 bg-black/40"
-                        onTouchStart={(_e) => set_zone((_pv) => false)}
-                        onTouchMove={(_e) => set_zone((_pv) => false)}
-                        onClick={(_e) => {
-                            // e.preventDefault();
-                            if (_zone === false) {
-                                set_slide((_pv) => false);
-                            }
+        <>
+            <div className={`relative `}>
+                <div>
+                    <button
+                        type="button"
+                        className={`cursor-pointer p-3 ${is_open && " "}`}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            set_is_open((p) => !p);
                         }}
                     >
-                        <div
-                            className={
-                                " dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px]"
-                            }
-                            onMouseEnter={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => true);
-                            }}
-                            onFocus={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => true);
-                            }}
-                            onTouchMove={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => true);
-                            }}
-                            onMouseOver={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => true);
-                            }}
-                            onMouseLeave={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => false);
-                            }}
-                        >
-                            <div className=" relative  h-[80vh] grid">
-                                <div className={"   "}>
-                                    <div className={" flex gap-2 flex-col"}>
-                                        <Link href="/me" className={`m-1  ${style} ${__hovertw}`}>
-                                            <div className="flex justify-between text-center">
-                                                <img
-                                                    src={img_src}
-                                                    alt="avatar_image"
-                                                    className="rounded-sm w-[30px] m-1 h-[30px] object-cover"
-                                                />
-                                                <span className="m-1 text-center">Профиль</span>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className=" bottom-4 absolute ">
-                                    <div className={` ${style} ${__hovertw}`}>
-                                        {/* <Logout_user /> */}
-                                    </div>
-                                </div>
+                        {is_open ? <MdCancelPresentation size={40} /> : <CgProfile size={40} />}
+                    </button>
+                </div>
+
+                <div className={!is_open ? "w-0 h-0" : ""}>
+                    <div className={`absolute right-[0px] top-[70px] dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
+                        <div className={`${is_open ? "" : "hidden"} flex flex-col `}>
+                            <div className={"m-1 p-2"}>
+                                <Avatar_Login />
                             </div>
                         </div>
                     </div>
-                ) : (
-                    <div
-                        className=" w-screen h-screen absolute top-0 right-0 bg-black/40"
-                        onClick={(_e) => {
-                            set_slide((_pv) => false);
-                        }}
-                    >
-                        <div
-                            className={
-                                "dark:bg-slate-800 bg-slate-400 absolute top-0 right-0 shadow-purple-400 shadow-md w-[200px]"
-                            }
-                            onMouseEnter={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => true);
-                            }}
-                            onMouseLeave={(e) => {
-                                e.preventDefault();
-                                set_zone((_pv) => false);
-                            }}
-                        >
-                            <div className=" relative h-[80vh] grid">
-                                <div className={"   "}>
-                                    <div className={" flex gap-2 flex-col"}>
-                                        <button
-                                            type="button"
-                                            onClick={service_Is_Down}
-                                            className={`m-1 cursor-pointer flex justify-between text-center ${style} ${__hovertw}`}
-                                        >
-                                            <span className="m-1 text-center">Войти</span>
-                                        </button>
-                                        <button
-                                            onClick={service_Is_Down}
-                                            type="button"
-                                            className={`m-1 cursor-pointer flex justify-between text-center ${style} ${__hovertw}`}
-                                        >
-                                            <span className="m-1 text-center">
-                                                Зарегистрироваться
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                </div>
+            </div>
+        </>
+    );
+}
+function Avatar_Login() {
+    const styles = () => `flex justify-between text-center hover:bg-blue-800/40 rounded cursor-pointer p-1 border-2`;
+    return (
+        <div className=" flex flex-col justify-between gap-2">
+            <a className={styles()} href="/auth/login">
+                <MdOutlineLogin size={40} fill={"white"} />
+                <span className="p-2 text-center">Войти</span>
+            </a>
+
+            <a className={styles()} href="/auth/register">
+                <FaRegRegistered size={40} fill={"white"} />
+
+                <span className="p-2 text-center">Зарегистрироваться</span>
+            </a>
         </div>
     );
 }
-/**
- * 
- * 										<Link href="/auth/login" className={`m-1 flex justify-between text-center ${style} ${__hovertw}`}>
-											<span className="m-1 text-center">Войти</span>
-										</Link>
-										<Link href="/auth/register" className={`m-1 flex justify-between text-center ${style} ${__hovertw}`}>
-											<span className="m-1 text-center">Зарегистрироваться</span>
-										</Link>
- */

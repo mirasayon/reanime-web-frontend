@@ -12,16 +12,16 @@ import { Trailer_Component } from "#/components/animes/promo_content";
 // import { Comments_section } from "#/components/components/сomments_section";
 import { AdsRSYA } from "#/components/ads/yandex_ads";
 import type { JsonDB } from "#T/shared/json_db";
-import type { NextTN } from "#T/next";
-import { UtilsWatch } from "#/utils/watch";
+import type { NextJS_Types } from "#T/next";
+import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
 }: {
-    params: NextTN.Params<{ shikimori_id: string }>;
-    searchParams: NextTN.SearchParams;
+    params: NextJS_Types.Params<{ shikimori_id: string }>;
+    searchParams: NextJS_Types.SearchParams;
 }): Promise<React.JSX.Element> {
     const rp = await params;
     const sp = await searchParams;
@@ -153,7 +153,7 @@ export default async function __Serial_shikimori_id_page({
 export async function generateMetadata({
     params,
 }: {
-    params: NextTN.Params<{ shikimori_id: string }>;
+    params: NextJS_Types.Params<{ shikimori_id: string }>;
 }): Promise<Metadata> {
-    return await UtilsWatch.setMetadata((await params).shikimori_id);
+    return await Anime_Series_Utils.setMetadata((await params).shikimori_id);
 }

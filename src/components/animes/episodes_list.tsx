@@ -1,5 +1,4 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import Link from "next/link";
 
 export function Episodes_List_Component({
     array_of_episodes,
@@ -36,7 +35,7 @@ export function Episodes_List_Component({
                     const isCurrent = seria === current_episode;
 
                     return (
-                        <Link
+                        <a
                             key={key}
                             href={`?${link_url}#play`}
                             className={`
@@ -50,7 +49,7 @@ export function Episodes_List_Component({
               `}
                         >
                             {key}
-                        </Link>
+                        </a>
                     );
                 })}
             </div>

@@ -16,7 +16,7 @@ class UtilsClass {
         return data.t ? "Фильм" : ("ТВ Сериал" as const);
     };
     get_anime_url_by_id_and_type = (data: JsonDB.ftype) =>
-        `/${data.t ? "m" : "s"}/${data.sid}` as const;
+        `/${data.t ? "movie" : "series"}/${data.sid}` as const;
 
     set_top_chart_animes_image_url = (segment: string) =>
         `${EnvConfig.partners.resource_service.url.current}/storage/animes/tcaps/${segment}` as const;

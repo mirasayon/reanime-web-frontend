@@ -57,4 +57,4 @@ class UtilsWatchClass {
         };
     };
 }
-export const UtilsWatch = new UtilsWatchClass();
+export const Anime_Series_Utils = new UtilsWatchClass();

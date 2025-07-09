@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { _categories, genres } from "#/static/anime_categories";
@@ -10,20 +9,8 @@ export function Filter_animes_links() {
     const pathname = usePathname();
     return (
         <nav className=" flex items-center gap-3 text-sm">
-            <NavBarScroll
-                text="По категориям"
-                overflow={false}
-                is_open={is_open_cate}
-                setter={set_is_open_cate}
-                list={_categories}
-            />
-            <NavBarScroll
-                text="По жанрам"
-                is_open={is_open_genre}
-                overflow={true}
-                setter={set_is_open_genre}
-                list={genres}
-            />
+            <NavBarScroll text="По категориям" overflow={false} is_open={is_open_cate} setter={set_is_open_cate} list={_categories} />
+            <NavBarScroll text="По жанрам" is_open={is_open_genre} overflow={true} setter={set_is_open_genre} list={genres} />
         </nav>
     );
 
@@ -56,8 +43,8 @@ export function Filter_animes_links() {
                         return setter((pv) => !pv);
                     }}
                     className={`cursor-pointer  p-1 border-4 border-transparent  hover:border-violet-500  ${
-                        is_open && "border-b-violet-500 "
-                    } dark:bg-gray-700 bg-violet-200 hover:bg-violet-200`}
+                        is_open && " border-b-violet-500 "
+                    } dark:bg-gray-700 bg-violet-200 hover:bg-violet-200 dark:hover:bg-slate-700/20`}
                     type="button"
                 >
                     {text}
@@ -79,25 +66,24 @@ export function Filter_animes_links() {
                         return setter((pv) => true);
                     }}
                     onClick={(e) => {
-                        e.preventDefault();
+                        // e.preventDefault();
                         return setter((pv) => false);
                     }}
                 >
                     {list.map((item, index, arr) => {
                         const is_active = pathname === arr[index].link_url;
                         return (
-                            <Link
-                                className={`p-2 
-    ${
-        is_active
-            ? "bg-blue-800 dark:hover:bg-gray-800 hover:bg-blue-400"
-            : "bg-gray-700 dark:hover:bg-gray-800 hover:bg-slate-100"
-    }`}
+                            <a
+                                className={`p-2 ${
+                                    is_active
+                                        ? "bg-blue-800 dark:hover:bg-gray-800 hover:bg-blue-400"
+                                        : "bg-gray-700 dark:hover:bg-gray-800 hover:bg-slate-100"
+                                }`}
                                 key={item.link_url}
                                 href={item.link_url}
                             >
                                 {item.title}
-                            </Link>
+                            </a>
                         );
                     })}
                 </div>
