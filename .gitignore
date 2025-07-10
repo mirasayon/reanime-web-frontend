@@ -11,3 +11,4 @@ next-env.d.ts
 # file explorer settings files
 desktop.ini
 get_help_from-ai.md
+/temp

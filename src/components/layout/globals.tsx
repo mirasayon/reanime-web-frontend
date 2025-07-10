@@ -1,11 +1,11 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { Filter_animes_links } from "#/components/anime_page/catalog_links";
-import { ApplicationConfig } from "#/configs/application";
 import { Avatar_slider } from "#/components/layout/avatar_slider";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 import { UI_Menu } from "./menu";
+import { birth_year, this_year } from "#/constants/common.constants";
 
 export function Header() {
     return (
@@ -37,7 +37,7 @@ export function Footer() {
                 <nav className="flex flex-wrap flex-row mx-2 justify-between">
                     <span className="mt-2 ml-2  flex  flex-row justify-between    w-full">
                         <span>
-                            &copy; {ApplicationConfig.birth_year} - {ApplicationConfig.this_year} {WebsiteConfigs.public_domain}
+                            &copy; {birth_year} - {this_year} {WebsiteConfigs.public_domain}
                         </span>
                     </span>
                     <UtilityJSX.LinkX className={style} href={"/right/terms"}>

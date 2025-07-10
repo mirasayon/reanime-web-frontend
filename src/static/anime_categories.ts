@@ -5,7 +5,10 @@ export type categories = {
     link_url: `/list/${filter_search_params}`;
     title: string;
 };
-
+export type genresType = {
+    title: string;
+    link_url: `/genres/${string}`;
+};
 export const _categories: categories[] = [
     {
         title: "Фильмы",
@@ -219,7 +222,7 @@ export const typed_description_genres: Omit<i_describe_genres, "description">[] 
     },
 ];
 
-export const genres = typed_description_genres.map((gen) => {
+export const genres: genresType[] = typed_description_genres.map((gen) => {
     return {
         title: gen.russian_name,
         link_url: `/genres/${gen.english_name.toLowerCase()}`,

@@ -1,19 +1,10 @@
 "use client";
-import type { User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-import { create_new_user } from "#server/auth/create_new_user";
-import { Utils } from "#/utils/functions";
+// import { create_new_user } from "#server/auth/create_new_user";
 import { rea_wrapper_border } from "#/styles/provider";
-import {
-    Adaptive_errors_container,
-    Adaptive_submit_button,
-    Analog_purpose,
-    Login_input,
-    Password_input,
-    Text_input,
-} from "./reusable";
-export function Register_Component(): JSX.Element {
+import { Adaptive_errors_container, Adaptive_submit_button, Analog_purpose, Login_input, Password_input, Text_input } from "./reusable";
+export default function ___Register_Page() {
     const [is_matching, set_is_not_matcing] = useState<boolean>(false);
     const [first_char_is_not_valid, setfcharIsnotvalid] = useState<boolean>(false);
     const [is_owned_login, set_is_owned_login] = useState<boolean>(false);
@@ -54,15 +45,8 @@ export function Register_Component(): JSX.Element {
     return (
         <div className={" p-10  flex-row justify-evenly flex max-lg:grid"}>
             <Analog_purpose purpose="login" />
-            <form
-                action={Action_handler}
-                className={` ${rea_wrapper_border} rounded-lg p-4 flex text-xl flex-col m-4 `}
-            >
-                <h1
-                    className={`w-full font-bold flex-col ${
-                        is_dark ? "text-slate-300 " : "text-slate-800 "
-                    } flex items-center`}
-                >
+            <form action={Action_handler} className={` ${rea_wrapper_border} rounded-lg p-4 flex text-xl flex-col m-4 `}>
+                <h1 className={`w-full font-bold flex-col ${is_dark ? "text-slate-300 " : "text-slate-800 "} flex items-center`}>
                     Добро пожаловать!
                 </h1>
                 <label htmlFor="name" className="text-slate-500">

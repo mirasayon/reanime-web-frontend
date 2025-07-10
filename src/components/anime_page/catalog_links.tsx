@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { _categories, genres } from "#/static/anime_categories";
+import { _categories, categories, genres, genresType } from "#/static/anime_categories";
 
 export function Filter_animes_links() {
     const [is_open_cate, set_is_open_cate] = useState(false);
@@ -23,7 +23,7 @@ export function Filter_animes_links() {
     }: {
         overflow: boolean;
         setter: (value: React.SetStateAction<boolean>) => void;
-        list: { title: string; link_url: string }[];
+        list: genresType[] | categories[];
         is_open: boolean;
         text: string;
     }) {
@@ -76,8 +76,8 @@ export function Filter_animes_links() {
                             <a
                                 className={`p-2 ${
                                     is_active
-                                        ? "bg-blue-800 dark:hover:bg-gray-800 hover:bg-blue-400"
-                                        : "bg-gray-700 dark:hover:bg-gray-800 hover:bg-slate-100"
+                                        ? "dark:bg-blue-800 bg-blue-300 dark:hover:bg-gray-800 hover:bg-blue-400"
+                                        : "dark:bg-gray-700 bg-gray-300 dark:hover:bg-gray-800 hover:bg-slate-100"
                                 }`}
                                 key={item.link_url}
                                 href={item.link_url}

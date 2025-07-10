@@ -1,23 +1,11 @@
-import { ApplicationConfig } from "#/configs/application";
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
+import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JsonDB } from "#T/shared/json_db";
 class UtilityJSXClass {
-    LinkX = ({
-        children,
-        href,
-        email,
-        className,
-    }: {
-        className?: string | undefined;
-        children: React.ReactNode;
-        email?: boolean;
-        href: string;
-    }) => {
+    LinkX = ({ children, href, email, className }: { className?: string | undefined; children: React.ReactNode; email?: boolean; href: string }) => {
         return (
             <a
-                className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${
-                    className || ""
-                }`}
+                className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${className || ""}`}
                 href={email ? `mailto:${href}` : href}
             >
                 {children}
@@ -37,22 +25,11 @@ class UtilityJSXClass {
             <></>
         );
     };
-    Anime_List_Component = ({
-        kodiks,
-        render_images,
-    }: {
-        kodiks: JsonDB.ftype[];
-        render_images: boolean;
-    }): React.JSX.Element => {
+    Anime_List_Component = ({ kodiks, render_images }: { kodiks: JsonDB.ftype[]; render_images: boolean }): React.JSX.Element => {
         return (
             <div className=" flex  flex-wrap justify-around ">
                 {kodiks.map((kodik, arr_ind) => (
-                    <Anime_card_main
-                        index={arr_ind}
-                        render_images={render_images}
-                        key={kodik.sid}
-                        data={kodik}
-                    />
+                    <Anime_card_main index={arr_ind} render_images={render_images} key={kodik.sid} data={kodik} />
                 ))}
             </div>
         );
@@ -76,29 +53,15 @@ class UtilityJSXClass {
     };
 
     Normalize_ds_names = (title: string) => {
-        return title
-            .replace(".Subtitles", " (Субтитры)")
-            .replace(".TV", "")
-            .replace("Jut.su", "Jutsu");
+        return title.replace(".Subtitles", " (Субтитры)").replace(".TV", "").replace("Jut.su", "Jutsu");
     };
 
     Image_in_anime_cards = ({ anime_title, img_src }: { img_src: string; anime_title: string }) => {
-        return (
-            <img
-                width={200}
-                height={300}
-                loading="lazy"
-                src={img_src}
-                alt={anime_title}
-                className="object-cover w-[200px]"
-            />
-        );
+        return <img width={200} height={300} loading="lazy" src={img_src} alt={anime_title} className="object-cover w-[200px]" />;
     };
 
     Default_poster = (is_dark = true) => {
-        return is_dark
-            ? ApplicationConfig.error_image_for_night_theme
-            : ApplicationConfig.error_image_for_light_theme;
+        return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
     };
 }
 export const UtilityJSX = new UtilityJSXClass();

@@ -15,7 +15,7 @@ export default function Root_layout(props: NextJS_Types.LayoutProps) {
     return (
         <html lang="ru">
             <head>
-                <link rel="manifest" href="manifest.webmanifest" />
+                <link rel="manifest" href="/manifest.webmanifest" />
                 <InitHead />
             </head>
             <ReaGA.TagManager />
