@@ -2,7 +2,7 @@ import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
 import { Footer, Header } from "#/components/layout/globals";
-import { InitHead, MobileFloorAds, PCFLoorAds } from "#/components/ads/yandex_ads";
+import { InitHead, MobileFloorAds, PCFLoorAds } from "#/components/ads/yandex_rsya";
 import { ReaYMA } from "#/components/analytics/yandex_metrika";
 import { JsonLDStr } from "#/meta/json_ld";
 import { inter } from "#/fonts/import";

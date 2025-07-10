@@ -7,7 +7,7 @@ import { Serial_Player_Component } from "#/components/animes/serial_player";
 import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
-import { UniversalBanner } from "#/components/ads/yandex_ads";
+import { UniversalBanner } from "#/components/ads/yandex_rsya";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
 import { Anime_Series_Utils } from "#/utils/watch";
