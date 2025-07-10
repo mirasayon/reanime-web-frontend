@@ -1,25 +1,12 @@
-// "use client";
 import { rea_wrapper_border } from "#/styles/provider";
-import { AdsRSYA } from "#/components/ads/yandex_ads";
 import { Global_Utilities } from "#/utils/functions";
-// import { useState } from "react";
-export function FramesAnime({
-    title_of_anime,
-    shiki_id,
-    screenshots,
-}: {
-    shiki_id: number;
-    screenshots: string[];
-    title_of_anime: string;
-}) {
-    // const [is_extended, set_extended] = useState(false);
+export function FramesAnime({ title_of_anime, shiki_id, screenshots }: { shiki_id: number; screenshots: string[]; title_of_anime: string }) {
     const is_extended = true;
     const img_height = 360 / 1.5; //240 // 720 / 2;
     const img_width = 640 / 1.5; // 1280 / 2;
     return (
         <section className={`p-2 ${rea_wrapper_border} flex flex-col justify-center items-center`}>
             <span className="text-lg px-3">Кадры</span>
-
             <div
                 className={`flex flex-wrap justify-evenly overflow-y-scroll scrollbar 
                         ease-in-out duration-400  
@@ -39,9 +26,6 @@ export function FramesAnime({
                         />
                     );
                 })}
-            </div>
-            <div className={"p-2 flex justify-center"}>
-                <AdsRSYA.BannerInFrames />
             </div>
             {/* <button
                 type="button"

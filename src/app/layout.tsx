@@ -2,7 +2,7 @@ import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
 import { Footer, Header } from "#/components/layout/globals";
-import { AdsRSYA } from "#/components/ads/yandex_ads";
+import { InitHead, MobileFloorAds, PCFLoorAds } from "#/components/ads/yandex_ads";
 import { ReaYMA } from "#/components/analytics/yandex_metrika";
 import { JsonLDStr } from "#/meta/json_ld";
 import { inter } from "#/fonts/import";
@@ -16,7 +16,7 @@ export default function Root_layout(props: NextJS_Types.LayoutProps) {
         <html lang="ru">
             <head>
                 <link rel="manifest" href="manifest.webmanifest" />
-                <AdsRSYA.InitHead />
+                <InitHead />
             </head>
             <ReaGA.TagManager />
             <body className={`${inter.className} ${themesSCC.rootweb}  `}>
@@ -29,8 +29,8 @@ export default function Root_layout(props: NextJS_Types.LayoutProps) {
                     <Cookie_consent_banner />
                 </ThemeProviderCustom>
 
-                <AdsRSYA.PCFLoorAds />
-                <AdsRSYA.MobileFloorAds />
+                <PCFLoorAds />
+                <MobileFloorAds />
                 <ReaYMA.Mekrika />
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JsonLDStr }} />
             </body>

@@ -1,6 +1,4 @@
-import { EnvConfig } from "#/configs/env";
 import { filter_search_params } from "#app/list/[filter_uid]/page";
-import { NextResponse } from "next/server";
 import type { Metadata } from "next/types";
 
 class ApplicationConfigClass {
