@@ -1,7 +1,7 @@
 "use client";
 import { Logout_function } from "./logout_action";
 import { useState } from "react";
-export function Logout_user(): JSX.Element {
+export function Logout_user() {
     const [confirm, set_confirm] = useState<boolean>(false);
     return (
         <form action={Logout_function}>

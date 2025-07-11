@@ -1,92 +1,113 @@
 "use client";
-import { redirect } from "next/navigation";
-import { useState } from "react";
-// import { create_new_user } from "#server/auth/create_new_user";
-import { rea_wrapper_border } from "#/styles/provider";
-import { Adaptive_errors_container, Adaptive_submit_button, Analog_purpose, Login_input, Password_input, Text_input } from "./reusable";
-export default function ___Register_Page() {
-    const [is_matching, set_is_not_matcing] = useState<boolean>(false);
-    const [first_char_is_not_valid, setfcharIsnotvalid] = useState<boolean>(false);
-    const [is_owned_login, set_is_owned_login] = useState<boolean>(false);
-    const [is_not_valid_login, set_not_valid_login] = useState<boolean>(false);
+import { loginAction } from "#/actions/auth/login";
+import { LoginInput, loginSchema } from "#/validators/auth/login";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { startTransition, useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
-    async function Action_handler(fd: FormData) {
-        const login = fd.get("login") as string;
-        const cfpassword = fd.get("cfpassword") as string;
-        const password = fd.get("password") as string;
-        const name = fd.get("name") as string;
+export default function Login_Component() {
+    const [is_password_type, set_is_password_type] = useState<boolean>(true);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors: clientErrors },
+    } = useForm<LoginInput>({
+        resolver: zodResolver(loginSchema),
+        mode: "onBlur",
+    });
 
-        if (Utils.hasNumberInFirstChar(login)) {
-            return setfcharIsnotvalid((pr) => true);
-        }
-        setfcharIsnotvalid((pr) => false);
+    const [serverErrors, setServerErrors] = useState<Record<string, string[]>>({});
 
-        if (!Utils.has_only_latins_and_numbers(login)) {
-            return set_not_valid_login((pr) => true);
-        }
-        set_not_valid_login((pr) => false);
-
-        if (cfpassword !== password) {
-            return set_is_not_matcing((pr) => true);
-        }
-        set_is_not_matcing((pr) => false);
-
-        const created_new_user: User | "owned" = await create_new_user({
-            username: login,
-            password: password,
-            name: name,
+    const onSubmit = handleSubmit(((data) => {
+        setServerErrors({});
+        // call the Server Action directly
+        startTransition(async () => {
+            const result = await loginAction(data);
+            if (Object.hasOwn(result, "errors")) {
+                setServerErrors(result!.errors!);
+            }
+            // if ok, loginAction has already redirected
         });
-        if (created_new_user === "owned") {
-            return set_is_owned_login((pr) => true);
-        }
-        set_is_owned_login((pr) => false);
-        return redirect("/me");
-    }
+    }) as SubmitHandler<LoginInput>);
+    console.log(watch("login")); // watch input value by passing the name of it
     return (
-        <div className={" p-10  flex-row justify-evenly flex max-lg:grid"}>
-            <Analog_purpose purpose="login" />
-            <form action={Action_handler} className={` ${rea_wrapper_border} rounded-lg p-4 flex text-xl flex-col m-4 `}>
-                <h1 className={`w-full font-bold flex-col ${is_dark ? "text-slate-300 " : "text-slate-800 "} flex items-center`}>
-                    Добро пожаловать!
-                </h1>
-                <label htmlFor="name" className="text-slate-500">
-                    Ваше имя или ник
-                </label>
-                <Text_input max={20} min={2} required={true} input_id="name" />
+        <div className="p-10 flex-row justify-evenly flex ">
+            {/* /* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+            <form onSubmit={onSubmit} className="border-4 border-blue-500/50 rounded-lg p-8 flex text-xl flex-col m-4 " noValidate>
+                {/* register your input into the hook by invoking the "register" function */}
+                <div className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}>Добро пожаловать!</div>
 
-                <label htmlFor="login" className="text-slate-500">
-                    Ваш логин
-                </label>
-                <Login_input input_id={"login"} />
-                <Adaptive_errors_container
-                    errors={[
-                        {
-                            activation: first_char_is_not_valid,
-                            message: "Первый символ логина должна быть буква",
-                        },
-                        {
-                            activation: is_owned_login,
-                            message: "Такой логин уже занят",
-                        },
-                        {
-                            activation: is_not_valid_login,
-                            message: "Логин должен быть только из латинских букв и цифр",
-                        },
-                        {
-                            activation: is_matching,
-                            message: "Пароли не совпадают",
-                        },
-                    ]}
-                />
-                <label htmlFor="password" className="text-slate-500">
-                    Придумайте пароль (от 8 до 70 символов)
-                </label>
-                <Password_input input_id="password" />
-                <label htmlFor="cfpassword" className="text-slate-500">
-                    Подтвердите пароль
-                </label>
-                <Password_input input_id="cfpassword" />
-                <Adaptive_submit_button purpose="register" />
+                <div className=" LOGIN">
+                    {/* Login */}
+                    <label htmlFor="login" className="text-slate-500">
+                        Ваш логин
+                    </label>
+                    <div className={" border-4  border-slate-600 rounded-lg p-2"}>
+                        <span className="text-slate-400">@</span>
+                        {/* Login */}
+                        <input
+                            className={"pl-2 bg-transparent font-mono outline-none"}
+                            type={"text"}
+                            // name={"login"}
+                            id={"login"}
+                            minLength={4}
+                            defaultValue="mirasayon"
+                            {...register("login", { required: true })}
+                            maxLength={20}
+                            required={true}
+                        />
+                    </div>
+                    {clientErrors.login && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.login.message}</p>}
+                    {serverErrors.login?.map((msg, i) => (
+                        <p key={i} className=" dark:text-red-600 text-red-800">
+                            {msg}
+                        </p>
+                    ))}
+                </div>
+                <div className="PASSWORD">
+                    {/* Password */}
+                    <label htmlFor="password" className="text-slate-500">
+                        Введите пароль
+                    </label>
+
+                    <div className="border-4 flex rounded justify-between border-slate-600">
+                        <input
+                            className="p-2 bg-transparent outline-none"
+                            type={is_password_type ? "password" : "text"}
+                            minLength={8}
+                            maxLength={70}
+                            //    name={"password"}
+                            id={"password"}
+                            {...register("password", { required: true })}
+                            required={true}
+                        />
+                        <button
+                            type="button"
+                            className="p-2 pr- cursor-pointer"
+                            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                                e.preventDefault();
+                                return set_is_password_type((pre_v) => !pre_v);
+                            }}
+                        >
+                            {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
+                        </button>
+                    </div>
+
+                    {clientErrors.password && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.password.message}</p>}
+                    {serverErrors.password?.map((msg, i) => (
+                        <p key={i} className=" dark:text-red-600 text-red-800">
+                            {msg}
+                        </p>
+                    ))}
+                </div>
+                {/* errors will return when field validation fails  */}
+                {clientErrors.password && <span>This field is required</span>}
+
+                <button className="p-2 m-1 mt-3 rounded-lg border-4 border-blue-500/50  cursor-pointer hover:bg-blue-500" type="submit">
+                    Войти
+                </button>
             </form>
         </div>
     );
