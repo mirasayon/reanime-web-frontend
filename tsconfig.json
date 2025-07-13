@@ -31,6 +31,6 @@
             }
         ]
     },
-    "include": ["next-env.d.ts", "./src", ".next/types/**/*.ts", "drafts/active/auth"],
-    "exclude": ["./src/tests"]
+    "include": ["next-env.d.ts", "./src", ".next/types/**/*.ts"],
+    "exclude": ["./src/tests", "./drafts"]
 }

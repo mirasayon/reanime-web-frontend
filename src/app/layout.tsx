@@ -19,7 +19,7 @@ export default function Root_layout(props: NextJS_Types.LayoutProps) {
                 <InitHead />
             </head>
             <ReaGA.TagManager />
-            <body className={`${inter.className} ${themesSCC.rootweb}  `}>
+            <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Header />
                     {props.children}

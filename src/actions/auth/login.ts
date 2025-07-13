@@ -1,38 +1,67 @@
 "use server";
+import { Post } from "#/integrators/user_service/fetcher";
 import { Global_Utilities } from "#/utils/functions";
-import { LoginInput, loginSchema } from "#/validators/auth/login";
-import { cookies } from "next/headers";
+import { Logger } from "@xamarin.city/reanime/tools/logge.js";
+import {
+    www_authentication_validator_schemas,
+    www_comment_validator_schemas_inputs,
+} from "@xamarin.city/reanime/user-service/validators/routes/authentication.request.js";
+import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
-type TreeErrors = {
-    login?: string[] | undefined;
-    password?: string[] | undefined;
+import { userAgent } from "next/server";
+import { z } from "zod";
+type AError<O extends { [key: string]: unknown }> = {
+    [K in keyof O]?: string[] | undefined;
 };
-interface ResponceActionType {
+
+export type TreeErrors = AError<www_comment_validator_schemas_inputs["login"]>;
+
+export type ResponceActionType = {
     errors?: TreeErrors;
     ok: boolean;
-}
-export async function loginAction(data: LoginInput): Promise<ResponceActionType> {
-    const parsed = await loginSchema.safeParseAsync(data);
+};
+
+export async function loginAction(data: www_comment_validator_schemas_inputs["login"]): Promise<ResponceActionType> {
+    const parsed = await www_authentication_validator_schemas.login.safeParseAsync(data);
     if (!parsed.success) {
-        const errors: ResponceActionType = { ok: false, errors: parsed.error.flatten().fieldErrors };
-        return errors;
+        const errors = z.flattenError(parsed.error).fieldErrors;
+        const res: ResponceActionType = { ok: false, errors };
+        return res;
     }
 
-    const { login, password } = parsed.data;
-    const user = await fakeAuth(login, password);
+    const { username, password } = parsed.data;
+    const user = await Login(username, password);
     if (!user) {
-        const errors: ResponceActionType = { ok: false, errors: { login: ["Invalid login or password"] } };
+        const errors: ResponceActionType = { ok: false, errors: { username: ["Invalid username or password"] } };
         return errors;
     }
-    return redirect("/dashboard", RedirectType.push);
+    return redirect(`/user/${user.username}`, RedirectType.push);
     // return { ok: true };
 }
-async function fakeAuth(login: string, password: string) {
+async function Login(username: string, password: string) {
     await Global_Utilities.sleepX(1000);
     const _cookies = await cookies();
+    const _headers = await headers();
+    const r6f_session_token = _cookies.get("r6f_session_token")?.value;
+    const agent = _headers.get("user-agent") ?? undefined;
+    const ip = _headers.get("x-forwarded-for") ?? undefined;
+    _headers.forEach((val, name) => {
+        Logger.blue(`Header: ${name}  --  ${val}`);
+    });
+    const res = await Post({
+        url: "/v1/authentication/login",
+        cookies: {
+            session_token: r6f_session_token,
+        },
+        body: {
+            username,
+            password,
+        },
+        agent,
+        ip,
+    });
 
-    const existed_auth_token = _cookies.get("auth_test_token")?.value;
-    console.log({ existed_auth_token });
+    console.log(res);
 
     // _cookies.set({
     //     name: "auth_test_token",
@@ -43,5 +72,5 @@ async function fakeAuth(login: string, password: string) {
     // });
 
     console.log("FAKE AUTH COMPLETED");
-    return { login, password };
+    return { username, password };
 }
