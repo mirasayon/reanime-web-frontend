@@ -24,6 +24,7 @@ export type ResponceActionType = {
 export async function loginAction(data: www_comment_validator_schemas_inputs["login"]): Promise<ResponceActionType> {
     const parsed = await www_authentication_validator_schemas.login.safeParseAsync(data);
     if (!parsed.success) {
+        // const testError = z.treeifyError(parsed.error).properties
         const errors = z.flattenError(parsed.error).fieldErrors;
         const res: ResponceActionType = { ok: false, errors };
         return res;
@@ -32,7 +33,7 @@ export async function loginAction(data: www_comment_validator_schemas_inputs["lo
     const { username, password } = parsed.data;
     const user = await Login(username, password);
     if (!user) {
-        const errors: ResponceActionType = { ok: false, errors: { username: ["Invalid username or password"] } };
+        const errors: ResponceActionType = { ok: false, errors: { username: ["Неверное имя пользователя или пароль"] } };
         return errors;
     }
     return redirect(`/user/${user.username}`, RedirectType.push);

@@ -1,23 +1,21 @@
 "use client";
 import { ThemeProvider } from "next-themes";
+import { JSX } from "react";
 import { useEffect, useState, type ReactNode } from "react";
 
-interface ProvidersProps {
-    children: ReactNode;
-}
+type ProvidersProps = {
+    readonly children: ReactNode;
+};
 
-export function ThemeProviderCustom({ children }: ProvidersProps) {
+export function ThemeProviderCustom({ children }: ProvidersProps): JSX.Element | null {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    if (!mounted) return undefined;
-    <>
-        <div className=" w-[100%] h-[100%] bg-gray-950 text-blue-100 flex justify-center text-center font-mono text-2xl">
-            <p>Загрузка...</p>
-        </div>
-    </>;
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <ThemeProvider
