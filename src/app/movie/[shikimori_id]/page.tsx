@@ -7,7 +7,6 @@ import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
-import { UniversalBanner } from "#/components/ads/yandex_rsya";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
 import { Anime_Series_Utils } from "#/utils/watch";
@@ -53,8 +52,6 @@ export default async function Movie_shiki_id_page({
             {movie.hdp ? <DMCA_Protected /> : <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />}
             <FramesAnime title_of_anime={movie.nms.kkru} screenshots={movie.frms} shiki_id={movie.sid} />
             <Related_animes related={movie.rels} />
-            {/* <Comments_section shikimori_id={current_shikimori_id} current_user={current_user} /> */}
-            <UniversalBanner />
         </>
     );
 }

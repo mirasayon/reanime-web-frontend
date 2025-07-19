@@ -7,7 +7,6 @@ import { Serial_Player_Component } from "#/components/animes/serial_player";
 import { Global_Utilities } from "#/utils/functions";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { Trailer_Component } from "#/components/animes/promo_content";
-import { UniversalBanner } from "#/components/ads/yandex_rsya";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
 import { Anime_Series_Utils } from "#/utils/watch";
@@ -119,8 +118,6 @@ export default async function __Serial_shikimori_id_page({
 
             <FramesAnime screenshots={anime.frms} title_of_anime={anime.nms.kkru} shiki_id={anime.sid} />
             <Related_animes related={anime.rels} />
-            {/* <Comments_section shikimori_id={current_shikimori_id} current_user={current_user} /> */}
-            <UniversalBanner />
         </>
     );
 }
