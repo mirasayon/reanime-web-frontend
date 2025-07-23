@@ -4,15 +4,15 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "det": "dotenv -e .env.development -- next dev --turbopack --port 3839",
-        "dev": "dotenv -e .env.development -- next dev --port 3839",
+        "det": "dotenv -e .env.development -- next dev --turbopack --port 3641",
+        "dev": "dotenv -e .env.development -- next dev --port 3641",
         "build": "dotenv -e .env.production -- next build",
         "build-prod": "dotenv -e .env.production -- next build --no-lint",
         "cl": "rimraf ./.next ./package-lock.json",
-        "start-test": "dotenv -e .env.test -- next start --port 2839",
+        "start-test": "dotenv -e .env.test -- next start --port 2641",
         "standalone": "dotenv -e .env.production -- node ./.next/standalone/server.js",
         "tsi": "tsc --watch --noEmit --project ./tsconfig.json",
-        "start-prod": "dotenv -e .env.production -- next start -p 4839 --hostname 192.168.0.105"
+        "start-prod": "dotenv -e .env.production -- next start --port 4641 --hostname 192.168.0.105"
     },
     "dependencies": {
         "@hookform/resolvers": "^5.1.1",
@@ -25,9 +25,9 @@
         "next-themes": "^0.4.6",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
-        "react-hook-form": "^7.60.0",
+        "react-hook-form": "^7.61.0",
         "react-icons": "^5.5.0",
-        "zod": "^4.0.5"
+        "zod": "^4.0.7"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.11",
