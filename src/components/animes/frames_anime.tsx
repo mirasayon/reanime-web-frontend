@@ -27,14 +27,6 @@ export function FramesAnime({ title_of_anime, shiki_id, screenshots }: { shiki_i
                     );
                 })}
             </div>
-            {/* <button
-                type="button"
-                className={`p-2 m-2 border-2 border-blue-400 hover:bg-blue-700/20 rounded-sm w-32 text-center cursor-pointer`}
-                // onClick={() => set_extended((pr) => !pr)}
-                title="Раскрыть"
-            >
-                {is_extended ? "Свернуть" : "Раскрыть"} все
-            </button> */}
         </section>
     );
 }

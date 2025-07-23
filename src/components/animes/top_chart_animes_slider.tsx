@@ -14,14 +14,14 @@ export function TopChartCarousel({
     const [is_invert, set_invert] = useState<boolean>(false);
     const is_start = current_index === 0;
     const is_over = current_index === children.length - 1;
-    const new_index: number = is_over ? 0 : current_index + 1;
-    const prev_index: number = is_start ? children.length - 1 : current_index - 1;
+    const new_index = is_over ? 0 : current_index + 1;
+    const prev_index = is_start ? children.length - 1 : current_index - 1;
     useEffect(() => {
         if (current_index === children.length - 1) {
-            set_invert((pv) => true);
+            set_invert(() => true);
         }
         if (current_index === 0) {
-            set_invert((pv) => false);
+            set_invert(() => false);
         }
     }, [current_index, children]);
 
@@ -51,8 +51,8 @@ export function TopChartCarousel({
             <button
                 type="button"
                 disabled={is_start}
-                onClick={(event) => {
-                    event.preventDefault();
+                onClick={(e) => {
+                    e.preventDefault();
                     set_current_index(prev_index);
                 }}
                 className="hidden group-hover:block p-1 absolute top-[30%] left-2 rounded-full shadow-sm bg-white/20 text-gray-800 hover:bg-white/70"
@@ -61,8 +61,8 @@ export function TopChartCarousel({
             </button>
             <button
                 disabled={is_over}
-                onClick={(event) => {
-                    event.preventDefault();
+                onClick={(e) => {
+                    e.preventDefault();
                     set_current_index(new_index);
                 }}
                 type="button"

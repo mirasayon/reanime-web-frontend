@@ -6,6 +6,7 @@ import type { JsonDB } from "#T/shared/json_db";
 import { Episodes_List_Component } from "./episodes_list";
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
 import { rea_wrapper_border } from "#/styles/provider";
+import Link from "next/link";
 
 export function Serial_Player_Component({
     current_episode,
@@ -34,7 +35,6 @@ export function Serial_Player_Component({
     const is_show_prev_ep_button: boolean = firstPossibleEp !== current_episode;
     function submit_episode(event: FormData): void {
         const e_episode: FormDataEntryValue | null = event.get("episode");
-        console.log(e_episode);
         if (!e_episode) {
             return;
         }
@@ -47,22 +47,12 @@ export function Serial_Player_Component({
     const current_video_url = `https:${iframeUrl}`;
     return (
         <section className={`flex flex-col p-2 ${rea_wrapper_border}`} id="play">
-            <Localization_Studios_List_Component
-                current_studio_id={current_studio_id}
-                current_episode={current_episode}
-                ds_arrays={ds_arrays}
-            />
+            <Localization_Studios_List_Component current_studio_id={current_studio_id} current_episode={current_episode} ds_arrays={ds_arrays} />
 
             <div className="flex flex-col justify-center items-center">
                 <span className="text-lg font-bold">Эпизод {current_episode}</span>
                 <Ads_in_kodik_is_not_mine />
-                <iframe
-                    title="плеер"
-                    loading="lazy"
-                    className="min-w-full min-h-[500px]"
-                    src={current_video_url}
-                    allowFullScreen={true}
-                />
+                <iframe title="плеер" loading="lazy" className="min-w-full min-h-[500px]" src={current_video_url} allowFullScreen={true} />
                 <div className="flex flex-wrap">
                     {is_only_one_episode && (
                         <form className="flex justify-center items-center" action={submit_episode}>
@@ -86,7 +76,7 @@ export function Serial_Player_Component({
                     )}
                     <div className="flex justify-center text-sm items-center">
                         {is_show_prev_ep_button && (
-                            <a
+                            <Link
                                 href={`?${new URLSearchParams({
                                     sid: `${current_studio_id}`,
                                     episode: `${prevEp}`,
@@ -101,11 +91,11 @@ export function Serial_Player_Component({
                                     </span>
                                     <span className="m-1">Предыдущий эпизод</span>
                                 </span>
-                            </a>
+                            </Link>
                         )}
 
                         {is_show_next_ep_button && (
-                            <a
+                            <Link
                                 href={`?${new URLSearchParams({
                                     sid: `${current_studio_id}`,
                                     episode: `${nextEp}`,
@@ -118,16 +108,12 @@ export function Serial_Player_Component({
                                         <FaArrowRightLong size={10} />
                                     </span>
                                 </span>
-                            </a>
+                            </Link>
                         )}
                     </div>
                 </div>
             </div>
-            <Episodes_List_Component
-                array_of_episodes={array_of_episodes}
-                current_studio_id={current_studio_id}
-                current_episode={current_episode}
-            />
+            <Episodes_List_Component array_of_episodes={array_of_episodes} current_studio_id={current_studio_id} current_episode={current_episode} />
         </section>
     );
 }

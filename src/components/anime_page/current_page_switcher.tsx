@@ -1,5 +1,6 @@
 "use client";
 import { rea_wrapper_border } from "#/styles/provider";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -37,9 +38,9 @@ export function Current_page_switcher({
                 {is_start_now ? (
                     <div className={"m-2 text-slate-500 hover:cursor-not-allowed"}>Предыдущая страница</div>
                 ) : (
-                    <a href={prev} className={`hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
+                    <Link href={prev} className={`hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
                         Предыдущая страница
-                    </a>
+                    </Link>
                 )}
                 <span>
                     Страница <span className=" font-bold">{current_page}</span>
@@ -47,9 +48,9 @@ export function Current_page_switcher({
                 {is_over_now ? (
                     <div className={" m-2 text-slate-500 hover:cursor-not-allowed "}>Следующая страница</div>
                 ) : (
-                    <a href={next} className={` hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
+                    <Link href={next} className={` hover:text-cyan-300 m-2 "hover:text-cyan-300 text-blue-500 `}>
                         Следующая страница
-                    </a>
+                    </Link>
                 )}
             </div>
         </Suspense>

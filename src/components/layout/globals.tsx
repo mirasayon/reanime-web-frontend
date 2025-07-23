@@ -6,6 +6,7 @@ import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 import { UI_Menu } from "./menu";
 import { birth_year, this_year } from "#/constants/common.constants";
+import Link from "next/link";
 
 export function Header() {
     return (
@@ -14,9 +15,9 @@ export function Header() {
             id="home"
         >
             <div className="flex flex-wrap justify-start gap-7">
-                <a href="/" className="ml-2 flex items-center justify-center ">
+                <Link href="/" className="ml-2 flex items-center justify-center ">
                     <img src={"/icon.png"} className=" w-[40px] h-[40px]  object-cover" alt={`${WebsiteConfigs.name}'s icon`} />
-                </a>
+                </Link>
                 <Filter_animes_links />
             </div>
             <div>
@@ -62,15 +63,15 @@ export function Footer() {
                         className="p-2 dark:hover:bg-violet-500/10 hover:bg-blue-300/40 float-right"
                         href={WebsiteConfigs.developer_website}
                     >
-                        Сайт разработчика
+                        О разработчике
                     </UtilityJSX.LinkX>
                 </nav>
                 <div className=" mx-2 mb-2 grid">
                     <div className=" bg-slate-500/30 h-[1px] m-2" />
-                    <a className={"flex w-max  "} href="/#home">
+                    <Link className={"flex w-max  "} href="/#home">
                         <img src={"/icon.png"} className="ml-2 size-8" width={30} height={30} alt={`${WebsiteConfigs.name}'s icon`} />
                         <span className=" ml-3 my-auto text-xl text-blue-500/80">{WebsiteConfigs.normalized_name}.art</span>
-                    </a>
+                    </Link>
                     {/* <span className="p-2 text-slate-500/80">Все материалы взяты из свободных источников и открытых Web API</span> */}
                     <span className={"p-2 dark:text-violet-400/80 text-violet-900/80"}>
                         Все представленные на данном сайте материалы являются собственностью их изготовителя (владельца прав), охраняются

@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { _categories, categories, genres, genresType } from "#/static/anime_categories";
+import Link from "next/link";
 
 export function Filter_animes_links() {
     const [is_open_cate, set_is_open_cate] = useState(false);
@@ -73,7 +74,7 @@ export function Filter_animes_links() {
                     {list.map((item, index, arr) => {
                         const is_active = pathname === arr[index].link_url;
                         return (
-                            <a
+                            <Link
                                 className={`p-2 ${
                                     is_active
                                         ? "dark:bg-blue-800 bg-blue-300 dark:hover:bg-gray-800 hover:bg-blue-400"
@@ -83,7 +84,7 @@ export function Filter_animes_links() {
                                 href={item.link_url}
                             >
                                 {item.title}
-                            </a>
+                            </Link>
                         );
                     })}
                 </div>

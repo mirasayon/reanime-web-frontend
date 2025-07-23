@@ -1,6 +1,7 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
+import Link from "next/link";
 
 const max = 40;
 export function Anime_card_main({ data, index, render_images }: { render_images: boolean; data: JsonDB.ftype; index: number }) {
@@ -13,7 +14,7 @@ export function Anime_card_main({ data, index, render_images }: { render_images:
         <div
             className={` p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
         >
-            <a href={Global_Utilities.get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
+            <Link href={Global_Utilities.get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
                 {render_images ? (
                     <img
                         width={200}
@@ -43,7 +44,7 @@ export function Anime_card_main({ data, index, render_images }: { render_images:
                 <div className=" absolute  text-black bottom-1 left-0 font-bold">
                     <UtilityJSX.Normalize_anime_status str={data.status} />
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }

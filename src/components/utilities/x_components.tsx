@@ -1,15 +1,16 @@
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JsonDB } from "#T/shared/json_db";
+import Link from "next/link";
 class UtilityJSXClass {
     LinkX = ({ children, href, email, className }: { className?: string | undefined; children: React.ReactNode; email?: boolean; href: string }) => {
         return (
-            <a
+            <Link
                 className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${className || ""}`}
                 href={email ? `mailto:${href}` : href}
             >
                 {children}
-            </a>
+            </Link>
         );
     };
 

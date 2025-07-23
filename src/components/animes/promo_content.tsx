@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 
 export function Trailer_Component({ trailer }: { trailer: JsonDB.ftype["promo"] }) {
     return (
-        <section className={`flex m-4 max-md:grid ${rea_wrapper_border}`}>
+        <div className={`flex m-4 max-md:grid ${rea_wrapper_border}`}>
             {trailer?.map((item) => {
                 if (item.hosting === "vk") return;
                 const src_url: string = item.player_url.replace(/^http:/, "https:");
@@ -18,6 +18,6 @@ export function Trailer_Component({ trailer }: { trailer: JsonDB.ftype["promo"] 
                     />
                 );
             })}
-        </section>
+        </div>
     );
 }

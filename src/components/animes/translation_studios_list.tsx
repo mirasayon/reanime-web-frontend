@@ -1,4 +1,6 @@
+import { rea_wrapper_border } from "#/styles/provider";
 import type { JsonDB } from "#T/shared/json_db";
+import Link from "next/link";
 
 export function Localization_Studios_List_Component({
     ds_arrays,
@@ -10,32 +12,35 @@ export function Localization_Studios_List_Component({
     current_studio_id: number;
 }) {
     return (
-        <div className={`dark:bg-slate-900 bg-slate-200 flex flex-wrap`}>
+        <div className={` flex flex-wrap ${rea_wrapper_border} py-2`}>
             <span className={`text-lg p-2 dark:bg-slate-800 bg-blue-200 `}>Студии перевода:</span>
             {ds_arrays.map((item) => {
-                const search_params: type_ = current_episode
+                const search_params: query_param_type = current_episode
                     ? {
                           sid: `${item.sid}`,
                           episode: `${current_episode}`,
                       }
                     : { sid: `${item.sid}` };
                 const link_url = new URLSearchParams(search_params);
+                const is_current = current_studio_id === item.sid;
                 return (
-                    <a
+                    <Link
                         key={item.sid}
-                        className={`hover:bg-slate-500 hover:text-white p-2 ${
-                            current_studio_id === item.sid ? "bg-violet-400 text-white" : ""
+                        className={`px-5 py-1 m-1 rounded font-bold transition-colors duration-200 ${
+                            is_current
+                                ? "bg-purple-900 text-white"
+                                : "dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600  bg-slate-200 text-black hover:bg-slate-300"
                         }`}
                         href={`?${link_url}#play`}
                     >
                         {item.std}
-                    </a>
+                    </Link>
                 );
             })}
         </div>
     );
 }
-type type_ = {
+type query_param_type = {
     sid: string;
     episode?: string | undefined;
 };

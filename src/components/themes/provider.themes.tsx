@@ -1,17 +1,15 @@
 "use client";
 import { ThemeProvider } from "next-themes";
-import { JSX } from "react";
-import { useEffect, useState, type ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
+import { useEffect, useState } from "react";
 
-type ProvidersProps = {
-    readonly children: ReactNode;
+type Props = {
+    children: ReactNode;
 };
 
-export function ThemeProviderCustom({ children }: ProvidersProps): JSX.Element | null {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+export function ThemeProviderCustom({ children }: Props): JSX.Element | null {
+    const [mounted, setMounted] = useState<boolean>(false);
+    useEffect(() => setMounted(true), []);
 
     if (!mounted) {
         return null;
@@ -19,7 +17,6 @@ export function ThemeProviderCustom({ children }: ProvidersProps): JSX.Element |
 
     return (
         <ThemeProvider
-            //  enableSystem={true} defaultTheme="system" enableColorScheme disableTransitionOnChange
             attribute="data-theme" // applies `class="light"` or `class="dark"` on <html>
             defaultTheme="system" // or 'light'/'dark'
             enableSystem={true}

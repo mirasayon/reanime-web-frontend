@@ -2,27 +2,18 @@ import { UtilityJSX } from "#/components/utilities/x_components";
 import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
 import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import Link from "next/link";
 class RelatedAnimesClass {
-    RelatedCardForAnime = async ({
-        shiki_id,
-        relation,
-    }: {
-        shiki_id: number;
-        relation: string;
-    }) => {
-        const data: JsonDB.ftype | null =
-            await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shiki_id);
+    RelatedCardForAnime = async ({ shiki_id, relation }: { shiki_id: number; relation: string }) => {
+        const data: JsonDB.ftype | null = await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shiki_id);
         return (
             data && (
-                <a
+                <Link
                     href={Global_Utilities.get_anime_url_by_id_and_type(data)}
                     className="w-[20rem] border-4 h-[240px] flex m-2 border-violet-300 p-2"
                 >
                     <img
-                        src={
-                            Global_Utilities.get_poster_image_url_by_filename(data.img) ||
-                            UtilityJSX.Default_poster(true)
-                        }
+                        src={Global_Utilities.get_poster_image_url_by_filename(data.img) || UtilityJSX.Default_poster(true)}
                         alt={`Обложка от аниме ${data.nms.ru}`}
                         className="rounded-sm object-cover h-[212px] w-[150px]"
                     />
@@ -38,17 +29,11 @@ class RelatedAnimesClass {
                             {Global_Utilities.get_type_of_anime(data)}
                         </span>
                     </div>
-                </a>
+                </Link>
             )
         );
     };
-    RelatedCardForManga({
-        data,
-        relation,
-    }: {
-        data: JsonDB.ftype["rels"][number]["manga"];
-        relation: string;
-    }) {
+    RelatedCardForManga({ data, relation }: { data: JsonDB.ftype["rels"][number]["manga"]; relation: string }) {
         if (!data) return;
         type ikind = typeof data.kind;
         function GetKindManga({ kind }: { kind: ikind }) {
@@ -68,9 +53,7 @@ class RelatedAnimesClass {
                     className="rounded-sm object-cover h-[212px] w-[150px]"
                 />
                 <div className="m-2">
-                    <UtilityJSX.BoldX className={` p-1 dark:bg-slate-700 bg-slate-300 `}>
-                        {relation}
-                    </UtilityJSX.BoldX>
+                    <UtilityJSX.BoldX className={` p-1 dark:bg-slate-700 bg-slate-300 `}>{relation}</UtilityJSX.BoldX>
                     <br />
                     <span>{data?.russian}</span>
                     <br />

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaRegRegistered } from "react-icons/fa";
@@ -39,16 +40,16 @@ function Avatar_Login() {
     const styles = () => `flex justify-between text-center hover:bg-blue-800/40 rounded cursor-pointer p-1 border-2`;
     return (
         <div className=" flex flex-col justify-between gap-2">
-            <a className={styles()} href="/auth/login">
+            <Link className={styles()} href="/auth/login">
                 <MdOutlineLogin size={40} fill={"white"} />
                 <span className="p-2 text-center">Войти</span>
-            </a>
+            </Link>
 
-            <a className={styles()} href="/auth/register">
+            <Link className={styles()} href="/auth/register">
                 <FaRegRegistered size={40} fill={"white"} />
 
                 <span className="p-2 text-center">Зарегистрироваться</span>
-            </a>
+            </Link>
         </div>
     );
 }

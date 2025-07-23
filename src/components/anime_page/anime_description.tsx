@@ -4,6 +4,7 @@ import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
 import type { JsonDB } from "#T/shared/json_db";
 import { rea_wrapper_border } from "#/styles/provider";
+import Link from "next/link";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function Anime_description({ current_user, anime, cover_image_src }: { cover_image_src: string; anime: JsonDB.ftype; current_user: null }) {
@@ -111,10 +112,10 @@ export function Anime_description({ current_user, anime, cover_image_src }: { co
                         <UtilityJSX.It_will_be_known_soon />
                     ) : (
                         anime.genres_ShM.map((genre, ind) => (
-                            <a href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
+                            <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
                                 {ind !== 0 && ","}{" "}
                                 <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre.russian}</span>
-                            </a>
+                            </Link>
                         ))
                     )}
                     <br />
