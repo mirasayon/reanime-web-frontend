@@ -16,8 +16,9 @@ export async function uploadImage(formData: FormData): UploadImageRT {
             hash: null,
         };
     }
-    const imageFile = formData.get(UserServiceMediaConfigs.avatar_file_name) as File | null;
-    if (!imageFile) {
+    const imageFile = formData.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+
+    if (!imageFile?.size) {
         return {
             errors: ["Изображение не добавлено"],
             hash: null,
@@ -26,7 +27,7 @@ export async function uploadImage(formData: FormData): UploadImageRT {
 
     // Example: read the bytes
     const arrayBuffer = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    // const buffer = Buffer.from(arrayBuffer);
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
     const forwardData = new FormData();
     forwardData.append("one_avatar_image_file", blob, imageFile.name);
@@ -34,6 +35,8 @@ export async function uploadImage(formData: FormData): UploadImageRT {
         url: `/v1/profile/avatar/set`,
         method: "POST",
         raw_body: forwardData,
+        agent: auth.agent,
+        ip: auth.ip,
         session_token: auth.data.session.token,
     });
 

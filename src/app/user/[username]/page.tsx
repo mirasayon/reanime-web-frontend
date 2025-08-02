@@ -7,7 +7,7 @@ import { NextJS_Types } from "#T/next";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
-import { Upload_avatar_or_show } from "../upload_avatar_or_show";
+import { Upload_avatar_or_show } from "../../../components/avatars/upload_avatar_or_show";
 import { Logout_user } from "#/components/auth/log-out";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 export default async function __Profile_Page({

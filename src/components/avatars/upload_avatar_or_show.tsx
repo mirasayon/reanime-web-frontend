@@ -1,0 +1,10 @@
+"use client";
+import { Profile } from "reanime/user-service/response/response-data-types.js";
+import { ShowAvatar } from "./show-avatar";
+import { UploadAvatar } from "./upload-avatar";
+export function Upload_avatar_or_show({ profile }: { profile: Profile }) {
+    // const [is_changed, set_changed] = useState<boolean>(false);
+    // const [is_hover, set_hover] = useState<boolean>(false);
+
+    return <div className=" flex">{profile.avatar_url_hash ? <ShowAvatar avatar={profile.avatar_url_hash} /> : <UploadAvatar />}</div>;
+}
