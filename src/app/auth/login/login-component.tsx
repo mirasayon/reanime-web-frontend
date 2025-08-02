@@ -1,40 +1,34 @@
 "use client";
-import { loginAction, ResponceActionType } from "#/actions/auth/login";
-import {
-    www_authentication_validator_schemas,
-    www_comment_validator_schemas_inputs,
-} from "@xamarin.city/reanime/user-service/validators/routes/authentication.request.js";
+import { loginAction } from "#/actions/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-
-export default function Login_Component() {
+import { authentication_schemas, dto } from "reanime/user-service/validators/authentication.js";
+export function Login_Component() {
     const [is_password_type, set_is_password_type] = useState<boolean>(false);
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors: clientErrors },
-    } = useForm<www_comment_validator_schemas_inputs["login"]>({
-        resolver: zodResolver(www_authentication_validator_schemas.login),
+    } = useForm<dto.login_via_username>({
+        resolver: zodResolver(authentication_schemas.login_via_username),
         mode: "onBlur",
     });
 
-    const [serverErrors, setServerErrors] = useState<ResponceActionType["errors"]>({});
+    const [serverErrors, setServerErrors] = useState<string[]>();
 
     const onSubmit = handleSubmit(((data) => {
-        setServerErrors({});
+        setServerErrors([]);
         // call the Server Action directly
         startTransition(async () => {
             const result = await loginAction(data);
-            if (Object.hasOwn(result, "errors")) {
-                setServerErrors(result.errors);
+            if (typeof result === "object") {
+                setServerErrors(result);
             }
-            // if ok, loginAction has already redirected
         });
-    }) as SubmitHandler<www_comment_validator_schemas_inputs["login"]>);
-    console.log(watch("username")); // watch input value by passing the name of it
+    }) as SubmitHandler<dto.login_via_username>);
     return (
         <div className="p-10 flex-row justify-evenly flex ">
             {/* /* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
@@ -63,11 +57,11 @@ export default function Login_Component() {
                         />
                     </div>
                     {clientErrors.username && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.username.message}</p>}
-                    {serverErrors?.username?.map((msg, i) => (
+                    {/* {serverErrors?.username?.map((msg, i) => (
                         <p key={i} className=" dark:text-red-600 text-red-800">
                             {msg}
                         </p>
-                    ))}
+                    ))} */}
                 </div>
                 <div className="PASSWORD">
                     {/* Password */}
@@ -100,14 +94,12 @@ export default function Login_Component() {
                     </div>
 
                     {clientErrors.password && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.password.message}</p>}
-                    {serverErrors?.password?.map((msg, i) => (
+                    {serverErrors?.map((msg, i) => (
                         <p key={i} className=" dark:text-red-600 text-red-800">
                             {msg}
                         </p>
                     ))}
                 </div>
-                {/* errors will return when field validation fails  */}
-                {clientErrors.password && <span>This field is required</span>}
 
                 <button className="p-2 m-1 mt-3 rounded-lg border-4 border-blue-500/50  cursor-pointer hover:bg-blue-500" type="submit">
                     Войти

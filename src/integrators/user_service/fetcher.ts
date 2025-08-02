@@ -1,64 +1,47 @@
 "use server";
 
 import { EnvConfig } from "#/configs/env";
-
-export async function Post<T extends unknown, B extends {}>({
+import { UserServiceResponceBodyPattern } from "reanime/user-service/response/types.js";
+export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     url,
-    cookies,
     agent,
-    body,
+    method,
+    session_token,
+    json_body,
     ip,
 }: {
+    method: "GET" | "POST" | "PUT" | "PATCH";
     url: string;
-    cookies: {
-        [key: string]: string | undefined;
-    };
-    body?: B;
+    json_body?: B;
+    session_token?: string;
     ip?: string;
     agent?: string;
-}): Promise<T> {
+}): Promise<UserServiceResponceBodyPattern<T>> {
     const full_url = EnvConfig.partners.user_service.url.current + url;
 
-    // Build headers
     const headers: HeadersInit = {
-        "Content-Type": "application/json",
+        ...(json_body ? { "Content-Type": "application/json" } : {}),
     };
-    // const _body: BodyInit = data !== undefined ? { body: JSON.stringify(data) } : {};
-    const cookieHeader = Object.entries(cookies)
-        .map(([name, val]) => {
-            if (!val) {
-                return "";
-            }
-            return `${name}=${val}`;
-        })
-        .join("; ");
-    if (cookieHeader) {
-        headers["cookie"] = cookieHeader;
-    }
-    // Forward the UA and IP if provided
     if (agent) {
         headers["user-agent"] = agent;
+    }
+    if (session_token) {
+        headers["Authorization"] = `Bearer ${session_token}`;
     }
     if (ip) {
         headers["x-forwarded-for"] = ip;
     }
     headers["x-reanime-user-service-key"] = EnvConfig.partners.user_service.api_key;
     const response = await fetch(full_url, {
-        method: "POST",
-        headers,
-        ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+        method: method,
+        headers: headers,
+        ...(json_body ? { body: JSON.stringify(json_body) } : {}),
         cache: "no-cache",
     });
+    const _req_json = await response.json();
+    const jsoned = _req_json as UserServiceResponceBodyPattern<T>;
     if (!response.ok) {
-        const text = await response.text().catch((e) => {
-            return "";
-        });
-        throw new Error(`POST ${full_url} failed: ${response.status} ${response.statusText}${text ? ` — ${text}` : ""}`);
+        return jsoned;
     }
-
-    const contentType = response.headers.get("content-type") ?? "";
-    if (contentType.includes("application/json")) {
-        return (await response.json()) as T;
-    }
-    throw new Error(`The server responded with unexpected data: ${response.body}`);
+    return jsoned;
 }
