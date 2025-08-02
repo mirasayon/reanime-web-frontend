@@ -10,7 +10,9 @@
 next-env.d.ts 
 # file explorer settings files
 desktop.ini
-get_help_from-ai.md
+get-help.md
 /temp
 /frequent-commands.md
-# /src/app/auth
+
+
+/credentials.yaml

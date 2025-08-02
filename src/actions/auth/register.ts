@@ -7,8 +7,13 @@ import { redirect, RedirectType } from "next/navigation";
 import { Authentication_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service";
+import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {
+    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    if (auth) {
+        return ["Вы уже авторизованы"];
+    }
     const parsed = await authentication_schemas.registration.safeParseAsync(data);
     if (!parsed.success) {
         const errorList = parsed.error.issues.map(({ path, message }) => {
@@ -26,6 +31,7 @@ export async function registerAction(data: dto.registration): Promise<void | str
 async function RegisterFetch(dto: RegFetchType) {
     const _cookies = await cookies();
     const _headers = await headers();
+
     const r6f_session_token = _cookies.get(UserService.session_token_name)?.value;
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;

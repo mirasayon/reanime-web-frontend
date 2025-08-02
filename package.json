@@ -19,6 +19,7 @@
         "@next/third-parties": "^15.4.5",
         "axios": "^1.11.0",
         "cookies-next": "^6.1.0",
+        "delay": "^6.0.0",
         "dotenv-cli": "^10.0.0",
         "next": "^15.4.5",
         "next-themes": "^0.4.6",

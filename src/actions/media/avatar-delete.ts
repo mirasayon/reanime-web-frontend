@@ -6,29 +6,39 @@ import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
 import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
 
-type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
-
-export async function LogOutAccount(): LogOutAccountRT {
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+type UploadImageRT = Promise<{
+    errors: string[];
+    ok: boolean;
+}>;
+/** `Server Action`
+ *
+ * Deleted A user avatar */
+export async function DeleteAvatar(): UploadImageRT {
+    const _cookies = await cookies();
+    const auth = await getSessionFromClient({ cookies: _cookies, headers: await headers() });
     if (!auth) {
-        return { errors: ["Вы не авторизованы"], ok: false };
+        return {
+            errors: ["Вы не авторизованы"],
+            ok: false,
+        };
     }
-
     const res = await UserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
-        url: `/v1/authentication/logout`,
+        url: `/v1/profile/avatar/delete`,
         method: "DELETE",
-        ip: auth.ip,
         agent: auth.agent,
+        ip: auth.ip,
         session_token: auth.data.session.token,
     });
 
     if (res.errors.length) {
+        console.log("avatar delete message: ", res.message);
         return { errors: res.errors, ok: false };
     }
-
     if (res.data) {
-        (await cookies()).delete(UserService.session_token_name);
-        return { errors: [], ok: true };
+        return { ok: true, errors: [] };
     }
-    return { errors: [], ok: false };
+    return {
+        errors: ["Что пошло не так"],
+        ok: false,
+    };
 }

@@ -5,7 +5,7 @@ import { Authentication_ResponseTypes } from "reanime/user-service/response/resp
 import { UserServiceFetcher } from "../user_service/fetcher";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;
-type AutherType = Authentication_ResponseTypes.check_session;
+type AutherType = { data: Authentication_ResponseTypes.check_session; ip?: string; agent?: string };
 export async function getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
     const agent = headers.get("user-agent") ?? undefined;
     const ip = headers.get("x-forwarded-for") ?? undefined;
@@ -17,6 +17,7 @@ export async function getSessionFromClient({ cookies, headers }: { cookies: Next
         ip: ip,
         session_token: session_token,
     });
+
     if (res.errors.length) {
         return null;
     }
@@ -25,7 +26,7 @@ export async function getSessionFromClient({ cookies, headers }: { cookies: Next
         return null;
     }
     if (res.status_code === 200) {
-        return res.data;
+        return { data: res.data, ip, agent };
     }
     return null;
 }

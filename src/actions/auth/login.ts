@@ -7,8 +7,13 @@ import { redirect, RedirectType } from "next/navigation";
 import { Authentication_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service";
+import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
+    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    if (auth) {
+        return ["Вы уже авторизованы"];
+    }
     const parsed = await authentication_schemas.login_via_username.safeParseAsync(data);
     if (!parsed.success) {
         const errorList = parsed.error.issues.map(({ path, message }) => {

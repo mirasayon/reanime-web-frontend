@@ -8,15 +8,20 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     method,
     session_token,
     json_body,
+    raw_body,
     ip,
 }: {
-    method: "GET" | "POST" | "PUT" | "PATCH";
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: string;
     json_body?: B;
     session_token?: string;
     ip?: string;
+    raw_body?: BodyInit | null | undefined;
     agent?: string;
 }): Promise<UserServiceResponceBodyPattern<T>> {
+    if (raw_body && json_body) {
+        throw new Error("Invalid body */3");
+    }
     const full_url = EnvConfig.partners.user_service.url.current + url;
 
     const headers: HeadersInit = {
@@ -36,6 +41,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
         method: method,
         headers: headers,
         ...(json_body ? { body: JSON.stringify(json_body) } : {}),
+        ...(raw_body ? { body: raw_body } : {}),
         cache: "no-cache",
     });
     const _req_json = await response.json();
