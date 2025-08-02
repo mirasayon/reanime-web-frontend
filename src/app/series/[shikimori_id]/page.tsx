@@ -11,7 +11,7 @@ import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
 import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -27,7 +27,7 @@ export default async function __Serial_shikimori_id_page({
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
-    const anime: JsonDB.ftype | null = await Reanime_Resource_Service_Api_Integrator.core.byid.series_by_id(current_shikimori_id);
+    const anime: JsonDB.ftype | null = await ResServiceApi.core.byid.series_by_id(current_shikimori_id);
 
     if (!anime) {
         return notFound();

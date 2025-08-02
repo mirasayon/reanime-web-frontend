@@ -1,11 +1,11 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 import Link from "next/link";
 class RelatedAnimesClass {
     RelatedCardForAnime = async ({ shiki_id, relation }: { shiki_id: number; relation: string }) => {
-        const data: JsonDB.ftype | null = await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shiki_id);
+        const data: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(shiki_id);
         return (
             data && (
                 <Link

@@ -6,7 +6,7 @@ import { Current_page_switcher } from "#/components/anime_page/current_page_swit
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 export default async function GenresPage({
     params,
     searchParams,
@@ -17,16 +17,11 @@ export default async function GenresPage({
     const p = await params;
     const sp = await searchParams;
     const genre_en = decodeURI(p.genre_en);
-    const desc = (await Reanime_Resource_Service_Api_Integrator.internals.get_desc_genres()).find(
-        (g) => g.english_name.toLowerCase() === genre_en,
-    );
+    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre_en);
     if (!desc) {
         return notFound();
     }
-    const _p = await Reanime_Resource_Service_Api_Integrator.core.by_genre(
-        genre_en,
-        Number(sp.c_page) || 1,
-    );
+    const _p = await ResServiceApi.core.by_genre(genre_en, Number(sp.c_page) || 1);
     if (!_p) {
         return notFound();
     }
@@ -37,25 +32,15 @@ export default async function GenresPage({
                     {desc.russian_name} - {desc.description}
                 </div>
             </div>
-            <Current_page_switcher
-                is_start_now={_p.is_start_now}
-                current_page={_p.current_page}
-                is_over_now={_p.is_over_now}
-            />
+            <Current_page_switcher is_start_now={_p.is_start_now} current_page={_p.current_page} is_over_now={_p.is_over_now} />
             <UtilityJSX.Anime_List_Component render_images={true} kodiks={_p.paginated} />
         </>
     );
 }
 
-export async function generateMetadata({
-    params,
-}: {
-    params: NextJS_Types.Params<{ genre_en: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ genre_en: string }> }): Promise<Metadata> {
     const genre_en = decodeURI((await params).genre_en);
-    const desc = (await Reanime_Resource_Service_Api_Integrator.internals.get_desc_genres()).find(
-        (g) => g.english_name.toLowerCase() === genre_en,
-    );
+    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre_en);
     if (!desc) {
         return notFound();
     }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 import { paginated } from "#T/apis/resource_service_integrator";
 import { filters_uids, list_anime_ru, metadata404 } from "#/constants/common.constants";
 
@@ -19,8 +19,8 @@ export default async function List_Page({
     if (!filters_uids.includes(filter)) {
         return notFound();
     }
-    type c = keyof typeof Reanime_Resource_Service_Api_Integrator.cate;
-    const _p = (await Reanime_Resource_Service_Api_Integrator.cate[filter as c](Number((await searchParams).c_page) || 1)) as paginated;
+    type c = keyof typeof ResServiceApi.categories;
+    const _p = (await ResServiceApi.categories[filter as c](Number((await searchParams).c_page) || 1)) as paginated;
     if (!_p) {
         return notFound();
     }

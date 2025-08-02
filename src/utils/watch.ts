@@ -3,7 +3,7 @@ import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 import { metadata404 } from "#/constants/common.constants";
 
 class UtilsWatchClass {
@@ -13,7 +13,7 @@ class UtilsWatchClass {
         }
         const shikimori_id_web = Number(shikimori_id);
 
-        const anime: JsonDB.ftype | null = await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(shikimori_id_web);
+        const anime: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(shikimori_id_web);
         if (!anime) {
             return metadata404;
         }

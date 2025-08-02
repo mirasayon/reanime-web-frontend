@@ -5,13 +5,9 @@ import { Current_page_switcher } from "#/components/anime_page/current_page_swit
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 
-export default async function Root_search_page({
-    searchParams,
-}: {
-    searchParams: NextJS_Types.SearchParams;
-}) {
+export default async function Root_search_page({ searchParams }: { searchParams: NextJS_Types.SearchParams }) {
     const sq = await searchParams;
     const search_query = sq.search_query as string | undefined;
     if (!search_query || !/\S/.test(search_query)) {
@@ -19,7 +15,7 @@ export default async function Root_search_page({
     }
     const page = sq.c_page ? Number(sq.c_page) || 1 : 1;
     const raw_query = decodeURI(search_query);
-    const p_ = await Reanime_Resource_Service_Api_Integrator.core.search(raw_query, page);
+    const p_ = await ResServiceApi.core.search(raw_query, page);
 
     if (!p_) {
         return <Found_no_animes />;
@@ -27,20 +23,12 @@ export default async function Root_search_page({
     return (
         <>
             <UtilityJSX.Anime_List_Component kodiks={p_.paginated} render_images={true} />
-            <Current_page_switcher
-                is_start_now={p_.is_start_now}
-                current_page={p_.current_page}
-                is_over_now={p_.is_over_now}
-            />
+            <Current_page_switcher is_start_now={p_.is_start_now} current_page={p_.current_page} is_over_now={p_.is_over_now} />
         </>
     );
 }
 
-export async function generateMetadata({
-    searchParams,
-}: {
-    searchParams: NextJS_Types.SearchParams;
-}): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: { searchParams: NextJS_Types.SearchParams }): Promise<Metadata> {
     const sq = (await searchParams).q;
     return {
         title: `Поиск по запросу \"${sq}\" | ${WebsiteConfigs.public_domain}`,

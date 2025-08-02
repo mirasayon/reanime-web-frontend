@@ -1,6 +1,6 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { Reanime_Resource_Service_Api_Integrator } from "#/integrators/resource_service.integrator";
+import { ResServiceApi } from "#/integrators/resource-service/index";
 import { EnvConfig } from "#/configs/env";
 class UtilsClass {
     get_poster_image_url_by_filename = (filename?: string) => {
@@ -15,8 +15,7 @@ class UtilsClass {
     get_type_of_anime = (data: JsonDB.ftype) => {
         return data.t ? "Фильм" : ("ТВ Сериал" as const);
     };
-    get_anime_url_by_id_and_type = (data: JsonDB.ftype) =>
-        `/${data.t ? "movie" : "series"}/${data.sid}` as const;
+    get_anime_url_by_id_and_type = (data: JsonDB.ftype) => `/${data.t ? "movie" : "series"}/${data.sid}` as const;
 
     set_top_chart_animes_image_url = (segment: string) =>
         `${EnvConfig.partners.resource_service.url.current}/storage/animes/tcaps/${segment}` as const;
@@ -38,30 +37,26 @@ class UtilsClass {
     }) => {
         const watching_animes_kodiks: JsonDB.ftype[] = [];
         for await (const element of watching_animes_ids) {
-            const watching_: JsonDB.ftype | null =
-                await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(element);
+            const watching_: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(element);
             watching_ && watching_animes_kodiks.push(watching_);
         }
 
         const viewed_animes: JsonDB.ftype[] = [];
         for await (const element of viewed_animes_ids) {
-            const watching_: JsonDB.ftype | null =
-                await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(element);
+            const watching_: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(element);
             watching_ && viewed_animes.push(watching_);
         }
 
         const inplan_animes_kodiks: JsonDB.ftype[] = [];
         for await (const element of inplan_animes_ids) {
-            const watching_: JsonDB.ftype | null =
-                await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(element);
+            const watching_: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(element);
             watching_ && inplan_animes_kodiks.push(watching_);
         }
 
         const liked_animes_kodiks: JsonDB.ftype[] = [];
 
         for await (const element of liked_animes_ids) {
-            const liked_: JsonDB.ftype | null =
-                await Reanime_Resource_Service_Api_Integrator.core.byid.any_by_id(element);
+            const liked_: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(element);
             liked_ && liked_animes_kodiks.push(liked_);
         }
 

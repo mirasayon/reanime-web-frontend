@@ -10,7 +10,7 @@ export default async function __Registeration() {
     const is_logged = await getSessionFromClient({ headers: _headers, cookies: _cookies });
 
     if (is_logged) {
-        return redirect(`/user/${is_logged.account.username}`);
+        return redirect(`/user/${is_logged.data.account.username}`);
     }
     return <Register_Component />;
 }
