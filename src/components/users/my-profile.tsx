@@ -1,50 +1,10 @@
 import React from "react";
 import { Account, Profile } from "reanime/user-service/response/response-data-types.js";
+import { Card, Badge, CardContent } from "./dashboard/common";
 
-export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={`bg-white text-white dark:bg-blue-500/20 m-2 rounded-sm shadow p-4 ${className}`}>{children}</div>;
-}
-
-export function CardContent({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={className}>{children}</div>;
-}
-
-export function Avatar({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={`overflow-hidden ${className}`}>{children}</div>;
-}
-
-export function AvatarImage({ src }: { src?: string }) {
-    return src ? <img src={src} alt="avatar" className="w-full h-full object-contain rounded-sm" /> : null;
-}
-
-export function AvatarFallback({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={`flex items-center justify-center w-full h-full bg-gray-400 text-white ${className}`}>{children}</div>;
-}
-
-export function Badge({ children, variant = "outline" }: { children: React.ReactNode; variant?: string }) {
-    const styles =
-        variant === "outline"
-            ? "border border-gray-400 text-gray-700 dark:text-blue-100 px-2 py-0.5 rounded"
-            : "bg-gray-700 text-white px-2 py-0.5 rounded";
-    return <span className={styles}>{children}</span>;
-}
-
-export function My_Profile_Dashboard({
-    profile: { nickname, avatar_url_hash, cover_url_hash, bio },
-    account,
-}: {
-    profile: Profile;
-    account: Account;
-}) {
+export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Account }) {
     return (
         <div className="py-4 flex flex-col">
-            {/* {avatar_url_hash && (
-                <div
-                    className="h-48 w-full rounded-2xl bg-cover bg-center mb-6 shadow-sm"
-                    style={{ backgroundImage: `url(https://media-service.reanime.art/storage/avatar/${avatar_url_hash}` }}
-                />
-            )} */}
-
             <Card className="flex gap-6 items-start">
                 <Badge>
                     <CardContent className="flex-1">

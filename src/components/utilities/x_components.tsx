@@ -2,7 +2,7 @@ import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JsonDB } from "#T/shared/json_db";
 import Link from "next/link";
-class UtilityJSXClass {
+export const UtilityJSX = new (class UtilityJSXClass {
     LinkX = ({ children, href, email, className }: { className?: string | undefined; children: React.ReactNode; email?: boolean; href: string }) => {
         return (
             <Link
@@ -13,7 +13,6 @@ class UtilityJSXClass {
             </Link>
         );
     };
-
     BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
         return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
     };
@@ -64,5 +63,4 @@ class UtilityJSXClass {
     Default_poster = (is_dark = true) => {
         return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
     };
-}
-export const UtilityJSX = new UtilityJSXClass();
+})();

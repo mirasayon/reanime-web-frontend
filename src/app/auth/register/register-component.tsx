@@ -42,7 +42,7 @@ export function Register_Component() {
                         Ваш никнейм
                     </label>
                     <div className={" border-4  border-slate-600 rounded-lg p-2"}>
-                        <span className="text-slate-400">@</span>
+                        {/* <span className="text-slate-400">@</span> */}
                         {/* Login */}
                         <input
                             className={"pl-2 bg-transparent font-mono outline-none"}

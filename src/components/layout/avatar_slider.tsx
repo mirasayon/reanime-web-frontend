@@ -5,7 +5,9 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegRegistered } from "react-icons/fa";
 import { MdCancelPresentation } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
-export function Avatar_slider() {
+import { Profile } from "reanime/user-service/response/response-data-types.js";
+import { AvatarImage } from "../users/dashboard/common";
+export function Avatar_slider({ profile }: { profile?: Profile }) {
     const [is_open, set_is_open] = useState(false);
     return (
         <>
@@ -19,7 +21,16 @@ export function Avatar_slider() {
                             set_is_open((p) => !p);
                         }}
                     >
-                        {is_open ? <MdCancelPresentation size={40} /> : <CgProfile size={40} />}
+                        {" "}
+                        {profile ? (
+                            <div>
+                                <AvatarImage className="w-8" avatar={profile.avatar_url_hash} />
+                            </div>
+                        ) : is_open ? (
+                            <MdCancelPresentation size={40} />
+                        ) : (
+                            <CgProfile size={40} />
+                        )}
                     </button>
                 </div>
 
@@ -27,7 +38,13 @@ export function Avatar_slider() {
                     <div className={`absolute right-[0px] top-[70px] dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
                         <div className={`${is_open ? "" : "hidden"} flex flex-col `}>
                             <div className={"m-1 p-2"}>
-                                <Avatar_Login />
+                                {profile ? (
+                                    <div>
+                                        <AvatarImage avatar={profile.avatar_url_hash} />
+                                    </div>
+                                ) : (
+                                    <Avatar_Login />
+                                )}
                             </div>
                         </div>
                     </div>

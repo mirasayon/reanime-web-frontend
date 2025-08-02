@@ -2,13 +2,7 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { useState } from "react";
 
-export function Normalize_age_rating({
-    rating,
-    minimal_age,
-}: {
-    rating: JsonDB.ftype["rating_mpaa"];
-    minimal_age: number | null;
-}) {
+export function Normalize_age_rating({ rating, minimal_age }: { rating: JsonDB.ftype["rating_mpaa"]; minimal_age: number | null }) {
     const [is_hover, set_hover] = useState(false);
     let age_rating_number: string | number | "_" | undefined = minimal_age || rating;
     let normal_age_rating: string | undefined = rating;
@@ -24,8 +18,7 @@ export function Normalize_age_rating({
         case "r":
         case "R":
             age_rating_number = "16+";
-            rating_description =
-                "Подростки, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении взрослых.";
+            rating_description = "Подростки, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении взрослых.";
             normal_age_rating = "R";
             break;
         case "R+":
@@ -40,6 +33,9 @@ export function Normalize_age_rating({
             normal_age_rating = "_";
             break;
         default:
+            age_rating_number = "Неизвестно";
+            rating_description = "Скоро будет известно...";
+            normal_age_rating = "_";
             break;
     }
 

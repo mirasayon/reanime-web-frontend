@@ -1,7 +1,6 @@
 "use client";
 import "#/styles/global/main.tailwind.css";
 import { inter } from "#/fonts/import";
-import { Footer } from "#/components/layout/globals";
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (
         <html lang="ru">
@@ -14,9 +13,6 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
                             Попробовать снова
                         </button>
                     </div>
-                </div>
-                <div className=" sticky bottom-0">
-                    <Footer />
                 </div>
             </body>
         </html>

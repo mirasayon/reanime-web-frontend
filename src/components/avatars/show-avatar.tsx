@@ -1,11 +1,10 @@
 "use client";
-import { profile } from "console";
-import { Avatar, AvatarImage, AvatarFallback } from "../users/my-profile";
 import { useState } from "react";
 import { DeleteAvatar } from "#/actions/media/avatar-delete";
 import { Logger } from "reanime/logger/chalk.js";
 import delay from "delay";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarImage } from "../users/dashboard/common";
 
 export function ShowAvatar({ avatar }: { avatar: string }) {
     const [clientErrors, setclientErrors] = useState<string[]>([]);
@@ -27,7 +26,7 @@ export function ShowAvatar({ avatar }: { avatar: string }) {
         <div>
             <div className=" flex flex-col">
                 <Avatar className="w-28 h-28 shadow-md">
-                    <AvatarImage src={avatar ? `https://media-service.reanime.art/storage/avatar/${avatar}` : undefined} />
+                    <AvatarImage avatar={avatar ?? undefined} />
                     {/* <AvatarFallback className="text-lg font-semibold">{profile.nickname?.[0] || "U"}</AvatarFallback> */}
                 </Avatar>
                 <form action={deleteAvatarHandle} className=" flex p-2 m-2 ">

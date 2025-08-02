@@ -3,9 +3,10 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next/client";
 import { two_thousand_years } from "#/constants/common.constants";
+import { FooterConfigEnum } from "./enum";
 export function Cookie_consent_banner() {
     const [render, set_render] = useState<boolean>(false);
-    const r6_cookies_consent = getCookie("r6_cookies_consent") as undefined | string | boolean;
+    const r6_cookies_consent = getCookie(FooterConfigEnum.cookies_consent_value_name) as undefined | string | boolean;
     useEffect(() => {
         if (!r6_cookies_consent) {
             return set_render(() => true);
@@ -25,7 +26,7 @@ export function Cookie_consent_banner() {
                         onClick={(event) => {
                             event.preventDefault();
                             set_render((pr) => false);
-                            setCookie("r6_cookies_consent", "TRUE", {
+                            setCookie(FooterConfigEnum.cookies_consent_value_name, "TRUE", {
                                 maxAge: two_thousand_years,
                                 path: "/",
                                 httpOnly: false,

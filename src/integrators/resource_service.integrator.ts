@@ -2,7 +2,7 @@ import type { paginated } from "#T/apis/resource_service_integrator";
 import type { JsonDB } from "#T/shared/json_db";
 import type { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface";
 import { EnvConfig } from "#/configs/env";
-class Fetcher {
+const fGet = new (class Fetcher {
     private baseUrl = EnvConfig.partners.resource_service.url.current;
     get = async <T>(url: URL | string) => {
         try {
@@ -28,14 +28,11 @@ class Fetcher {
             return null;
         }
     };
-}
-const fGet = new Fetcher();
+})();
 
 class Categories {
     series = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/series?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/series?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -43,9 +40,7 @@ class Categories {
     };
 
     movie = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/movie?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/movie?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -53,9 +48,7 @@ class Categories {
     };
 
     released = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/released?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/released?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -63,18 +56,14 @@ class Categories {
     };
 
     list_all = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/list_all?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/list_all?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
         return json;
     };
     popular = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/popular?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/popular?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -82,9 +71,7 @@ class Categories {
     };
 
     this_year = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/this_year?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/this_year?page=${page}&interval=${interval}`);
         if (!json) {
             return [];
         }
@@ -92,9 +79,7 @@ class Categories {
     };
 
     ongoing = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/categories/ongoing?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/categories/ongoing?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -105,18 +90,14 @@ class Categories {
 class Core {
     byid = new Get_by_id();
     by_genre = async (genre: string, page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/genre/${genre}?page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/genre/${genre}?page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
         return json;
     };
     search = async (search_query: string, page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(
-            `/animedb/search?search_query=${search_query}&page=${page}&interval=${interval}`,
-        );
+        const json = await fGet.get<paginated>(`/animedb/search?search_query=${search_query}&page=${page}&interval=${interval}`);
         if (!json) {
             return null;
         }
@@ -167,10 +148,9 @@ class Internals {
         return json;
     };
 }
-class ReanimeAPIClass {
+
+export const Reanime_Resource_Service_Api_Integrator = new (class ReanimeAPIClass {
     core = new Core();
     cate = new Categories();
     internals = new Internals();
-}
-
-export const Reanime_Resource_Service_Api_Integrator = new ReanimeAPIClass();
+})();
