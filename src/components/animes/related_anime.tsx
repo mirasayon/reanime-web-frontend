@@ -3,7 +3,7 @@ import type { JsonDB } from "#T/shared/json_db";
 import { Global_Utilities } from "#/utils/functions";
 import { ResServiceApi } from "#/integrators/resource-service/index";
 import Link from "next/link";
-class RelatedAnimesClass {
+export const RelatedAnimes = new (class RelatedAnimesClass {
     RelatedCardForAnime = async ({ shiki_id, relation }: { shiki_id: number; relation: string }) => {
         const data: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(shiki_id);
         return (
@@ -63,5 +63,4 @@ class RelatedAnimesClass {
             </div>
         );
     }
-}
-export const RelatedAnimes = new RelatedAnimesClass();
+})();

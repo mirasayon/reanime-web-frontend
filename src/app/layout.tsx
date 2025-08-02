@@ -24,7 +24,7 @@ export default async function __Root_layout(props: NextJS_Types.LayoutProps) {
             <Google_TagManager />
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
-                    <Layout_Header profile={auth?.data.profile} />
+                    <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
                     {props.children}
                     <Layout_Footer />
                     <Cookie_consent_banner />

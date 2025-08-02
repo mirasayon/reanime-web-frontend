@@ -11,9 +11,9 @@ export function Logout_user() {
     async function LogOutAccountHandle(fd: FormData) {
         const res = await LogOutAccount();
         if (res.errors.length) {
-            setclientErrors(res.errors);
+            return setclientErrors(res.errors);
         }
-        // _router.push("/");
+        _router.push("/");
     }
     return (
         <div>
