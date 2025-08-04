@@ -1,10 +1,11 @@
 import { EnvConfig } from "#/configs/env";
 import Script from "next/script";
+import { JSX } from "react";
 
 /** Yandex Metrika Analytics */
-export const Yandex_Mekrika_Analytics = () => {
+export const Yandex_Mekrika_Analytics = (): JSX.Element | null => {
     if (!EnvConfig.mode.prod) {
-        return;
+        return null;
     }
     return (
         <>

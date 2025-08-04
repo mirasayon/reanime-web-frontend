@@ -12,13 +12,6 @@ export function Others_Profile_Dashboard({
     return (
         <div className="py-4 flex flex-col">
             <Card className="flex gap-6 items-start">
-                <Avatar className="w-28 h-28 shadow-md">
-                    <AvatarImage
-                        className="w-full h-full object-contain rounded-sm "
-                        avatar={avatar_url_hash ? `https://media-service.reanime.art/storage/avatar/${avatar_url_hash}` : undefined}
-                    />
-                    <AvatarFallback className="text-lg font-semibold">{nickname?.[0] || "U"}</AvatarFallback>
-                </Avatar>
                 <Badge>
                     <CardContent className="flex-1">
                         <h2 className="text-2xl font-bold mb-1">@{account.username}</h2>

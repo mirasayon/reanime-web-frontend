@@ -20,7 +20,7 @@ export function Logout_user() {
             <form action={LogOutAccountHandle}>
                 <button
                     type="button"
-                    className={`m-2 cursor-pointer p-2 ${confirm ? "bg-blue-500" : "bg-red-500 "} text-black`}
+                    className={`m-2 cursor-pointer p-2 ${confirm ? "bg-blue-500" : "bg-red-500 "} text-black dark:text-white`}
                     onClick={(e) => {
                         e.preventDefault();
                         set_confirm((pr) => !pr);
@@ -29,7 +29,7 @@ export function Logout_user() {
                     {confirm === false ? "Выйти" : "Отмена"}
                 </button>
                 {confirm && (
-                    <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black"}>
+                    <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white`"}>
                         Подтвердить
                     </button>
                 )}

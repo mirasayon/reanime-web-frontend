@@ -12,14 +12,11 @@ import type { NextJS_Types } from "#T/next";
 import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";
-
-export default async function Movie_shiki_id_page({
-    params,
-    searchParams,
-}: {
+type Props = {
     params: NextJS_Types.Params<{ shikimori_id: string }>;
     searchParams: NextJS_Types.SearchParams;
-}) {
+};
+export default async function __MovieWatchPage({ params, searchParams }: Props) {
     const p = await params;
     const sp = await searchParams;
     const shikimori_id_web = p.shikimori_id;
