@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { DeleteAvatar } from "#/actions/media/avatar-delete";
-import { Logger } from "reanime/logger/chalk.js";
 import delay from "delay";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarImage } from "../users/dashboard/common";
@@ -17,8 +16,9 @@ export function ShowAvatar({ avatar }: { avatar: string }) {
             return;
         }
         if (res.ok) {
-            Logger.gray("DELETED");
+            console.log("pre");
             await delay(3000);
+            console.log("post");
             _router.refresh();
         }
     }

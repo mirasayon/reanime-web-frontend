@@ -1,4 +1,4 @@
-import { uploadImage } from "#/actions/media/avatar-upload";
+import { uploadImage } from "#/actions/media/avatar-set.s-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
 import delay from "delay";
 import { useRouter } from "next/navigation";

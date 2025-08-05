@@ -23,8 +23,8 @@ export function Avatar_slider({ profile, account }: { profile: Profile | null; a
                     >
                         {" "}
                         {profile ? (
-                            <div>
-                                <AvatarImage className="w-8" avatar={profile.avatar_url_hash} />
+                            <div className="">
+                                <AvatarImage className="size-12 rounded-full" avatar={profile.avatar_url_hash} />
                             </div>
                         ) : is_open ? (
                             <MdCancelPresentation size={40} />

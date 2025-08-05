@@ -29,7 +29,7 @@ export function Logout_user() {
                     {confirm === false ? "Выйти" : "Отмена"}
                 </button>
                 {confirm && (
-                    <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white`"}>
+                    <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white  "}>
                         Подтвердить
                     </button>
                 )}

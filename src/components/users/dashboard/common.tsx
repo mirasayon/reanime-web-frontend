@@ -9,9 +9,9 @@ export function CardContent({ children, className = "" }: { children: React.Reac
 export function Avatar({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     return <div className={`overflow-hidden ${className}`}>{children}</div>;
 }
-export type AvatarImageProps = {
+type AvatarImageProps = {
     /** hash */
-    avatar?: string | null;
+    avatar: string | null;
     className?: string;
 };
 export function AvatarImage({ avatar, className }: AvatarImageProps) {

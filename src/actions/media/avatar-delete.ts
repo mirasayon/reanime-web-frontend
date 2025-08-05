@@ -4,6 +4,7 @@ import { UserService } from "#/configs/user-service";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
+import { STATUS_MAP } from "reanime/user-service/response/constants.js";
 import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
 
 type UploadImageRT = Promise<{
@@ -37,8 +38,14 @@ export async function DeleteAvatar(): UploadImageRT {
     if (res.data) {
         return { ok: true, errors: [] };
     }
+    if (res.status_code === STATUS_MAP.TOO_MANY_REQUESTS) {
+        return {
+            errors: ["Слишком много запросов. Попробуйте позже"],
+            ok: false,
+        };
+    }
     return {
-        errors: ["Что пошло не так"],
+        errors: ["Что-то пошло не так"],
         ok: false,
     };
 }

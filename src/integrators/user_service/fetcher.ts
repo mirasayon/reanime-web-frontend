@@ -2,6 +2,15 @@
 
 import { EnvConfig } from "#/configs/env";
 import { UserServiceResponceBodyPattern } from "reanime/user-service/response/types.js";
+type Props<B> = {
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    url: `/v1/${"profile" | "authentication" | "ping" | "account" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;
+    json_body?: B;
+    session_token?: string;
+    ip: string | undefined;
+    raw_body?: BodyInit | null | undefined;
+    agent: string | undefined;
+};
 export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     url,
     agent,
@@ -10,15 +19,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     json_body,
     raw_body,
     ip,
-}: {
-    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    url: string;
-    json_body?: B;
-    session_token?: string;
-    ip?: string;
-    raw_body?: BodyInit | null | undefined;
-    agent?: string;
-}): Promise<UserServiceResponceBodyPattern<T>> {
+}: Props<B>): Promise<UserServiceResponceBodyPattern<T>> {
     if (raw_body && json_body) {
         throw new Error("Invalid body */3");
     }
