@@ -5,7 +5,7 @@ import { ResServiceApi } from "#/integrators/resource-service/index";
 import Link from "next/link";
 export const RelatedAnimes = new (class RelatedAnimesClass {
     RelatedCardForAnime = async ({ shiki_id, relation }: { shiki_id: number; relation: string }) => {
-        const data: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(shiki_id);
+        const data: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(shiki_id);
         return (
             data && (
                 <Link

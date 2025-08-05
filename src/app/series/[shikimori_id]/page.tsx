@@ -27,7 +27,7 @@ export default async function __Serial_shikimori_id_page({
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
-    const anime: JsonDB.ftype | null = await ResServiceApi.core.byid.series_by_id(current_shikimori_id);
+    const anime: JsonDB.ftype | null = await ResServiceApi.byid.series_by_id(current_shikimori_id);
 
     if (!anime) {
         return notFound();

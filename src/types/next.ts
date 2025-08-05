@@ -8,3 +8,5 @@ export namespace NextJS_Types {
         children: React.ReactNode;
     }>;
 }
+/** Awaited Nextjs's Search Query data */
+export type AwaitedNextSQ = Awaited<NextJS_Types.SearchParams>;

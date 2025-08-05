@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
 import Link from "next/link";
-export default function NotFoundPage() {
+export default function __NotFoundPage() {
     return (
         <div className={"justify-center items-center text-center flex flex-col text-xl mb-40"}>
             <Link href={"/"}>
@@ -17,5 +17,5 @@ export default function NotFoundPage() {
     );
 }
 export const metadata: Metadata = {
-    title: `Страница не найдено | ${WebsiteConfigs.public_domain}`,
+    title: `Страница не найдена | ${WebsiteConfigs.public_domain}`,
 };

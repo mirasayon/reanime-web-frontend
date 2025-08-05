@@ -11,6 +11,8 @@ export async function ShowOthersProfile({ username }: Props): Promise<JSX.Elemen
     const base_profile_data = await UserServiceFetcher<Profile_ResponseTypes.view_other_profiles>({
         method: "GET",
         url: `/v1/profile/explore_others_profile/${username}`,
+        ip: undefined,
+        agent: undefined,
     });
 
     if (base_profile_data.status_code === 404) {

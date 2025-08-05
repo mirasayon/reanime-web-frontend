@@ -13,7 +13,7 @@ class UtilsWatchClass {
         }
         const shikimori_id_web = Number(shikimori_id);
 
-        const anime: JsonDB.ftype | null = await ResServiceApi.core.byid.any_by_id(shikimori_id_web);
+        const anime: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(shikimori_id_web);
         if (!anime) {
             return metadata404;
         }

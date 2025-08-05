@@ -2,11 +2,11 @@ import { UtilityJSX } from "#/components/utilities/x_components";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
 import React from "react";
-import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
 import { ResServiceApi } from "#/integrators/resource-service/index";
+import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
 export default async function GenresPage({
     params,
     searchParams,
@@ -14,15 +14,13 @@ export default async function GenresPage({
     params: NextJS_Types.Params<{ genre_en: string }>;
     searchParams: NextJS_Types.SearchParams;
 }) {
-    const p = await params;
-    const sp = await searchParams;
-    const genre_en = decodeURI(p.genre_en);
-    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre_en);
-    if (!desc) {
+    const res = await ResServiceApi.by_genre(await searchParams, (await params).genre_en);
+    if (!res) {
         return notFound();
     }
-    const _p = await ResServiceApi.core.by_genre(genre_en, Number(sp.c_page) || 1);
-    if (!_p) {
+    const { data, input } = res;
+    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === input.genre);
+    if (!desc) {
         return notFound();
     }
     return (
@@ -32,8 +30,8 @@ export default async function GenresPage({
                     {desc.russian_name} - {desc.description}
                 </div>
             </div>
-            <Current_page_switcher is_start_now={_p.is_start_now} current_page={_p.current_page} is_over_now={_p.is_over_now} />
-            <UtilityJSX.Anime_List_Component render_images={true} kodiks={_p.paginated} />
+            <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
+            <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );
 }

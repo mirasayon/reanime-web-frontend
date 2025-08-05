@@ -24,7 +24,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const movie: JsonDB.ftype | null = await ResServiceApi.core.byid.movie_by_id(current_shikimori_id);
+    const movie: JsonDB.ftype | null = await ResServiceApi.byid.movie_by_id(current_shikimori_id);
     if (!movie) {
         return notFound();
     }

@@ -1,11 +1,11 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { notFound } from "next/navigation";
-import { Current_page_switcher } from "#/components/anime_page/current_page_switcher";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { ResServiceApi } from "#/integrators/resource-service/index";
-import { paginated } from "#T/apis/resource_service_integrator";
 import { filters_uids, list_anime_ru, metadata404 } from "#/constants/common.constants";
+import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
+import { WebsiteConfigs } from "#/configs/website";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({
@@ -20,15 +20,15 @@ export default async function List_Page({
         return notFound();
     }
     type c = keyof typeof ResServiceApi.categories;
-    const _p = (await ResServiceApi.categories[filter as c](Number((await searchParams).c_page) || 1)) as paginated;
-    if (!_p) {
+    const res = await ResServiceApi.categories[filter as c](await searchParams);
+    if (!res) {
         return notFound();
     }
-
+    const { data, input } = res;
     return (
         <>
-            <Current_page_switcher is_start_now={_p.is_start_now} current_page={_p.current_page} is_over_now={_p.is_over_now} />
-            <UtilityJSX.Anime_List_Component render_images={true} kodiks={_p.paginated} />
+            <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
+            <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );
 }
@@ -40,6 +40,6 @@ export async function generateMetadata({ params }: { params: NextJS_Types.Params
     }
     const desc = list_anime_ru[filter];
     return {
-        title: `Категории: ${desc}`,
+        title: `${desc} | ${WebsiteConfigs.public_domain}`,
     } satisfies Metadata;
 }

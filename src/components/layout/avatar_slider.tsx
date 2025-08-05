@@ -6,7 +6,7 @@ import { FaRegRegistered } from "react-icons/fa";
 import { MdCancelPresentation } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { Account, Profile } from "reanime/user-service/response/response-data-types.js";
-import { AvatarImage } from "../users/dashboard/common";
+import { Avatar, AvatarFallback, AvatarImage } from "#/shadcn-ui/components/ui/avatar";
 export function Avatar_slider({ profile, account }: { profile: Profile | null; account: Account | null }) {
     const [is_open, set_is_open] = useState(false);
     return (
@@ -22,9 +22,13 @@ export function Avatar_slider({ profile, account }: { profile: Profile | null; a
                         }}
                     >
                         {" "}
-                        {profile ? (
+                        {profile && account ? (
                             <div className="">
-                                <AvatarImage className="size-12 rounded-full" avatar={profile.avatar_url_hash} />
+                                <Avatar>
+                                    <AvatarImage src={`https://media-service.reanime.art/storage/avatar/${profile.avatar_url_hash}`} />
+                                    <AvatarFallback>{profile.nickname ?? account.username}</AvatarFallback>
+                                </Avatar>
+                                {/* <AvatarImage className="size-12 rounded-full" avatar={profile.avatar_url_hash} /> */}
                             </div>
                         ) : is_open ? (
                             <MdCancelPresentation size={40} />

@@ -2,6 +2,7 @@ import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JsonDB } from "#T/shared/json_db";
 import Link from "next/link";
+import { AnimeElConfig } from "./config";
 export const UtilityJSX = new (class UtilityJSXClass {
     LinkX = ({ children, href, email, className }: { className?: string | undefined; children: React.ReactNode; email?: boolean; href: string }) => {
         return (
@@ -25,11 +26,11 @@ export const UtilityJSX = new (class UtilityJSXClass {
             <></>
         );
     };
-    Anime_List_Component = ({ kodiks, render_images }: { kodiks: JsonDB.ftype[]; render_images: boolean }): React.JSX.Element => {
+    Anime_List_Component = ({ kodiks }: { kodiks: JsonDB.ftype[] }): React.JSX.Element => {
         return (
             <div className=" flex  flex-wrap justify-around ">
                 {kodiks.map((kodik, arr_ind) => (
-                    <Anime_card_main index={arr_ind} render_images={render_images} key={kodik.sid} data={kodik} />
+                    <Anime_card_main index={arr_ind} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
                 ))}
             </div>
         );

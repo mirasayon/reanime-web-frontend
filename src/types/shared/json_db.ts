@@ -187,6 +187,7 @@ export namespace JsonDB {
         is_over_now: boolean;
         current_page: number;
         is_start_now: boolean;
+        total_length: number;
     };
     export type Search_data = {
         t?: true;

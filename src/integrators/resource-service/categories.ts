@@ -1,59 +1,84 @@
 import { paginated } from "#T/apis/resource_service_integrator";
-import { fGet } from "./fetcher";
-
+import { AwaitedNextSQ } from "#T/next";
+import { ResourseServiceFetcher } from "./fetcher";
+import { ValidateSearchQuery } from "./validators/validate-searchquery-for-resource-service";
+type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
+/** `res service`/categories */
 export const ResService_Categories = new (class ResService_Categories {
-    series = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/series?page=${page}&interval=${interval}`);
-        if (!json) {
+    series = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(`/animedb/categories/series?page=${input.current_page}&interval=${input.page_size}`);
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
     };
 
-    movie = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/movie?page=${page}&interval=${interval}`);
-        if (!json) {
+    movie = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(`/animedb/categories/movie?page=${input.current_page}&interval=${input.page_size}`);
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
     };
 
-    released = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/released?page=${page}&interval=${interval}`);
-        if (!json) {
+    released = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(
+                `/animedb/categories/released?page=${input.current_page}&interval=${input.page_size}`,
+            );
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
     };
 
-    list_all = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/list_all?page=${page}&interval=${interval}`);
-        if (!json) {
+    list_all = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(`/animedb/list_all?page=${input.current_page}&interval=${input.page_size}`);
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
     };
-    popular = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/popular?page=${page}&interval=${interval}`);
-        if (!json) {
+    popular = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(
+                `/animedb/categories/popular?page=${input.current_page}&interval=${input.page_size}`,
+            );
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
-    };
-
-    this_year = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/this_year?page=${page}&interval=${interval}`);
-        if (!json) {
-            return [];
-        }
-        return json;
     };
 
-    ongoing = async (page: number, interval = 40) => {
-        const json = await fGet.get<paginated>(`/animedb/categories/ongoing?page=${page}&interval=${interval}`);
-        if (!json) {
+    this_year = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(
+                `/animedb/categories/this_year?page=${input.current_page}&interval=${input.page_size}`,
+            );
+            return { input, data };
+        } catch (error) {
             return null;
         }
-        return json;
+    };
+
+    ongoing = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+        try {
+            const input = ValidateSearchQuery(sq);
+            const data = await ResourseServiceFetcher<paginated>(
+                `/animedb/categories/ongoing?page=${input.current_page}&interval=${input.page_size}`,
+            );
+            return { input, data };
+        } catch (error) {
+            return null;
+        }
     };
 })();
