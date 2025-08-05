@@ -4,14 +4,14 @@ import { Related_animes } from "#/components/animes/related_animes";
 import { Anime_description } from "#/components/anime_page/anime_description";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/serial_player";
-import { Global_Utilities } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/common";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { Trailer_Component } from "#/components/animes/promo_content";
+import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
-import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";
+import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -27,7 +27,7 @@ export default async function __Serial_shikimori_id_page({
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
-    const anime: JsonDB.ftype | null = await ResServiceApi.byid.series_by_id(current_shikimori_id);
+    const anime: JsonDB.ftype | null = await ResServiceApi.byid.series_by_id({ shikimori_id: current_shikimori_id });
 
     if (!anime) {
         return notFound();
@@ -98,7 +98,7 @@ export default async function __Serial_shikimori_id_page({
                 // current_user={current_user}
                 anime={anime}
             />
-            <Trailer_Component trailer={anime.promo} />
+            <AnimeWatchPagePromoVideos trailer={anime.promo} />
 
             {anime.hdp ? (
                 <DMCA_Protected />
@@ -123,5 +123,5 @@ export default async function __Serial_shikimori_id_page({
 }
 
 export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ shikimori_id: string }> }): Promise<Metadata> {
-    return await Anime_Series_Utils.setMetadata((await params).shikimori_id);
+    return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }

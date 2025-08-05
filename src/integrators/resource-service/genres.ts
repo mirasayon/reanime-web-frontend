@@ -1,12 +1,10 @@
 import { paginated } from "#T/apis/resource_service_integrator";
 import { AwaitedNextSQ } from "#T/next";
-import { ResService_Get_by_id } from "./core";
 import { ResourseServiceFetcher } from "./fetcher";
 import { ValidateSearchQueryForGenres } from "./validators/validate-searchquery-for-genres";
 
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQueryForGenres>; data: paginated } | null>;
 
-export const byid = new ResService_Get_by_id();
 export const by_genre = async (searchquery: AwaitedNextSQ, _genre: string): ResCateReturnTypes => {
     try {
         const input = ValidateSearchQueryForGenres(searchquery, _genre);

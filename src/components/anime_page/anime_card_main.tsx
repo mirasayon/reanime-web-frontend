@@ -1,6 +1,6 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
 import type { JsonDB } from "#T/shared/json_db";
-import { Global_Utilities } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/common";
 import Link from "next/link";
 
 const max = 40;

@@ -2,7 +2,6 @@ import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
 import { Yandex_Mekrika_Analytics } from "#/components/analytics/yandex_metrika";
-import { JsonLDStr } from "#/meta/json_ld";
 import { inter } from "#/fonts/import";
 import type { NextJS_Types } from "#T/next";
 import themesSCC from "#/styles/global/layout.module.css";
@@ -13,8 +12,13 @@ import { Layout_Header } from "#/components/layout/global/header";
 import { root_layout_metas } from "#/metadatas/root-layout.metadata";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { cookies, headers } from "next/headers";
+import { HtmlElementForJsonLD } from "#/meta/json_ld";
+import { JSX } from "react";
 
-export default async function __Root_layout(props: NextJS_Types.LayoutProps) {
+type ReturnTypes = Promise<JSX.Element>;
+type Props = NextJS_Types.LayoutProps;
+
+export default async function __Root_layout({ children }: Props): ReturnTypes {
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (
         <html lang="ru">
@@ -25,12 +29,12 @@ export default async function __Root_layout(props: NextJS_Types.LayoutProps) {
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
-                    {props.children}
+                    {children}
                     <Layout_Footer />
                     <Cookie_consent_banner />
                 </ThemeProviderCustom>
                 <Yandex_Mekrika_Analytics />
-                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JsonLDStr }} />
+                <HtmlElementForJsonLD />
             </body>
             <Google_Analytics />
         </html>

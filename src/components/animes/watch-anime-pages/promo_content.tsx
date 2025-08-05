@@ -1,7 +1,7 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { rea_wrapper_border } from "#/styles/provider";
 
-export function Trailer_Component({ trailer }: { trailer: JsonDB.ftype["promo"] }) {
+export function AnimeWatchPagePromoVideos({ trailer }: { trailer: JsonDB.ftype["promo"] }) {
     return (
         <div className={`flex m-4 max-md:grid ${rea_wrapper_border}`}>
             {trailer?.map((item) => {

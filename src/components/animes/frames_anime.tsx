@@ -1,5 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { Global_Utilities } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/common";
 export function FramesAnime({ title_of_anime, shiki_id, screenshots }: { shiki_id: number; screenshots: string[]; title_of_anime: string }) {
     const is_extended = true;
     const img_height = 360 / 1.5; //240 // 720 / 2;

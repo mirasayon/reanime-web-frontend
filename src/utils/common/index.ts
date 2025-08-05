@@ -1,8 +1,7 @@
 import type { JsonDB } from "#T/shared/json_db";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { ResServiceApi } from "#/integrators/resource-service/index";
 import { EnvConfig } from "#/configs/env";
-class UtilsClass {
+export const Global_Utilities = new (class Global_Utilities {
     get_poster_image_url_by_filename = (filename?: string) => {
         if (!filename) {
             return undefined;
@@ -22,50 +21,6 @@ class UtilsClass {
 
     sleepX = async (milliseconds: number): Promise<void> => {
         return await new Promise((_void) => setTimeout(_void, milliseconds));
-    };
-
-    GetListAnimes = async ({
-        liked_animes_ids,
-        watching_animes_ids,
-        inplan_animes_ids,
-        viewed_animes_ids,
-    }: {
-        liked_animes_ids: number[];
-        watching_animes_ids: number[];
-        inplan_animes_ids: number[];
-        viewed_animes_ids: number[];
-    }) => {
-        const watching_animes_kodiks: JsonDB.ftype[] = [];
-        for await (const element of watching_animes_ids) {
-            const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(element);
-            watching_ && watching_animes_kodiks.push(watching_);
-        }
-
-        const viewed_animes: JsonDB.ftype[] = [];
-        for await (const element of viewed_animes_ids) {
-            const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(element);
-            watching_ && viewed_animes.push(watching_);
-        }
-
-        const inplan_animes_kodiks: JsonDB.ftype[] = [];
-        for await (const element of inplan_animes_ids) {
-            const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(element);
-            watching_ && inplan_animes_kodiks.push(watching_);
-        }
-
-        const liked_animes_kodiks: JsonDB.ftype[] = [];
-
-        for await (const element of liked_animes_ids) {
-            const liked_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id(element);
-            liked_ && liked_animes_kodiks.push(liked_);
-        }
-
-        return {
-            liked_animes_kodiks,
-            inplan_animes_kodiks,
-            viewed_animes,
-            watching_animes_kodiks,
-        };
     };
 
     has_only_latins_and_numbers(str: string): boolean {
@@ -90,5 +45,4 @@ class UtilsClass {
     get_anime_frame_image_url = (filename: string, anime_id: number) => {
         return `${EnvConfig.partners.resource_service.url.current}/storage/animes/screenshots/${anime_id}/${filename}`;
     };
-}
-export const Global_Utilities = new UtilsClass();
+})();

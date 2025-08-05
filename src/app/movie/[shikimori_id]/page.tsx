@@ -4,14 +4,14 @@ import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
-import { Global_Utilities } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/common";
 import { UtilityJSX } from "#/components/utilities/x_components";
-import { Trailer_Component } from "#/components/animes/promo_content";
+import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { JsonDB } from "#T/shared/json_db";
 import type { NextJS_Types } from "#T/next";
-import { Anime_Series_Utils } from "#/utils/watch";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";
+import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 type Props = {
     params: NextJS_Types.Params<{ shikimori_id: string }>;
     searchParams: NextJS_Types.SearchParams;
@@ -24,7 +24,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const movie: JsonDB.ftype | null = await ResServiceApi.byid.movie_by_id(current_shikimori_id);
+    const movie: JsonDB.ftype | null = await ResServiceApi.byid.movie_by_id({ shikimori_id: current_shikimori_id });
     if (!movie) {
         return notFound();
     }
@@ -45,7 +45,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
                 current_user={null}
                 anime={movie}
             />
-            <Trailer_Component trailer={movie.promo} />
+            <AnimeWatchPagePromoVideos trailer={movie.promo} />
             {movie.hdp ? <DMCA_Protected /> : <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />}
             <FramesAnime title_of_anime={movie.nms.kkru} screenshots={movie.frms} shiki_id={movie.sid} />
             <Related_animes related={movie.rels} />
@@ -54,5 +54,5 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
 }
 
 export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ shikimori_id: string }> }): Promise<Metadata> {
-    return await Anime_Series_Utils.setMetadata((await params).shikimori_id);
+    return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }

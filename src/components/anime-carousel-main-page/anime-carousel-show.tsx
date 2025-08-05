@@ -1,6 +1,6 @@
 "use client";
 import type { i_top_charts_anime_json } from "#T/userinserface";
-import { Global_Utilities } from "#/utils/functions";
+import { Global_Utilities } from "#/utils/common";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/components/ui/carousel";

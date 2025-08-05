@@ -31,7 +31,7 @@ export const _categories: categories[] = [
         link_url: "/list/popular",
     },
     {
-        title: "Этот год",
+        title: "Этот сезон",
         link_url: "/list/this_year",
     },
 ];
