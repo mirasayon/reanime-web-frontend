@@ -1,7 +1,7 @@
 "use server";
 
 import { EnvConfig } from "#/configs/env";
-import { UserServiceResponceBodyPattern } from "reanime/user-service/response/types.js";
+import { UserServiceResponceBodyPattern } from "@reanime.art/user-service/user-service/response/types.js";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: `/v1/${"profile" | "authentication" | "ping" | "account" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Account, Profile } from "reanime/user-service/response/response-data-types.js";
+import { Account, Profile } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent } from "./dashboard/common";
 
 export function Others_Profile_Dashboard({

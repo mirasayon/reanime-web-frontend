@@ -4,7 +4,7 @@ import { Others_Profile_Dashboard } from "#/components/users/others-profile";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { notFound } from "next/navigation";
 import { JSX } from "react";
-import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 
 type Props = { username: string };
 export async function ShowOthersProfile({ username }: Props): Promise<JSX.Element> {

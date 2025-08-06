@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegRegistered } from "react-icons/fa";
 import { MdCancelPresentation } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
-import { Account, Profile } from "reanime/user-service/response/response-data-types.js";
+import { Account, Profile } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 import { Avatar, AvatarFallback, AvatarImage } from "#/shadcn-ui/components/ui/avatar";
 export function Avatar_slider({ profile, account }: { profile: Profile | null; account: Account | null }) {
     const [is_open, set_is_open] = useState(false);

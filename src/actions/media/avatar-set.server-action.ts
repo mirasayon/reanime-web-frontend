@@ -2,9 +2,9 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
-import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import { STATUS_MAP } from "reanime/user-service/response/constants.js";
+import { STATUS_MAP } from "@reanime.art/user-service/user-service/response/constants.js";
 type AvatarSet_ServerActionRT = Promise<{
     errors: string[];
     hash: null | string;

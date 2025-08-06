@@ -5,7 +5,7 @@ import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/menu";
-import { Account, Profile } from "reanime/user-service/response/response-data-types.js";
+import { Account, Profile } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 export function Layout_Header({ profile, account }: { profile: Profile | null; account: Account | null }) {
     return (
         <header

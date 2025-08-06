@@ -4,8 +4,8 @@ import { UserService } from "#/configs/user-service";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
-import { STATUS_MAP } from "reanime/user-service/response/constants.js";
-import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
+import { STATUS_MAP } from "@reanime.art/user-service/user-service/response/constants.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
 
 type UploadImageRT = Promise<{
     errors: string[];

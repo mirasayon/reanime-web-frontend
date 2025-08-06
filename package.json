@@ -21,6 +21,7 @@
         "@radix-ui/react-dropdown-menu": "^2.1.15",
         "@radix-ui/react-select": "^2.2.5",
         "@radix-ui/react-slot": "^1.2.3",
+        "@reanime.art/user-service": "http://192.168.0.105:5640/reanime.art-user-service-0.2.2.tgz",
         "axios": "^1.11.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -36,7 +37,6 @@
         "react-dom": "^19.1.1",
         "react-hook-form": "^7.62.0",
         "react-icons": "^5.5.0",
-        "reanime": "http://192.168.0.105:5640/reanime-0.2.1.tgz",
         "tailwind-merge": "^3.3.1",
         "zod": "^4.0.14"
     },
