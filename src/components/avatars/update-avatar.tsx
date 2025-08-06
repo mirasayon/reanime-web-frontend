@@ -1,13 +1,15 @@
 "use client";
-import { AvatarSet_ServerAction } from "#/actions/media/avatar-set.server-action";
+import { AvatarUpdate_ServerAction } from "#/actions/media/avatar-update.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { IoIosCloudUpload } from "react-icons/io";
 
-export function SetAvatarForm({}: {}) {
+export function UpdateAvatarForm() {
     const [previewSrc, setPreviewSrc] = useState<string>();
     const [clientErrors, setclientErrors] = useState<string[]>([]);
+    const { pending } = useFormStatus();
     const _router = useRouter();
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
@@ -23,12 +25,15 @@ export function SetAvatarForm({}: {}) {
         if (!imageFile?.size) {
             return;
         }
-        const res = await AvatarSet_ServerAction(fd);
+        const res = await AvatarUpdate_ServerAction(fd);
         if (res.errors.length) {
-            setclientErrors(res.errors);
+            return setclientErrors(res.errors);
         }
         if (res.hash) {
-            _router.refresh();
+            if (window) {
+                return window.location.reload();
+            }
+            return _router.push("/");
         }
     }
     return (
@@ -41,7 +46,7 @@ export function SetAvatarForm({}: {}) {
                         htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                         className="p-4 flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
                     >
-                        <div>Добавить аватарку</div>
+                        <div>Обновить аватарку</div>
                         <IoIosCloudUpload size={50} color="violet" />
                     </label>
                 )}
@@ -58,7 +63,11 @@ export function SetAvatarForm({}: {}) {
                     />
                     {previewSrc && <img src={previewSrc} alt="preview" className="mb-4 max-h-48" />}
                     {previewSrc && (
-                        <button type="submit" className="animate-pulse px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
+                        <button
+                            type="submit"
+                            disabled={pending}
+                            className={`animate-pulse px-4 py-2 bg-blue-600 text-white rounded cursor-pointer ${pending && "cursor-wait"}`}
+                        >
                             Загрузить аватарку
                         </button>
                     )}

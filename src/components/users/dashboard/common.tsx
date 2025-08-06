@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     return <div className={`bg-white text-white dark:bg-blue-500/20 m-2 rounded-sm shadow p-4 ${className}`}>{children}</div>;
 }

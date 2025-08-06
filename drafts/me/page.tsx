@@ -11,11 +11,7 @@ import { AppConstants } from "#settings/main";
 import { Utils } from "#/utils/functions";
 import { Switch_tab_component } from "#/components/me/switch_tab";
 
-export default async function __MePage({
-    searchParams,
-}: {
-    searchParams: { tab: string | undefined };
-}): Promise<React.JSX.Element> {
+export default async function __MePage({ searchParams }: { searchParams: { tab: string | undefined } }): Promise<React.JSX.Element> {
     const { is_dark } = ServerSideThemeCookie();
     const current_user: User | null = await get_user_from_cookies();
     if (!current_user) {
@@ -28,8 +24,7 @@ export default async function __MePage({
     }
     const tab_valie_valid = tab_value as possible_profile_tab_value_type;
 
-    const { liked_animes_ids, watching_animes_ids, inplan_animes_ids, viewed_animes_ids } =
-        await get_all_user_lists(current_user);
+    const { liked_animes_ids, watching_animes_ids, inplan_animes_ids, viewed_animes_ids } = await get_all_user_lists(current_user);
 
     const List = await Utils.GetListAnimes({
         liked_animes_ids,

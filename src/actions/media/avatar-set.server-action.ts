@@ -3,13 +3,13 @@ import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
 import { Profile_ResponseTypes } from "reanime/user-service/response/response-data-types.js";
-import { UserServiceMediaConfigs } from "./config";
+import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import { STATUS_MAP } from "reanime/user-service/response/constants.js";
-type UploadImageRT = Promise<{
+type AvatarSet_ServerActionRT = Promise<{
     errors: string[];
     hash: null | string;
 }>;
-export async function AvatarUpdateSAction(formData: FormData): UploadImageRT {
+export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_ServerActionRT {
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     if (!auth) {
         return {
@@ -26,6 +26,9 @@ export async function AvatarUpdateSAction(formData: FormData): UploadImageRT {
         };
     }
 
+    if (!supported_pfp_format.includes(imageFile.type)) {
+        return { errors: ["Неподерживаемый формат"], hash: null };
+    }
     // Example: read the bytes
     const arrayBuffer = await imageFile.arrayBuffer();
     // const buffer = Buffer.from(arrayBuffer);
@@ -33,8 +36,8 @@ export async function AvatarUpdateSAction(formData: FormData): UploadImageRT {
     const forwardData = new FormData();
     forwardData.append(UserServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
     const res = await UserServiceFetcher<Profile_ResponseTypes.set_avatar>({
-        url: `/v1/profile/avatar/update`,
-        method: "PATCH",
+        url: `/v1/profile/avatar/set`,
+        method: "POST",
         raw_body: forwardData,
         agent: auth.agent,
         ip: auth.ip,
