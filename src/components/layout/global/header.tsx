@@ -1,6 +1,6 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { Filter_animes_links } from "#/components/anime_page/catalog_links";
-import { Avatar_slider } from "#/components/layout/avatar_slider";
+import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner";
 import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
 import { WebsiteConfigs } from "#/configs/website";
 import Link from "next/link";
@@ -23,7 +23,7 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
             </div>
             <div className=" flex flex-wrap justify-end">
                 <Search_Anime_in_Header />
-                <Avatar_slider profile={profile} account={account} />
+                <DropdownMenuInHeader profile={profile} account={account} />
             </div>
         </header>
     );

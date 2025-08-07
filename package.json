@@ -15,10 +15,12 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^5.2.1",
-        "@next/third-parties": "^15.4.5",
+        "@next/third-parties": "^15.4.6",
         "@radix-ui/react-alert-dialog": "^1.1.14",
         "@radix-ui/react-avatar": "^1.1.10",
         "@radix-ui/react-dropdown-menu": "^2.1.15",
+        "@radix-ui/react-label": "^2.1.7",
+        "@radix-ui/react-radio-group": "^1.3.7",
         "@radix-ui/react-select": "^2.2.5",
         "@radix-ui/react-slot": "^1.2.3",
         "@reanime.art/user-service": "http://192.168.0.105:5640/reanime.art-user-service-0.2.2.tgz",
@@ -31,14 +33,14 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
         "lucide-react": "^0.536.0",
-        "next": "^15.4.5",
+        "next": "^15.4.6",
         "next-themes": "^0.4.6",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "react-hook-form": "^7.62.0",
         "react-icons": "^5.5.0",
         "tailwind-merge": "^3.3.1",
-        "zod": "^4.0.14"
+        "zod": "^4.0.15"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.11",

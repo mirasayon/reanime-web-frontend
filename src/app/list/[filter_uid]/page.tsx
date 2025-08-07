@@ -6,6 +6,8 @@ import { ResServiceApi } from "#/integrators/resource-service/index";
 import { filters_uids, list_anime_ru, metadata404 } from "#/constants/common.constants";
 import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
 import { WebsiteConfigs } from "#/configs/website";
+import { RadioGroupSelectCategory } from "./radio-group-select-category";
+import { _categories } from "#/static/anime_categories";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({
@@ -27,6 +29,10 @@ export default async function List_Page({
     const { data, input } = res;
     return (
         <>
+            <h1 className=" font-bold text-center border-b-4 border-blue-300">
+                По категориям: {_categories.find((w) => w.link_url.includes(filter))?.title}
+            </h1>
+            <RadioGroupSelectCategory current={filter} />
             <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>

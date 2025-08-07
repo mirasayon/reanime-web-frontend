@@ -12,7 +12,7 @@ export function DropdownMenuForAvatar() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="dark:bg-slate-900 bg-blue-200 dark:text-blue-100 text-black">
-                <div className="p-2">Меню аватара</div>
+                <div className="p-2 cursor-pointer">Меню аватара</div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="dark:bg-slate-900 bg-blue-200  dark:text-blue-100 text-black">
                 <DropdownMenuLabel className=" dark:bg-slate-900 bg-blue-200">
