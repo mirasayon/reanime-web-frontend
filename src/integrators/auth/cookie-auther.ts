@@ -1,7 +1,7 @@
 "use server";
 import { UserService } from "#/configs/user-service";
 import type { cookies as CookiesNext, headers as HeadersNext } from "next/headers";
-import { Authentication_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
+import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
 import { UserServiceFetcher } from "../user_service/fetcher";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;
@@ -28,5 +28,6 @@ export async function getSessionFromClient({ cookies, headers }: { cookies: Next
     if (res.status_code === 200) {
         return { data: res.data, ip, agent };
     }
+    cookies.delete({ name: UserService.session_token_name });
     return null;
 }

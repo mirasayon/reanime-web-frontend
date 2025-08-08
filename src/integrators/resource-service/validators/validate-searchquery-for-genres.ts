@@ -10,5 +10,5 @@ export function ValidateSearchQueryForGenres(searchParams: AwaitedNextSQ, genre:
         throw new Error("Max page size exceed");
     }
 
-    return { page_size, current_page, genre };
+    return { page_size, current_page, genre: decodeURI(genre) };
 }

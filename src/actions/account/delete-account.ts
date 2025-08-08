@@ -2,8 +2,8 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
-import { STATUS_MAP } from "@reanime.art/user-service/user-service/response/constants.js";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
+import { UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 
 type DeleteAccountPermanently_ServerActionRT = Promise<{
     errors: string[];
@@ -35,7 +35,7 @@ export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPerm
     if (res.data) {
         return { ok: true, errors: [] };
     }
-    if (res.status_code === STATUS_MAP.TOO_MANY_REQUESTS) {
+    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
         return {
             errors: ["Слишком много запросов. Попробуйте позже"],
             ok: false,

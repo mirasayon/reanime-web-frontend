@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website";
 import { ResServiceApi } from "#/integrators/resource-service/index";
 import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
+import { _categories, typed_description_genres } from "#/static/anime_categories";
+import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 export default async function GenresPage({
     params,
     searchParams,
@@ -25,6 +27,10 @@ export default async function GenresPage({
     }
     return (
         <>
+            <h1 className=" font-bold text-center border-b-4 border-blue-300">
+                По жанрам: {typed_description_genres.find((w) => w.english_name.toLowerCase().includes(input.genre))?.russian_name}
+            </h1>
+            <RadioGroupSelectGenre current={input.genre} />
             <div className={`min-h-[200px] ${rea_wrapper_border}`}>
                 <div className={" m-4 text-xl"}>
                     {desc.russian_name} - {desc.description}

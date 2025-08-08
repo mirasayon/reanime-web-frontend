@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Account, Profile } from "@reanime.art/user-service/user-service/response/response-data-types.js";
+import { Profile, Account } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
 import { Avatar_Dashboard } from "./for-logged-users";
 import { Avatar_Login } from "./for-guests";
 import { DropdownMenuInHeaderEntryPoint } from "./entry-point";

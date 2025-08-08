@@ -1,6 +1,6 @@
 import React from "react";
-import { Account, Profile } from "@reanime.art/user-service/user-service/response/response-data-types.js";
-import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent } from "./dashboard/common";
+import { Profile, Account } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
+import { Badge, Card, CardContent } from "./dashboard/common";
 
 export function Others_Profile_Dashboard({
     profile: { nickname, avatar_url_hash, cover_url_hash, bio },

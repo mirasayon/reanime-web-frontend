@@ -1,9 +1,5 @@
-"use client";
-
 import { filters_uids } from "#/constants/common.constants";
-import { Label } from "#/shadcn-ui/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "#/shadcn-ui/components/ui/radio-group";
-import { _categories } from "#/static/anime_categories";
+import { _categories, genres, typed_description_genres } from "#/static/anime_categories";
 import Link from "next/link";
 type Props = {
     /** */
@@ -11,17 +7,21 @@ type Props = {
 };
 export function RadioGroupSelectCategory({ current }: Props) {
     return (
-        <RadioGroup defaultValue={current} className="p-5">
-            {filters_uids.map((cate, index) => {
-                return (
-                    <div key={index} className="flex items-center space-x-2">
-                        <RadioGroupItem className="p-2 outline-red-700 outline-8 " value={cate} id={cate} />
-                        <Label className="p-1 cursor-pointer " htmlFor={cate}>
-                            <Link href={`/list/${cate}`}>{_categories.find((w) => w.link_url.includes(cate))?.title}</Link>
-                        </Label>
-                    </div>
-                );
-            })}
-        </RadioGroup>
+        <div>
+            <div className="p-5 flex flex-2/5 flex-wrap gap-2">
+                {filters_uids.map((cate) => {
+                    const active = current === cate;
+                    return (
+                        <Link
+                            href={`/list/${cate}`}
+                            key={cate}
+                            className={`  cursor-pointer w-44  items-center border-2 p-2 border-blue-500 ${active && "bg-blue-600"}`}
+                        >
+                            {_categories.find((w) => w.link_url === `/list/${cate}`)?.title}
+                        </Link>
+                    );
+                })}
+            </div>
+        </div>
     );
 }

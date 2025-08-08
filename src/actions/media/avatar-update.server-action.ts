@@ -2,9 +2,9 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import { ResponseCode, STATUS_MAP } from "@reanime.art/user-service/user-service/response/constants.js";
+import { ResponseCode, UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
 import { Logger } from "@reanime.art/user-service/logger/chalk.js";
 import { revalidatePath } from "next/cache";
 type AvatarUpdate_ServerActionRT = Promise<{
@@ -52,7 +52,7 @@ export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdat
     if (res.data) {
         return { hash: res.data, errors: [] };
     }
-    if (res.status_code === STATUS_MAP.TOO_MANY_REQUESTS) {
+    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
         return {
             errors: ["Слишком много запросов. Попробуйте позже"],
             hash: null,

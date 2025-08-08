@@ -4,12 +4,13 @@ import { UserService } from "#/configs/user-service";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/user-service/response/response-data-types.js";
+import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 
 type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
 
 export async function LogOutAccount(): LogOutAccountRT {
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const _cookies = await cookies();
+    const auth = await getSessionFromClient({ cookies: _cookies, headers: await headers() });
     if (!auth) {
         return { errors: ["Вы не авторизованы"], ok: false };
     }
@@ -27,8 +28,9 @@ export async function LogOutAccount(): LogOutAccountRT {
     }
 
     if (res.data) {
-        (await cookies()).delete(UserService.session_token_name);
+        _cookies.delete(UserService.session_token_name);
         return { errors: [], ok: true };
     }
+    _cookies.delete(UserService.session_token_name);
     return { errors: [], ok: false };
 }
