@@ -5,8 +5,6 @@ import { cookies, headers } from "next/headers";
 import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import { ResponseCode, UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
-import { Logger } from "@reanime.art/user-service/logger/chalk.js";
-import { revalidatePath } from "next/cache";
 type AvatarUpdate_ServerActionRT = Promise<{
     errors: string[];
     hash: null | string;

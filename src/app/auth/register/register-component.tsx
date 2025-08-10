@@ -48,9 +48,9 @@ export function Register_Component() {
                             className={"pl-2 bg-transparent font-mono outline-none"}
                             type={"text"}
                             // name={"login"}
-                            id={"login"}
+                            id={"nickname"}
                             minLength={4}
-                            defaultValue="mirasayon"
+                            // defaultValue="mirasayon"
                             {...register("nickname", { required: true })}
                             maxLength={20}
                             required={true}
@@ -72,7 +72,7 @@ export function Register_Component() {
                             // name={"login"}
                             id={"login"}
                             minLength={4}
-                            defaultValue="mirasayon"
+                            // defaultValue="mirasayon"
                             {...register("username", { required: true })}
                             maxLength={20}
                             required={true}
@@ -92,7 +92,7 @@ export function Register_Component() {
                             type={is_password_type ? "password" : "text"}
                             minLength={8}
                             maxLength={80}
-                            defaultValue="root1234"
+                            // defaultValue="root1234"
                             //    name={"password"}
                             id={"password"}
                             {...register("password_repeat", { required: true })}
@@ -125,7 +125,7 @@ export function Register_Component() {
                             type={is_password_type ? "password" : "text"}
                             minLength={8}
                             maxLength={80}
-                            defaultValue="root1234"
+                            // defaultValue="root1234"
                             //    name={"password"}
                             id={"password"}
                             {...register("password", { required: true })}

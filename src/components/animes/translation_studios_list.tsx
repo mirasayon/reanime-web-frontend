@@ -1,5 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import Link from "next/link";
 
 export function Localization_Studios_List_Component({

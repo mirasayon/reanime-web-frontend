@@ -23,6 +23,7 @@
         "@radix-ui/react-radio-group": "^1.3.7",
         "@radix-ui/react-select": "^2.2.5",
         "@radix-ui/react-slot": "^1.2.3",
+        "@reanime.art/resource-service": "http://192.168.0.105:5641/reanime.art-resource-service-0.0.1.tgz",
         "@reanime.art/user-service": "http://192.168.0.105:5640/reanime.art-user-service-0.2.6.tgz",
         "axios": "^1.11.0",
         "class-variance-authority": "^0.7.1",
@@ -32,7 +33,8 @@
         "dotenv-cli": "^10.0.0",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
-        "lucide-react": "^0.536.0",
+        "log-it-colored": "^0.0.2",
+        "lucide-react": "^0.539.0",
         "next": "^15.4.6",
         "next-themes": "^0.4.6",
         "react": "^19.1.1",
@@ -40,11 +42,11 @@
         "react-hook-form": "^7.62.0",
         "react-icons": "^5.5.0",
         "tailwind-merge": "^3.3.1",
-        "zod": "^4.0.15"
+        "zod": "^4.0.17"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.11",
-        "@types/node": "^24.2.0",
+        "@types/node": "^24.2.1",
         "@types/react": "^19.1.9",
         "@types/react-dom": "^19.1.7",
         "autoprefixer": "^10.4.21",

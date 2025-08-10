@@ -1,5 +1,5 @@
 import { ResServiceApi } from "#/integrators/resource-service";
-import { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 
 export const GetListAnimes = async ({
     liked_animes_ids,

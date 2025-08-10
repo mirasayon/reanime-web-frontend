@@ -1,5 +1,5 @@
 "use client";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { useState } from "react";
 
 export function Normalize_age_rating({ rating, minimal_age }: { rating: JsonDB.ftype["rating_mpaa"]; minimal_age: number | null }) {

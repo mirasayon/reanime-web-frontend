@@ -1,6 +1,6 @@
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import Link from "next/link";
 import { AnimeElConfig } from "./config";
 export const UtilityJSX = new (class UtilityJSXClass {

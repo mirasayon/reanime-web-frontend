@@ -7,7 +7,7 @@ import { Serial_Player_Component } from "#/components/animes/serial_player";
 import { Global_Utilities } from "#/utils/common";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import type { NextJS_Types } from "#T/next";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";

@@ -2,7 +2,7 @@ import { Normalize_age_rating } from "#/components/utilities/age_rating";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 

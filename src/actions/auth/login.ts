@@ -1,6 +1,6 @@
 "use server";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
-import { Logger } from "@reanime.art/user-service/logger/chalk.js";
+import { Logger } from "log-it-colored";
 import { authentication_schemas, dto } from "@reanime.art/user-service/validators/authentication.js";
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";

@@ -1,4 +1,4 @@
-import { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { ResourseServiceFetcher } from "./fetcher";
 
 type ReturnTypeGetByID = Promise<JsonDB.ftype | null>;

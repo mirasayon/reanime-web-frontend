@@ -1,4 +1,4 @@
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { rea_wrapper_border } from "#/styles/provider";
 
 export function AnimeWatchPagePromoVideos({ trailer }: { trailer: JsonDB.ftype["promo"] }) {

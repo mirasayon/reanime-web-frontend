@@ -1,4 +1,4 @@
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { EnvConfig } from "#/configs/env";
 export const Global_Utilities = new (class Global_Utilities {

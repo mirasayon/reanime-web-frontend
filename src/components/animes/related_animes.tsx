@@ -1,4 +1,4 @@
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import { RelatedAnimes } from "#/components/animes/related_anime";
 export function Related_animes({ related }: { related: JsonDB.ftype["rels"] }): React.JSX.Element | undefined {

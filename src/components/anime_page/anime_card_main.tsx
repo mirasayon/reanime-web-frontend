@@ -1,5 +1,5 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { Global_Utilities } from "#/utils/common";
 import Link from "next/link";
 

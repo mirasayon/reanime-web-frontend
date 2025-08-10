@@ -1,7 +1,7 @@
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
 import { Localization_Studios_List_Component } from "./translation_studios_list";
 import { rea_wrapper_border } from "#/styles/provider";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 
 export function Movie_Player_Component({
     vid_src,
@@ -14,10 +14,7 @@ export function Movie_Player_Component({
 }) {
     return (
         <section className={`flex flex-col p-2 ${rea_wrapper_border}`} id="play">
-            <Localization_Studios_List_Component
-                current_studio_id={current_studio_id}
-                ds_arrays={ds_arrays}
-            />
+            <Localization_Studios_List_Component current_studio_id={current_studio_id} ds_arrays={ds_arrays} />
             <section className="m-2 flex flex-col justify-center items-center flex-wrap " id="play">
                 <Ads_in_kodik_is_not_mine />
                 <iframe

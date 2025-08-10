@@ -5,12 +5,13 @@
 # Environment
 .env
 .env.* 
+*.env 
 # typescript
 *.tsbuildinfo
 next-env.d.ts 
 # file explorer settings files
 desktop.ini
-get-help.md
+drafts.md
 /temp
 /frequent-commands.md
 

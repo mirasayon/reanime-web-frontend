@@ -2,7 +2,7 @@
 import { Localization_Studios_List_Component } from "./translation_studios_list";
 import { useRouter } from "next/navigation";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import type { JsonDB } from "#T/shared/json_db";
+import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
 import { Episodes_List_Component } from "./episodes_list";
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
 import { rea_wrapper_border } from "#/styles/provider";
