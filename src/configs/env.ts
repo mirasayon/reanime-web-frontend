@@ -27,9 +27,7 @@ class EnvConfigClass {
             url: {
                 prod: process.env.REANIME_MEDIA_SERVICE_URL_PROD!,
                 dev: process.env.REANIME_MEDIA_SERVICE_URL_DEV!,
-                current: this.mode.prod
-                    ? process.env.REANIME_MEDIA_SERVICE_URL_PROD!
-                    : process.env.REANIME_MEDIA_SERVICE_URL_DEV!,
+                current: this.mode.prod ? process.env.REANIME_MEDIA_SERVICE_URL_PROD! : process.env.REANIME_MEDIA_SERVICE_URL_DEV!,
             },
         },
         user_service: {
@@ -37,21 +35,15 @@ class EnvConfigClass {
             url: {
                 prod: process.env.REANIME_USER_SERVICE_URL_PROD!,
                 dev: process.env.REANIME_USER_SERVICE_URL_DEV!,
-                current: this.mode.prod
-                    ? process.env.REANIME_USER_SERVICE_URL_PROD!
-                    : process.env.REANIME_USER_SERVICE_URL_DEV!,
+                current: this.mode.prod ? process.env.REANIME_USER_SERVICE_URL_PROD! : process.env.REANIME_USER_SERVICE_URL_DEV!,
             },
         },
         resource_service: {
             api_key: process.env.REANIME_RESOURCE_SERVICE_API_KEY!,
-
-            url: {
-                prod: process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_PROD!,
-                dev: process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_DEV!,
-                current: this.mode.prod
-                    ? process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_PROD!
-                    : process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_DEV!,
-            },
+            /**
+             * Current
+             */
+            url: process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_CURRENT!,
         },
     };
 }
@@ -61,8 +53,7 @@ export const EnvConfig = new EnvConfigClass([
     "NODE_ENV",
     "GOOGLE_ANALYTICS_ID",
     "GOOGLE_TAG_MANAGER_ID",
-    "NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_PROD",
-    "NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_DEV",
+    "NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL_CURRENT",
     "REANIME_RESOURCE_SERVICE_API_KEY",
     "REANIME_USER_SERVICE_URL_PROD",
     "REANIME_USER_SERVICE_API_KEY",

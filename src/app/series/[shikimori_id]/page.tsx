@@ -7,7 +7,7 @@ import { Serial_Player_Component } from "#/components/animes/serial_player";
 import { Global_Utilities } from "#/utils/common";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";
@@ -27,7 +27,7 @@ export default async function __Serial_shikimori_id_page({
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
-    const anime: JsonDB.ftype | null = await ResServiceApi.byid.series_by_id({ shikimori_id: current_shikimori_id });
+    const anime: IReady_Animes_DB | null = await ResServiceApi.byid.series_by_id({ shikimori_id: current_shikimori_id });
 
     if (!anime) {
         return notFound();
@@ -48,7 +48,7 @@ export default async function __Serial_shikimori_id_page({
     }
 
     const kodik_with_episodes = current_season_kodik.find((tsi) => tsi.sid === current_studio_id);
-    type kodik_series = NonNullable<JsonDB.ftype["w"][number]["ser"]>;
+    type kodik_series = NonNullable<IReady_Animes_DB["w"][number]["ser"]>;
     if (!kodik_with_episodes) {
         return notFound();
     }
@@ -93,30 +93,24 @@ export default async function __Serial_shikimori_id_page({
     return (
         <>
             <Anime_description
-                cover_image_src={Global_Utilities.get_poster_image_url_by_filename(anime.img) || UtilityJSX.Default_poster()}
+                cover_image_src={Global_Utilities.get_poster_image_url_by_filename(anime.poster_image_for_rea) || UtilityJSX.Default_poster()}
                 current_user={null}
                 // current_user={current_user}
                 anime={anime}
             />
             <AnimeWatchPagePromoVideos trailer={anime.promo} />
-
-            {anime.hdp ? (
-                <DMCA_Protected />
-            ) : (
-                <Serial_Player_Component
-                    current_studio_id={current_studio_id}
-                    firstPossibleEp={first_possible_ep}
-                    lastPossibleEp={last_possible_ep}
-                    iframeUrl={array_of_episodes[current_episode].url}
-                    prevEp={current_previous_episode}
-                    nextEp={current_next_episode}
-                    ds_arrays={current_season_kodik}
-                    array_of_episodes={array_of_episodes}
-                    current_episode={current_episode}
-                />
-            )}
-
-            <FramesAnime screenshots={anime.frms} title_of_anime={anime.nms.kkru} shiki_id={anime.sid} />
+            <Serial_Player_Component
+                current_studio_id={current_studio_id}
+                firstPossibleEp={first_possible_ep}
+                lastPossibleEp={last_possible_ep}
+                iframeUrl={array_of_episodes[current_episode].url}
+                prevEp={current_previous_episode}
+                nextEp={current_next_episode}
+                ds_arrays={current_season_kodik}
+                array_of_episodes={array_of_episodes}
+                current_episode={current_episode}
+            />
+            <FramesAnime screenshots={anime.screenshots_rea} title_of_anime={anime.names.kkru} shiki_id={anime.sid} />
             <Related_animes related={anime.rels} />
         </>
     );

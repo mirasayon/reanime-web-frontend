@@ -5,8 +5,11 @@ import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/re
 import { UserServiceFetcher } from "../user_service/fetcher";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;
-type AutherType = { data: Authentication_ResponseTypes.check_session; ip: string | undefined; agent: string | undefined };
+export type AutherType = { data: Authentication_ResponseTypes.check_session; ip: string | undefined; agent: string | undefined };
 export async function getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
+    return null;
+}
+export async function _getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
     const agent = headers.get("user-agent") ?? undefined;
     const ip = headers.get("x-forwarded-for") ?? undefined;
     const session_token = cookies.get(UserService.session_token_name)?.value;

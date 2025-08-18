@@ -2,25 +2,33 @@ import { Normalize_age_rating } from "#/components/utilities/age_rating";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
-export function Anime_description({ current_user, anime, cover_image_src }: { cover_image_src: string; anime: JsonDB.ftype; current_user: null }) {
-    const type_ru = anime.t ? "Фильм" : "ТВ Сериал";
+export function Anime_description({
+    current_user,
+    anime,
+    cover_image_src,
+}: {
+    cover_image_src: string;
+    anime: IReady_Animes_DB;
+    current_user: null;
+}) {
+    const type_ru = anime.type === "movie" ? "Фильм" : "ТВ Сериал";
     return (
         <>
             <div className={`  flex flex-wrap ${rea_wrapper_border}`}>
-                <span className={`p-3`}>{anime.nms.ru}</span>
+                <span className={`p-3`}>{anime.names.ru}</span>
                 {anime.season && <span className="p-3">{anime.season} сезон</span>} {"\t"}
-                <span className="text-slate-500 p-3">{anime.nms.ofc}</span>
+                <span className="text-slate-500 p-3">{anime.names.ofc}</span>
                 <span className={`p-3 float-end dark:bg-slate-200 dark:text-black bg-slate-400 text-blue-900`}>{type_ru}</span>
             </div>
 
             <div className={`${rea_wrapper_border} p-4 flex-row flex max-md:grid`}>
                 <div className="min-w-max flex flex-col">
-                    <CoverImage image_src={cover_image_src} anime_title={`Обложка от аниме ${anime.nms.ru}`} />
+                    <CoverImage image_src={cover_image_src} anime_title={`Обложка от аниме ${anime.names.ru}`} />
                     {/* <div className="flex justify-between flex-wrap border-4 border-blue-400 mr-4">
                         {current_user ? (
                             <>
@@ -38,10 +46,10 @@ export function Anime_description({ current_user, anime, cover_image_src }: { co
                 <div>
                     <br />
                     <UtilityJSX.BoldX>Название: </UtilityJSX.BoldX>
-                    <span>{anime.nms.ru}</span>
+                    <span>{anime.names.ru}</span>
                     <br />
                     <UtilityJSX.BoldX>Альтернативные названия: </UtilityJSX.BoldX>
-                    {anime.nms.org}, {anime.nms.all.toString()}
+                    {anime.names.org}, {anime.names.all.toString()}
                     <br />
                     <UtilityJSX.BoldX>Год выпуска: </UtilityJSX.BoldX>
                     {anime.rel_year}
@@ -49,7 +57,7 @@ export function Anime_description({ current_user, anime, cover_image_src }: { co
                     <UtilityJSX.BoldX>Тип: </UtilityJSX.BoldX>
                     {anime.kind} ({type_ru})
                     <br />
-                    {!anime.t && (
+                    {anime.type === "series" && (
                         <>
                             <UtilityJSX.BoldX>Сезон: </UtilityJSX.BoldX>
                             {anime.season}
@@ -66,7 +74,7 @@ export function Anime_description({ current_user, anime, cover_image_src }: { co
                     <UtilityJSX.BoldX>Возрастной рейтинг: </UtilityJSX.BoldX>
                     <Normalize_age_rating minimal_age={anime.minimal_age || null} rating={anime.rating_mpaa} />
                     <br />
-                    {!anime.t && (
+                    {anime.type === "series" && (
                         <>
                             <UtilityJSX.BoldX>Количество серий: </UtilityJSX.BoldX>
                             {anime.eps_total || "неизвестно"}

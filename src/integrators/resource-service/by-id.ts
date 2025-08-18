@@ -1,7 +1,8 @@
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { ResourseServiceFetcher } from "./fetcher";
 
-type ReturnTypeGetByID = Promise<JsonDB.ftype | null>;
+type ReturnTypeGetByID = Promise<IReady_Animes_DB | null>;
 
 type shikimori_id_props = {
     /** Shikimori API ID */
@@ -11,7 +12,7 @@ type shikimori_id_props = {
 export const FindByIds = new (class ResService_Get_by_id {
     any_by_id = async ({ shikimori_id }: shikimori_id_props): ReturnTypeGetByID => {
         try {
-            const json = await ResourseServiceFetcher<JsonDB.ftype>(`/animedb/any_by_id/${shikimori_id}`);
+            const json = await ResourseServiceFetcher<IReady_Animes_DB>(`/animedb/any_by_id/${shikimori_id}`);
             return json;
         } catch (error) {
             return null;
@@ -19,7 +20,7 @@ export const FindByIds = new (class ResService_Get_by_id {
     };
     movie_by_id = async ({ shikimori_id }: shikimori_id_props): ReturnTypeGetByID => {
         try {
-            const json = await ResourseServiceFetcher<JsonDB.ftype>(`/animedb/movie_by_id/${shikimori_id}`);
+            const json = await ResourseServiceFetcher<IReady_Animes_DB>(`/animedb/movie_by_id/${shikimori_id}`);
             return json;
         } catch (error) {
             return null;
@@ -28,7 +29,7 @@ export const FindByIds = new (class ResService_Get_by_id {
 
     series_by_id = async ({ shikimori_id }: shikimori_id_props): ReturnTypeGetByID => {
         try {
-            const json = await ResourseServiceFetcher<JsonDB.ftype>(`/animedb/series_by_id/${shikimori_id}`);
+            const json = await ResourseServiceFetcher<IReady_Animes_DB>(`/animedb/series_by_id/${shikimori_id}`);
             return json;
         } catch (error) {
             return null;

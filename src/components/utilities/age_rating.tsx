@@ -1,11 +1,12 @@
 "use client";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { useState } from "react";
 
-export function Normalize_age_rating({ rating, minimal_age }: { rating: JsonDB.ftype["rating_mpaa"]; minimal_age: number | null }) {
+export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }) {
     const [is_hover, set_hover] = useState(false);
-    let age_rating_number: string | number | "_" | undefined = minimal_age || rating;
-    let normal_age_rating: string | undefined = rating;
+    let age_rating_number = minimal_age || rating || undefined;
+    let normal_age_rating = rating || undefined;
     let rating_description = "";
     switch (rating) {
         case "PG-13":

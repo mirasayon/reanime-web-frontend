@@ -1,7 +1,7 @@
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
 import { Localization_Studios_List_Component } from "./translation_studios_list";
 import { rea_wrapper_border } from "#/styles/provider";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 
 export function Movie_Player_Component({
     vid_src,
@@ -9,7 +9,7 @@ export function Movie_Player_Component({
     current_studio_id,
 }: {
     vid_src: string;
-    ds_arrays: JsonDB.ftype["w"];
+    ds_arrays: IReady_Animes_DB["w"];
     current_studio_id: number;
 }) {
     return (

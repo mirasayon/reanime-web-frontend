@@ -1,5 +1,6 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 
 export function Localization_Studios_List_Component({
@@ -7,7 +8,7 @@ export function Localization_Studios_List_Component({
     current_episode,
     current_studio_id,
 }: {
-    ds_arrays: JsonDB.ftype["w"];
+    ds_arrays: IReady_Animes_DB["w"];
     current_episode?: number | undefined;
     current_studio_id: number;
 }) {

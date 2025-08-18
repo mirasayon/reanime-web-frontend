@@ -1,7 +1,8 @@
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 
-export function AnimeWatchPagePromoVideos({ trailer }: { trailer: JsonDB.ftype["promo"] }) {
+export function AnimeWatchPagePromoVideos({ trailer }: { trailer: IReady_Animes_DB["promo"] }) {
     return (
         <div className={`flex m-4 max-md:grid ${rea_wrapper_border}`}>
             {trailer?.map((item) => {

@@ -1,6 +1,7 @@
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 import { AnimeElConfig } from "./config";
 export const UtilityJSX = new (class UtilityJSXClass {
@@ -26,7 +27,7 @@ export const UtilityJSX = new (class UtilityJSXClass {
             <></>
         );
     };
-    Anime_List_Component = ({ kodiks }: { kodiks: JsonDB.ftype[] }): React.JSX.Element => {
+    Anime_List_Component = ({ kodiks }: { kodiks: IReady_Animes_DB[] }): React.JSX.Element => {
         return (
             <div className=" flex  flex-wrap justify-around ">
                 {kodiks.map((kodik, arr_ind) => (
@@ -40,7 +41,7 @@ export const UtilityJSX = new (class UtilityJSXClass {
         const styles = className === undefined ? "" : className;
         return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
     };
-    Normalize_anime_status = ({ str }: { str?: "released" | "ongoing" | string }) => {
+    Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status"] }) => {
         switch (str) {
             case "released":
                 return <span className="bg-green-500  p-1">Завершён</span>;

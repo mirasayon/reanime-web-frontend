@@ -1,5 +1,5 @@
 import { ResServiceApi } from "#/integrators/resource-service";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 
 export const GetListAnimes = async ({
     liked_animes_ids,
@@ -12,28 +12,28 @@ export const GetListAnimes = async ({
     inplan_animes_ids: number[];
     viewed_animes_ids: number[];
 }) => {
-    const watching_animes_kodiks: JsonDB.ftype[] = [];
+    const watching_animes_kodiks: IReady_Animes_DB[] = [];
     for await (const element of watching_animes_ids) {
-        const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
+        const watching_: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
         watching_ && watching_animes_kodiks.push(watching_);
     }
 
-    const viewed_animes: JsonDB.ftype[] = [];
+    const viewed_animes: IReady_Animes_DB[] = [];
     for await (const element of viewed_animes_ids) {
-        const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
+        const watching_: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
         watching_ && viewed_animes.push(watching_);
     }
 
-    const inplan_animes_kodiks: JsonDB.ftype[] = [];
+    const inplan_animes_kodiks: IReady_Animes_DB[] = [];
     for await (const element of inplan_animes_ids) {
-        const watching_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
+        const watching_: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
         watching_ && inplan_animes_kodiks.push(watching_);
     }
 
-    const liked_animes_kodiks: JsonDB.ftype[] = [];
+    const liked_animes_kodiks: IReady_Animes_DB[] = [];
 
     for await (const element of liked_animes_ids) {
-        const liked_: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
+        const liked_: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: element });
         liked_ && liked_animes_kodiks.push(liked_);
     }
 

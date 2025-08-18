@@ -7,7 +7,7 @@ import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { Global_Utilities } from "#/utils/common";
 import { UtilityJSX } from "#/components/utilities/x_components";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/index";
@@ -24,30 +24,30 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const movie: JsonDB.ftype | null = await ResServiceApi.byid.movie_by_id({ shikimori_id: current_shikimori_id });
+    const movie: IReady_Animes_DB | null = await ResServiceApi.byid.movie_by_id({ shikimori_id: current_shikimori_id });
     if (!movie) {
         return notFound();
     }
-    const tr_array: JsonDB.ftype["w"] = movie.w;
+    const tr_array: IReady_Animes_DB["w"] = movie.w;
     let current_ds_id: number = Number(sp.sid) || tr_array[0].sid;
     const is_in_translations: boolean = tr_array.some((item) => item.sid === current_ds_id);
     if (!is_in_translations) {
         current_ds_id = tr_array[0].sid;
     }
-    const vid_src: JsonDB.ftype["w"][number] | undefined = tr_array.find((item) => item.sid === current_ds_id);
+    const vid_src: IReady_Animes_DB["w"][number] | undefined = tr_array.find((item) => item.sid === current_ds_id);
     if (!vid_src) {
         return notFound();
     }
     return (
         <>
             <Anime_description
-                cover_image_src={Global_Utilities.get_poster_image_url_by_filename(movie.img) || UtilityJSX.Default_poster()}
+                cover_image_src={Global_Utilities.get_poster_image_url_by_filename(movie.poster_image_for_rea) || UtilityJSX.Default_poster()}
                 current_user={null}
                 anime={movie}
             />
             <AnimeWatchPagePromoVideos trailer={movie.promo} />
-            {movie.hdp ? <DMCA_Protected /> : <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />}
-            <FramesAnime title_of_anime={movie.nms.kkru} screenshots={movie.frms} shiki_id={movie.sid} />
+            <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />
+            <FramesAnime title_of_anime={movie.names.kkru} screenshots={movie.screenshots_rea} shiki_id={movie.sid} />
             <Related_animes related={movie.rels} />
         </>
     );

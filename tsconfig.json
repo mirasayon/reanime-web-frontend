@@ -8,6 +8,7 @@
         "removeComments": true,
         "checkJs": false,
         "skipLibCheck": true,
+        "tsBuildInfoFile": "./logs/build.tsbuildinfo",
         "noEmit": true,
         "esModuleInterop": true,
         "allowImportingTsExtensions": false,

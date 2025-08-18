@@ -1,11 +1,11 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Global_Utilities } from "#/utils/common";
 import Link from "next/link";
 
 const max = 40;
-export function Anime_card_main({ data, index, render_images }: { render_images: boolean; data: JsonDB.ftype; index: number }) {
-    let any_title = data.nms.all.find((t) => !!t) || "";
+export function Anime_card_main({ data, index, render_images }: { render_images: boolean; data: IReady_Animes_DB; index: number }) {
+    let any_title = data.names.all.find((t) => !!t) || "";
     if (any_title.length > max) {
         any_title = `${any_title.slice(0, max)}...`;
     }
@@ -20,8 +20,8 @@ export function Anime_card_main({ data, index, render_images }: { render_images:
                         width={200}
                         height={270}
                         loading="lazy"
-                        src={Global_Utilities.get_rea_poster(data.img)}
-                        alt={`Обложка от аниме ${data.nms.ru}`}
+                        src={Global_Utilities.get_rea_poster(data.poster_image_for_rea)}
+                        alt={`Обложка от аниме ${data.names.ru}`}
                         className="object-cover h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px]"
                     />
                 ) : (

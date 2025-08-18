@@ -1,26 +1,26 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Global_Utilities } from "#/utils/common";
 import { ResServiceApi } from "#/integrators/resource-service/index";
 import Link from "next/link";
 export const RelatedAnimes = new (class RelatedAnimesClass {
     RelatedCardForAnime = async ({ shiki_id, relation }: { shiki_id: number; relation: string }) => {
-        const data: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: shiki_id });
+        const data: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: shiki_id });
         return (
             data && (
                 <Link
                     href={Global_Utilities.get_anime_url_by_id_and_type(data)}
-                    className="w-[20rem] border-4 h-[240px] flex m-2 border-violet-300 p-2"
+                    className="w-[20rem] border-4 h-[240px] flex m-2 border-blue-300 p-2"
                 >
                     <img
-                        src={Global_Utilities.get_poster_image_url_by_filename(data.img) || UtilityJSX.Default_poster(true)}
-                        alt={`Обложка от аниме ${data.nms.ru}`}
+                        src={Global_Utilities.get_poster_image_url_by_filename(data.poster_image_for_rea) || UtilityJSX.Default_poster(true)}
+                        alt={`Обложка от аниме ${data.names.ru}`}
                         className="rounded-sm object-cover h-[212px] w-[150px]"
                     />
                     <div className="m-2">
                         <UtilityJSX.BoldX>{relation}</UtilityJSX.BoldX>
                         <br />
-                        <span>{data.nms.ru || data.nms.ru}</span>
+                        <span>{data.names.ru || data.names.ru}</span>
                         <br />
                         {data.season && <span>{data.season} сезон</span>}
                         <br />
@@ -33,7 +33,7 @@ export const RelatedAnimes = new (class RelatedAnimesClass {
             )
         );
     };
-    RelatedCardForManga({ data, relation }: { data: JsonDB.ftype["rels"][number]["manga"]; relation: string }) {
+    RelatedCardForManga({ data, relation }: { data: IReady_Animes_DB["rels"][number]["manga"]; relation: string }) {
         if (!data) return;
         type ikind = typeof data.kind;
         function GetKindManga({ kind }: { kind: ikind }) {
@@ -46,7 +46,7 @@ export const RelatedAnimes = new (class RelatedAnimesClass {
             return <span>{kind}</span>;
         }
         return (
-            <div className="w-[20rem] border-4 h-[240px] overflow-hidden flex m-2 border-blue-300 p-2">
+            <div className="w-[20rem] border-4 h-[240px] overflow-hidden flex m-2 border-slate-100 p-2">
                 <img
                     src={`https://shikimori.one${data.poster}`}
                     alt={`Обложка от манги ${data.russian || ""}`}

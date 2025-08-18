@@ -2,7 +2,7 @@
 import { Localization_Studios_List_Component } from "./translation_studios_list";
 import { useRouter } from "next/navigation";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Episodes_List_Component } from "./episodes_list";
 import { Ads_in_kodik_is_not_mine } from "#/components/info/ads_in_kodik";
 import { rea_wrapper_border } from "#/styles/provider";
@@ -27,7 +27,7 @@ export function Serial_Player_Component({
     lastPossibleEp: number;
     nextEp: number;
     prevEp: number;
-    ds_arrays: JsonDB.ftype["w"];
+    ds_arrays: IReady_Animes_DB["w"];
 }) {
     const router = useRouter();
     const is_only_one_episode: boolean = lastPossibleEp !== 1;
@@ -69,7 +69,7 @@ export function Serial_Player_Component({
                                 placeholder={`${current_episode} (${firstPossibleEp}-${lastPossibleEp})`}
                                 inputMode="numeric"
                             />
-                            <button className="p-2 text-sm hover:bg-zinc-400" type="submit">
+                            <button className="p-2 text-sm hover:bg-zinc-400 cursor-pointer" type="submit">
                                 Перейти
                             </button>
                         </form>

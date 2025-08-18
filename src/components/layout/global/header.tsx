@@ -10,7 +10,7 @@ import { TestModeBanner } from "../messages/test-mode-banner";
 export function Layout_Header({ profile, account }: { profile: Profile | null; account: Account | null }) {
     return (
         <>
-            <TestModeBanner />
+            {/* <TestModeBanner /> */}
             <header
                 className={`max-md:flex-col max-md:w-full shadow-violet-500/50 shadow-lg flex sticky top-0 z-2 justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100 `}
                 id="home"

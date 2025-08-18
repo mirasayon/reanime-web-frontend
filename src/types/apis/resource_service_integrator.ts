@@ -1,3 +1,4 @@
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 
-export type paginated = JsonDB.paginatedResponse<JsonDB.ftype>;
+export type paginated = paginatedResponse<IReady_Animes_DB>;

@@ -1,5 +1,5 @@
 import { UtilityJSX } from "#/components/utilities/x_components";
-import type { JsonDB } from "@reanime.art/resource-service/types/json-db.js";
+import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Global_Utilities } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website";
@@ -12,19 +12,19 @@ export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
     }
     const shikimori_id_web = Number(shikimori_id);
 
-    const anime: JsonDB.ftype | null = await ResServiceApi.byid.any_by_id({ shikimori_id: shikimori_id_web });
+    const anime: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: shikimori_id_web });
     if (!anime) {
         return metadata404;
     }
     const season = anime.season ? `${anime.season} сезон` : "";
-    const anime_title = `${anime.nms.ru} ${season}`;
-    const image_src = Global_Utilities.get_poster_image_url_by_filename(anime.img) || UtilityJSX.Default_poster();
+    const anime_title = `${anime.names.ru} ${season}`;
+    const image_src = Global_Utilities.get_poster_image_url_by_filename(anime.poster_image_for_rea) || UtilityJSX.Default_poster();
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
         description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
         keywords: [
             anime_title,
-            ...anime.nms.all,
+            ...anime.names.all,
             "anime",
             "смотреть",
             "смотреть аниме",
