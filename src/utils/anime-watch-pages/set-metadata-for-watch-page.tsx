@@ -1,9 +1,9 @@
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Global_Utilities } from "#/utils/common";
 import { notFound } from "next/navigation";
-import { WebsiteConfigs } from "#/configs/website";
-import { ResServiceApi } from "#/integrators/resource-service/index";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { metadata404 } from "#/constants/common.constants";
 
 export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {

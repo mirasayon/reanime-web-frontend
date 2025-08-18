@@ -1,6 +1,6 @@
 "use server";
 
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { UserServiceResponceBodyPattern } from "@reanime.art/user-service/types/responses/json-body-type.js";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

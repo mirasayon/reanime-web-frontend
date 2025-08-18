@@ -1,6 +1,6 @@
 "use server";
 
-import { UserService } from "#/configs/user-service";
+import { UserService } from "#/configs/user-service.app-config";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
 import { cookies, headers } from "next/headers";

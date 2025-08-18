@@ -6,8 +6,9 @@
     "scripts": {
         "dev:turbo": "dotenv -e .env.development -- next dev --turbopack --port 3641 --hostname 192.168.0.105",
         "dev": "dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
-        "build": "dotenv -e .env.production -- next build",
         "build:prod": "rimraf ./.next && dotenv -e .env.production -- next build",
+        "build:dev": "rimraf ./.next && dotenv -e .env.development -- next build",
+        "build:test": "rimraf ./.next && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641",
         "standalone": "dotenv -e .env.production -- node ./.next/standalone/server.js",
         "inspect:hot": "tsc --watch --noEmit --project ./tsconfig.json",

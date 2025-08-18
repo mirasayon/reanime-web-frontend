@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import type { JSX } from "react";
 
 type Props = {};
 export function TestModeBanner({}: Props): JSX.Element {

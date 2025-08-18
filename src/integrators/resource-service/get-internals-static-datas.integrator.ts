@@ -1,5 +1,5 @@
 import { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface";
-import { ResourseServiceFetcher } from "./fetcher";
+import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 
 export const ResService_InternalStatic = new (class ResService_InternalStatic {
     get_desc_genres = async (): Promise<i_describe_genres[]> => {

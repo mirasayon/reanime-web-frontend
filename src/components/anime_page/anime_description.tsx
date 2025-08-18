@@ -1,5 +1,5 @@
-import { Normalize_age_rating } from "#/components/utilities/age_rating";
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { Normalize_age_rating } from "#/components/utilities/common/normalize-age-rating.utilx";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";

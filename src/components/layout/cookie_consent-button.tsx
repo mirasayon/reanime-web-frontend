@@ -3,7 +3,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next/client";
 import { two_thousand_years } from "#/constants/common.constants";
-import { FooterConfigEnum } from "./enum";
+import { FooterConfigEnum } from "./enum-user-service-config";
 export function Cookie_consent_banner() {
     const [render, set_render] = useState<boolean>(false);
     const r6_cookies_consent = getCookie(FooterConfigEnum.cookies_consent_value_name) as undefined | string | boolean;

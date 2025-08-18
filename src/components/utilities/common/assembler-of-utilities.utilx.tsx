@@ -1,20 +1,8 @@
 import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import Link from "next/link";
-import { AnimeElConfig } from "./config";
+import { AnimeElConfig } from "../component-utilx-config.config";
 export const UtilityJSX = new (class UtilityJSXClass {
-    LinkX = ({ children, href, email, className }: { className?: string | undefined; children: React.ReactNode; email?: boolean; href: string }) => {
-        return (
-            <Link
-                className={`   dark:text-blue-400 dark:hover:text-blue-400  text-blue-700 hover:text-blue-900 ${className || ""}`}
-                href={email ? `mailto:${href}` : href}
-            >
-                {children}
-            </Link>
-        );
-    };
     BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
         return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
     };

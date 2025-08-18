@@ -1,7 +1,8 @@
 import { rea_wrapper_border, rea_docs_wrapper } from "#/styles/provider";
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { LinkX } from "#/components/utilities/common/link-x.utilx";
 export const metadata: Metadata = {
     title: `Политика конфиденциальности ${WebsiteConfigs.name}`,
     description: `Политика конфиденциальности ${WebsiteConfigs.normalized_name}`,
@@ -130,10 +131,10 @@ export default function PrivacyPage() {
             9.1. Администрация вправе вносить изменения в настоящую Политику конфиденциальности без согласия Пользователя. 9.2. Новая Политика
             конфиденциальности вступает в силу с момента ее размещения на сайте {name}, если иное не предусмотрено новой редакцией Политики
             конфиденциальности. 9.3. Все предложения или вопросы касательно настоящей Политики конфиденциальности следует сообщать по адресу:{" "}
-            <UtilityJSX.LinkX email href={mail}>
+            <LinkX email href={mail}>
                 {mail}
-            </UtilityJSX.LinkX>{" "}
-            9.4. Действующая Политика конфиденциальности размещена на странице по адресу <UtilityJSX.LinkX href={curl}>{curl}</UtilityJSX.LinkX>
+            </LinkX>{" "}
+            9.4. Действующая Политика конфиденциальности размещена на странице по адресу <LinkX href={curl}>{curl}</LinkX>
             <br />
             Обновлено: 28 Марта 2024 года
         </div>

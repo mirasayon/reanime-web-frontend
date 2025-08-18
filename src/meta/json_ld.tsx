@@ -1,4 +1,4 @@
-import { WebsiteConfigs } from "#/configs/website";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { JSX } from "react";
 
 const json_ld = {

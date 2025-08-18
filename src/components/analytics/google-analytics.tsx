@@ -1,4 +1,4 @@
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { JSX } from "react";
 

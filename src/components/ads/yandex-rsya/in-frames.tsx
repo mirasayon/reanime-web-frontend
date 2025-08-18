@@ -1,6 +1,6 @@
 "use client";
 import { Get_Current_Theme } from "#/components/themes/get_current_theme";
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
 import { JSX, useEffect, useState } from "react";

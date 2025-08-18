@@ -2,11 +2,10 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { Filter_animes_links } from "#/components/anime_page/catalog_links";
 import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner";
 import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
-import { WebsiteConfigs } from "#/configs/website";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
-import { UI_Menu } from "#/components/layout/menu";
+import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
 import { Account, Profile } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
-import { TestModeBanner } from "../messages/test-mode-banner";
 export function Layout_Header({ profile, account }: { profile: Profile | null; account: Account | null }) {
     return (
         <>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 export default function __NotFoundPage() {
     return (

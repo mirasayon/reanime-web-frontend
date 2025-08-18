@@ -1,4 +1,4 @@
-import { ResServiceApi } from "#/integrators/resource-service";
+import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 
 export const GetListAnimes = async ({

@@ -9,6 +9,5 @@ export function ValidateSearchQueryForGenres(searchParams: AwaitedNextSQ, genre:
     if (page_size > UserServiceConfig.maxLimitPageSize || page_size < 1) {
         throw new Error("Max page size exceed");
     }
-
     return { page_size, current_page, genre: decodeURI(genre) };
 }

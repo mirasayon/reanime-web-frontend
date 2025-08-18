@@ -1,4 +1,5 @@
-class WebsiteConfigsClass {
+/** Website configs */
+export const WebsiteConfigs = new (class WebsiteConfigsClass {
     public_domain = "reanime.art" as const;
     birth_year = 2024 as const;
     name = "REAnime" as const;
@@ -10,6 +11,4 @@ class WebsiteConfigsClass {
     cyrillic_normalized_name = "РЕАниме" as const;
     full_domain_URL: URL = new URL(this.public_full_domain);
     developer_website = "https://mirasayon.com/";
-}
-/** Website configs */
-export const WebsiteConfigs = new WebsiteConfigsClass();
+})();

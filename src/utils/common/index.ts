@@ -1,6 +1,6 @@
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { UtilityJSX } from "#/components/utilities/x_components";
-import { EnvConfig } from "#/configs/env";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 export const Global_Utilities = new (class Global_Utilities {
     get_poster_image_url_by_filename = (filename: string | null) => {
         if (!filename) {

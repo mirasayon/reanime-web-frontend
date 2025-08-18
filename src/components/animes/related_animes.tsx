@@ -1,28 +1,32 @@
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
-import { RelatedAnimes } from "#/components/animes/related_anime";
-import { Logger } from "log-it-colored";
-export function Related_animes({ related }: { related: IReady_Animes_DB["rels"] }): React.JSX.Element | undefined {
+import { RelatedCardForManga } from "./related-animes-element/related-anime-of-anime";
+import { RelatedCardForAnime } from "./related-animes-element/related-manga-of-anime";
+import type { JSX } from "react";
+
+export async function Related_animes({ related }: { related: IReady_Animes_DB["rels"] }): Promise<JSX.Element | null> {
     const pass = related && related.length > 0;
 
-    return !pass ? undefined : (
+    return pass ? (
         <div className={`${rea_wrapper_border} `}>
             <div className="w-max p-2 ml-2 mt-2 rounded-sm dark:bg-slate-800 bg-violet-200">Связанные:</div>
             <div className="flex flex-wrap">
                 {related.map((item, ind) => {
-                    const valid = item && item.anime && item.anime.id && item.anime.status !== "anons";
+                    let valid = false;
+                    if (item && item.anime && item.anime.id && item.anime.status !== "anons") {
+                        valid = true;
+                    }
                     const _index: number = item.manga?.id || item.anime?.id || ind;
                     return (
                         <div key={_index}>
                             {valid && (
                                 <div>
-                                    <RelatedAnimes.RelatedCardForAnime relation={item.rel_ru} shiki_id={item.anime!.id} />
+                                    <RelatedCardForAnime relation={item.rel_ru} shiki_id={item.anime!.id} />
                                 </div>
                             )}
                             {item?.manga?.id && (
                                 <div>
-                                    <RelatedAnimes.RelatedCardForManga relation={item.rel_ru} data={item.manga} />
+                                    <RelatedCardForManga relation={item.rel_ru} data={item.manga} />
                                 </div>
                             )}
                         </div>
@@ -30,5 +34,5 @@ export function Related_animes({ related }: { related: IReady_Animes_DB["rels"] 
                 })}
             </div>
         </div>
-    );
+    ) : null;
 }

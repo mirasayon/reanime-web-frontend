@@ -1,4 +1,4 @@
-import { WebsiteConfigs } from "#/configs/website";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { Metadata } from "next/types";
 
 export const root_layout_metas: Metadata = {

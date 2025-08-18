@@ -6,7 +6,7 @@ import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
 import { two_thousand_years } from "#/constants/common.constants";
-import { UserService } from "#/configs/user-service";
+import { UserService } from "#/configs/user-service.app-config";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {

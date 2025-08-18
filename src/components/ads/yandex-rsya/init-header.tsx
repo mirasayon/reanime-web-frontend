@@ -1,5 +1,5 @@
 "use client";
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
 import { type JSX, useEffect, useState } from "react";

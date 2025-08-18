@@ -1,18 +1,13 @@
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { Global_Utilities } from "#/utils/common";
 import Link from "next/link";
+import { parseTitleNameForAnime } from "./parse-name-for-anime.class";
 
-const max = 40;
 export function Anime_card_main({ data, index, render_images }: { render_images: boolean; data: IReady_Animes_DB; index: number }) {
-    let any_title = data.names.all.find((t) => !!t) || "";
-    if (any_title.length > max) {
-        any_title = `${any_title.slice(0, max)}...`;
-    }
-
     return (
         <div
-            className={` p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
+            className={`p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
         >
             <Link href={Global_Utilities.get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
                 {render_images ? (
@@ -35,7 +30,7 @@ export function Anime_card_main({ data, index, render_images }: { render_images:
                 <div className={`dark:bg-blue-950  bg-blue-500 text-white  absolute  p-1 bottom-8 left-0 font-bold`}>{data.rel_date}</div>
 
                 <div className="flex flex-col absolute top-0 left-0 gap-1">
-                    <span className="p-1 text-white font-bold bg-blue-900 shadow-sm shadow-violet-400">{any_title}</span>
+                    <span className="p-1 text-white font-bold bg-blue-900 shadow-sm shadow-violet-400">{parseTitleNameForAnime(data)}</span>
                     <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">
                         {Global_Utilities.get_type_of_anime(data)}
                     </span>

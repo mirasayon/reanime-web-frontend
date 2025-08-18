@@ -1,9 +1,8 @@
 "use client";
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { useState } from "react";
+import { type JSX, useState } from "react";
 
-export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }) {
+export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }): JSX.Element {
     const [is_hover, set_hover] = useState(false);
     let age_rating_number = minimal_age || rating || undefined;
     let normal_age_rating = rating || undefined;

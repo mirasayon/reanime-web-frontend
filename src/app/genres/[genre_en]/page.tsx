@@ -1,11 +1,11 @@
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
 import React from "react";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website";
-import { ResServiceApi } from "#/integrators/resource-service/index";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";

@@ -1,6 +1,6 @@
 "use client";
 import "#/styles/global/main.tailwind.css";
-import { inter } from "#/fonts/import";
+import { inter } from "#/fonts/main-font.provider";
 import { useRouter } from "next/navigation";
 import { JSX } from "react";
 

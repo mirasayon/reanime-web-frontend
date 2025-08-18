@@ -1,4 +1,4 @@
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import Script from "next/script";
 import { JSX } from "react";
 

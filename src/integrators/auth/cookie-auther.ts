@@ -1,5 +1,5 @@
 "use server";
-import { UserService } from "#/configs/user-service";
+import { UserService } from "#/configs/user-service.app-config";
 import type { cookies as CookiesNext, headers as HeadersNext } from "next/headers";
 import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
 import { UserServiceFetcher } from "../user_service/fetcher";

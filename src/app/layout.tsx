@@ -1,14 +1,14 @@
 import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
-import { Cookie_consent_banner } from "#/components/layout/cookie_consent";
+import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
 import { Yandex_Mekrika_Analytics } from "#/components/analytics/yandex_metrika";
-import { inter } from "#/fonts/import";
+import { inter } from "#/fonts/main-font.provider";
 import type { NextJS_Types } from "#T/next";
 import themesSCC from "#/styles/global/layout.module.css";
 import { Google_Analytics, Google_TagManager } from "#/components/analytics/google-analytics";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
-import { Layout_Footer } from "#/components/layout/global/footer";
-import { Layout_Header } from "#/components/layout/global/header";
+import { Layout_Footer } from "#/components/layout/global/global-main-footer";
+import { Layout_Header } from "#/components/layout/global/global-main-header";
 import { root_layout_metas } from "#/metadatas/root-layout.metadata";
 import { AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther";
 import { cookies, headers } from "next/headers";

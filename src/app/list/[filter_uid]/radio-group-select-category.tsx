@@ -1,5 +1,5 @@
 import { filters_uids } from "#/constants/common.constants";
-import { _categories, genres, typed_description_genres } from "#/static/anime_categories";
+import { _categories } from "#/static/anime_categories";
 import Link from "next/link";
 type Props = {
     /** */

@@ -1,4 +1,4 @@
-import { EnvConfig } from "#/configs/env";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 import axios from "axios";
 
 class User_Service_BASE {

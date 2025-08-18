@@ -3,14 +3,14 @@ import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
 import { Anime_description } from "#/components/anime_page/anime_description";
 import { FramesAnime } from "#/components/animes/frames_anime";
-import { Serial_Player_Component } from "#/components/animes/serial_player";
+import { Serial_Player_Component } from "#/components/animes/series-episode-player";
 import { Global_Utilities } from "#/utils/common";
-import { UtilityJSX } from "#/components/utilities/x_components";
+import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { DMCA_Protected } from "#/components/animes/dmca_protected";
-import { ResServiceApi } from "#/integrators/resource-service/index";
+import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 export default async function __Serial_shikimori_id_page({
     params,
