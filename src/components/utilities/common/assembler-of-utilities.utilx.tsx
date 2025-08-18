@@ -2,55 +2,54 @@ import { Anime_card_main } from "#/components/anime_page/anime_card_main";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { AnimeElConfig } from "../component-utilx-config.config";
-export const UtilityJSX = new (class UtilityJSXClass {
-    BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
-        return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
-    };
 
-    AnimeListsIsNotPermitted = () => {
-        return (
-            // <this.LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
-            // 	<span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
-            // </this.LinkX>
-            <></>
-        );
-    };
-    Anime_List_Component = ({ kodiks }: { kodiks: IReady_Animes_DB[] }): React.JSX.Element => {
-        return (
-            <div className=" flex  flex-wrap justify-around ">
-                {kodiks.map((kodik, arr_ind) => (
-                    <Anime_card_main index={arr_ind} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
-                ))}
-            </div>
-        );
-    };
+export const BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
+    return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
+};
 
-    It_will_be_known_soon = ({ className }: { className?: string }) => {
-        const styles = className === undefined ? "" : className;
-        return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
-    };
-    Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status"] }) => {
-        switch (str) {
-            case "released":
-                return <span className="bg-green-500  p-1">Завершён</span>;
-            case "ongoing":
-                return <span className="bg-violet-300  p-1">Онгоинг</span>;
-            case null:
-                return <span className=" text-slate-500">Неизвестно</span>;
-            default:
-                return <span>{str}</span>;
-        }
-    };
+export const AnimeListsIsNotPermitted = () => {
+    return (
+        // <this.LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
+        // 	<span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
+        // </this.LinkX>
+        <></>
+    );
+};
+export const Anime_List_Component = ({ kodiks }: { kodiks: IReady_Animes_DB[] }): React.JSX.Element => {
+    return (
+        <div className=" flex  flex-wrap justify-around ">
+            {kodiks.map((kodik, arr_ind) => (
+                <Anime_card_main index={arr_ind} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
+            ))}
+        </div>
+    );
+};
 
-    Normalize_ds_names = (title: string) => {
-        return title.replace(".Subtitles", " (Субтитры)").replace(".TV", "").replace("Jut.su", "Jutsu");
-    };
+export const It_will_be_known_soon = ({ className }: { className?: string }) => {
+    const styles = className === undefined ? "" : className;
+    return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
+};
+export const Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status"] }) => {
+    switch (str) {
+        case "released":
+            return <span className="bg-green-500  p-1">Завершён</span>;
+        case "ongoing":
+            return <span className="bg-violet-300  p-1">Онгоинг</span>;
+        case null:
+            return <span className=" text-slate-500">Неизвестно</span>;
+        default:
+            return <span>{str}</span>;
+    }
+};
 
-    Image_in_anime_cards = ({ anime_title, img_src }: { img_src: string; anime_title: string }) => {
-        return <img width={200} height={300} loading="lazy" src={img_src} alt={anime_title} className="object-cover w-[200px]" />;
-    };
+export const Normalize_ds_names = (title: string) => {
+    return title.replace(".Subtitles", " (Субтитры)").replace(".TV", "").replace("Jut.su", "Jutsu");
+};
 
-    Default_poster = (is_dark = true) => {
-        return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
-    };
-})();
+export const Image_in_anime_cards = ({ anime_title, img_src }: { img_src: string; anime_title: string }) => {
+    return <img width={200} height={300} loading="lazy" src={img_src} alt={anime_title} className="object-cover w-[200px]" />;
+};
+
+export const Default_poster = (is_dark = true) => {
+    return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
+};

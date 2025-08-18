@@ -4,13 +4,13 @@
 /.next 
 # Environment
 .env
-.env.* 
+.env.*
+!.env.example
 *.env 
 # typescript
 *.tsbuildinfo
-next-env.d.ts 
-# file explorer settings files
-desktop.ini
+next-env.d.ts
+
 drafts.md
 /temp
 /frequent-commands.md

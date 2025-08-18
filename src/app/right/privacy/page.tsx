@@ -1,5 +1,4 @@
 import { rea_wrapper_border, rea_docs_wrapper } from "#/styles/provider";
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { LinkX } from "#/components/utilities/common/link-x.utilx";

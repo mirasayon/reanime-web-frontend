@@ -1,4 +1,3 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -9,6 +8,7 @@ import { ResServiceApi } from "#/integrators/resource-service/resource-service-m
 import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
+import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 export default async function GenresPage({
     params,
     searchParams,
@@ -36,7 +36,7 @@ export default async function GenresPage({
                     {desc.russian_name} - {desc.description}
                 </div>
             </div>
-            <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
+            <Anime_List_Component kodiks={data.paginated} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );

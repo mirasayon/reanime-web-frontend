@@ -1,8 +1,5 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { Global_Utilities } from "#/utils/common";
-import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
-import Link from "next/link";
 export function RelatedCardForManga({ data, relation }: { data: IReady_Animes_DB["rels"][number]["manga"]; relation: string }) {
     if (!data) return;
     type ikind = typeof data.kind;
@@ -23,11 +20,11 @@ export function RelatedCardForManga({ data, relation }: { data: IReady_Animes_DB
                 className="rounded-sm object-cover h-[212px] w-[150px]"
             />
             <div className="m-2">
-                <UtilityJSX.BoldX className={` p-1 dark:bg-slate-700 bg-slate-300 `}>{relation}</UtilityJSX.BoldX>
+                <BoldX className={` p-1 dark:bg-slate-700 bg-slate-300 `}>{relation}</BoldX>
                 <br />
                 <span>{data?.russian}</span>
                 <br />
-                <UtilityJSX.BoldX>Тип: </UtilityJSX.BoldX>
+                <BoldX>Тип: </BoldX>
                 <GetKindManga kind={data.kind} />
             </div>
         </div>

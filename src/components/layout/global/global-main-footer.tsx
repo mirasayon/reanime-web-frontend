@@ -1,5 +1,4 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
 import Link from "next/link";

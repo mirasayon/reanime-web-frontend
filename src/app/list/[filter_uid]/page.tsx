@@ -1,4 +1,3 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { notFound } from "next/navigation";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
@@ -8,6 +7,7 @@ import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-p
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
+import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({
@@ -33,7 +33,7 @@ export default async function List_Page({
                 По категориям: {_categories.find((w) => w.link_url.includes(filter))?.title}
             </h1>
             <RadioGroupSelectCategory current={filter} />
-            <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
+            <Anime_List_Component kodiks={data.paginated} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );

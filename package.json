@@ -26,7 +26,6 @@
         "@radix-ui/react-slot": "^1.2.3",
         "@reanime.art/user-service": "http://192.168.0.105:5640/reanime.art-user-service-0.2.6.tgz",
         "@reanime/resource-parser": "http://192.168.0.105:5641/reanime-resource-parser-0.0.4.tgz",
-        "axios": "^1.11.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cookies-next": "^6.1.0",

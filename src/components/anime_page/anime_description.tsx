@@ -1,10 +1,10 @@
 import { Normalize_age_rating } from "#/components/utilities/common/normalize-age-rating.utilx";
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
+import { BoldX, Normalize_anime_status, It_will_be_known_soon } from "../utilities/common/assembler-of-utilities.utilx";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function Anime_description({
@@ -38,59 +38,59 @@ export function Anime_description({
                                 <UserList.Add_to_viewed_list_element userP={current_user} p_shiki_id={shikimori_id} />
                             </>
                         ) : (
-                            <UtilityJSX.AnimeListsIsNotPermitted />
+                            <AnimeListsIsNotPermitted />
                         )}
                     </div> */}
                 </div>
 
                 <div>
                     <br />
-                    <UtilityJSX.BoldX>Название: </UtilityJSX.BoldX>
+                    <BoldX>Название: </BoldX>
                     <span>{anime.names.ru}</span>
                     <br />
-                    <UtilityJSX.BoldX>Альтернативные названия: </UtilityJSX.BoldX>
+                    <BoldX>Альтернативные названия: </BoldX>
                     {anime.names.org}, {anime.names.all.toString()}
                     <br />
-                    <UtilityJSX.BoldX>Год выпуска: </UtilityJSX.BoldX>
+                    <BoldX>Год выпуска: </BoldX>
                     {anime.rel_year}
                     <br />
-                    <UtilityJSX.BoldX>Тип: </UtilityJSX.BoldX>
+                    <BoldX>Тип: </BoldX>
                     {anime.kind} ({type_ru})
                     <br />
                     {anime.type === "series" && (
                         <>
-                            <UtilityJSX.BoldX>Сезон: </UtilityJSX.BoldX>
+                            <BoldX>Сезон: </BoldX>
                             {anime.season}
                             <br />
                         </>
                     )}
                     <span className="flex">
-                        <UtilityJSX.BoldX>Рейтинг (от шикимори): </UtilityJSX.BoldX> <SiShikimori className="p-1" size={25} />{" "}
+                        <BoldX>Рейтинг (от шикимори): </BoldX> <SiShikimori className="p-1" size={25} />{" "}
                         {anime.rating ? `${anime.rating}/10` : "неизвестно"}
                     </span>
-                    <UtilityJSX.BoldX>Статус: </UtilityJSX.BoldX>
-                    <UtilityJSX.Normalize_anime_status str={anime.status} />
+                    <BoldX>Статус: </BoldX>
+                    <Normalize_anime_status str={anime.status} />
                     <br />
-                    <UtilityJSX.BoldX>Возрастной рейтинг: </UtilityJSX.BoldX>
+                    <BoldX>Возрастной рейтинг: </BoldX>
                     <Normalize_age_rating minimal_age={anime.minimal_age || null} rating={anime.rating_mpaa} />
                     <br />
                     {anime.type === "series" && (
                         <>
-                            <UtilityJSX.BoldX>Количество серий: </UtilityJSX.BoldX>
+                            <BoldX>Количество серий: </BoldX>
                             {anime.eps_total || "неизвестно"}
                             <br />
                         </>
                     )}
                     {anime.status !== "released" && (
                         <>
-                            <UtilityJSX.BoldX>Количество вышедших серий: </UtilityJSX.BoldX>
+                            <BoldX>Количество вышедших серий: </BoldX>
                             {anime.eps_aired || "неизвестно"}
                             <br />
                         </>
                     )}
-                    <UtilityJSX.BoldX>Студии: </UtilityJSX.BoldX>
+                    <BoldX>Студии: </BoldX>
                     {anime.studios_sh.length === 0 ? (
-                        <UtilityJSX.It_will_be_known_soon />
+                        <It_will_be_known_soon />
                     ) : (
                         anime.studios_sh.map((item, ind) => {
                             return (
@@ -101,7 +101,7 @@ export function Anime_description({
                         })
                     )}
                     <br />
-                    <UtilityJSX.BoldX>Страна издания: </UtilityJSX.BoldX>
+                    <BoldX>Страна издания: </BoldX>
                     {anime.cntrs ? (
                         anime.cntrs.split(",").map((_county, ind) => (
                             <span key={_county}>
@@ -109,15 +109,15 @@ export function Anime_description({
                             </span>
                         ))
                     ) : (
-                        <UtilityJSX.It_will_be_known_soon />
+                        <It_will_be_known_soon />
                     )}
                     <br />
-                    <UtilityJSX.BoldX>Дата релиза: </UtilityJSX.BoldX>
+                    <BoldX>Дата релиза: </BoldX>
                     {anime.rel_date}
                     <br />
-                    <UtilityJSX.BoldX>Жанры: </UtilityJSX.BoldX>
+                    <BoldX>Жанры: </BoldX>
                     {anime.genres_ShM.length === 0 ? (
-                        <UtilityJSX.It_will_be_known_soon />
+                        <It_will_be_known_soon />
                     ) : (
                         anime.genres_ShM.map((genre, ind) => (
                             <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
@@ -127,9 +127,9 @@ export function Anime_description({
                         ))
                     )}
                     <br />
-                    <UtilityJSX.BoldX>Актёры: </UtilityJSX.BoldX>
+                    <BoldX>Актёры: </BoldX>
                     {!anime.actors || anime.actors.length === 0 ? (
-                        <UtilityJSX.It_will_be_known_soon />
+                        <It_will_be_known_soon />
                     ) : (
                         anime.actors.map((actor, indx) => {
                             return (
@@ -140,13 +140,13 @@ export function Anime_description({
                         })
                     )}
                     <br />
-                    {!anime.desc && <UtilityJSX.It_will_be_known_soon />}
+                    {!anime.desc && <It_will_be_known_soon />}
                 </div>
             </div>
 
             {anime.desc && (
                 <div className={`${rea_wrapper_border} p-4`}>
-                    <UtilityJSX.BoldX>Описание:</UtilityJSX.BoldX>
+                    <BoldX>Описание:</BoldX>
                     <p className="text-wrap whitespace-pre-wrap mt-2">{anime.desc}</p>
                 </div>
             )}

@@ -1,7 +1,6 @@
 "use client";
 import type { i_top_charts_anime_json } from "#T/userinserface";
-import { Global_Utilities } from "#/utils/common";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { set_top_chart_animes_image_url } from "#/utils/common";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -29,7 +28,7 @@ export function AnimeMainPageCarousel({ animes, render_images = true }: { render
                                             height={200}
                                             loading={"eager"}
                                             alt={` ${one_slide.title}'s cover`}
-                                            src={Global_Utilities.set_top_chart_animes_image_url(one_slide.cover)}
+                                            src={set_top_chart_animes_image_url(one_slide.cover)}
                                             className={"h-[250px] object-contain w-max "}
                                         />
                                         <div className={"m-1 h-[250px] overflow-y-scroll scrollbar text-wrap p-1 flex flex-col"}>

@@ -21,9 +21,9 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     ip,
 }: Props<B>): Promise<UserServiceResponceBodyPattern<T>> {
     if (raw_body && json_body) {
-        throw new Error("Invalid body */3");
+        throw new Error("Invalid body---");
     }
-    const full_url = EnvConfig.partners.user_service.url.current + url;
+    const full_url = EnvConfig.partners.user_service.url + url;
 
     const headers: HeadersInit = {
         ...(json_body ? { "Content-Type": "application/json" } : {}),

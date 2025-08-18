@@ -1,10 +1,10 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
+import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 
 export default async function Root_search_page({ searchParams }: { searchParams: NextJS_Types.SearchParams }) {
     const res = await ResServiceApi.search(await searchParams);
@@ -14,7 +14,7 @@ export default async function Root_search_page({ searchParams }: { searchParams:
     const { data, input } = res;
     return (
         <>
-            <UtilityJSX.Anime_List_Component kodiks={data.paginated} />
+            <Anime_List_Component kodiks={data.paginated} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );

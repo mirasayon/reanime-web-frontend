@@ -1,21 +1,21 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { Global_Utilities } from "#/utils/common";
 import Link from "next/link";
 import { parseTitleNameForAnime } from "./parse-name-for-anime.class";
+import { Normalize_anime_status } from "../utilities/common/assembler-of-utilities.utilx";
+import { get_anime_url_by_id_and_type, get_poster_image_url_by_filename, get_type_of_anime } from "#/utils/common";
 
 export function Anime_card_main({ data, index, render_images }: { render_images: boolean; data: IReady_Animes_DB; index: number }) {
     return (
         <div
             className={`p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
         >
-            <Link href={Global_Utilities.get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
+            <Link href={get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
                 {render_images ? (
                     <img
                         width={200}
                         height={270}
                         loading="lazy"
-                        src={Global_Utilities.get_rea_poster(data.poster_image_for_rea)}
+                        src={get_poster_image_url_by_filename(data.poster_image_for_rea)}
                         alt={`Обложка от аниме ${data.names.ru}`}
                         className="object-cover h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px]"
                     />
@@ -31,13 +31,11 @@ export function Anime_card_main({ data, index, render_images }: { render_images:
 
                 <div className="flex flex-col absolute top-0 left-0 gap-1">
                     <span className="p-1 text-white font-bold bg-blue-900 shadow-sm shadow-violet-400">{parseTitleNameForAnime(data)}</span>
-                    <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">
-                        {Global_Utilities.get_type_of_anime(data)}
-                    </span>
+                    <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">{get_type_of_anime(data)}</span>
                 </div>
 
                 <div className=" absolute  text-black bottom-1 left-0 font-bold">
-                    <UtilityJSX.Normalize_anime_status str={data.status} />
+                    <Normalize_anime_status str={data.status} />
                 </div>
             </Link>
         </div>

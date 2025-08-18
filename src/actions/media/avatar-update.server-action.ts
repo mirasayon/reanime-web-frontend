@@ -1,6 +1,6 @@
 "use server";
-import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
-import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
+import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
+import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
 import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";

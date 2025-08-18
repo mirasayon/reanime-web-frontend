@@ -10,17 +10,16 @@ import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { Layout_Header } from "#/components/layout/global/global-main-header";
 import { root_layout_metas } from "#/metadatas/root-layout.metadata";
-import { AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther";
+import { AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { cookies, headers } from "next/headers";
-import { HtmlElementForJsonLD } from "#/meta/json_ld";
+import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import { JSX } from "react";
 
 type ReturnTypes = Promise<JSX.Element>;
 type Props = NextJS_Types.LayoutProps;
 
 export default async function __Root_layout({ children }: Props): ReturnTypes {
-    const auth: AutherType | null = null;
-    // const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (
         <html lang="ru">
             <head>
@@ -29,19 +28,7 @@ export default async function __Root_layout({ children }: Props): ReturnTypes {
             <Google_TagManager />
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
-                    <Layout_Header
-                        profile={
-                            // auth?.data.profile ??
-
-                            null
-                        }
-                        account={
-                            // auth?.data.account
-                            // ??
-
-                            null
-                        }
-                    />
+                    <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
                     {children}
                     <Layout_Footer />
                     <Cookie_consent_banner />

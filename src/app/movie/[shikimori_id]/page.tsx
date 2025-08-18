@@ -4,14 +4,13 @@ import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
 import { FramesAnime } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
-import { Global_Utilities } from "#/utils/common";
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
-import { DMCA_Protected } from "#/components/animes/dmca_protected";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
+import { Default_poster } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { get_poster_image_url_by_filename, is_contains_only_numeric_string } from "#/utils/common";
 type Props = {
     params: NextJS_Types.Params<{ shikimori_id: string }>;
     searchParams: NextJS_Types.SearchParams;
@@ -20,7 +19,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     const p = await params;
     const sp = await searchParams;
     const shikimori_id_web = p.shikimori_id;
-    if (Number.isNaN(shikimori_id_web) || !Global_Utilities.is_contains_only_numeric_string(shikimori_id_web)) {
+    if (Number.isNaN(shikimori_id_web) || !is_contains_only_numeric_string(shikimori_id_web)) {
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **
@@ -41,7 +40,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     return (
         <>
             <Anime_description
-                cover_image_src={Global_Utilities.get_poster_image_url_by_filename(movie.poster_image_for_rea) || UtilityJSX.Default_poster()}
+                cover_image_src={get_poster_image_url_by_filename(movie.poster_image_for_rea) || Default_poster()}
                 current_user={null}
                 anime={movie}
             />

@@ -2,14 +2,14 @@
 import { UserService } from "#/configs/user-service.app-config";
 import type { cookies as CookiesNext, headers as HeadersNext } from "next/headers";
 import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
-import { UserServiceFetcher } from "../user_service/fetcher";
+import { UserServiceFetcher } from "../user_service/user-service-fetcher.integrator-util";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;
 export type AutherType = { data: Authentication_ResponseTypes.check_session; ip: string | undefined; agent: string | undefined };
 export async function getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
     return null;
 }
-export async function _getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
+async function _getSessionFromClient({ cookies, headers }: { cookies: NextCookies; headers: NextHeaders }): Promise<AutherType | null> {
     const agent = headers.get("user-agent") ?? undefined;
     const ip = headers.get("x-forwarded-for") ?? undefined;
     const session_token = cookies.get(UserService.session_token_name)?.value;

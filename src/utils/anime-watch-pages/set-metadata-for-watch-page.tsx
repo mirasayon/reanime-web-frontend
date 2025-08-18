@@ -1,13 +1,12 @@
-import { UtilityJSX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { Global_Utilities } from "#/utils/common";
+import { get_anime_url_by_id_and_type, get_poster_image_url_by_filename, is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { metadata404 } from "#/constants/common.constants";
 
 export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
-    if (Number.isNaN(shikimori_id) || !Global_Utilities.is_contains_only_numeric_string(shikimori_id)) {
+    if (Number.isNaN(shikimori_id) || !is_contains_only_numeric_string(shikimori_id)) {
         return notFound();
     }
     const shikimori_id_web = Number(shikimori_id);
@@ -18,7 +17,7 @@ export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
     }
     const season = anime.season ? `${anime.season} сезон` : "";
     const anime_title = `${anime.names.ru} ${season}`;
-    const image_src = Global_Utilities.get_poster_image_url_by_filename(anime.poster_image_for_rea) || UtilityJSX.Default_poster();
+    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea);
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
         description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
@@ -39,7 +38,7 @@ export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
             images: { url: image_src },
             locale: "ru_RU",
             type: "website",
-            url: `${WebsiteConfigs.public_full_domain}${Global_Utilities.get_anime_url_by_id_and_type(anime)}`,
+            url: `${WebsiteConfigs.public_full_domain}${get_anime_url_by_id_and_type(anime)}`,
         },
         robots: {
             index: true,

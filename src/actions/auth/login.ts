@@ -1,5 +1,5 @@
 "use server";
-import { UserServiceFetcher } from "#/integrators/user_service/fetcher";
+import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { Logger } from "log-it-colored";
 import { authentication_schemas, dto } from "@reanime.art/user-service/validators/authentication.js";
 import { cookies, headers } from "next/headers";
@@ -7,7 +7,7 @@ import { redirect, RedirectType } from "next/navigation";
 import { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
-import { getSessionFromClient } from "#/integrators/auth/cookie-auther";
+import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
