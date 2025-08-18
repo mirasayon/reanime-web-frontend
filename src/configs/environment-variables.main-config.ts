@@ -23,16 +23,16 @@ function check() {
 
     return process.env as ReqEnv;
 }
-const _env = check();
+// const _env = check();
 
 /** Environment variables */
 export const EnvConfig = new (class EnvConfigClass {
     /** google analytics id */
-    gaid = _env.GOOGLE_ANALYTICS_ID;
+    gaid = process.env.GOOGLE_ANALYTICS_ID!;
     /** google tag manager id */
-    gtm_id = _env.GOOGLE_TAG_MANAGER_ID!;
+    gtm_id = process.env.GOOGLE_TAG_MANAGER_ID!;
 
-    NODE_ENV = _env.NODE_ENV as "development" | "production" | "test";
+    NODE_ENV = process.env.NODE_ENV as "development" | "production" | "test";
     /** Working mode */
     mode = {
         prod: this.NODE_ENV === "production",
@@ -43,19 +43,19 @@ export const EnvConfig = new (class EnvConfigClass {
         /** For avatars and covers */
         media_service: {
             /** Current */
-            url: _env.REANIME_MEDIA_SERVICE_URL!,
+            url: process.env.REANIME_MEDIA_SERVICE_URL!,
         },
         user_service: {
-            api_key: _env.REANIME_USER_SERVICE_API_KEY!,
+            api_key: process.env.REANIME_USER_SERVICE_API_KEY!,
             /**
              * Current
              */
-            url: _env.REANIME_USER_SERVICE_URL!,
+            url: process.env.REANIME_USER_SERVICE_URL!,
         },
         resource_service: {
-            api_key: _env.REANIME_RESOURCE_SERVICE_API_KEY!,
+            api_key: process.env.REANIME_RESOURCE_SERVICE_API_KEY!,
             /** Current */
-            url: _env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL!,
+            url: process.env.NEXT_PUBLIC_REANIME_RESOURCE_SERVICE_URL!,
         },
     };
 })();
