@@ -1,18 +1,19 @@
+"use server";
 import { EnvConfig } from "#/configs/environment-variables.main-config";
-
-const baseUrl = EnvConfig.partners.resource_service.url;
 
 type Props = URL | string;
 type ReturnType<T> = Promise<T>;
 /** Reanime `Res Service` */
-export const ResourseServiceFetcher = async <T>(url: Props): ReturnType<T> => {
+export async function ResourseServiceFetcher<T>(url: Props): ReturnType<T> {
+    const _env = await EnvConfig();
+    const baseUrl = _env.partners.resource_service.url;
     const Full_url = `${baseUrl}${url}`;
     const res = await fetch(Full_url, {
         method: "GET",
-        cache: EnvConfig.mode.prod ? "force-cache" : "no-cache",
-        next: { revalidate: EnvConfig.mode.prod ? 86400 : 0 /** 24 Hours */ },
+        cache: _env.mode.prod ? "force-cache" : "no-cache",
+        next: { revalidate: _env.mode.prod ? 86400 : 0 /** 24 Hours */ },
         headers: {
-            "x-resource-service-api-key": EnvConfig.partners.resource_service.api_key,
+            "x-resource-service-api-key": _env.partners.resource_service.api_key,
         },
     });
     if (res.status === 200) {
@@ -26,4 +27,4 @@ export const ResourseServiceFetcher = async <T>(url: Props): ReturnType<T> => {
             res.status
         }, json: ${JSON.stringify((await res.json().catch(() => null)) ?? "__undefined")}`,
     );
-};
+}

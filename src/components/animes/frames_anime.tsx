@@ -1,6 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { get_anime_frame_image_url } from "#/utils/common";
-export function FramesAnime({ title_of_anime, shiki_id, screenshots }: { shiki_id: number; screenshots: string[]; title_of_anime: string }) {
+import { get_anime_frame_image_url } from "#/utils/common/get-poster-image-url-by-filaname.server-component";
+type Props = { shiki_id: number; screenshots: string[]; title_of_anime: string; res_url: string };
+export function ShowScreenshotsComponent({ title_of_anime, shiki_id, screenshots, res_url }: Props) {
     const is_extended = true;
     const img_height = 360 / 1.5; //240 // 720 / 2;
     const img_width = 640 / 1.5; // 1280 / 2;
@@ -21,7 +22,7 @@ export function FramesAnime({ title_of_anime, shiki_id, screenshots }: { shiki_i
                             height={img_height}
                             key={img_url}
                             width={img_width}
-                            src={get_anime_frame_image_url(img_src, shiki_id)}
+                            src={get_anime_frame_image_url(img_src, shiki_id, res_url)}
                             alt={alt_string}
                         />
                     );

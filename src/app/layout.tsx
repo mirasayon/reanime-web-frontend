@@ -14,18 +14,20 @@ import { AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auth
 import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import { JSX } from "react";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 
 type ReturnTypes = Promise<JSX.Element>;
 type Props = NextJS_Types.LayoutProps;
 
 export default async function __Root_layout({ children }: Props): ReturnTypes {
+    const _env = await EnvConfig();
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (
         <html lang="ru">
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            <Google_TagManager />
+            <Google_TagManager gtm_id={_env.gtm_id} />
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
@@ -36,7 +38,7 @@ export default async function __Root_layout({ children }: Props): ReturnTypes {
                 <Yandex_Mekrika_Analytics />
                 <HtmlElementForJsonLD />
             </body>
-            <Google_Analytics />
+            <Google_Analytics gaid={_env.gaid} />
         </html>
     );
 }

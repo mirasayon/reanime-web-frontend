@@ -8,6 +8,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({
@@ -26,6 +27,8 @@ export default async function List_Page({
     if (!res) {
         return notFound();
     }
+
+    const res_url = (await EnvConfig()).partners.resource_service.url;
     const { data, input } = res;
     return (
         <>
@@ -33,7 +36,7 @@ export default async function List_Page({
                 По категориям: {_categories.find((w) => w.link_url.includes(filter))?.title}
             </h1>
             <RadioGroupSelectCategory current={filter} />
-            <Anime_List_Component kodiks={data.paginated} />
+            <Anime_List_Component resUrl={res_url} kodiks={data.paginated} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );

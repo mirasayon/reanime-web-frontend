@@ -1,12 +1,12 @@
 "use client";
-import { Get_Current_Theme } from "#/components/themes/get_current_theme";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
+// import { Get_Current_Theme } from "#/components/themes/get_current_theme";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
 import { type JSX, useEffect, useState } from "react";
-export function FeedAds(): JSX.Element | undefined {
+type Props = {};
+export function FeedAds({}: Props): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
+        return null;
     }
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -14,12 +14,10 @@ export function FeedAds(): JSX.Element | undefined {
     }, []);
 
     if (!mounted) {
-        return undefined;
+        return null;
     }
-    let { is_dark } = Get_Current_Theme();
-    if (!EnvConfig.mode.prod) {
-        return;
-    }
+    // let { is_dark } = Get_Current_Theme();
+
     return (
         <div className={" h-[30%] m-2 border-emerald-500 border-2 "}>
             {/* <!-- Yandex.RTB R-A-12114109-1 --> */}

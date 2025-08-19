@@ -1,16 +1,18 @@
+"use server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
 import { Anime_description } from "#/components/anime_page/anime_description";
-import { FramesAnime } from "#/components/animes/frames_anime";
+import { ShowScreenshotsComponent } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/series-episode-player";
-import { get_poster_image_url_by_filename, is_contains_only_numeric_string } from "#/utils/common";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
-import { Default_poster } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { is_contains_only_numeric_string } from "#/utils/common";
+import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -84,6 +86,7 @@ export default async function __Serial_shikimori_id_page({
     const is_now_first_episode: boolean = current_episode === first_possible_ep;
     const is_now_last_episode: boolean = current_episode === last_possible_ep;
 
+    const res_url = (await EnvConfig()).partners.resource_service.url;
     const current_previous_episode: number = is_now_first_episode ? current_episode : current_episode - 1;
     const current_next_episode: number = is_now_last_episode ? current_episode : current_episode + 1;
 
@@ -92,7 +95,7 @@ export default async function __Serial_shikimori_id_page({
     return (
         <>
             <Anime_description
-                cover_image_src={get_poster_image_url_by_filename(anime.poster_image_for_rea)}
+                cover_image_src={get_poster_image_url_by_filename(anime.poster_image_for_rea, res_url)}
                 current_user={null}
                 // current_user={current_user}
                 anime={anime}
@@ -109,7 +112,7 @@ export default async function __Serial_shikimori_id_page({
                 array_of_episodes={array_of_episodes}
                 current_episode={current_episode}
             />
-            <FramesAnime screenshots={anime.screenshots_rea} title_of_anime={anime.names.kkru} shiki_id={anime.sid} />
+            <ShowScreenshotsComponent res_url={res_url} screenshots={anime.screenshots_rea} title_of_anime={anime.names.kkru} shiki_id={anime.sid} />
             <Related_animes related={anime.rels} />
         </>
     );

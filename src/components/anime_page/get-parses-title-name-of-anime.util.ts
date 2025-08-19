@@ -13,6 +13,9 @@ export function parseTitleNameForAnime(data: IReady_Animes_DB) {
     if (hasDigit(any_title)) {
         return any_title;
     }
+    if (data.season === 1) {
+        return any_title;
+    }
     const withSeason = data.season ? any_title + " " + data.season : any_title;
     return withSeason;
 }

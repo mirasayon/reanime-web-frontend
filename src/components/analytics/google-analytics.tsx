@@ -1,18 +1,15 @@
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { JSX } from "react";
+import type { JSX } from "react";
 
+type Google_TagManagerProps = { gtm_id: string };
 /** Tag manager */
-export const Google_TagManager = (): JSX.Element | null => {
-    if (!EnvConfig.mode.prod) {
-        return null;
-    }
-    return <GoogleTagManager gtmId={EnvConfig.gtm_id} />;
-};
+export function Google_TagManager({ gtm_id }: Google_TagManagerProps): JSX.Element {
+    return <GoogleTagManager gtmId={gtm_id} />;
+}
+
+//
+type Google_AnalyticsProps = { gaid: string };
 /** Google Analytics */
-export const Google_Analytics = (): JSX.Element | null => {
-    if (!EnvConfig.mode.prod) {
-        return null;
-    }
-    return <GoogleAnalytics gaId={EnvConfig.gaid} />;
-};
+export function Google_Analytics({ gaid }: Google_AnalyticsProps): JSX.Element {
+    return <GoogleAnalytics gaId={gaid} />;
+}

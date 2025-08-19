@@ -1,7 +1,8 @@
-import { Anime_card_main } from "#/components/anime_page/anime_card_main";
+import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import { AnimeElConfig } from "../component-utilx-config.config";
+import type { JSX } from "react";
 
 export const BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
     return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
@@ -15,11 +16,15 @@ export const AnimeListsIsNotPermitted = () => {
         <></>
     );
 };
-export const Anime_List_Component = ({ kodiks }: { kodiks: IReady_Animes_DB[] }): React.JSX.Element => {
+type Anime_List_ComponentProps = {
+    resUrl: string;
+    kodiks: IReady_Animes_DB[];
+};
+export const Anime_List_Component = ({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element => {
     return (
         <div className=" flex  flex-wrap justify-around ">
-            {kodiks.map((kodik, arr_ind) => (
-                <Anime_card_main index={arr_ind} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
+            {kodiks.map((kodik) => (
+                <Anime_card_main resUrl={resUrl} index={kodik.sid} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
             ))}
         </div>
     );

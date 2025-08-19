@@ -1,13 +1,12 @@
 "use client";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
 import { type JSX, useEffect, useState } from "react";
 
 /** Ads init */
-export function InitHead(): JSX.Element | undefined {
+export function InitHead(): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
+        return null;
     }
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -15,10 +14,7 @@ export function InitHead(): JSX.Element | undefined {
     }, []);
 
     if (!mounted) {
-        return;
-    }
-    if (!EnvConfig.mode.prod) {
-        return;
+        return null;
     }
     return (
         <>

@@ -1,16 +1,12 @@
 "use client";
 import { Get_Current_Theme } from "#/components/themes/get_current_theme";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import Script from "next/script";
 
-export function UniversalBanner({ className = "" }: { className?: string }): JSX.Element | undefined {
+export function UniversalBanner({ className = "" }: { className?: string }): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
-    }
-    if (!EnvConfig.mode.prod) {
-        return;
+        return null;
     }
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -18,7 +14,7 @@ export function UniversalBanner({ className = "" }: { className?: string }): JSX
     }, []);
 
     if (!mounted) {
-        return undefined;
+        return null;
     }
     let { is_dark } = Get_Current_Theme();
 

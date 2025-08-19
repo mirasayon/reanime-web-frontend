@@ -1,7 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { Filter_animes_links } from "#/components/anime_page/catalog_links";
+import { AnimeCategoriesComponentDumb } from "#/components/anime_page/anime-categories-links-component.dumbx";
 import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner";
-import { Search_Anime_in_Header } from "#/components/anime_page/search_anime";
+import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
@@ -18,13 +18,13 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
                     <Link href="/" className="ml-2 flex items-center justify-center ">
                         <img src={"/icon.png"} className=" w-[40px] h-[40px]  object-cover" alt={`${WebsiteConfigs.name}'s icon`} />
                     </Link>
-                    <Filter_animes_links />
+                    <AnimeCategoriesComponentDumb />
                 </div>
                 <div>
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <Search_Anime_in_Header />
+                    <SearchAnimeAddressBarInHeader />
                     <DropdownMenuInHeader profile={profile} account={account} />
                 </div>
             </header>

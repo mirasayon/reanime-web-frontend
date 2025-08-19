@@ -1,17 +1,13 @@
 "use client";
 import { Get_Current_Theme } from "#/components/themes/get_current_theme";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 
 /** Banner Used in Frames */
-export function BannerInFrames(): JSX.Element | undefined {
+export function BannerInFrames(): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
-    }
-    if (!EnvConfig.mode.prod) {
-        return;
+        return null;
     }
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -19,7 +15,7 @@ export function BannerInFrames(): JSX.Element | undefined {
     }, []);
 
     if (!mounted) {
-        return;
+        return null;
     }
     let { is_dark } = Get_Current_Theme();
     const yaid = is_dark

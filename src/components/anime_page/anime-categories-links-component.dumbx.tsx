@@ -4,7 +4,7 @@ import { useState } from "react";
 import { _categories, categories, genres, genresType } from "#/static/anime_categories";
 import Link from "next/link";
 
-export function Filter_animes_links() {
+export function AnimeCategoriesComponentDumb() {
     const [is_open_cate, set_is_open_cate] = useState(false);
     const [is_open_genre, set_is_open_genre] = useState(false);
     const pathname = usePathname();

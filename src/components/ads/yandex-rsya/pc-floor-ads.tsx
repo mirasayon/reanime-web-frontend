@@ -1,29 +1,23 @@
 "use client";
 import { Get_Current_Theme } from "#/components/themes/get_current_theme";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import { AppSettings } from "#/settings/app";
 import Script from "next/script";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 
 /** Bottom block of advertising For Desktops */
-export function PCFLoorAds(): JSX.Element | undefined {
+export function PCFLoorAds(): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
+        return null;
     }
-    if (!EnvConfig.mode.prod) {
-        return;
-    }
-
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
 
     if (!mounted) {
-        return;
+        return null;
     }
     let { is_dark } = Get_Current_Theme();
-
     const block_id = is_dark ? "R-A-12114109-2" : "R-A-12114109-7";
     return (
         <Script id="PCFLoorAds" strategy="afterInteractive">

@@ -1,11 +1,14 @@
+"use server";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { get_anime_url_by_id_and_type, get_poster_image_url_by_filename, is_contains_only_numeric_string } from "#/utils/common";
+import { get_anime_url_by_id_and_type, is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { metadata404 } from "#/constants/common.constants";
+import { get_poster_image_url_by_filename } from "../common/get-poster-url-by-inputted-server-url.dumbx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 
-export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
+export async function setMetadataForWatchAnimePage(shikimori_id: string) {
     if (Number.isNaN(shikimori_id) || !is_contains_only_numeric_string(shikimori_id)) {
         return notFound();
     }
@@ -17,7 +20,7 @@ export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
     }
     const season = anime.season ? `${anime.season} сезон` : "";
     const anime_title = `${anime.names.ru} ${season}`;
-    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea);
+    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea, (await EnvConfig()).partners.resource_service.url);
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
         description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
@@ -45,4 +48,4 @@ export const setMetadataForWatchAnimePage = async (shikimori_id: string) => {
             follow: true,
         },
     };
-};
+}

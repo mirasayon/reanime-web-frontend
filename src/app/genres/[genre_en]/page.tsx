@@ -9,6 +9,7 @@ import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-p
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 export default async function GenresPage({
     params,
     searchParams,
@@ -25,6 +26,7 @@ export default async function GenresPage({
     if (!desc) {
         return notFound();
     }
+    const res_url = (await EnvConfig()).partners.resource_service.url;
     return (
         <>
             <h1 className=" font-bold text-center border-b-4 border-blue-300">
@@ -36,7 +38,7 @@ export default async function GenresPage({
                     {desc.russian_name} - {desc.description}
                 </div>
             </div>
-            <Anime_List_Component kodiks={data.paginated} />
+            <Anime_List_Component kodiks={data.paginated} resUrl={res_url} />
             <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
         </>
     );

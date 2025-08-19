@@ -1,10 +1,15 @@
 "use client";
 import type { i_top_charts_anime_json } from "#T/userinserface";
-import { set_top_chart_animes_image_url } from "#/utils/common";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-export function AnimeMainPageCarousel({ animes, render_images = true }: { render_images?: boolean; animes: i_top_charts_anime_json[] }) {
+import { set_top_chart_animes_image_urlByUrl } from "#/utils/common/get-top-chart-poster-url-by-inputted-server-url.dumbx";
+type Props = {
+    animes: i_top_charts_anime_json[];
+    resServerUrl: string;
+};
+
+export function AnimeMainPageCarousel({ resServerUrl, animes }: Props) {
     return (
         <div>
             <Carousel
@@ -28,7 +33,7 @@ export function AnimeMainPageCarousel({ animes, render_images = true }: { render
                                             height={200}
                                             loading={"eager"}
                                             alt={` ${one_slide.title}'s cover`}
-                                            src={set_top_chart_animes_image_url(one_slide.cover)}
+                                            src={set_top_chart_animes_image_urlByUrl(one_slide.cover, resServerUrl)}
                                             className={"h-[250px] object-contain w-max "}
                                         />
                                         <div className={"m-1 h-[250px] overflow-y-scroll scrollbar text-wrap p-1 flex flex-col"}>

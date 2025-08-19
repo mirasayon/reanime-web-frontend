@@ -1,16 +1,18 @@
+"use server";
 import { Anime_description } from "#/components/anime_page/anime_description";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
-import { FramesAnime } from "#/components/animes/frames_anime";
+import { ShowScreenshotsComponent } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
-import { Default_poster } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { get_poster_image_url_by_filename, is_contains_only_numeric_string } from "#/utils/common";
+import { is_contains_only_numeric_string } from "#/utils/common";
+import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import { EnvConfig } from "#/configs/environment-variables.main-config";
 type Props = {
     params: NextJS_Types.Params<{ shikimori_id: string }>;
     searchParams: NextJS_Types.SearchParams;
@@ -33,6 +35,8 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     if (!is_in_translations) {
         current_ds_id = tr_array[0].sid;
     }
+
+    const res_url = (await EnvConfig()).partners.resource_service.url;
     const vid_src: IReady_Animes_DB["w"][number] | undefined = tr_array.find((item) => item.sid === current_ds_id);
     if (!vid_src) {
         return notFound();
@@ -40,13 +44,13 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     return (
         <>
             <Anime_description
-                cover_image_src={get_poster_image_url_by_filename(movie.poster_image_for_rea) || Default_poster()}
+                cover_image_src={get_poster_image_url_by_filename(movie.poster_image_for_rea, res_url)}
                 current_user={null}
                 anime={movie}
             />
             <AnimeWatchPagePromoVideos trailer={movie.promo} />
             <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />
-            <FramesAnime title_of_anime={movie.names.kkru} screenshots={movie.screenshots_rea} shiki_id={movie.sid} />
+            <ShowScreenshotsComponent res_url={res_url} title_of_anime={movie.names.kkru} screenshots={movie.screenshots_rea} shiki_id={movie.sid} />
             <Related_animes related={movie.rels} />
         </>
     );

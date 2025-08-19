@@ -1,17 +1,13 @@
 "use client";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
 import Script from "next/script";
 import { Get_Current_Theme } from "../../themes/get_current_theme";
-import { JSX, useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 import { AppSettings } from "#/settings/app";
 
 /** Bottom block of advertising For phones */
-export function MobileFloorAds(): JSX.Element | undefined {
+export function MobileFloorAds(): JSX.Element | null {
     if (!AppSettings.enable_ads) {
-        return;
-    }
-    if (!EnvConfig.mode.prod) {
-        return;
+        return null;
     }
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -19,7 +15,7 @@ export function MobileFloorAds(): JSX.Element | undefined {
     }, []);
 
     if (!mounted) {
-        return;
+        return null;
     }
     let { is_dark } = Get_Current_Theme();
 
