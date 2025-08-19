@@ -6,7 +6,7 @@ import type { JSX } from "react";
 import { parseTitleNameForAnime } from "#/components/anime_page/get-parses-title-name-of-anime.util";
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
+import { LoadConfig } from "#/configs/environment-variables.main-config";
 type Props = { shiki_id: number; relation: string };
 type RT = Promise<JSX.Element | null>;
 export async function RelatedCardForAnime({ shiki_id, relation }: Props): RT {
@@ -14,7 +14,7 @@ export async function RelatedCardForAnime({ shiki_id, relation }: Props): RT {
     return data ? (
         <Link href={get_anime_url_by_id_and_type(data)} className="w-[20rem] border-4 h-[240px] flex m-2 border-blue-300 p-2">
             <img
-                src={get_poster_image_url_by_filename(data.poster_image_for_rea, (await EnvConfig()).partners.resource_service.url)}
+                src={get_poster_image_url_by_filename(data.poster_image_for_rea, (await LoadConfig()).partners.resource_service.url)}
                 alt={`Обложка от аниме ${parseTitleNameForAnime(data)}`}
                 className="rounded-sm object-cover h-[212px] w-[150px]"
             />

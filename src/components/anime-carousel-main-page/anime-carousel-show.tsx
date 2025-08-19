@@ -1,5 +1,5 @@
 "use client";
-import type { i_top_charts_anime_json } from "#T/userinserface";
+import type { i_top_charts_anime_json } from "#T/userinserface.types";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";

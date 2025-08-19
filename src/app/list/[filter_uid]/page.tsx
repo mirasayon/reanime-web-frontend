@@ -8,7 +8,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
+import { LoadConfig } from "#/configs/environment-variables.main-config";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({
@@ -28,7 +28,7 @@ export default async function List_Page({
         return notFound();
     }
 
-    const res_url = (await EnvConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).partners.resource_service.url;
     const { data, input } = res;
     return (
         <>

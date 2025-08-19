@@ -1,4 +1,4 @@
-import { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface";
+import { i_describe_genres, i_top_charts_anime_json } from "#T/userinserface.types";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 
 export const ResService_InternalStatic = new (class ResService_InternalStatic {

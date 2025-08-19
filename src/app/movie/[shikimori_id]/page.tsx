@@ -12,7 +12,7 @@ import { ResServiceApi } from "#/integrators/resource-service/resource-service-m
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
+import { LoadConfig } from "#/configs/environment-variables.main-config";
 type Props = {
     params: NextJS_Types.Params<{ shikimori_id: string }>;
     searchParams: NextJS_Types.SearchParams;
@@ -36,7 +36,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
         current_ds_id = tr_array[0].sid;
     }
 
-    const res_url = (await EnvConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).partners.resource_service.url;
     const vid_src: IReady_Animes_DB["w"][number] | undefined = tr_array.find((item) => item.sid === current_ds_id);
     if (!vid_src) {
         return notFound();

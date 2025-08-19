@@ -1,11 +1,11 @@
 "use server";
-import { EnvConfig } from "#/configs/environment-variables.main-config";
+import { LoadConfig } from "#/configs/environment-variables.main-config";
 
 type Props = URL | string;
 type ReturnType<T> = Promise<T>;
 /** Reanime `Res Service` */
 export async function ResourseServiceFetcher<T>(url: Props): ReturnType<T> {
-    const _env = await EnvConfig();
+    const _env = await LoadConfig();
     const baseUrl = _env.partners.resource_service.url;
     const Full_url = `${baseUrl}${url}`;
     const res = await fetch(Full_url, {
