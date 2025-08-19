@@ -10,7 +10,7 @@ import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { Layout_Header } from "#/components/layout/global/global-main-header";
 import { root_layout_metas } from "#/metadatas/root-layout.metadata";
-import { AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
+import { type AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import { JSX } from "react";

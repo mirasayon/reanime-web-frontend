@@ -1,8 +1,9 @@
 "use server";
 import { checkProcessEnv } from "./checker-env.utils";
+import { required_env_variables, type TypeRequiredEnvVarbs } from "./needed-env-varbs.constants";
 /** Load Environment variables */
 export async function LoadConfig() {
-    const _env = await checkProcessEnv();
+    const _env = await checkProcessEnv<TypeRequiredEnvVarbs>(required_env_variables);
     const ProcessedEnv = new (class EnvConfigClass {
         /** google analytics id */
         gaid = _env.GOOGLE_ANALYTICS_ID;

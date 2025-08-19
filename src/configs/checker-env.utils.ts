@@ -1,8 +1,7 @@
 "use server";
-import { type TypeRequiredEnvVarbs, required_env_variables } from "./needed-env-varbs.constants";
 import { NoRequiredEnvVariebleError } from "@reanime/resource-parser/configs/env-error.class.js";
-export async function checkProcessEnv(): Promise<TypeRequiredEnvVarbs> {
-    for (const eVar of required_env_variables) {
+export async function checkProcessEnv<T>(reqVarbs: readonly string[]): Promise<T> {
+    for (const eVar of reqVarbs) {
         if (!Object.hasOwn(process.env, eVar)) {
             throw new NoRequiredEnvVariebleError(eVar);
         }
@@ -11,5 +10,5 @@ export async function checkProcessEnv(): Promise<TypeRequiredEnvVarbs> {
         }
     }
 
-    return process.env as TypeRequiredEnvVarbs;
+    return process.env as T;
 }
