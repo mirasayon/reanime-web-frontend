@@ -1,6 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 
 export function Localization_Studios_List_Component({

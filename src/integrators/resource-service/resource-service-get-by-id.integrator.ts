@@ -1,5 +1,5 @@
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { paginatedResponse } from "@reanime/resource-service/types/animes-db-types/paginated-responce-from-server.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 
 type ReturnTypeGetByID = Promise<IReady_Animes_DB | null>;

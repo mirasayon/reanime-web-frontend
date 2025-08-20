@@ -10,7 +10,7 @@ export async function ResourseServiceFetcher<T>(url: Props): ReturnType<T> {
     const Full_url = `${baseUrl}${url}`;
     const res = await fetch(Full_url, {
         method: "GET",
-        cache: _env.mode.prod ? "force-cache" : "no-cache",
+        // cache: _env.mode.prod ? "force-cache" : "no-cache",
         next: { revalidate: _env.mode.prod ? 86400 : 0 /** 24 Hours */ },
         headers: {
             "x-resource-service-api-key": _env.partners.resource_service.api_key,

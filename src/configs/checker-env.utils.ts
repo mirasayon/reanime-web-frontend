@@ -1,5 +1,5 @@
 "use server";
-import { NoRequiredEnvVariebleError } from "@reanime/resource-parser/configs/env-error.class.js";
+import { NoRequiredEnvVariebleError } from "@reanime/resource-service/configs/no-required-env-varieble-error.class.js";
 export async function checkProcessEnv<T>(reqVarbs: readonly string[]): Promise<T> {
     for (const eVar of reqVarbs) {
         if (!Object.hasOwn(process.env, eVar)) {

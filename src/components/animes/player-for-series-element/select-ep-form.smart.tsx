@@ -30,14 +30,11 @@ export function SelectEpFormForSeries(props: Props): RT {
     }
     return (
         <>
-            <div className="flex flex-wrap">
+            <div className={"flex flex-wrap"}>
                 {is_only_one_episode && (
                     <form className="flex justify-center items-center" action={submit_episode}>
-                        <label htmlFor="episode" className="m-2 text-sm">
-                            Укажите нужную серию
-                        </label>
                         <input
-                            className="m-2 p-2 w-44 bg-transparent outline-hidden border-2 border-blue-400"
+                            className="m-2 p-2 min-w-44 bg-transparent outline-hidden border-4 rounded border-blue-500/40"
                             type="number"
                             id="episode"
                             name="episode"

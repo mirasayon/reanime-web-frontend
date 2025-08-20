@@ -1,6 +1,6 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 import { AnimeElConfig } from "../component-utilx-config.config";
 import type { JSX } from "react";
 
@@ -33,6 +33,9 @@ export const Anime_List_Component = ({ kodiks, resUrl }: Anime_List_ComponentPro
 export const It_will_be_known_soon = ({ className }: { className?: string }) => {
     const styles = className === undefined ? "" : className;
     return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
+};
+export const GhostedTextComponent = ({ children }: { children: React.ReactNode }) => {
+    return <div className={` text-slate-500/80 `}>{children}</div>;
 };
 export const Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status"] }) => {
     switch (str) {

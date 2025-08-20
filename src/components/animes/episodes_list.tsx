@@ -11,8 +11,8 @@ export function Episodes_List_Component({
     current_episode: number;
 }) {
     return (
-        <div className="flex flex-wrap  ">
-            <div className={`${rea_wrapper_border} mt-0 max-h-[200px] overflow-y-scroll scrollbar p-1 flex flex-wrap`}>
+        <div className={`flex flex-wrap `}>
+            <div className={` mt-0 max-h-[200px] overflow-y-scroll scrollbar p-1 flex flex-wrap`}>
                 <span className={"p-2 rounded font-medium text-sm dark:bg-slate-800 dark:text-white bg-blue-200 text-black "}>Серии:</span>
 
                 {array_of_episodes.map(({ key }) => {

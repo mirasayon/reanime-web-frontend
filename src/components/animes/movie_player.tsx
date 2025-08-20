@@ -1,7 +1,7 @@
 import { Ads_in_kodik_is_not_mine } from "#/components/info/show-ads-in-kodik-are-not-mine-text";
 import { Localization_Studios_List_Component } from "./translation_studios_list.anime-watch";
 import { rea_wrapper_border } from "#/styles/provider";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 
 export function Movie_Player_Component({
     vid_src,

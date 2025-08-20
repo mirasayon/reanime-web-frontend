@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 
 export const get_type_of_anime = (data: IReady_Animes_DB) => {
     return data.type === "movie" ? "Фильм" : ("ТВ Сериал" as const);

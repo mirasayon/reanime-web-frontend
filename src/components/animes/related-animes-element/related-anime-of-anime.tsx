@@ -1,5 +1,5 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 export function RelatedCardForManga({ data, relation }: { data: IReady_Animes_DB["rels"][number]["manga"]; relation: string }) {
     if (!data) return;
     type ikind = typeof data.kind;

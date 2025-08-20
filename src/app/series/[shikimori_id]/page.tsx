@@ -3,16 +3,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
 import { Anime_description } from "#/components/anime_page/anime_description";
-import { ShowScreenshotsComponent } from "#/components/animes/frames_anime";
+import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
 import { Serial_Player_Component } from "#/components/animes/series-episode-player";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { GetShikimoriReleaseCalendar } from "#/integrators/resource-service/get-shikimori-release-calendar.integrator";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -86,6 +87,7 @@ export default async function __Serial_shikimori_id_page({
     const is_now_first_episode: boolean = current_episode === first_possible_ep;
     const is_now_last_episode: boolean = current_episode === last_possible_ep;
 
+    const RelCalendar = (await GetShikimoriReleaseCalendar()).find((ca) => Number(ca.anime.id) === current_shikimori_id);
     const res_url = (await LoadConfig()).partners.resource_service.url;
     const current_previous_episode: number = is_now_first_episode ? current_episode : current_episode - 1;
     const current_next_episode: number = is_now_last_episode ? current_episode : current_episode + 1;
@@ -104,6 +106,7 @@ export default async function __Serial_shikimori_id_page({
             <Serial_Player_Component
                 current_studio_id={current_studio_id}
                 firstPossibleEp={first_possible_ep}
+                shikimoriEpisodeCalendar={RelCalendar}
                 lastPossibleEp={last_possible_ep}
                 iframeUrl={array_of_episodes[current_episode].url}
                 prevEp={current_previous_episode}
@@ -112,7 +115,12 @@ export default async function __Serial_shikimori_id_page({
                 array_of_episodes={array_of_episodes}
                 current_episode={current_episode}
             />
-            <ShowScreenshotsComponent res_url={res_url} screenshots={anime.screenshots_rea} title_of_anime={anime.names.kkru} shiki_id={anime.sid} />
+            <ShowAnimesScreenshotsComponent
+                res_url={res_url}
+                screenshots={anime.screenshots_rea}
+                title_of_anime={anime.names.kkru}
+                shiki_id={anime.sid}
+            />
             <Related_animes related={anime.rels} />
         </>
     );

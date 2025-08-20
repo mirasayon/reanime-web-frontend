@@ -1,18 +1,27 @@
+"use client";
 import { rea_wrapper_border } from "#/styles/provider";
 import { get_anime_frame_image_url } from "#/utils/common/get-poster-image-url-by-filaname.server-component";
+import { useState } from "react";
 type Props = { shiki_id: number; screenshots: string[]; title_of_anime: string; res_url: string };
-export function ShowScreenshotsComponent({ title_of_anime, shiki_id, screenshots, res_url }: Props) {
-    const is_extended = true;
+export function ShowAnimesScreenshotsComponent({ title_of_anime, shiki_id, screenshots, res_url }: Props) {
+    const [is_extended, set_is_extended] = useState(false);
     const img_height = 360 / 1.5; //240 // 720 / 2;
     const img_width = 640 / 1.5; // 1280 / 2;
     return (
-        <section className={`p-2 ${rea_wrapper_border} flex flex-col justify-center items-center`}>
-            <span className="text-lg px-3">Кадры</span>
-            <div
-                className={`flex flex-wrap justify-evenly overflow-y-scroll scrollbar 
-                        ease-in-out duration-400  
-                    ${is_extended ? "h-[720px]" : "h-[240px]"}`}
-            >
+        <div className={`p-2 ${rea_wrapper_border} flex flex-col justify-center items-center`}>
+            <div>
+                <span className="text-lg px-3">Скриншоты</span>
+                <button
+                    type="button"
+                    className="p-2 cursor-pointer bg-blue-500/50"
+                    onClick={(e) => {
+                        set_is_extended((s) => !s);
+                    }}
+                >
+                    {!is_extended ? "Раскрыть" : "Скрыть"}
+                </button>
+            </div>
+            <div className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-[0px]"}`}>
                 {screenshots.map((img_url, ind) => {
                     const alt_string: string = `кадры от ${title_of_anime}, N-${ind + 1}`;
                     const img_src = img_url.split("?")[0];
@@ -28,6 +37,6 @@ export function ShowScreenshotsComponent({ title_of_anime, shiki_id, screenshots
                     );
                 })}
             </div>
-        </section>
+        </div>
     );
 }

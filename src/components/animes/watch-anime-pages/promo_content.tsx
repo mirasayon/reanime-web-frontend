@@ -1,10 +1,8 @@
-import type { paginatedResponse } from "@reanime/resource-parser/types/animes-db-types/paginated-responce-from-server.types.js";
-import type { IReady_Animes_DB } from "@reanime/resource-parser/types/animes-db-types/ready-animes.types.js";
-import { rea_wrapper_border } from "#/styles/provider";
+import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 
 export function AnimeWatchPagePromoVideos({ trailer }: { trailer: IReady_Animes_DB["promo"] }) {
     return (
-        <div className={`flex m-4 max-md:grid ${rea_wrapper_border}`}>
+        <div className={`flex m-4 max-md:grid`}>
             {trailer?.map((item) => {
                 if (item.hosting === "vk") return;
                 const src_url: string = item.player_url.replace(/^http:/, "https:");
