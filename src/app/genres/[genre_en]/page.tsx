@@ -1,5 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 import type { NextJS_Types } from "#T/next";
 import type { Metadata } from "next";
@@ -17,10 +17,14 @@ export default async function GenresPage({
     params: NextJS_Types.Params<{ genre_en: string }>;
     searchParams: NextJS_Types.SearchParams;
 }) {
-    const res = await ResServiceApi.by_genre(await searchParams, (await params).genre_en);
+    let res = await ResServiceApi.by_genre(await searchParams, (await params).genre_en);
+    if (!res) {
+        return redirect("/genres/slice of life");
+    }
     if (!res) {
         return notFound();
     }
+
     const { data, input } = res;
     const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === input.genre);
     if (!desc) {

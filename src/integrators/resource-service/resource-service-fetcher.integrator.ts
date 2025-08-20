@@ -1,5 +1,6 @@
 "use server";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
+import ms from "ms";
 
 type Props = URL | string;
 type ReturnType<T> = Promise<T>;
@@ -11,7 +12,7 @@ export async function ResourseServiceFetcher<T>(url: Props): ReturnType<T> {
     const res = await fetch(Full_url, {
         method: "GET",
         // cache: _env.mode.prod ? "force-cache" : "no-cache",
-        next: { revalidate: _env.mode.prod ? 86400 : 0 /** 24 Hours */ },
+        next: { revalidate: _env.mode.prod ? ms("1h") : 0 /** 24 Hours */ },
         headers: {
             "x-resource-service-api-key": _env.partners.resource_service.api_key,
         },
