@@ -1,5 +1,5 @@
 import { UserServiceConfig } from "#/settings/resource-service";
-import { AwaitedNextSQ } from "#T/next";
+import type { AwaitedNextSQ } from "#T/next";
 
 type ReturnTypes = { page_size: number; current_page: number; genre: string };
 

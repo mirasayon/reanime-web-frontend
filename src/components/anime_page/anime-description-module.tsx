@@ -7,7 +7,7 @@ import Link from "next/link";
 import { BoldX, Normalize_anime_status, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
-export function Anime_description({
+export function AnimeDescriptionModule({
     current_user,
     anime,
     cover_image_src,
@@ -38,10 +38,6 @@ export function Anime_description({
                 </div>
 
                 <div className=" flex flex-col justify-between">
-                    <div>
-                        <BoldX>Название: </BoldX>
-                        <span>{anime.names.ru}</span>
-                    </div>
                     <div>
                         {" "}
                         <BoldX>Альтернативные названия: </BoldX>
@@ -103,16 +99,14 @@ export function Anime_description({
 
                     <div>
                         <BoldX>Студии: </BoldX>
-                        {anime.studios_sh.length === 0 ? (
-                            <It_will_be_known_soon />
+                        {anime.studios_sh.length > 0 ? (
+                            anime.studios_sh.map((item, ind) => (
+                                <span key={item.id}>
+                                    {ind !== 0 && ","} {item.filtered_name}
+                                </span>
+                            ))
                         ) : (
-                            anime.studios_sh.map((item, ind) => {
-                                return (
-                                    <span key={item.id}>
-                                        {ind !== 0 && ","} {item.filtered_name}
-                                    </span>
-                                );
-                            })
+                            <It_will_be_known_soon />
                         )}
                     </div>
 
@@ -153,21 +147,18 @@ export function Anime_description({
                         {!anime.actors || anime.actors.length === 0 ? (
                             <It_will_be_known_soon />
                         ) : (
-                            anime.actors.map((actor, indx) => {
-                                return (
-                                    <span key={actor}>
-                                        {indx !== 0 && ","} {actor}
-                                    </span>
-                                );
-                            })
+                            anime.actors.map((actor, indx) => (
+                                <span key={actor}>
+                                    {indx !== 0 && ","} {actor}
+                                </span>
+                            ))
                         )}
                     </div>
                 </div>
             </div>
-
-            <div className={` p-4`}>
+            <div className={` p-2`}>
                 <BoldX>Описание:</BoldX>
-                <p className="text-wrap whitespace-pre-wrap mt-2">{anime.desc || <It_will_be_known_soon />}</p>
+                <div className="text-wrap whitespace-pre-wrap mt-2">{anime.desc || <It_will_be_known_soon />}</div>
             </div>
         </div>
     );

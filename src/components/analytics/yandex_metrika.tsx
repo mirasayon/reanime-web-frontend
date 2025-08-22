@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 /** Yandex Metrika Analytics */
 export const Yandex_Mekrika_Analytics = (): JSX.Element => {

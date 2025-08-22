@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "#/shadcn-ui/components/ui/avatar";
-import { Dispatch, SetStateAction, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdCancelPresentation } from "react-icons/md";
 type Props = {
@@ -18,7 +18,7 @@ export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpe
             <div>
                 <button
                     type="button"
-                    className={`cursor-pointer p-3 ${isOpen && " "}`}
+                    className={`cursor-pointer p-2 ${isOpen && " "}`}
                     onClick={(e) => {
                         e.preventDefault();
                         setterIsOpen((p) => !p);

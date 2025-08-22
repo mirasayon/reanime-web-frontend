@@ -1,4 +1,4 @@
-import { filter_search_params } from "#app/list/[filter_uid]/page";
+import type { filter_search_params } from "#app/list/[filter_uid]/page";
 import type { Metadata } from "next/types";
 
 /** contains milliseconds for 2000 years */

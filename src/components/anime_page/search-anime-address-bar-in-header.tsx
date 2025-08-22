@@ -9,7 +9,7 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
     const [searhQ, setQ] = useState(sp ?? "");
     return (
         <form
-            className={` ${rea_wrapper_border} w-max flex shadow-md`}
+            className={` ${rea_wrapper_border}   flex justify-between shadow-md`}
             onSubmit={(event) => {
                 event.preventDefault();
                 const sq = event.currentTarget[search_query_name].value as string | undefined;
@@ -29,7 +29,7 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
                     setQ(() => e.target.value);
                 }}
                 name={search_query_name}
-                className={`px-2  min-w-80 max-[600px]:min-w-60 bg-transparent rounded-md outline-hidden  
+                className={`px-2 bg-transparent rounded-md outline-hidden  
                     dark:text-white  text-black 
                     `}
                 placeholder={"Что ищем, сэмпай?"}

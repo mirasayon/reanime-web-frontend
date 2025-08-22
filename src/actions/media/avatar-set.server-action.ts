@@ -2,7 +2,7 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
+import type { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import { UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
 type AvatarSet_ServerActionRT = Promise<{

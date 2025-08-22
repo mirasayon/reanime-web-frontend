@@ -1,5 +1,5 @@
-import { paginated } from "#T/apis/resource_service_integrator";
-import { AwaitedNextSQ } from "#T/next";
+import type { paginated } from "#T/apis/resource_service_integrator";
+import type { AwaitedNextSQ } from "#T/next";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 import { ValidateSearchQueryForSearch } from "./validators/validate-searchquery-for-search";
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQueryForSearch>; data: paginated } | null>;

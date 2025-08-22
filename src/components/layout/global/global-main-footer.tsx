@@ -33,16 +33,16 @@ export function Layout_Footer() {
                             Поддержите нас
                         </LinkX> */}
 
-                    <LinkX className="p-2 dark:hover:bg-violet-500/10 hover:bg-blue-300/40 float-right" href={WebsiteConfigs.developer_website}>
+                    {/* <LinkX className="p-2 dark:hover:bg-violet-500/10 hover:bg-blue-300/40 float-right" href={WebsiteConfigs.developer_website}>
                         О разработчике
-                    </LinkX>
+                    </LinkX> */}
                 </nav>
                 <div className=" mx-2 mb-2 grid">
                     <div className=" bg-slate-500/30 h-[1px] m-2" />
-                    <Link className={"flex w-max  "} href="/#home">
+                    {/* <Link className={"flex w-max  "} href="/#home">
                         <img src={"/icon.png"} className="ml-2 size-8" width={30} height={30} alt={`${WebsiteConfigs.name}'s icon`} />
                         <span className=" ml-3 my-auto text-xl text-blue-500/80">{WebsiteConfigs.normalized_name}.art</span>
-                    </Link>
+                    </Link> */}
                     {/* <span className="p-2 text-slate-500/80">Все материалы взяты из свободных источников и открытых Web API</span> */}
                     <span className={"p-2 dark:text-violet-400/80 text-violet-900/80"}>
                         Все представленные на данном сайте материалы являются собственностью их изготовителя (владельца прав), охраняются

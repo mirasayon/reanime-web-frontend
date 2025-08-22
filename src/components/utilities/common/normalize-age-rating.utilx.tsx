@@ -1,9 +1,7 @@
-"use client";
 import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
-import { type JSX, useState } from "react";
+import { type JSX } from "react";
 
 export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }): JSX.Element {
-    const [is_hover, set_hover] = useState(false);
     let age_rating_number = minimal_age || rating || undefined;
     let normal_age_rating = rating || undefined;
     let rating_description = "";
@@ -40,25 +38,9 @@ export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_A
     }
 
     return (
-        <span
-            className="relative"
-            onMouseEnter={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-                event.preventDefault();
-                return set_hover(true);
-            }}
-            onMouseLeave={(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-                event.preventDefault();
-                return set_hover(false);
-            }}
-        >
-            {age_rating_number} <span className="text-slate-500">{normal_age_rating}</span>
-            {is_hover && (
-                <span
-                    className={`delay-150 ease-in-out absolute right-[-40px]  w-max font-bold bottom-[20px] p-2 transition-all dark:bg-slate-950 bg-violet-200 `}
-                >
-                    {rating_description}
-                </span>
-            )}
-        </span>
+        <div className="flex gap-2">
+            {age_rating_number} <div className="text-slate-500">({normal_age_rating})</div>
+            <div className={` `}>{rating_description}</div>
+        </div>
     );
 }

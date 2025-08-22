@@ -3,7 +3,7 @@ import { Upload_avatar_or_show } from "#/components/avatars/upload_avatar_or_sho
 import { My_Profile_Dashboard } from "#/components/users/my-profile";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { notFound } from "next/navigation";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
+import type { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 import { MyAccoutDashboard } from "#/components/profile-dashboard";
 
 type Props = {

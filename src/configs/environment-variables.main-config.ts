@@ -8,7 +8,7 @@ export async function LoadConfig() {
         /** google analytics id */
         gaid = _env.GOOGLE_ANALYTICS_ID;
         /** google tag manager id */
-        gtm_id = _env.GOOGLE_TAG_MANAGER_ID!;
+        gtm_id = _env.GOOGLE_TAG_MANAGER_ID;
 
         NODE_ENV = _env.NODE_ENV as "development" | "production" | "test";
         /** Working mode */

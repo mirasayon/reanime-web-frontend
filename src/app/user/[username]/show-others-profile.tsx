@@ -3,8 +3,8 @@ import { OnlyShowOthersAvatar } from "#/components/avatars/only-show-avatar";
 import { Others_Profile_Dashboard } from "#/components/users/others-profile";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { notFound } from "next/navigation";
-import { JSX } from "react";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
+import type { JSX } from "react";
+import type { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 
 type Props = { username: string };
 export async function ShowOthersProfile({ username }: Props): Promise<JSX.Element> {

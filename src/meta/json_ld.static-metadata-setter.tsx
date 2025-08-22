@@ -1,5 +1,5 @@
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 const json_ld = {
     "@context": "https://schema.org",

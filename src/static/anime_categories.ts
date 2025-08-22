@@ -1,5 +1,5 @@
-import { filter_search_params } from "#app/list/[filter_uid]/page";
-import { i_describe_genres } from "#T/userinserface.types";
+import type { filter_search_params } from "#app/list/[filter_uid]/page";
+import type { i_describe_genres } from "#T/userinserface.types";
 
 export type categories = {
     link_url: `/list/${filter_search_params}`;

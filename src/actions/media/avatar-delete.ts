@@ -5,7 +5,7 @@ import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrato
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
 import { UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
-import { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
+import type { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
 
 type UploadImageRT = Promise<{
     errors: string[];

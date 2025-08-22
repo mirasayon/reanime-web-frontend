@@ -2,7 +2,7 @@
 import "#/styles/global/main.tailwind.css";
 import { inter } from "#/fonts/main-font.provider";
 import { useRouter } from "next/navigation";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 type Props = { error: Error & { digest?: string }; reset: () => void };
 type ReturnTypes = JSX.Element;

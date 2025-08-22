@@ -34,7 +34,7 @@ export function SelectEpFormForSeries(props: Props): RT {
                 {is_only_one_episode && (
                     <form className="flex justify-center items-center" action={submit_episode}>
                         <input
-                            className="m-2 p-2 min-w-44 bg-transparent outline-hidden border-4 rounded border-blue-500/40"
+                            className="m- p-2 min-w-44 bg-transparent outline-hidden border-4 rounded border-blue-500/40"
                             type="number"
                             id="episode"
                             name="episode"
@@ -43,47 +43,39 @@ export function SelectEpFormForSeries(props: Props): RT {
                             placeholder={`${props.current_episode} (${props.firstPossibleEp}-${props.lastPossibleEp})`}
                             inputMode="numeric"
                         />
-                        <button className="p-2 text-sm hover:bg-zinc-400 cursor-pointer" type="submit">
+                        <button className="p-2 mr-1 text-sm hover:bg-zinc-400 dark:hover:bg-blue-800/50 cursor-pointer" type="submit">
                             Перейти
                         </button>
                     </form>
                 )}
                 <div className="flex justify-center text-sm items-center">
-                    {is_show_prev_ep_button && (
-                        <Link
-                            href={`?${new URLSearchParams({
-                                sid: `${props.current_studio_id}`,
-                                episode: `${props.prevEp}`,
-                            })}#play`}
-                            className={
-                                "p-2 max-[700px]:text-[15px]  max-[500px]:text-[10px] hover:bg-blue-300 dark:hover:text-white hover:text-black"
-                            }
-                        >
-                            <span className="flex flex-row flex-wrap">
-                                <span className="mt-1.5">
-                                    <FaArrowLeftLong size={10} />
-                                </span>
-                                <span className="m-1">Предыдущий эпизод</span>
-                            </span>
-                        </Link>
-                    )}
+                    <Link
+                        href={`?${new URLSearchParams({
+                            sid: `${props.current_studio_id}`,
+                            episode: `${props.prevEp}`,
+                        })}#play`}
+                        hidden={!is_show_prev_ep_button}
+                        className={`${!is_show_prev_ep_button && " cursor-not-allowed "} p-2 hover:bg-blue-800/30`}
+                    >
+                        <div className="flex flex-wrap">
+                            <FaArrowLeftLong className="mt-1.5" size={15} />
+                            <div className="m-1">Пред. эпизод</div>
+                        </div>
+                    </Link>
 
-                    {is_show_next_ep_button && (
-                        <Link
-                            href={`?${new URLSearchParams({
-                                sid: `${props.current_studio_id}`,
-                                episode: `${props.nextEp}`,
-                            })}#play`}
-                            className="p-2  max-[700px]:text-[15px]  max-[500px]:text-[10px] hover:bg-blue-300 dark:hover:text-white hover:text-black"
-                        >
-                            <span className="flex flex-row flex-wrap">
-                                <span className="m-1">Следующий эпизод</span>
-                                <span className="mt-1.5">
-                                    <FaArrowRightLong size={10} />
-                                </span>
-                            </span>
-                        </Link>
-                    )}
+                    <Link
+                        href={`?${new URLSearchParams({
+                            sid: `${props.current_studio_id}`,
+                            episode: `${props.nextEp}`,
+                        })}#play`}
+                        hidden={!is_show_next_ep_button}
+                        className={`${!is_show_next_ep_button && " cursor-not-allowed "} p-2 hover:bg-blue-800/30`}
+                    >
+                        <div className="flex flex-wrap">
+                            <span className="m-1">След. эпизод</span>
+                            <FaArrowRightLong size={15} className="mt-1.5" />
+                        </div>
+                    </Link>
                 </div>
             </div>
         </>

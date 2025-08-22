@@ -1,5 +1,5 @@
 "use server";
-import { Anime_description } from "#/components/anime_page/anime_description";
+import { AnimeDescriptionModule } from "#/components/anime_page/anime-description-module";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
@@ -43,7 +43,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     }
     return (
         <>
-            <Anime_description
+            <AnimeDescriptionModule
                 cover_image_src={get_poster_image_url_by_filename(movie.poster_image_for_rea, res_url)}
                 current_user={null}
                 anime={movie}

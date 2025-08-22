@@ -1,4 +1,4 @@
-import { Profile } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
+import type { Profile } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
 import { Avatar, AvatarImage } from "../users/dashboard/common";
 export function OnlyShowOthersAvatar({ profile }: { profile: Profile }) {
     // const [is_changed, set_changed] = useState<boolean>(false);

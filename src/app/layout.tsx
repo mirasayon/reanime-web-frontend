@@ -13,7 +13,7 @@ import { root_layout_metas } from "#/metadatas/root-layout.metadata";
 import { type AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
-import { JSX } from "react";
+import type { JSX } from "react";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
 
 type ReturnTypes = Promise<JSX.Element>;

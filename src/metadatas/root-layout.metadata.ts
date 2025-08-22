@@ -1,5 +1,5 @@
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { Metadata } from "next/types";
+import type { Metadata } from "next/types";
 
 export const root_layout_metas: Metadata = {
     title: `Смотреть аниме онлайн бесплатно на сайте ${WebsiteConfigs.public_domain}`,

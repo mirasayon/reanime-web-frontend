@@ -1,5 +1,5 @@
 import React from "react";
-import { Profile, Account } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
+import type { Profile, Account } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
 import { Card, Badge, CardContent } from "./dashboard/common";
 
 export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Account }) {

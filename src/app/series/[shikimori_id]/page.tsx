@@ -2,10 +2,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Related_animes } from "#/components/animes/related_animes";
-import { Anime_description } from "#/components/anime_page/anime_description";
+import { AnimeDescriptionModule } from "#/components/anime_page/anime-description-module";
 import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
-import { Serial_Player_Component } from "#/components/animes/series-episode-player";
+import { AnimePlayerModuleForSeries } from "#/components/animes/anime-player-module-for-series";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
 import type { NextJS_Types } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
@@ -94,24 +96,33 @@ export default async function __Serial_shikimori_id_page({
 
     // const current_user: User | null = await get_user_from_cookies();
 
+    function nextEpisodeSimple(nextEpisodeAt: Date) {
+        if (nextEpisodeAt.getTime() <= Date.now()) {
+            return "Серия уже вышла";
+        }
+        return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru }); // -> "через 2 дня", "через 5 минут"
+    }
+
+    const nextEpisodeAtDate = RelCalendar ? new Date(RelCalendar.next_episode_at) : null;
+    const nextEpisodeAt = nextEpisodeAtDate ? nextEpisodeSimple(nextEpisodeAtDate) : null;
     return (
         <>
-            <Anime_description
+            <AnimeDescriptionModule
                 cover_image_src={get_poster_image_url_by_filename(anime.poster_image_for_rea, res_url)}
                 current_user={null}
                 // current_user={current_user}
                 anime={anime}
             />
             <AnimeWatchPagePromoVideos trailer={anime.promo} />
-            <Serial_Player_Component
+            <AnimePlayerModuleForSeries
                 current_studio_id={current_studio_id}
                 firstPossibleEp={first_possible_ep}
-                shikimoriEpisodeCalendar={RelCalendar}
+                nextEpisodeAt={nextEpisodeAt}
                 lastPossibleEp={last_possible_ep}
                 iframeUrl={array_of_episodes[current_episode].url}
                 prevEp={current_previous_episode}
                 nextEp={current_next_episode}
-                ds_arrays={current_season_kodik}
+                watchEpisodeSeries={current_season_kodik}
                 array_of_episodes={array_of_episodes}
                 current_episode={current_episode}
             />
