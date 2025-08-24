@@ -1,6 +1,6 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { AnimeElConfig } from "../component-utilx-config.config";
 import type { JSX } from "react";
 

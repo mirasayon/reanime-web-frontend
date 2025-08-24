@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-import { authentication_schemas, type dto } from "@reanime.art/user-service/validators/authentication.js";
+import { authentication_schemas, type dto } from "@reanime/user-service/modules/validators/authentication.js";
 export function Register_Component() {
     const [is_password_type, set_is_password_type] = useState<boolean>(false);
     const {

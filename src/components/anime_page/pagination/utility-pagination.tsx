@@ -1,6 +1,5 @@
 "use client";
-
-import { type ReactNode, useCallback, useTransition } from "react";
+import type { ReactNode } from "react";
 import {
     Pagination,
     PaginationContent,
@@ -11,9 +10,8 @@ import {
     PaginationPrevious,
 } from "#/shadcn-ui/components/ui/pagination";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "#/shadcn-ui/lib/utils";
-import { Loader2 } from "lucide-react";
 
 export interface PaginationWithLinksProps {
     pageSizeSelectOptions?: {
@@ -24,74 +22,31 @@ export interface PaginationWithLinksProps {
     pageSize: number;
     page: number;
     pageSearchParam?: string;
-    /**
-     * Navigation mode: 'link' uses Next.js Link components, 'router' uses router.push with loading states
-     * @default 'link'
-     */
-    navigationMode: "link";
 }
-
-/**
- * Navigate with Nextjs links or router.push with loading states
- * 
- * @example
- * ```
- * // Using Link navigation (default)
- * <PaginationWithLinks
-    page={1}
-    pageSize={20}
-    totalCount={500}
-  />
- * 
- * // Using router.push with loading states
- * <PaginationWithLinks
-    page={1}
-    pageSize={20}
-    totalCount={500}
-    navigationMode="router"
-  />
- * ```
- */
-export function PaginationWithLinks({
-    pageSizeSelectOptions,
-    pageSize,
-    totalCount,
-    page,
-    pageSearchParam,
-    navigationMode = "link",
-}: PaginationWithLinksProps) {
+export function PaginationWithLinks({ pageSizeSelectOptions, pageSize, totalCount, page, pageSearchParam }: PaginationWithLinksProps) {
     const router = useRouter();
-    const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [isPending, startTransition] = useTransition();
 
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
-    const buildLink = useCallback(
-        (newPage: number) => {
-            const key = pageSearchParam || "page";
-            if (!searchParams) return `${pathname}?${key}=${newPage}`;
-            const newSearchParams = new URLSearchParams(searchParams);
-            newSearchParams.set(key, String(newPage));
-            return `${pathname}?${newSearchParams.toString()}`;
-        },
-        [pageSearchParam, searchParams, pathname],
-    );
+    const buildLink = (newPage: number) => {
+        const key = pageSearchParam || "page";
+        if (!searchParams) {
+            return `?${key}=${newPage}`;
+        }
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set(key, String(newPage));
+        return `?${newSearchParams.toString()}`;
+    };
 
-    const navigateToPage = useCallback((newPage: number) => {}, [navigationMode, buildLink, router]);
-
-    const navToPageSize = useCallback(
-        (newPageSize: number) => {
-            const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
-            const newSearchParams = new URLSearchParams(searchParams || undefined);
-            newSearchParams.set(key, String(newPageSize));
-            newSearchParams.delete(pageSearchParam || "page"); // Clear the page number when changing page size
-            const url = `${pathname}?${newSearchParams.toString()}`;
-
-            router.push(url);
-        },
-        [pageSearchParam, searchParams, pathname, navigationMode, router],
-    );
+    const navToPageSize = (newPageSize: number) => {
+        const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
+        const newSearchParams = new URLSearchParams(searchParams || undefined);
+        newSearchParams.set(key, String(newPageSize));
+        newSearchParams.delete(pageSearchParam || "page"); // Clear the page number when changing page size
+        const url = `?${newSearchParams.toString()}`;
+        router.push(url);
+    };
 
     const renderPageNumbers = () => {
         const items: ReactNode[] = [];
@@ -174,17 +129,17 @@ export function PaginationWithLinks({
         </div>
     );
 }
-
-function SelectRowsPerPage({ options, setPageSize, pageSize }: { options: number[]; setPageSize: (newSize: number) => void; pageSize: number }) {
+type SelectRowsPerPageProps = { options: number[]; setPageSize: (newSize: number) => void; pageSize: number };
+function SelectRowsPerPage({ options, setPageSize, pageSize }: SelectRowsPerPageProps) {
     return (
-        <div className="flex items-center gap-4">
-            <span className="whitespace-nowrap text-sm">Rows per page</span>
+        <div className="flex items-center gap-4 ">
+            <span className="whitespace-nowrap text-sm">Эл. на одну страницу</span>
 
             <Select value={String(pageSize)} onValueChange={(value) => setPageSize(Number(value))}>
-                <SelectTrigger>
+                <SelectTrigger className=" dark:bg-blue-950 dark:text-violet-100">
                     <SelectValue placeholder="Select page size">{String(pageSize)}</SelectValue>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className=" dark:bg-blue-950 dark:text-violet-100">
                     {options.map((option) => (
                         <SelectItem key={option} value={String(option)}>
                             {option}

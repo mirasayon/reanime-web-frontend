@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "#/shadcn-ui/lib/utils";

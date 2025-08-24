@@ -1,38 +1,31 @@
 {
     "compilerOptions": {
-        "noImplicitAny": true,
-        "strict": true,
+        "target": "ES2017",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": false,
-        "removeComments": true,
-        "checkJs": false,
         "skipLibCheck": true,
-        "tsBuildInfoFile": "./logs/build.tsbuildinfo",
+        "strict": true,
         "noEmit": true,
         "esModuleInterop": true,
-        "allowImportingTsExtensions": false,
         "module": "esnext",
-        "target": "esnext",
         "moduleResolution": "bundler",
+        "tsBuildInfoFile": "./logs/build.tsbuildinfo",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "verbatimModuleSyntax": true,
         "incremental": true,
-        "sourceMap": true,
-        "inlineSourceMap": false,
-        "paths": {
-            "#app/*": ["./src/app/*"],
-            "#T/*": ["./src/types/*"],
-            "#/*": ["./src/*"]
-        },
         "plugins": [
             {
                 "name": "next"
             }
-        ]
+        ],
+        "paths": {
+            "#app/*": ["./src/app/*"],
+            "#T/*": ["./src/types/*"],
+            "#/*": ["./src/*"]
+        }
     },
-    "include": ["next-env.d.ts", "./src", ".next/types/**/*.ts"],
-    "exclude": ["./src/tests", "./drafts"]
+    "include": ["./.next/types/**/*.ts", "./next-env.d.ts", "./src", ".next/types/**/*.ts"],
+    "exclude": ["./node_modules"]
 }
 

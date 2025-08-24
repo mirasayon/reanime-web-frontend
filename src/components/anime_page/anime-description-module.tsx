@@ -1,7 +1,7 @@
 import { Normalize_age_rating } from "#/components/utilities/common/normalize-age-rating.utilx";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 import { BoldX, Normalize_anime_status, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";

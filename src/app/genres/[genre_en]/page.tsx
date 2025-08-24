@@ -1,22 +1,16 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
-import type { NextJS_Types } from "#T/next";
+import type { SearchParams, IPageParams } from "#T/next";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
-import { AnimePaginationLinks } from "#/components/anime_page/pagination/anime-pagination-links";
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
-export default async function GenresPage({
-    params,
-    searchParams,
-}: {
-    params: NextJS_Types.Params<{ genre_en: string }>;
-    searchParams: NextJS_Types.SearchParams;
-}) {
+import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
+export default async function GenresPage({ params, searchParams }: { params: IPageParams<{ genre_en: string }>; searchParams: SearchParams }) {
     let res = await ResServiceApi.by_genre(await searchParams, (await params).genre_en);
     if (!res) {
         return redirect("/genres/slice of life");
@@ -43,12 +37,12 @@ export default async function GenresPage({
                 </div>
             </div>
             <Anime_List_Component kodiks={data.paginated} resUrl={res_url} />
-            <AnimePaginationLinks totalPages={data.total_length} currentPage={input.current_page} pageSize={input.page_size} />
+            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
         </>
     );
 }
 
-export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ genre_en: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: IPageParams<{ genre_en: string }> }): Promise<Metadata> {
     const genre_en = decodeURI((await params).genre_en);
     const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre_en);
     if (!desc) {

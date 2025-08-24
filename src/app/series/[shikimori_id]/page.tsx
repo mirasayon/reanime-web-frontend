@@ -8,8 +8,8 @@ import { AnimePlayerModuleForSeries } from "#/components/animes/anime-player-mod
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
-import type { NextJS_Types } from "#T/next";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IPageParams, SearchParams } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
@@ -20,8 +20,8 @@ export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
 }: {
-    params: NextJS_Types.Params<{ shikimori_id: string }>;
-    searchParams: NextJS_Types.SearchParams;
+    params: IPageParams<{ shikimori_id: string }>;
+    searchParams: SearchParams;
 }): Promise<React.JSX.Element> {
     const rp = await params;
     const sp = await searchParams;
@@ -137,6 +137,6 @@ export default async function __Serial_shikimori_id_page({
     );
 }
 
-export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ shikimori_id: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }

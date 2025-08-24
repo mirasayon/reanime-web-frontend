@@ -1,7 +1,7 @@
 "use server";
 import { UserService } from "#/configs/user-service.app-config";
 import type { cookies as CookiesNext, headers as HeadersNext } from "next/headers";
-import type { Authentication_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/auth.js";
+import type { Authentication_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/auth.js";
 import { UserServiceFetcher } from "../user_service/user-service-fetcher.integrator-util";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;

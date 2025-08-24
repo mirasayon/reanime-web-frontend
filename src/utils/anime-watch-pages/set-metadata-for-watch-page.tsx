@@ -1,5 +1,5 @@
 "use server";
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { get_anime_url_by_id_and_type, is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";

@@ -1,5 +1,5 @@
 "use client";
-import type { Profile } from "@reanime.art/user-service/types/responses/db/db-schema-types.js";
+import type { Profile } from "@reanime/user-service/databases/orm/client.js";
 import { ShowAvatar } from "./show-avatar";
 import { SetAvatarForm } from "./set-avatar.el";
 export function Upload_avatar_or_show({ profile }: { profile: Profile }) {

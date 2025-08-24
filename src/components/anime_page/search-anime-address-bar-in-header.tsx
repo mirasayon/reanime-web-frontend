@@ -9,7 +9,7 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
     const [searhQ, setQ] = useState(sp ?? "");
     return (
         <form
-            className={` ${rea_wrapper_border}   flex justify-between shadow-md`}
+            className={` ${rea_wrapper_border} flex justify-between`}
             onSubmit={(event) => {
                 event.preventDefault();
                 const sq = event.currentTarget[search_query_name].value as string | undefined;
@@ -17,7 +17,7 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
                     return;
                 }
                 const search_query = encodeURI(sq);
-                return router.push(`/search?${search_query_name}=${search_query}`);
+                return router.push(`?${search_query_name}=${search_query}`);
             }}
         >
             <input
@@ -29,16 +29,10 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
                     setQ(() => e.target.value);
                 }}
                 name={search_query_name}
-                className={`px-2 bg-transparent rounded-md outline-hidden  
-                    dark:text-white  text-black 
-                    `}
+                className={`px-2 bg-transparent w-full rounded-md outline-hidden`}
                 placeholder={"Что ищем, сэмпай?"}
             />
-            <button
-                className={`dark:bg-blue-800 bg-blue-300 
-                    p-2 cursor-pointer rounded-e-md hover:bg-blue-900/50`}
-                type="submit"
-            >
+            <button className={`dark:bg-blue-900 bg-blue-300 p-2 cursor-pointer hover:bg-blue-900/50`} type="submit">
                 Поиск
             </button>
         </form>

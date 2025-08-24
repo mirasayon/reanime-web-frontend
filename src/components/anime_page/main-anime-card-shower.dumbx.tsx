@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 import { parseTitleNameForAnime } from "./get-parses-title-name-of-anime.util";
 import { Normalize_anime_status } from "../utilities/common/assembler-of-utilities.utilx";

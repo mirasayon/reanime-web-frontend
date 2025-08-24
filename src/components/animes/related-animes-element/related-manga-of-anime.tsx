@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { get_anime_url_by_id_and_type, get_type_of_anime } from "#/utils/common";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import Link from "next/link";

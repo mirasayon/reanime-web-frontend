@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
 import { Yandex_Mekrika_Analytics } from "#/components/analytics/yandex_metrika";
 import { inter } from "#/fonts/main-font.provider";
-import type { NextJS_Types } from "#T/next";
+import type { LayoutProps } from "#T/next";
 import themesSCC from "#/styles/global/layout.module.css";
 import { Google_Analytics, Google_TagManager } from "#/components/analytics/google-analytics";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
@@ -17,9 +17,9 @@ import type { JSX } from "react";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
 
 type ReturnTypes = Promise<JSX.Element>;
-type Props = NextJS_Types.LayoutProps;
+type __Root_layoutProps = LayoutProps;
 
-export default async function __Root_layout({ children }: Props): ReturnTypes {
+export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
     const _env = await LoadConfig();
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (

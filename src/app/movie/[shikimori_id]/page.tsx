@@ -6,16 +6,16 @@ import { Related_animes } from "#/components/animes/related_animes";
 import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { IReady_Animes_DB } from "@reanime/resource-service/types/animes-db-types/ready-animes.types.js";
-import type { NextJS_Types } from "#T/next";
+import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IPageParams, SearchParams } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
 type Props = {
-    params: NextJS_Types.Params<{ shikimori_id: string }>;
-    searchParams: NextJS_Types.SearchParams;
+    params: IPageParams<{ shikimori_id: string }>;
+    searchParams: SearchParams;
 };
 export default async function __MovieWatchPage({ params, searchParams }: Props) {
     const p = await params;
@@ -61,6 +61,6 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     );
 }
 
-export async function generateMetadata({ params }: { params: NextJS_Types.Params<{ shikimori_id: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }

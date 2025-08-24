@@ -2,8 +2,8 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
-import { UserServiceResponseStatusCodes } from "@reanime.art/user-service/response/constants.js";
-import type { Profile_ResponseTypes } from "@reanime.art/user-service/types/responses/routes/profile.js";
+import { UserServiceResponseStatusCodes } from "@reanime/user-service/modules/response/response.constants.js";
+import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 
 type DeleteAccountPermanently_ServerActionRT = Promise<{
     errors: string[];
