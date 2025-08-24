@@ -31,7 +31,7 @@ export default async function List_Page({ params, searchParams }: { params: IPag
             </h1>
             <RadioGroupSelectCategory current={filter} />
             <Anime_List_Component resUrl={res_url} kodiks={data.paginated} />
-            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
+            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} pageSearchParam="page" />
         </>
     );
 }

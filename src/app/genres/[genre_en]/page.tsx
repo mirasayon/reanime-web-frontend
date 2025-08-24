@@ -37,7 +37,7 @@ export default async function GenresPage({ params, searchParams }: { params: IPa
                 </div>
             </div>
             <Anime_List_Component kodiks={data.paginated} resUrl={res_url} />
-            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
+            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} pageSearchParam={"page"} />
         </>
     );
 }

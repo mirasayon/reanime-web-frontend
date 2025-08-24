@@ -12,12 +12,10 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
         <header className={`flex flex-wrap justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100`} id="home">
             {/* <TestModeBanner /> */}
             <div className="flex flex-wrap justify-start">
-                <Link href="/" className="p-2 flex items-center justify-center ">
-                    <img src={"/icon.png"} className=" w-[30px] h-[30px]  object-cover" alt={`${WebsiteConfigs.name}'s icon`} />
+                <Link href="/" className="p-1 flex items-center justify-center ">
+                    <img src={"/icon.png"} className=" w-[30px] h-[30px] mx-3 object-cover" alt={`${WebsiteConfigs.name}'s icon`} />
                 </Link>
                 <AnimeCategoriesComponentDumb />
-            </div>
-            <div>
                 <UI_Menu />
             </div>
             <div className=" flex flex-wrap justify-end">

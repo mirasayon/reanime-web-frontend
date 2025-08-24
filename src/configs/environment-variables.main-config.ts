@@ -1,17 +1,10 @@
 "use server";
-import { validateEnvironment, builtInSchemas as v } from "safest-env";
+import { validateEnvironment } from "safest-env";
+import { envVarConfig } from "./env-config";
+
 /** Load Environment variables */
 export async function LoadConfig() {
-    const _env = validateEnvironment({
-        NODE_ENV: v.enum(["development", "test", "production"] as const),
-        GOOGLE_ANALYTICS_ID: v.string(),
-        GOOGLE_TAG_MANAGER_ID: v.string(),
-        REANIME_RESOURCE_SERVICE_URL: v.url(),
-        REANIME_RESOURCE_SERVICE_API_KEY: v.string(),
-        REANIME_USER_SERVICE_URL: v.url(),
-        REANIME_USER_SERVICE_API_KEY: v.string(),
-        REANIME_MEDIA_SERVICE_URL: v.url(),
-    });
+    const _env = validateEnvironment(envVarConfig);
     const ProcessedEnv = new (class EnvConfigClass {
         /** google analytics id */
         gaid = _env.GOOGLE_ANALYTICS_ID;

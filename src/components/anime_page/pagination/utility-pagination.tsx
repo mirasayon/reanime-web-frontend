@@ -9,8 +9,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "#/shadcn-ui/components/ui/pagination";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./pagination-select-utils";
 import { cn } from "#/shadcn-ui/lib/utils";
 
 export interface PaginationWithLinksProps {
@@ -21,33 +20,14 @@ export interface PaginationWithLinksProps {
     totalCount: number;
     pageSize: number;
     page: number;
-    pageSearchParam?: string;
+    pageSearchParam: string;
 }
 export function PaginationWithLinks({ pageSizeSelectOptions, pageSize, totalCount, page, pageSearchParam }: PaginationWithLinksProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
-    const buildLink = (newPage: number) => {
-        const key = pageSearchParam || "page";
-        if (!searchParams) {
-            return `?${key}=${newPage}`;
-        }
-        const newSearchParams = new URLSearchParams(searchParams);
-        newSearchParams.set(key, String(newPage));
-        return `?${newSearchParams.toString()}`;
-    };
-
-    const navToPageSize = (newPageSize: number) => {
-        const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
-        const newSearchParams = new URLSearchParams(searchParams || undefined);
-        newSearchParams.set(key, String(newPageSize));
-        newSearchParams.delete(pageSearchParam || "page"); // Clear the page number when changing page size
-        const url = `?${newSearchParams.toString()}`;
-        router.push(url);
-    };
-
+    function buildLink(newPage: number) {
+        return `?${pageSearchParam}=${newPage}`;
+    }
     const renderPageNumbers = () => {
         const items: ReactNode[] = [];
         const maxVisiblePages = 5;
@@ -100,11 +80,11 @@ export function PaginationWithLinks({ pageSizeSelectOptions, pageSize, totalCoun
 
     return (
         <div className="flex flex-col md:flex-row items-center gap-3 w-full">
-            {pageSizeSelectOptions && (
+            {/* {pageSizeSelectOptions && (
                 <div className="flex flex-col gap-4 flex-1">
-                    <SelectRowsPerPage options={pageSizeSelectOptions.pageSizeOptions} setPageSize={navToPageSize} pageSize={pageSize} />
+                    <SelectRowsPerPage options={pageSizeSelectOptions.pageSizeOptions} pageSize={pageSize} />
                 </div>
-            )}
+            )} */}
             <Pagination className={cn({ "md:justify-end": pageSizeSelectOptions })}>
                 <PaginationContent className="max-sm:gap-0">
                     <PaginationItem>

@@ -1,16 +1,17 @@
 import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 import { parseTitleNameForAnime } from "./get-parses-title-name-of-anime.util";
-import { Normalize_anime_status } from "../utilities/common/assembler-of-utilities.utilx";
 import { get_anime_url_by_id_and_type, get_type_of_anime } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { ShowReleaseDataSmartX } from "./show-release-data.smartx";
 type Props = { render_images: boolean; data: IReady_Animes_DB; index: number; resUrl: string };
 export function Anime_card_main({ data, index, render_images, resUrl }: Props) {
+    const ruStatus = {
+        released: "Выпушен",
+        ongoing: "Онгоинг",
+    };
     return (
-        <div
-            className={`p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] border-2 border-blue-300 mx-[0.2px] my-2   mt-0 `}
-        >
+        <div className={"p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] bg-violet-500/50 mx-[0.2px] my-2   mt-0 "}>
             <Link href={get_anime_url_by_id_and_type(data)} id={index === 0 ? "a_list" : "randomx_list"}>
                 {render_images ? (
                     <img
@@ -34,9 +35,7 @@ export function Anime_card_main({ data, index, render_images, resUrl }: Props) {
                     <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">{get_type_of_anime(data)}</span>
                 </div>
 
-                <div className=" absolute  text-black bottom-1 left-0 font-bold">
-                    <Normalize_anime_status str={data.status} />
-                </div>
+                <div className=" absolute bottom-1 bg-blue-900 p-1 left-0 font-bold">{ruStatus[data.status as keyof typeof ruStatus] || ""}</div>
             </Link>
         </div>
     );

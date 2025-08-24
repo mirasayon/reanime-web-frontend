@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 export default {
-    images: {
-        remotePatterns: [new URL("https://media-service.reanime.art/storage/avatar/*")],
-    },
     async redirects() {
         return [
             {
@@ -24,7 +21,6 @@ export default {
             },
         ];
     },
-
     devIndicators: {
         position: "bottom-left",
     },
@@ -34,7 +30,7 @@ export default {
         },
     },
     allowedDevOrigins: [
-        "localhost", // covers http://localhost:3000
+        // "localhost", // covers http://localhost:3000
         "192.168.0.105", // covers http://192.168.0.105:3000
     ],
     poweredByHeader: false,

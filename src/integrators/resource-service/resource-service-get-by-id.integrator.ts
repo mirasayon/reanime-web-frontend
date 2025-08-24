@@ -1,4 +1,3 @@
-import type { paginatedResponse } from "@reanime/resource-service/animes-db-types/paginated-responce-from-server.types.js";
 import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 

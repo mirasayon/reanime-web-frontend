@@ -1,7 +1,7 @@
 import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
-import { Yandex_Mekrika_Analytics } from "#/components/analytics/yandex_metrika";
+import { YandexMekrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { inter } from "#/fonts/main-font.provider";
 import type { LayoutProps } from "#T/next";
 import themesSCC from "#/styles/global/layout.module.css";
@@ -27,7 +27,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            <Google_TagManager gtm_id={_env.gtm_id} />
+            {_env.mode.prod && <Google_TagManager gtm_id={_env.gtm_id} />}
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
@@ -35,10 +35,10 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                     <Layout_Footer />
                     <Cookie_consent_banner />
                 </ThemeProviderCustom>
-                <Yandex_Mekrika_Analytics />
+                {_env.mode.prod && <YandexMekrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            <Google_Analytics gaid={_env.gaid} />
+            {_env.mode.prod && <Google_Analytics gaid={_env.gaid} />}
         </html>
     );
 }

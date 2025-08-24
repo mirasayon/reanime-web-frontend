@@ -20,11 +20,9 @@ export function Switch_themes_button() {
     let is_dark = current === "dark" && !is_system;
     let is_light = current === "light" && !is_system;
     const styles = (active: boolean) =>
-        `flex justify-between text-center hover:bg-blue-800/40 rounded cursor-pointer p-1 border-2 ${
-            active ? "dark:border-blue-200 border-blue-800" : " border-transparent"
-        }` as const;
+        `flex text-center hover:bg-blue-800/40 rounded cursor-pointer p-  ${active ? " bg-violet-800/50" : " "} ` as const;
     return (
-        <div className=" flex flex-col justify-between gap-2">
+        <div className=" flex  flex-wrap items-center">
             <button
                 type="button"
                 className={styles(is_system)}
@@ -33,8 +31,8 @@ export function Switch_themes_button() {
                     setTheme("system");
                 }}
             >
-                <RiComputerLine size={40} fill={is_system ? (current === "light" ? "black" : "white") : "gray"} />
-                <span className="p-2 text-center">Системная</span>
+                <RiComputerLine size={30} fill={is_system ? (current === "light" ? "black" : "white") : "gray"} />
+                <span className="p-0 text-center">Системная</span>
             </button>
 
             <button
@@ -45,8 +43,8 @@ export function Switch_themes_button() {
                     setTheme("light");
                 }}
             >
-                <CiLight size={40} fill={is_light ? "black" : "gray"} />
-                <span className="p-2 text-center">Светлый</span>
+                <CiLight size={30} fill={is_light ? "black" : "gray"} />
+                <span className="p-  text-center">Светлый</span>
             </button>
 
             <button
@@ -57,9 +55,9 @@ export function Switch_themes_button() {
                     setTheme("dark");
                 }}
             >
-                <MdOutlineDarkMode size={40} fill={is_dark ? "white" : "gray"} />
+                <MdOutlineDarkMode size={30} fill={is_dark ? "white" : "gray"} />
 
-                <span className="p-2 text-center">Тёмный</span>
+                <span className="p-  text-center">Тёмный</span>
             </button>
         </div>
     );

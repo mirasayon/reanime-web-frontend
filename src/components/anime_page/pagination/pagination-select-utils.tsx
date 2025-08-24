@@ -5,15 +5,14 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 import { cn } from "#/shadcn-ui/lib/utils";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import type { ComponentRef } from "react";
 const Select = SelectPrimitive.Root;
 
 const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
-
-const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>>(
+const SelectTrigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>>(
     ({ className, children, ...props }, ref) => (
         <SelectPrimitive.Trigger
             ref={ref}
@@ -33,7 +32,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Com
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const SelectScrollUpButton = forwardRef<
-    ElementRef<typeof SelectPrimitive.ScrollUpButton>,
+    ComponentRef<typeof SelectPrimitive.ScrollUpButton>,
     ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
 >(({ className, ...props }, ref) => (
     <SelectPrimitive.ScrollUpButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props}>
@@ -43,7 +42,7 @@ const SelectScrollUpButton = forwardRef<
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
 const SelectScrollDownButton = forwardRef<
-    ElementRef<typeof SelectPrimitive.ScrollDownButton>,
+    ComponentRef<typeof SelectPrimitive.ScrollDownButton>,
     ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
 >(({ className, ...props }, ref) => (
     <SelectPrimitive.ScrollDownButton ref={ref} className={cn("flex cursor-default items-center justify-center py-1", className)} {...props}>
@@ -52,7 +51,7 @@ const SelectScrollDownButton = forwardRef<
 ));
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
 
-const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, ComponentPropsWithoutRef<typeof SelectPrimitive.Content>>(
+const SelectContent = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, ComponentPropsWithoutRef<typeof SelectPrimitive.Content>>(
     ({ className, children, position = "popper", ...props }, ref) => (
         <SelectPrimitive.Portal>
             <SelectPrimitive.Content
@@ -82,14 +81,14 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Com
 );
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-const SelectLabel = forwardRef<ElementRef<typeof SelectPrimitive.Label>, ComponentPropsWithoutRef<typeof SelectPrimitive.Label>>(
+const SelectLabel = forwardRef<ComponentRef<typeof SelectPrimitive.Label>, ComponentPropsWithoutRef<typeof SelectPrimitive.Label>>(
     ({ className, ...props }, ref) => (
         <SelectPrimitive.Label ref={ref} className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)} {...props} />
     ),
 );
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
-const SelectItem = forwardRef<ElementRef<typeof SelectPrimitive.Item>, ComponentPropsWithoutRef<typeof SelectPrimitive.Item>>(
+const SelectItem = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, ComponentPropsWithoutRef<typeof SelectPrimitive.Item>>(
     ({ className, children, ...props }, ref) => (
         <SelectPrimitive.Item
             ref={ref}
@@ -111,7 +110,7 @@ const SelectItem = forwardRef<ElementRef<typeof SelectPrimitive.Item>, Component
 );
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-const SelectSeparator = forwardRef<ElementRef<typeof SelectPrimitive.Separator>, ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>>(
+const SelectSeparator = forwardRef<ComponentRef<typeof SelectPrimitive.Separator>, ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>>(
     ({ className, ...props }, ref) => <SelectPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} />,
 );
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;

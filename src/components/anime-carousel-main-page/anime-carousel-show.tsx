@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { set_top_chart_animes_image_urlByUrl } from "#/utils/common/get-top-chart-poster-url-by-inputted-server-url.dumbx";
-type Props = {
+type AnimeMainPageCarouselProps = {
     animes: i_top_charts_anime_json[];
     resServerUrl: string;
 };
 
-export function AnimeMainPageCarousel({ resServerUrl, animes }: Props) {
+export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCarouselProps) {
     return (
-        <div>
+        <div className="lg:mx-45 mx-18">
             <Carousel
                 opts={{
                     align: "start",
@@ -26,22 +26,28 @@ export function AnimeMainPageCarousel({ resServerUrl, animes }: Props) {
                 <CarouselContent>
                     {animes.map((one_slide) => {
                         return (
-                            <CarouselItem key={one_slide.page_url}>
-                                <div className="  ">
-                                    <Link href={one_slide.page_url} className={"flex text-sm"}>
-                                        <img
-                                            height={200}
-                                            loading={"eager"}
-                                            alt={` ${one_slide.title}'s cover`}
-                                            src={set_top_chart_animes_image_urlByUrl(one_slide.cover, resServerUrl)}
-                                            className={"h-[250px] object-contain w-max "}
-                                        />
-                                        <div className={"m-1 h-[250px] overflow-y-scroll scrollbar text-wrap p-1 flex flex-col"}>
-                                            <div className={"text-lg h-max font-bold"}>{one_slide.title}</div>
-                                            <div>{one_slide.description}</div>
+                            <CarouselItem key={one_slide.page_url} className=" ">
+                                {/* <div> */}
+                                <Link href={one_slide.page_url} className={"flex  flex-row"}>
+                                    <div
+                                        className=" "
+                                        style={{
+                                            backgroundPosition: "top center",
+                                            backgroundSize: "cover",
+                                            backgroundImage: `url("${set_top_chart_animes_image_urlByUrl(one_slide.cover, resServerUrl)}")`,
+                                        }}
+                                    >
+                                        <div className={"flex flex-col gap-44  p-2 overflow-y-scroll  bg-zinc-950/50 h-[350px] scrollbar "}>
+                                            <div className={"text-lg font-bold"}>{one_slide.title}</div>
+                                            <div className="  ">
+                                                {one_slide.description.length > 300
+                                                    ? one_slide.description.slice(0, 300) + "..."
+                                                    : one_slide.description}
+                                            </div>
                                         </div>
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
+                                {/* </div> */}
                             </CarouselItem>
                         );
                     })}

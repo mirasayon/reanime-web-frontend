@@ -4,7 +4,8 @@ import { CoverImage } from "#/components/animes/cover_image";
 import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
-import { BoldX, Normalize_anime_status, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
+import { BoldX, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
+import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function AnimeDescriptionModule({

@@ -1,9 +1,8 @@
 import type { filter_search_params } from "#app/list/[filter_uid]/page";
 import type { Metadata } from "next/types";
 
-/** contains milliseconds for 2000 years */
+/** milliseconds for 2000 years. lol */
 export const two_thousand_years = 2 * 365 * 24 * 60 * 60 * 1000;
-/** contains this year in number type */
 export const this_year = new Date().getFullYear();
 export const birth_year = 2024;
 export const page_index_interval = 30;

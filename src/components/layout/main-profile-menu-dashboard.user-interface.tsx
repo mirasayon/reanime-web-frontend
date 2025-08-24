@@ -1,33 +1,31 @@
 "use client";
-import { useState } from "react";
+import { type JSX, useState } from "react";
 import { Switch_themes_button } from "../themes/switch_themes";
 import { FiMenu } from "react-icons/fi";
 import { MdCancelPresentation } from "react-icons/md";
-export function UI_Menu() {
-    const [is_open, set_is_open] = useState(false);
+export function UI_Menu(): JSX.Element {
+    const [isOpen, setOpen] = useState(false);
     return (
-        <div className={`relative `}>
-            <div>
-                <button
-                    type="button"
-                    className={`cursor-pointer p-2 ${is_open && " "}`}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        set_is_open((p) => !p);
-                    }}
-                >
-                    {is_open ? <MdCancelPresentation size={40} /> : <FiMenu size={40} />}
-                </button>
-            </div>
+        <div className={`flex flex-wrap  `}>
+            <button
+                type="button"
+                className={`cursor-pointer p-2 `}
+                onClick={(e) => {
+                    e.preventDefault();
+                    setOpen((p) => !p);
+                }}
+            >
+                {isOpen ? <MdCancelPresentation size={30} /> : <FiMenu size={30} />}
+            </button>
 
-            <div className={` ${is_open ? " " : " w-0 h-0"}   `}>
-                <div className={`absolute  dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
-                    <div className={`${is_open ? "" : "hidden"} flex flex-col `}>
-                        <div className={"m-1 p-2"}>
-                            <Switch_themes_button />
-                        </div>
-                    </div>
-                </div>
+            <div
+                className={`${!isOpen && "hidden"} flex flex-wrap `}
+                onClick={(e) => {
+                    e.preventDefault();
+                    setOpen((p) => !p);
+                }}
+            >
+                <Switch_themes_button />
             </div>
         </div>
     );

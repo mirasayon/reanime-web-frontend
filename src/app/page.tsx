@@ -26,7 +26,7 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
                 resServerUrl={(await LoadConfig()).partners.resource_service.url}
             />
             <Anime_List_Component kodiks={data.paginated} resUrl={(await LoadConfig()).partners.resource_service.url} />
-            <PaginationWithLinks totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
+            <PaginationWithLinks pageSearchParam="page" totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
         </>
     );
 }

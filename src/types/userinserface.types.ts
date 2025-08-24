@@ -8,7 +8,7 @@ export interface i_top_charts_anime_json {
     rating?: number;
     title: string;
     cover: string;
-    description?: string;
+    description: string;
 }
 
 export type valid_image_file = "jpeg" | "png" | "jpg";
