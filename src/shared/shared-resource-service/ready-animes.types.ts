@@ -94,7 +94,7 @@ export interface IReady_Animes_DB {
     /** description || anime_description; */
     desc: string | null;
     /** screenshots. From both Kodik and Shikimori. Downloaded and hashed */
-    screenshots_api: string[]; 
+    screenshots_api: string[];
     /** Current season of anime.  */
     season?: number;
     /** episode duration in minutes */
@@ -130,6 +130,7 @@ export interface IReady_Animes_DB {
     writers: string[];
     composers: string[];
     editors: string[];
+    next_ep_at: string | null;
     designers: string[];
     /** Related animes or mangas. From shikimori API */
     rels: {
@@ -184,3 +185,4 @@ export interface IReady_Animes_DB {
 }
 type AllStudioTranslationORSubNames = string;
 // type AllStudioTranslationORSubNames = (typeof AllStudioTranslationORSubNamesData)[number];
+

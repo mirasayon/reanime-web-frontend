@@ -14,15 +14,13 @@ import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-meta
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
-import { GetShikimoriReleaseCalendar } from "#/integrators/resource-service/get-shikimori-release-calendar.integrator";
 import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-export default async function __Serial_shikimori_id_page({
-    params,
-    searchParams,
-}: {
+import type { JSX } from "react";
+type __AnimeSeriesPageProps = {
     params: IPageParams<{ shikimori_id: string }>;
     searchParams: SearchParams;
-}): Promise<React.JSX.Element> {
+};
+export default async function __AnimeSeriesPage({ params, searchParams }: __AnimeSeriesPageProps): Promise<JSX.Element> {
     const rp = await params;
     const sp = await searchParams;
     const shikimori_id_web = rp.shikimori_id;
@@ -89,7 +87,6 @@ export default async function __Serial_shikimori_id_page({
     const is_now_first_episode: boolean = current_episode === first_possible_ep;
     const is_now_last_episode: boolean = current_episode === last_possible_ep;
 
-    const RelCalendar = (await GetShikimoriReleaseCalendar()).find((ca) => Number(ca.anime.id) === current_shikimori_id);
     const res_url = (await LoadConfig()).partners.resource_service.url;
     const current_previous_episode: number = is_now_first_episode ? current_episode : current_episode - 1;
     const current_next_episode: number = is_now_last_episode ? current_episode : current_episode + 1;
@@ -103,8 +100,7 @@ export default async function __Serial_shikimori_id_page({
         return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru }); // -> "через 2 дня", "через 5 минут"
     }
 
-    const nextEpisodeAtDate = RelCalendar ? new Date(RelCalendar.next_episode_at) : null;
-    const nextEpisodeAt = nextEpisodeAtDate ? nextEpisodeSimple(nextEpisodeAtDate) : null;
+    const nextEpisodeAt = anime.next_ep_at ? nextEpisodeSimple(new Date(anime.next_ep_at)) : null;
     return (
         <>
             <AnimeDescriptionModule
