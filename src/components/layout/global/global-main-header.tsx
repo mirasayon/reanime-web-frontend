@@ -4,8 +4,8 @@ import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner"
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
+import type { Profile, Account } from "&us/orm/client";
 
-import type { Account, Profile } from "@reanime/user-service/databases/orm/client.js";
 // import { TestModeBanner } from "../messages/test-mode-banner";
 export function Layout_Header({ profile, account }: { profile: Profile | null; account: Account | null }) {
     return (
@@ -24,3 +24,4 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
         </header>
     );
 }
+

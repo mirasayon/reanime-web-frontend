@@ -1,5 +1,4 @@
 "use server";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { get_anime_url_by_id_and_type, is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
@@ -7,6 +6,7 @@ import { ResServiceApi } from "#/integrators/resource-service/resource-service-m
 import { metadata404 } from "#/constants/common.constants";
 import { get_poster_image_url_by_filename } from "../common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export async function setMetadataForWatchAnimePage(shikimori_id: string) {
     if (Number.isNaN(shikimori_id) || !is_contains_only_numeric_string(shikimori_id)) {
@@ -49,3 +49,4 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string) {
         },
     };
 }
+

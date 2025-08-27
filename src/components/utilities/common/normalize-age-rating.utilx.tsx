@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import { type JSX } from "react";
 
 export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }): JSX.Element {
@@ -44,3 +44,4 @@ export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_A
         </div>
     );
 }
+

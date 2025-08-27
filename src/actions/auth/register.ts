@@ -1,13 +1,13 @@
 "use server";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { Logger } from "log-it-colored";
-import { authentication_schemas, type dto } from "@reanime/user-service/modules/validators/authentication.js";
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
-import type { Authentication_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/auth.js";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
+import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
+import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
@@ -60,3 +60,4 @@ async function RegisterFetch(dto: RegFetchType) {
     Logger.success("Succesfully registered User");
     return res;
 }
+

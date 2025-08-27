@@ -2,9 +2,9 @@
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
-import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import { UserServiceResponseStatusCodes } from "@reanime/user-service/modules/response/response.constants.js";
+import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
 type AvatarSet_ServerActionRT = Promise<{
     errors: string[];
     hash: null | string;
@@ -61,3 +61,4 @@ export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_Serv
         hash: null,
     };
 }
+

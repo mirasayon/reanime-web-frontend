@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 
 type ReturnTypeGetByID = Promise<IReady_Animes_DB | null>;
@@ -35,3 +35,4 @@ export const FindByIds = new (class ResService_Get_by_id {
         }
     };
 })();
+

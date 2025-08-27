@@ -1,6 +1,6 @@
 import React from "react";
-import type { Profile, Account } from "@reanime/user-service/databases/orm/client.js";
 import { Badge, Card, CardContent } from "./dashboard/common";
+import type { Profile, Account } from "&us/orm/client";
 
 export function Others_Profile_Dashboard({
     profile: { nickname, avatar_url_hash, cover_url_hash, bio },
@@ -25,3 +25,4 @@ export function Others_Profile_Dashboard({
         </div>
     );
 }
+

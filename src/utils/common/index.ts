@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export const get_type_of_anime = (data: IReady_Animes_DB) => {
     return data.type === "movie" ? "Фильм" : ("ТВ Сериал" as const);
@@ -28,3 +28,4 @@ export const is_contains_only_numeric_string = (input: string): boolean => {
     const is_contain: boolean = /^\d+$/.test(input);
     return is_contain;
 };
+

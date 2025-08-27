@@ -3,8 +3,8 @@
 import { UserService } from "#/configs/user-service.app-config";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { cookies, headers } from "next/headers";
-import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 
 type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
 
@@ -34,3 +34,4 @@ export async function LogOutAccount(): LogOutAccountRT {
     _cookies.delete(UserService.session_token_name);
     return { errors: [], ok: false };
 }
+

@@ -8,7 +8,6 @@ import { AnimePlayerModuleForSeries } from "#/components/animes/anime-player-mod
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import type { IPageParams, SearchParams } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
@@ -16,6 +15,7 @@ import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
 import { GetShikimoriReleaseCalendar } from "#/integrators/resource-service/get-shikimori-release-calendar.integrator";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 export default async function __Serial_shikimori_id_page({
     params,
     searchParams,
@@ -126,12 +126,7 @@ export default async function __Serial_shikimori_id_page({
                 array_of_episodes={array_of_episodes}
                 current_episode={current_episode}
             />
-            <ShowAnimesScreenshotsComponent
-                res_url={res_url}
-                screenshots={anime.screenshots_rea}
-                title_of_anime={anime.names.kkru}
-                shiki_id={anime.sid}
-            />
+            <ShowAnimesScreenshotsComponent screenshots={anime.screenshots_api} title_of_anime={anime.names.kkru} />
             <Related_animes related={anime.rels} />
         </>
     );
@@ -140,3 +135,4 @@ export default async function __Serial_shikimori_id_page({
 export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
+

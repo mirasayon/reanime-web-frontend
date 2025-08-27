@@ -1,9 +1,9 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import Link from "next/link";
 import { parseTitleNameForAnime } from "./get-parses-title-name-of-anime.util";
 import { get_anime_url_by_id_and_type, get_type_of_anime } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { ShowReleaseDataSmartX } from "./show-release-data.smartx";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 type Props = { render_images: boolean; data: IReady_Animes_DB; index: number; resUrl: string };
 export function Anime_card_main({ data, index, render_images, resUrl }: Props) {
     const ruStatus = {
@@ -40,3 +40,4 @@ export function Anime_card_main({ data, index, render_images, resUrl }: Props) {
         </div>
     );
 }
+

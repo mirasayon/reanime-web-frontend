@@ -1,4 +1,4 @@
-import type { Profile } from "@reanime/user-service/databases/orm/client.js";
+import type { Profile } from "&us/orm/client";
 import { Avatar, AvatarImage } from "../users/dashboard/common";
 export function OnlyShowOthersAvatar({ profile }: { profile: Profile }) {
     // const [is_changed, set_changed] = useState<boolean>(false);
@@ -21,3 +21,4 @@ export function OnlyShowOthersAvatar({ profile }: { profile: Profile }) {
         </div>
     );
 }
+

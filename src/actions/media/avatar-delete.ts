@@ -1,11 +1,9 @@
 "use server";
-
-import { UserService } from "#/configs/user-service.app-config";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
+import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { cookies, headers } from "next/headers";
-import { UserServiceResponseStatusCodes } from "@reanime/user-service/modules/response/response.constants.js";
-import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 
 type UploadImageRT = Promise<{
     errors: string[];
@@ -49,3 +47,4 @@ export async function DeleteAvatar(): UploadImageRT {
         ok: false,
     };
 }
+

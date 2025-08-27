@@ -1,6 +1,6 @@
 import React from "react";
-import type { Profile, Account } from "@reanime/user-service/databases/orm/client.js";
 import { Card, Badge, CardContent } from "./dashboard/common";
+import type { Profile, Account } from "&us/orm/client";
 
 export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Account }) {
     return (
@@ -19,3 +19,4 @@ export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { 
         </div>
     );
 }
+

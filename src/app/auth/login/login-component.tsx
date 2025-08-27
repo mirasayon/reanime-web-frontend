@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-import { authentication_schemas, type dto } from "@reanime/user-service/modules/validators/authentication.js";
+import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 export function Login_Component() {
     const [is_password_type, set_is_password_type] = useState<boolean>(false);
     const {
@@ -108,3 +108,4 @@ export function Login_Component() {
         </div>
     );
 }
+

@@ -1,7 +1,7 @@
 "use server";
 
 import { LoadConfig } from "#/configs/environment-variables.main-config";
-import type { UserServiceResponceBodyPattern } from "@reanime/user-service/shared/types/responses/json-body-type.js";
+import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: `/v1/${"profile" | "authentication" | "ping" | "account" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;
@@ -21,7 +21,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     ip,
 }: Props<B>): Promise<UserServiceResponceBodyPattern<T>> {
     if (raw_body && json_body) {
-        throw new Error("raw_body and json_body must not exist at the same time");
+        throw new Error("`raw_body` and `json_body` must not exist at the same time");
     }
     const full_url = (await LoadConfig()).partners.user_service.url + url;
 
@@ -52,3 +52,4 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     }
     return jsoned;
 }
+

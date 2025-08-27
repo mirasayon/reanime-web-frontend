@@ -1,4 +1,5 @@
-import type { paginatedResponse } from "@reanime/resource-service/animes-db-types/paginated-responce-from-server.types.js";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { paginatedResponse } from "&rs/paginated-responce-from-server.types";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export type paginated = paginatedResponse<IReady_Animes_DB>;
+

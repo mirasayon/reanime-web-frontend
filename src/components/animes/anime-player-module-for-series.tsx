@@ -1,10 +1,10 @@
 import { Localization_Studios_List_Component } from "./translation_studios_list.anime-watch";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { Episodes_List_Component } from "./episodes_list";
 import { Ads_in_kodik_is_not_mine } from "#/components/info/show-ads-in-kodik-are-not-mine-text";
 import { SelectEpFormForSeries } from "./player-for-series-element/select-ep-form.smart";
 import type { JSX } from "react";
 import { rea_wrapper_border } from "#/styles/provider";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 type Serial_Player_ComponentProps = {
     array_of_episodes: { url: string; key: string }[];
     current_episode: number;
@@ -72,3 +72,4 @@ export function AnimePlayerModuleForSeries({
         </div>
     );
 }
+

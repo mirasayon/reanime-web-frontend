@@ -13,6 +13,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
+        "verbatimModuleSyntax": true,
         "incremental": true,
         "plugins": [
             {
@@ -22,6 +23,8 @@
         "paths": {
             "#app/*": ["./src/app/*"],
             "#T/*": ["./src/types/*"],
+            "&rs/*": ["./src/shared/shared-resource-service/*"],
+            "&us/*": ["./src/shared/shared-user-service/*"],
             "#/*": ["./src/*"]
         }
     },

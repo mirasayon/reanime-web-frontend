@@ -1,11 +1,11 @@
 import { Normalize_age_rating } from "#/components/utilities/common/normalize-age-rating.utilx";
 import { SiShikimori } from "react-icons/si";
 import { CoverImage } from "#/components/animes/cover_image";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 import { BoldX, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 // import { UserList } from "#/components/animes/options/user_list_animes";
 export function AnimeDescriptionModule({
@@ -164,3 +164,4 @@ export function AnimeDescriptionModule({
         </div>
     );
 }
+

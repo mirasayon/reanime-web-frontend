@@ -1,4 +1,3 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import { get_anime_url_by_id_and_type, get_type_of_anime } from "#/utils/common";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import { parseTitleNameForAnime } from "#/components/anime_page/get-parses-title
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 type Props = { shiki_id: number; relation: string };
 type RT = Promise<JSX.Element | null>;
 export async function RelatedCardForAnime({ shiki_id, relation }: Props): RT {
@@ -33,3 +33,4 @@ export async function RelatedCardForAnime({ shiki_id, relation }: Props): RT {
         </Link>
     ) : null;
 }
+

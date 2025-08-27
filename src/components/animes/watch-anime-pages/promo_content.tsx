@@ -1,4 +1,4 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export function AnimeWatchPagePromoVideos({ trailer }: { trailer: IReady_Animes_DB["promo"] }) {
     return (
@@ -20,3 +20,4 @@ export function AnimeWatchPagePromoVideos({ trailer }: { trailer: IReady_Animes_
         </div>
     );
 }
+

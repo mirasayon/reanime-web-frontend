@@ -2,4 +2,5 @@ import { Logger, chalk } from "log-it-colored";
 import { validateEnvironment } from "safest-env";
 import { envVarConfig } from "./src/configs/env-config.ts";
 const _env = validateEnvironment(envVarConfig);
-Logger.raw(`Environment config is ok. Mode: ${chalk.blueBright(_env.NODE_ENV)}`);
+Logger.raw(`Environment config is ok. Current mode: ${chalk.blueBright(_env.NODE_ENV)}`);
+

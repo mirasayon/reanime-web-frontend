@@ -1,4 +1,5 @@
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
+
 const hasDigit = (s: string): boolean => /\d/.test(s);
 const LenghtLimit = 40;
 /**
@@ -19,3 +20,4 @@ export function parseTitleNameForAnime(data: IReady_Animes_DB) {
     const withSeason = data.season ? any_title + " " + data.season : any_title;
     return withSeason;
 }
+

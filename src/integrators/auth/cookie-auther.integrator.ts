@@ -1,8 +1,8 @@
 "use server";
 import { UserService } from "#/configs/user-service.app-config";
 import type { cookies as CookiesNext, headers as HeadersNext } from "next/headers";
-import type { Authentication_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/auth.js";
 import { UserServiceFetcher } from "../user_service/user-service-fetcher.integrator-util";
+import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 type NextHeaders = Awaited<ReturnType<typeof HeadersNext>>;
 type NextCookies = Awaited<ReturnType<typeof CookiesNext>>;
 export type AutherType = { data: Authentication_ResponseTypes.check_session; ip: string | undefined; agent: string | undefined };
@@ -34,3 +34,4 @@ async function _getSessionFromClient({ cookies, headers }: { cookies: NextCookie
     cookies.delete({ name: UserService.session_token_name });
     return null;
 }
+

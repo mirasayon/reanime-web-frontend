@@ -3,8 +3,8 @@ import { Upload_avatar_or_show } from "#/components/avatars/upload_avatar_or_sho
 import { My_Profile_Dashboard } from "#/components/users/my-profile";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
 import { notFound } from "next/navigation";
-import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 import { MyAccoutDashboard } from "#/components/profile-dashboard";
+import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 
 type Props = {
     session_token: string | undefined;
@@ -37,3 +37,4 @@ export async function ShowMyProfile_Dashboard({ session_token, agent, ip }: Prop
         </>
     );
 }
+

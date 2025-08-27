@@ -1,4 +1,4 @@
-import { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export const Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status"] }) => {
     switch (str) {
@@ -12,3 +12,4 @@ export const Normalize_anime_status = ({ str }: { str?: IReady_Animes_DB["status
             return <span>{str}</span>;
     }
 };
+

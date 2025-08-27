@@ -6,13 +6,13 @@ import { Related_animes } from "#/components/animes/related_animes";
 import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
 import { Movie_Player_Component } from "#/components/animes/movie_player";
 import { AnimeWatchPagePromoVideos } from "#/components/animes/watch-anime-pages/promo_content";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
 import type { IPageParams, SearchParams } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { LoadConfig } from "#/configs/environment-variables.main-config";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 type Props = {
     params: IPageParams<{ shikimori_id: string }>;
     searchParams: SearchParams;
@@ -50,12 +50,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
             />
             <AnimeWatchPagePromoVideos trailer={movie.promo} />
             <Movie_Player_Component vid_src={vid_src.mov} ds_arrays={tr_array} current_studio_id={current_ds_id} />
-            <ShowAnimesScreenshotsComponent
-                res_url={res_url}
-                title_of_anime={movie.names.kkru}
-                screenshots={movie.screenshots_rea}
-                shiki_id={movie.sid}
-            />
+            <ShowAnimesScreenshotsComponent title_of_anime={movie.names.kkru} screenshots={movie.screenshots_api} />
             <Related_animes related={movie.rels} />
         </>
     );
@@ -64,3 +59,4 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
 export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
+

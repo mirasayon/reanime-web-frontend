@@ -30,3 +30,4 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
         </>
     );
 }
+

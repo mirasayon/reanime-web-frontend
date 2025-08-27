@@ -2,9 +2,9 @@
 import { OnlyShowOthersAvatar } from "#/components/avatars/only-show-avatar";
 import { Others_Profile_Dashboard } from "#/components/users/others-profile";
 import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { notFound } from "next/navigation";
 import type { JSX } from "react";
-import type { Profile_ResponseTypes } from "@reanime/user-service/shared/types/responses/routes/profile.js";
 
 type Props = { username: string };
 export async function ShowOthersProfile({ username }: Props): Promise<JSX.Element> {
@@ -29,3 +29,4 @@ export async function ShowOthersProfile({ username }: Props): Promise<JSX.Elemen
         </>
     );
 }
+

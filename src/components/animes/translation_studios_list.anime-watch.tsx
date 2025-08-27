@@ -1,5 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import Link from "next/link";
 
 export function Localization_Studios_List_Component({
@@ -44,3 +44,4 @@ type query_param_type = {
     sid: string;
     episode?: string | undefined;
 };
+

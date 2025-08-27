@@ -1,5 +1,5 @@
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
-import type { IReady_Animes_DB } from "@reanime/resource-service/animes-db-types/ready-animes.types.js";
+import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export const GetListAnimes = async ({
     liked_animes_ids,
@@ -44,3 +44,4 @@ export const GetListAnimes = async ({
         watching_animes_kodiks,
     };
 };
+

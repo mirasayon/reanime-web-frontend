@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import type { Profile, Account } from "@reanime/user-service/databases/orm/client.js";
 import { Avatar_Dashboard } from "./for-logged-users";
 import { Avatar_Login } from "./for-guests";
 import { DropdownMenuInHeaderEntryPoint } from "./entry-point";
+import type { Profile, Account } from "&us/orm/client";
 export function DropdownMenuInHeader({ profile, account }: { profile: Profile | null; account: Account | null }) {
     const [is_open, set_is_open] = useState(false);
     const auth =
@@ -31,3 +31,4 @@ export function DropdownMenuInHeader({ profile, account }: { profile: Profile | 
         </>
     );
 }
+
