@@ -36,7 +36,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
         current_ds_id = tr_array[0].sid;
     }
 
-    const res_url = (await LoadConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).resource_service.url;
     const vid_src: IReady_Animes_DB["w"][number] | undefined = tr_array.find((item) => item.sid === current_ds_id);
     if (!vid_src) {
         return notFound();

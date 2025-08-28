@@ -13,7 +13,7 @@ export default async function Root_search_page({ searchParams }: { searchParams:
     const res = await ResServiceApi.search(sp);
     const pageSize = sp["pageSize"];
     let noInput = false;
-    const res_url = (await LoadConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).resource_service.url;
     const search_query = sp.search_query as string | undefined;
     if (!search_query || !/\S/.test(search_query)) {
         noInput = true;
@@ -47,3 +47,4 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
         title: `Поиск по запросу \"${sq}\" | ${WebsiteConfigs.public_domain}`,
     } satisfies Metadata;
 }
+

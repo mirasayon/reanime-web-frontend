@@ -22,7 +22,7 @@ export default async function List_Page({ params, searchParams }: { params: IPag
         return notFound();
     }
 
-    const res_url = (await LoadConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).resource_service.url;
     const { data, input } = res;
     return (
         <>
@@ -46,3 +46,4 @@ export async function generateMetadata({ params }: { params: IPageParams<{ filte
         title: `${desc} | ${WebsiteConfigs.public_domain}`,
     } satisfies Metadata;
 }
+

@@ -23,9 +23,9 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
             <Welcome_for_home_page logged={!!auth} />
             <AnimeMainPageCarousel
                 animes={await ResServiceApi.internals.top_chart_animes()}
-                resServerUrl={(await LoadConfig()).partners.resource_service.url}
+                resServerUrl={(await LoadConfig()).resource_service.url}
             />
-            <Anime_List_Component kodiks={data.paginated} resUrl={(await LoadConfig()).partners.resource_service.url} />
+            <Anime_List_Component kodiks={data.paginated} resUrl={(await LoadConfig()).resource_service.url} />
             <PaginationWithLinks pageSearchParam="page" totalCount={data.total_length} page={input.current_page} pageSize={input.page_size} />
         </>
     );

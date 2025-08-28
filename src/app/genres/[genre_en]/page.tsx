@@ -24,7 +24,7 @@ export default async function GenresPage({ params, searchParams }: { params: IPa
     if (!desc) {
         return notFound();
     }
-    const res_url = (await LoadConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).resource_service.url;
     return (
         <>
             <h1 className=" font-bold text-center border-b-4 border-blue-300">
@@ -52,3 +52,4 @@ export async function generateMetadata({ params }: { params: IPageParams<{ genre
         title: `По жанру: ${desc.russian_name} | ${WebsiteConfigs.public_domain}`,
     } satisfies Metadata;
 }
+

@@ -27,7 +27,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {_env.mode.prod && <Google_TagManager gtm_id={_env.gtm_id} />}
+            {_env.mode.prod && _env.gtm_id && <Google_TagManager gtm_id={_env.gtm_id} />}
             <body className={`${inter.className} ${themesSCC.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Layout_Header profile={auth?.data.profile ?? null} account={auth?.data.account ?? null} />
@@ -38,9 +38,10 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                 {_env.mode.prod && <YandexMekrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            {_env.mode.prod && <Google_Analytics gaid={_env.gaid} />}
+            {_env.mode.prod && _env.gaid && <Google_Analytics gaid={_env.gaid} />}
         </html>
     );
 }
 
 export const metadata: Metadata = root_layout_metas;
+

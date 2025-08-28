@@ -14,7 +14,7 @@ export async function RelatedCardForAnime({ shiki_id, relation }: Props): RT {
     return data ? (
         <Link href={get_anime_url_by_id_and_type(data)} className="w-[20rem] border-4 h-[240px] flex m-2 border-blue-300 p-2">
             <img
-                src={get_poster_image_url_by_filename(data.poster_image_for_rea, (await LoadConfig()).partners.resource_service.url)}
+                src={get_poster_image_url_by_filename(data.poster_image_for_rea, (await LoadConfig()).resource_service.url)}
                 alt={`Обложка от аниме ${parseTitleNameForAnime(data)}`}
                 className="rounded-sm object-cover h-[212px] w-[150px]"
             />

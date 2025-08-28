@@ -18,23 +18,24 @@ export async function LoadConfig() {
             dev: this.NODE_ENV === "development",
             test: this.NODE_ENV === "test",
         };
-        partners = {
-            /** For avatars and covers */
-            media_service: {
-                /** Current */
-                url: _env.REANIME_MEDIA_SERVICE_URL,
-            },
-            user_service: {
-                api_key: _env.REANIME_USER_SERVICE_API_KEY,
-                /** Current */
-                url: _env.REANIME_USER_SERVICE_URL,
-            },
-            resource_service: {
-                api_key: _env.REANIME_RESOURCE_SERVICE_API_KEY,
-                /** Current */
-                url: _env.REANIME_RESOURCE_SERVICE_URL,
-            },
+        /** For avatars and covers */
+        media_service = {
+            /** Current */
+            url: _env.REANIME_MEDIA_SERVICE_URL,
+        };
+        user_service = {
+            api_key: _env.REANIME_USER_SERVICE_API_KEY,
+            /** Current */
+            url: _env.REANIME_USER_SERVICE_URL,
+        };
+        korikApiToken = _env.KODIK_API_TOKEN;
+
+        resource_service = {
+            // api_key: _env.REANIME_RESOURCE_SERVICE_API_KEY,
+            /** Current */
+            url: _env.REANIME_RESOURCE_SERVICE_URL,
         };
     })();
     return ProcessedEnv;
 }
+

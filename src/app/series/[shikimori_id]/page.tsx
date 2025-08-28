@@ -87,7 +87,7 @@ export default async function __AnimeSeriesPage({ params, searchParams }: __Anim
     const is_now_first_episode: boolean = current_episode === first_possible_ep;
     const is_now_last_episode: boolean = current_episode === last_possible_ep;
 
-    const res_url = (await LoadConfig()).partners.resource_service.url;
+    const res_url = (await LoadConfig()).resource_service.url;
     const current_previous_episode: number = is_now_first_episode ? current_episode : current_episode - 1;
     const current_next_episode: number = is_now_last_episode ? current_episode : current_episode + 1;
 
