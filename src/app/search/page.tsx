@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
 
@@ -13,7 +13,7 @@ export default async function Root_search_page({ searchParams }: { searchParams:
     const res = await ResServiceApi.search(sp);
     const pageSize = sp["pageSize"];
     let noInput = false;
-    const res_url = (await LoadConfig()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service.url;
     const search_query = sp.search_query as string | undefined;
     if (!search_query || !/\S/.test(search_query)) {
         noInput = true;

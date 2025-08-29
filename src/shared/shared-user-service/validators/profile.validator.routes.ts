@@ -1,6 +1,6 @@
-import { profile_nickname } from "./utils/profile_name.schema.js";
-import { UtilitySchemas } from "./utils/common.js";
-import { account_username } from "./utils/username.validator.js";
+import { profile_nickname } from "./utils/profile_name.schema";
+import { UtilitySchemas } from "./utils/common";
+import { account_username } from "./utils/username.validator";
 import { z } from "zod";
 
 export const schemas = new (class Profile_ValidatorSchemas {
@@ -28,3 +28,4 @@ export namespace dto {
     export type update_bio = z.infer<Schemas["update_bio"]>;
     export type update_name = z.infer<Schemas["update_name"]>;
 }
+

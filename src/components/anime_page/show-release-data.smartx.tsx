@@ -1,9 +1,9 @@
 import type { JSX } from "react";
 
-type ShowReleaseDataSmartXProps = {
+type ShowRatingShikimoriDataSmartXProps = {
     rating: number | null;
 };
-export function ShowReleaseDataSmartX(props: ShowReleaseDataSmartXProps): JSX.Element | null {
+export function ShowRatingShikimoriDataSmartX(props: ShowRatingShikimoriDataSmartXProps): JSX.Element | null {
     if (props.rating === null) {
         return null;
     }
@@ -13,3 +13,4 @@ export function ShowReleaseDataSmartX(props: ShowReleaseDataSmartXProps): JSX.El
     const rating = props.rating;
     return <div className=" absolute left-0 p-1 bg-blue-950 text-gray-100 bottom-[62px] font-bold">{`${rating}/10`}</div>;
 }
+

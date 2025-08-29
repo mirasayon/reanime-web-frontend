@@ -1,6 +1,6 @@
 "use server";
 
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -23,7 +23,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     if (raw_body && json_body) {
         throw new Error("`raw_body` and `json_body` must not exist at the same time");
     }
-    const full_url = (await LoadConfig()).user_service.url + url;
+    const full_url = (await loadEnvFile()).user_service.url + url;
 
     const headers: HeadersInit = {
         ...(json_body ? { "Content-Type": "application/json" } : {}),
@@ -37,7 +37,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     if (ip) {
         headers["x-forwarded-for"] = ip;
     }
-    headers["x-reanime-user-service-key"] = (await LoadConfig()).user_service.api_key;
+    headers["x-reanime-user-service-key"] = (await loadEnvFile()).user_service.api_key;
     const response = await fetch(full_url, {
         method: method,
         headers: headers,

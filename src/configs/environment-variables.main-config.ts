@@ -3,7 +3,7 @@ import { validateEnvironment } from "safest-env";
 import { envVarConfig } from "./env-config";
 
 /** Load Environment variables */
-export async function LoadConfig() {
+export async function loadEnvFile() {
     const _env = validateEnvironment(envVarConfig);
     const ProcessedEnv = new (class EnvConfigClass {
         /** google analytics id */
@@ -28,10 +28,10 @@ export async function LoadConfig() {
             /** Current */
             url: _env.REANIME_USER_SERVICE_URL,
         };
-        korikApiToken = _env.KODIK_API_TOKEN;
+        kodikApiToken = _env.KODIK_API_TOKEN;
 
         resource_service = {
-            // api_key: _env.REANIME_RESOURCE_SERVICE_API_KEY,
+            api_key: _env.REANIME_RESOURCE_SERVICE_API_KEY,
             /** Current */
             url: _env.REANIME_RESOURCE_SERVICE_URL,
         };

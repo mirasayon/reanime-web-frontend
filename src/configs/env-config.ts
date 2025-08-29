@@ -2,6 +2,7 @@ import { builtInSchemas as v } from "safest-env";
 export const envVarConfig = {
     NODE_ENV: v.enum(["development", "test", "production"] as const),
     REANIME_RESOURCE_SERVICE_URL: v.url(),
+    REANIME_RESOURCE_SERVICE_API_KEY: v.string().min(5),
     KODIK_API_TOKEN: v.string(),
     /** Analytics  */
     GOOGLE_ANALYTICS_ID: v.string().optional(),

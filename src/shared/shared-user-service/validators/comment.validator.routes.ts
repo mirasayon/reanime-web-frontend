@@ -1,4 +1,4 @@
-import { UtilitySchemas } from "./utils/common.js";
+import { UtilitySchemas } from "./utils/common";
 import { z } from "zod";
 
 const schemas = new (class Comment_ValidatorSchemas {
@@ -44,3 +44,4 @@ export namespace dto {
     export type delete_like = z.infer<Schemas["delete_like"]>;
     export type delete_dislike = z.infer<Schemas["delete_dislike"]>;
 }
+

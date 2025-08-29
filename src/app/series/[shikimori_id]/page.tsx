@@ -13,7 +13,7 @@ import { ResServiceApi } from "#/integrators/resource-service/resource-service-m
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
 import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import type { JSX } from "react";
 type __AnimeSeriesPageProps = {
@@ -87,7 +87,7 @@ export default async function __AnimeSeriesPage({ params, searchParams }: __Anim
     const is_now_first_episode: boolean = current_episode === first_possible_ep;
     const is_now_last_episode: boolean = current_episode === last_possible_ep;
 
-    const res_url = (await LoadConfig()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service.url;
     const current_previous_episode: number = is_now_first_episode ? current_episode : current_episode - 1;
     const current_next_episode: number = is_now_last_episode ? current_episode : current_episode + 1;
 

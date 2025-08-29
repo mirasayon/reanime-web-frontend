@@ -1,4 +1,4 @@
-import { UtilitySchemas } from "./utils/common.js";
+import { UtilitySchemas } from "./utils/common";
 import { z } from "zod";
 
 export const schemas = new (class FavoriteAnimes_ValidatorSchemas {
@@ -22,3 +22,4 @@ export namespace dto {
     export type add_dislike_to_anime = z.infer<Schemas["add_dislike_to_anime"]>;
     export type delete_dislike_from_anime = z.infer<Schemas["delete_dislike_from_anime"]>;
 }
+

@@ -14,13 +14,13 @@ import { type AutherType, getSessionFromClient } from "#/integrators/auth/cookie
 import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 
 type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
-    const _env = await LoadConfig();
+    const _env = await loadEnvFile();
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (
         <html lang="ru">

@@ -8,7 +8,7 @@ import { ResServiceApi } from "#/integrators/resource-service/resource-service-m
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
 export default async function GenresPage({ params, searchParams }: { params: IPageParams<{ genre_en: string }>; searchParams: SearchParams }) {
     let res = await ResServiceApi.by_genre(await searchParams, (await params).genre_en);
@@ -24,7 +24,7 @@ export default async function GenresPage({ params, searchParams }: { params: IPa
     if (!desc) {
         return notFound();
     }
-    const res_url = (await LoadConfig()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service.url;
     return (
         <>
             <h1 className=" font-bold text-center border-b-4 border-blue-300">

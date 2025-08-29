@@ -37,15 +37,15 @@ export const ResService_Categories = new (class ResService_Categories {
         }
     };
 
-    list_all = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
-        try {
-            const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(`/animedb/list_all?page=${input.current_page}&interval=${input.page_size}`);
-            return { input, data };
-        } catch (error) {
-            return null;
-        }
-    };
+    // list_all = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
+    //     try {
+    //         const input = ValidateSearchQuery(sq);
+    //         const data = await ResourseServiceFetcher<paginated>(`/animedb/list_all?page=${input.current_page}&interval=${input.page_size}`);
+    //         return { input, data };
+    //     } catch (error) {
+    //         return null;
+    //     }
+    // };
     popular = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
@@ -82,3 +82,4 @@ export const ResService_Categories = new (class ResService_Categories {
         }
     };
 })();
+

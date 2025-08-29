@@ -1,7 +1,6 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-import { AnimeElConfig } from "../component-utilx-config.config";
+import type { IFetchedKodikMain, IFetchedKodikMainReduced } from "#/integrators/kodik-api/kodik-main.types";
 import type { JSX } from "react";
 
 export const BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
@@ -18,13 +17,13 @@ export const AnimeListsIsNotPermitted = () => {
 };
 type Anime_List_ComponentProps = {
     resUrl: string;
-    kodiks: IReady_Animes_DB[];
+    kodiks: IFetchedKodikMainReduced[];
 };
 export const Anime_List_Component = ({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element => {
     return (
         <div className=" flex  flex-wrap justify-around ">
             {kodiks.map((kodik) => (
-                <Anime_card_main resUrl={resUrl} index={kodik.sid} render_images={AnimeElConfig.render_images} key={kodik.sid} data={kodik} />
+                <Anime_card_main resUrl={resUrl} key={kodik.id} data={kodik} />
             ))}
         </div>
     );

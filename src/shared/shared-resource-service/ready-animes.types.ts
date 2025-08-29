@@ -1,4 +1,4 @@
-// import { AllStudioTranslationORSubNamesData } from "./all-dub-or-sub-studio-names.array.js";
+// import { AllStudioTranslationORSubNamesData } from "./all-dub-or-sub-studio-names.array";
 
 export type IAnimesForMovieAndSeriesJSON = {
     [shikimori_id: string]: IReady_Animes_DB;

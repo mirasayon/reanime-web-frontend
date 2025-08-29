@@ -7,7 +7,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
 
 export type filter_search_params = keyof typeof list_anime_ru;
@@ -22,7 +22,7 @@ export default async function List_Page({ params, searchParams }: { params: IPag
         return notFound();
     }
 
-    const res_url = (await LoadConfig()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service.url;
     const { data, input } = res;
     return (
         <>

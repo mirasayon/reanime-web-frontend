@@ -5,7 +5,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { metadata404 } from "#/constants/common.constants";
 import { get_poster_image_url_by_filename } from "../common/get-poster-url-by-inputted-server-url.dumbx";
-import { LoadConfig } from "#/configs/environment-variables.main-config";
+import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 
 export async function setMetadataForWatchAnimePage(shikimori_id: string) {
@@ -20,7 +20,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string) {
     }
     const season = anime.season ? `${anime.season} сезон` : "";
     const anime_title = `${anime.names.ru} ${season}`;
-    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea, (await LoadConfig()).resource_service.url);
+    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea, (await loadEnvFile()).resource_service.url);
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
         description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
