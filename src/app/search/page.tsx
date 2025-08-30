@@ -1,5 +1,5 @@
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
-import type { SearchParams } from "#T/next";
+import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";

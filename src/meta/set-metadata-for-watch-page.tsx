@@ -1,15 +1,13 @@
 "use server";
-import { is_contains_only_numeric_string } from "#/utils/common";
+import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
-import { getAnimePosterUrlByShikimoriId } from "../common/get-poster-url-by-inputted-server-url.dumbx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { getKodikApi } from "#/providers/kodik-api-client";
 import type { Metadata } from "next/types";
-
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
-    if (Number.isNaN(shikimori_id) || !is_contains_only_numeric_string(shikimori_id)) {
+    if (Number.isNaN(shikimori_id) || !hasOnlyNumericString(shikimori_id)) {
         return notFound();
     }
     const shikimori_id_web = Number(shikimori_id);

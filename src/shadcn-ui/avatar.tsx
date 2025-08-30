@@ -3,7 +3,7 @@
 import type React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-import { cn } from "#/shadcn-ui/lib/utils";
+import { cn } from "#/shadcn-ui/twmerge-utils";
 
 function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
     return (

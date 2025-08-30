@@ -1,11 +1,11 @@
-import type { AwaitedNextSQ } from "#T/next";
+import type { AwaitedNextSQ } from "#T/nextjs";
 import type { ListResponse } from "kodik-api-simplified/resources";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 import { ValidateSearchQuery } from "./validators/validate-searchquery-for-resource-service";
 type paginated = ListResponse;
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
 /** `res service`/categories */
-export const ResService_Categories = new (class ResService_Categories {
+export const kodikCategories = new (class ResService_Categories {
     series = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);

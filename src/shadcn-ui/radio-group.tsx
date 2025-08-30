@@ -4,13 +4,13 @@ import type React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { CircleIcon } from "lucide-react";
 
-import { cn } from "#/shadcn-ui/lib/utils";
+import { cn } from "#/shadcn-ui/twmerge-utils";
 
-function RadioGroup({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+export function RadioGroup({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
     return <RadioGroupPrimitive.Root data-slot="radio-group" className={cn("grid gap-3", className)} {...props} />;
 }
 
-function RadioGroupItem({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+export function RadioGroupItem({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
     return (
         <RadioGroupPrimitive.Item
             data-slot="radio-group-item"
@@ -26,6 +26,4 @@ function RadioGroupItem({ className, ...props }: React.ComponentProps<typeof Rad
         </RadioGroupPrimitive.Item>
     );
 }
-
-export { RadioGroup, RadioGroupItem };
 

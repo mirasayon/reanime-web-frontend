@@ -1,11 +1,4 @@
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "#/shadcn-ui/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "#/shadcn-ui/dropdown-menu";
 import { UpdateAvatarForm } from "../update-avatar";
 import { DeleteAvatarForm } from "../delete-avatar";
 export function DropdownMenuForAvatar() {
@@ -41,3 +34,4 @@ export function DropdownMenuForAvatar() {
         </DropdownMenu>
     );
 }
+

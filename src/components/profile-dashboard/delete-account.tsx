@@ -11,7 +11,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "#/shadcn-ui/components/ui/alert-dialog";
+} from "#/shadcn-ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -67,3 +67,4 @@ export function DeleteAccountPermanently() {
         </div>
     );
 }
+

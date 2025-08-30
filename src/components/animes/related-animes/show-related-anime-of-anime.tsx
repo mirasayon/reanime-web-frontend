@@ -1,8 +1,7 @@
-import { get_type_of_anime } from "#/utils/common";
+import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
 import Link from "next/link";
 import type { JSX } from "react";
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { getAnimePosterUrlByShikimoriId } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
 type RelatedCardForAnimeProps = { shiki_id: number; relation: string };
@@ -20,7 +19,7 @@ export async function RelatedCardForAnime({ shiki_id, relation }: RelatedCardFor
                 <br />
                 <span>
                     <BoldX>Тип: </BoldX>
-                    {get_type_of_anime(data.type)}
+                    {getTypeOfAnime(data.type)}
                 </span>
             </div>
         </Link>

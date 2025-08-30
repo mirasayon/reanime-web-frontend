@@ -1,21 +1,22 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
-import type { SearchParams, IPageParams } from "#T/next";
+import type { SearchParams, IPageParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { _categories, typed_description_genres } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { r6DescribeGenres } from "#/integrators/resource-service/get-internals-static-datas.integrator";
+import { by_genre } from "#/integrators/resource-service/get-animes-list-for-inputted-genre.integrator";
 export default async function GenresPage({ params, searchParams }: { params: IPageParams<{ genre_en: string }>; searchParams: SearchParams }) {
     const genre = (await params).genre_en;
-    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre);
+    const desc = (await r6DescribeGenres()).find((g) => g.english_name.toLowerCase() === genre);
     if (!desc) {
         return notFound();
     }
-    let res = await ResServiceApi.by_genre(desc.russian_name);
+    let res = await by_genre(desc.russian_name);
     if (!res) {
         return redirect("/genres/Slice of life");
     }
@@ -43,7 +44,7 @@ export default async function GenresPage({ params, searchParams }: { params: IPa
 
 export async function generateMetadata({ params }: { params: IPageParams<{ genre_en: string }> }): Promise<Metadata> {
     const genre_en = decodeURI((await params).genre_en);
-    const desc = (await ResServiceApi.internals.get_desc_genres()).find((g) => g.english_name.toLowerCase() === genre_en);
+    const desc = (await r6DescribeGenres()).find((g) => g.english_name.toLowerCase() === genre_en);
     if (!desc) {
         return notFound();
     }

@@ -1,7 +1,5 @@
 import { getKodikApi } from "#/providers/kodik-api-client";
-import type { AwaitedNextSQ } from "#T/next";
-import type { GenresResponse, ListResponse } from "kodik-api-simplified/resources";
-import { ValidateSearchQueryForGenres } from "./validators/validate-searchquery-for-genres";
+import type { ListResponse } from "kodik-api-simplified/resources";
 
 type ResCateReturnTypes = Promise<ListResponse | null>;
 

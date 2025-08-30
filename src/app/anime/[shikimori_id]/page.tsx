@@ -5,23 +5,22 @@ import { AnimeDescriptionModule } from "#/components/anime_page/anime-descriptio
 import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import type { IPageParams } from "#T/next";
-import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
-import { is_contains_only_numeric_string } from "#/utils/common";
-import { getAnimePosterUrlByShikimoriId } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import type { IPageParams } from "#T/nextjs";
+import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
 import { Related_animes } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/integrators/resource-service/get-related-animes";
+import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 type __AnimeSeriesPageProps = {
     params: IPageParams<{ shikimori_id: string }>;
 };
 export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<JSX.Element> {
     const _params = await params;
     const shikimori_id_web = _params.shikimori_id;
-    if (Number.isNaN(shikimori_id_web) || !is_contains_only_numeric_string(shikimori_id_web)) {
+    if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
     }
     const current_shikimori_id = Number(shikimori_id_web); //* * **

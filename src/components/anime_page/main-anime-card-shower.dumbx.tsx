@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { get_type_of_anime } from "#/utils/common";
-import { getAnimePosterUrlByShikimoriId } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smartx";
 import type { MaterialObject } from "kodik-api-simplified/resources";
 type Props = { data: MaterialObject; resUrl: string };
@@ -28,7 +27,7 @@ export function Anime_card_main({ data, resUrl }: Props) {
 
                 <div className="flex flex-col absolute top-0 left-0 gap-1">
                     <span className="p-1 text-white font-bold bg-blue-900 shadow-sm shadow-violet-400">{data.title}</span>
-                    <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">{get_type_of_anime(data.type)}</span>
+                    <span className="p-1 w-max text-white font-bold  bg-blue-900 shadow-sm shadow-violet-400">{getTypeOfAnime(data.type)}</span>
                 </div>
 
                 <div className=" absolute bottom-1 bg-blue-900 p-1 left-0 font-bold">

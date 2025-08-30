@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "#/shadcn-ui/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "#/shadcn-ui/avatar";
 import type { Dispatch, SetStateAction } from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdCancelPresentation } from "react-icons/md";
@@ -43,3 +43,4 @@ export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpe
         </>
     );
 }
+

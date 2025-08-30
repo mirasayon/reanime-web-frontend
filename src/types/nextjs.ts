@@ -9,3 +9,4 @@ export type IPageParams<Slug> = Promise<Slug>;
 export type LayoutProps = Readonly<{
     children: ReactNode;
 }>;
+

@@ -4,8 +4,8 @@ import type React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "#/shadcn-ui/lib/utils";
-import { Button } from "#/shadcn-ui/components/ui/button";
+import { cn } from "#/shadcn-ui/twmerge-utils";
+import { Button } from "#/shadcn-ui/button";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 type CarouselApi = UseEmblaCarouselType[1];

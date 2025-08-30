@@ -1,13 +1,11 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { RelatedCardForManga } from "./related-animes-element/show-related-manga-of-anime";
-import { RelatedCardForAnime } from "./related-animes-element/show-related-anime-of-anime";
+import { RelatedCardForManga } from "./related-animes/show-related-manga-of-anime";
+import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anime";
 import type { JSX } from "react";
 import type { IShikimoriRelated } from "#/integrators/resource-service/get-related-animes";
-import { Logger } from "log-it-colored";
 
 export async function Related_animes({ related }: { related: IShikimoriRelated[] }): Promise<JSX.Element | null> {
     const pass = related && related.length > 0;
-
     return pass ? (
         <div className={`${rea_wrapper_border} `}>
             <div className="w-max p-2 ml-2 mt-2 rounded-sm dark:bg-slate-800 bg-violet-200">Связанные:</div>

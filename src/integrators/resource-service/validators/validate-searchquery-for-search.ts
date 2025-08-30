@@ -1,5 +1,5 @@
 import { UserServiceConfig } from "#/settings/resource-service";
-import type { AwaitedNextSQ } from "#T/next";
+import type { AwaitedNextSQ } from "#T/nextjs";
 
 type ReturnTypes = { page_size: number; current_page: number; search_query: string };
 
@@ -17,3 +17,4 @@ export function ValidateSearchQueryForSearch(searchParams: AwaitedNextSQ): Retur
     const raw_query = decodeURI(search_query);
     return { page_size, current_page, search_query: raw_query };
 }
+

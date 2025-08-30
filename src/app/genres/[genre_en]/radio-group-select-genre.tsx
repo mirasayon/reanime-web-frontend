@@ -21,3 +21,4 @@ export function RadioGroupSelectGenre({ current }: Props) {
         </div>
     );
 }
+

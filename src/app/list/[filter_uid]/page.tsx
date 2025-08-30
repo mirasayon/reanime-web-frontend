@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
-import type { IPageParams, SearchParams } from "#T/next";
+import type { IPageParams, SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
-import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { filters_uids, list_anime_ru, metadata404 } from "#/constants/common.constants";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { kodikCategories } from "#/integrators/resource-service/categories";
 
 export type filter_search_params = keyof typeof list_anime_ru;
 export default async function List_Page({ params, searchParams }: { params: IPageParams<{ filter_uid: string }>; searchParams: SearchParams }) {
@@ -15,8 +15,8 @@ export default async function List_Page({ params, searchParams }: { params: IPag
     if (!filters_uids.includes(filter)) {
         return notFound();
     }
-    type c = keyof typeof ResServiceApi.categories;
-    const res = await ResServiceApi.categories[filter as c](await searchParams);
+    type c = keyof typeof kodikCategories;
+    const res = await kodikCategories[filter as c](await searchParams);
     if (!res) {
         return notFound();
     }

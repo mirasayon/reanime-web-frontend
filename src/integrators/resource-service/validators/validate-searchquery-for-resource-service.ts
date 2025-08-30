@@ -1,5 +1,5 @@
 import { UserServiceConfig } from "#/settings/resource-service";
-import type { AwaitedNextSQ } from "#T/next";
+import type { AwaitedNextSQ } from "#T/nextjs";
 
 type ReturnTypes = { page_size: number; current_page: number };
 
@@ -12,3 +12,4 @@ export function ValidateSearchQuery(searchParams: AwaitedNextSQ): ReturnTypes {
 
     return { page_size, current_page };
 }
+

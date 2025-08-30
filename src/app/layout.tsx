@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
 import { YandexMekrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { inter } from "#/fonts/main-font.provider";
-import type { LayoutProps } from "#T/next";
+import type { LayoutProps } from "#T/nextjs";
 import themesSCC from "#/styles/global/layout.module.css";
 import { Google_Analytics, Google_TagManager } from "#/components/analytics/google-analytics";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
