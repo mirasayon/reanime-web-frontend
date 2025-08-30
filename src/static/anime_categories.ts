@@ -1,4 +1,4 @@
-import type { filter_search_params } from "#app/list/[filter_uid]/page";
+import type { filter_search_params } from "#/constants/common.constants";
 import type { i_describe_genres } from "#T/userinserface.types";
 
 export type categories = {
@@ -225,6 +225,7 @@ export const typed_description_genres: Omit<i_describe_genres, "description">[] 
 export const genres: genresType[] = typed_description_genres.map((gen) => {
     return {
         title: gen.russian_name,
-        link_url: `/genres/${gen.english_name.toLowerCase()}`,
+        link_url: `/genres/${gen.russian_name}`,
     };
 });
+

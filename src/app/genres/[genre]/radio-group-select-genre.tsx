@@ -1,9 +1,9 @@
 import { genres, typed_description_genres } from "#/static/anime_categories";
 import Link from "next/link";
-type Props = {
-    current: (typeof typed_description_genres)[number]["english_name"];
+type RadioGroupSelectGenreProps = {
+    current: (typeof typed_description_genres)[number]["russian_name"];
 };
-export function RadioGroupSelectGenre({ current }: Props) {
+export function RadioGroupSelectGenre({ current }: RadioGroupSelectGenreProps) {
     return (
         <div className="p-5 flex flex-2/5 flex-wrap gap-2">
             {genres.map((cate) => {

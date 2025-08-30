@@ -1,17 +1,19 @@
 import { getKodikApi } from "#/providers/kodik-api-client";
 import type { ListResponse } from "kodik-api-simplified/resources";
+import { Logger } from "log-it-colored";
 
 type ResCateReturnTypes = Promise<ListResponse | null>;
 
-export const by_genre = async (_genre: string): ResCateReturnTypes => {
+export const kodikByGenre = async (genre: string): ResCateReturnTypes => {
     try {
         const data = await (
             await getKodikApi()
         ).list({
             types: ["anime", "anime-serial"],
-            all_genres: _genre,
+            anime_genres: genre,
+            limit: 100,
+            has_field: "shikimori_id",
         });
-
         return data;
     } catch (error) {
         return null;

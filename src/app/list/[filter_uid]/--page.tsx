@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import type { IPageParams, SearchParams } from "#T/nextjs";
+import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
-import { filters_uids, list_anime_ru, metadata404 } from "#/constants/common.constants";
+import { filters_uids, list_anime_ru, metadata404, type filter_search_params } from "#/constants/common.constants";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { RadioGroupSelectCategory } from "./radio-group-select-category";
 import { _categories } from "#/static/anime_categories";
@@ -9,8 +9,7 @@ import { Anime_List_Component } from "#/components/utilities/common/assembler-of
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { kodikCategories } from "#/integrators/resource-service/categories";
 
-export type filter_search_params = keyof typeof list_anime_ru;
-export default async function List_Page({ params, searchParams }: { params: IPageParams<{ filter_uid: string }>; searchParams: SearchParams }) {
+export default async function List_Page({ params, searchParams }: { params: Promise<{ filter_uid: string }>; searchParams: SearchParams }) {
     const filter = (await params).filter_uid as filter_search_params;
     if (!filters_uids.includes(filter)) {
         return notFound();
@@ -34,7 +33,7 @@ export default async function List_Page({ params, searchParams }: { params: IPag
     );
 }
 
-export async function generateMetadata({ params }: { params: IPageParams<{ filter_uid: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ filter_uid: string }> }): Promise<Metadata> {
     const filter = (await params).filter_uid as filter_search_params;
     if (!filters_uids.includes(filter)) {
         return metadata404;

@@ -5,7 +5,6 @@ import { AnimeDescriptionModule } from "#/components/anime_page/anime-descriptio
 import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import type { IPageParams } from "#T/nextjs";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
@@ -15,7 +14,7 @@ import { Related_animes } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/integrators/resource-service/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 type __AnimeSeriesPageProps = {
-    params: IPageParams<{ shikimori_id: string }>;
+    params: Promise<{ shikimori_id: string }>;
 };
 export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<JSX.Element> {
     const _params = await params;
@@ -43,7 +42,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     );
 }
 
-export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
 

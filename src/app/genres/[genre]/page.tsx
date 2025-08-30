@@ -1,7 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
-import React from "react";
-import type { SearchParams, IPageParams } from "#T/nextjs";
+import type { JSX } from "react";
+import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { _categories, typed_description_genres } from "#/static/anime_categories";
@@ -9,27 +9,35 @@ import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { r6DescribeGenres } from "#/integrators/resource-service/get-internals-static-datas.integrator";
-import { by_genre } from "#/integrators/resource-service/get-animes-list-for-inputted-genre.integrator";
-export default async function GenresPage({ params, searchParams }: { params: IPageParams<{ genre_en: string }>; searchParams: SearchParams }) {
-    const genre = (await params).genre_en;
-    const desc = (await r6DescribeGenres()).find((g) => g.english_name.toLowerCase() === genre);
+import { kodikByGenre } from "#/integrators/resource-service/get-animes-list-for-inputted-genre.integrator";
+import { Logger } from "log-it-colored";
+import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
+type GenresPageProps = {
+    params: Promise<{ genre: string }>;
+    searchParams: SearchParams;
+};
+export default async function GenresPage({ params, searchParams }: GenresPageProps): Promise<JSX.Element> {
+    const genre = decodeURI((await params).genre);
+    const desc = (await r6DescribeGenres()).find((g) => g.russian_name === genre);
+
     if (!desc) {
         return notFound();
     }
-    let res = await by_genre(desc.russian_name);
-    if (!res) {
-        return redirect("/genres/Slice of life");
-    }
-    if (!res) {
+    const res = await kodikByGenre(desc.russian_name);
+    if (res === null) {
         return notFound();
     }
-    const { results } = res;
+    // if (res === null) {
+    //     return redirect("/genres/Повседневность");
+    // }
+
+    const results = dedupeAnimes(res.results);
 
     const res_url = (await loadEnvFile()).resource_service.url;
     return (
         <>
             <h1 className=" font-bold text-center border-b-4 border-blue-300">
-                По жанрам: {typed_description_genres.find((w) => w.english_name.toLowerCase().includes(genre))?.russian_name}
+                По жанрам: {typed_description_genres.find((w) => w.russian_name.includes(genre))?.russian_name}
             </h1>
             <RadioGroupSelectGenre current={genre} />
             <div className={`min-h-[200px] ${rea_wrapper_border}`}>
@@ -42,9 +50,9 @@ export default async function GenresPage({ params, searchParams }: { params: IPa
     );
 }
 
-export async function generateMetadata({ params }: { params: IPageParams<{ genre_en: string }> }): Promise<Metadata> {
-    const genre_en = decodeURI((await params).genre_en);
-    const desc = (await r6DescribeGenres()).find((g) => g.english_name.toLowerCase() === genre_en);
+export async function generateMetadata({ params }: GenresPageProps): Promise<Metadata> {
+    const genre = decodeURI((await params).genre);
+    const desc = (await r6DescribeGenres()).find((g) => g.russian_name === genre);
     if (!desc) {
         return notFound();
     }

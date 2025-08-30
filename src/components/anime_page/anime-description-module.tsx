@@ -6,8 +6,10 @@ import Link from "next/link";
 import { BoldX, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
 import type { MaterialObject } from "kodik-api-simplified/index";
+import { getTypeOfAnime } from "#/utils";
+import { Logger } from "log-it-colored";
 export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image_src: string; anime: MaterialObject }) {
-    const type_ru = anime.type === "anime" ? "Фильм" : "ТВ Сериал";
+    const type_ru = getTypeOfAnime(anime.type);
     return (
         <div className={rea_wrapper_border}>
             <div className={`p-3 text-center`}>{anime.title}</div>
@@ -20,7 +22,7 @@ export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image
                     <div>
                         {" "}
                         <BoldX>Альтернативные названия: </BoldX>
-                        {anime.other_title},{/* {anime.names.all.toString()}{" "} */}
+                        {anime.other_title},
                     </div>
                     <div>
                         <BoldX>Год выпуска: </BoldX>
@@ -28,19 +30,25 @@ export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image
                     </div>
 
                     <div>
-                        <BoldX>Тип: </BoldX>
-                        {anime.material_data?.anime_kind} ({type_ru})
+                        <BoldX>Тип аниме: </BoldX>
+                        {anime.material_data?.anime_kind ? (
+                            <span>
+                                {anime.material_data.anime_kind.toUpperCase()} ({type_ru})
+                            </span>
+                        ) : (
+                            <GhostedTextComponent>неизвестно</GhostedTextComponent>
+                        )}
                     </div>
 
-                    {/* <div>
-                        {anime.type === "anime-serial" && (
+                    <div>
+                        {anime.type === "anime-serial" && anime.seasons && (
                             <>
                                 <BoldX>Сезон: </BoldX>
-                                {anime.material_data.sea}
+                                {Object.values(anime.seasons).at(-1)}
                                 <br />
                             </>
                         )}
-                    </div> */}
+                    </div>
 
                     <div>
                         <span className="flex">
@@ -64,7 +72,7 @@ export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image
                         {anime.type === "anime-serial" && (
                             <>
                                 <BoldX>Количество серий: </BoldX>
-                                {anime.episodes_count || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
+                                {anime.material_data?.episodes_total || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
                             </>
                         )}
                     </div>
@@ -108,12 +116,16 @@ export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image
                         <BoldX>Дата релиза: </BoldX>
                         {anime.material_data?.released_at}
                     </div>
+                    <div>
+                        <BoldX>Лицензировано под: </BoldX>
+                        {anime.material_data?.anime_licensed_by}
+                    </div>
 
                     <div>
                         <BoldX>Жанры: </BoldX>
-                        {anime.material_data?.genres && anime.material_data?.genres.length === 0 ? (
-                            anime.material_data?.genres.map((genre, ind) => (
-                                <Link href={`/genres/${genre.toLowerCase()}`} key={genre}>
+                        {anime.material_data?.anime_genres && anime.material_data.anime_genres.length !== 0 ? (
+                            anime.material_data.anime_genres.map((genre, ind) => (
+                                <Link href={`/genres/${genre}`} key={genre}>
                                     {ind !== 0 && ","}{" "}
                                     <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre}</span>
                                 </Link>
@@ -125,7 +137,7 @@ export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image
 
                     <div>
                         <BoldX>Актёры: </BoldX>
-                        {anime.material_data?.actors && anime.material_data.actors.length === 0 ? (
+                        {anime.material_data?.actors && anime.material_data.actors.length !== 0 ? (
                             anime.material_data.actors.map((actor, indx) => (
                                 <span key={actor}>
                                     {indx !== 0 && ","} {actor}

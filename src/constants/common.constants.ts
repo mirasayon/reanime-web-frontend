@@ -1,6 +1,6 @@
-import type { filter_search_params } from "#app/list/[filter_uid]/page";
 import type { Metadata } from "next/types";
 
+export type filter_search_params = keyof typeof list_anime_ru;
 /** milliseconds for 2000 years. lol */
 export const two_thousand_years = 2 * 365 * 24 * 60 * 60 * 1000;
 export const this_year = new Date().getFullYear();
@@ -29,3 +29,4 @@ export const list_anime_ru = {
     this_year: "Этот сезон",
 } as const;
 export const filters_uids = Object.keys(list_anime_ru) as filter_search_params[];
+

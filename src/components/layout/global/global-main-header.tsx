@@ -1,5 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { AnimeCategoriesComponentDumb } from "#/components/anime_page/anime-categories-links-component.dumbx";
+import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
 import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
                 <Link href="/" className="p-1 flex items-center justify-center ">
                     <img src={"/icon.png"} className=" w-[30px] h-[30px] mx-3 object-cover" alt={`${WebsiteConfigs.name}'s icon`} />
                 </Link>
-                <AnimeCategoriesComponentDumb />
+                <AnimeCategoriesComponent />
                 <UI_Menu />
             </div>
             <div className=" flex flex-wrap justify-end">

@@ -12,3 +12,4 @@ export const WebsiteConfigs = new (class WebsiteConfigsClass {
     full_domain_URL: URL = new URL(this.public_full_domain);
     developer_website = "https://mirasayon.com/";
 })();
+
