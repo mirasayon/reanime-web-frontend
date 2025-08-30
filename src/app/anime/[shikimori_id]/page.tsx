@@ -33,17 +33,6 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     }
     const res_url = (await loadEnvFile()).resource_service.url;
 
-    function nextEpisodeSimple(nat?: string) {
-        if (!nat) {
-            return null;
-        }
-        const nextEpisodeAt = new Date(nat);
-        if (nextEpisodeAt.getTime() <= Date.now()) {
-            return "Серия уже вышла";
-        }
-        return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru });
-    }
-
     return (
         <>
             <AnimeDescriptionModule cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id, res_url)} anime={anime} />
@@ -57,5 +46,16 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
 
 export async function generateMetadata({ params }: { params: IPageParams<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
+}
+
+function nextEpisodeSimple(_nextEpisodeAt?: string) {
+    if (!_nextEpisodeAt) {
+        return null;
+    }
+    const nextEpisodeAt = new Date(_nextEpisodeAt);
+    if (nextEpisodeAt.getTime() <= Date.now()) {
+        return "Серия уже вышла";
+    }
+    return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru });
 }
 

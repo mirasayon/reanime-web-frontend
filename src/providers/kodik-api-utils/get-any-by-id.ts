@@ -1,8 +1,8 @@
 "use server";
-import { kodikApiSSR } from "../kodik-api-client";
+import { getKodikApi } from "../kodik-api-client";
 export async function getAnyByShikimoriFromKodikApi(id: number) {
     const res = await (
-        await kodikApiSSR()
+        await getKodikApi()
     ).search({
         shikimori_id: id,
         has_field: "shikimori_id",

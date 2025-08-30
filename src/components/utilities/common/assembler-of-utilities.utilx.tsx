@@ -1,26 +1,25 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { IFetchedKodikMainReduced } from "#app/page";
 import type { MaterialObject } from "kodik-api-simplified/index";
 import type { JSX } from "react";
+import { LinkX } from "./link-x.utilx";
 
-export const BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {
+export function BoldX({ children, className }: { className?: string; children: React.ReactNode }) {
     return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
-};
+}
 
-export const AnimeListsIsNotPermitted = () => {
+export function AnimeListsIsNotPermitted() {
     return (
-        // <this.LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
-        // 	<span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
-        // </this.LinkX>
-        <></>
+        <LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
+            <span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
+        </LinkX>
     );
-};
+}
 type Anime_List_ComponentProps = {
     resUrl: string;
     kodiks: MaterialObject[];
 };
-export const Anime_List_Component = ({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element => {
+export function Anime_List_Component({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element {
     return (
         <div className=" flex  flex-wrap justify-around ">
             {kodiks.map((kodik) => (
@@ -28,7 +27,7 @@ export const Anime_List_Component = ({ kodiks, resUrl }: Anime_List_ComponentPro
             ))}
         </div>
     );
-};
+}
 
 export const It_will_be_known_soon = ({ className }: { className?: string }) => {
     const styles = className === undefined ? "" : className;

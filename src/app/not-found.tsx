@@ -5,7 +5,7 @@ export default function __NotFoundPage() {
     return (
         <div className={"justify-center items-center text-center flex flex-col text-xl mb-40"}>
             <Link href={"/"}>
-                <img src={"/_assets/404.png"} loading="lazy" width={743 / 3} height={418 / 3} alt={"not found"} />
+                <img src={"/_assets/page-not-found.png"} loading="lazy" width={743 / 3} height={418 / 3} alt={"not found"} />
             </Link>
             <div className=" flex flex-col gap-2 justify-center items-center text-center">
                 <p className="text-2xl">Извините, но страница, которую вы ищете, не существует.</p>
@@ -19,3 +19,4 @@ export default function __NotFoundPage() {
 export const metadata: Metadata = {
     title: `Страница не найдена | ${WebsiteConfigs.public_domain}`,
 };
+

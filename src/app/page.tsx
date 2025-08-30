@@ -8,22 +8,15 @@ import { Welcome_for_home_page } from "#/components/info/welcome-text-for-home-p
 import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { kodikApiSSR } from "#/providers/kodik-api-client";
-export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
-    translation: {
-        id: number;
-        unique_link: string;
-        title: string;
-        type: string;
-    }[];
-}
+import { getKodikApi } from "#/providers/kodik-api-client";
+import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
+
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {
     const envA = await loadEnvFile();
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    // const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     const searchPms = await searchParams;
-
     const kodikResponse = await (
-        await kodikApiSSR()
+        await getKodikApi()
     ).list({
         with_material_data: true,
         limit: Number(searchPms.limit) || 100,
@@ -34,31 +27,11 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
         types: ["anime", "anime-serial"],
     });
     const { results: data, prev_page, next_page, total } = kodikResponse;
-
-    const reduced = data.reduce((accumulator, curr_item) => {
-        const existing_index: number = accumulator.findIndex((one_item) => one_item.shikimori_id === curr_item.shikimori_id);
-        const is_not_found = existing_index === -1;
-        if (!is_not_found) {
-            const one_new: IFetchedKodikMainReduced["translation"][number] = {
-                ...curr_item.translation,
-                unique_link: curr_item.link,
-            };
-            accumulator[existing_index].translation.push(one_new);
-        }
-        if (is_not_found) {
-            const one_new: IFetchedKodikMainReduced = {
-                ...curr_item,
-                translation: [{ ...curr_item.translation, unique_link: curr_item.link }],
-            };
-            accumulator.push(one_new);
-        }
-        return accumulator;
-    }, [] as IFetchedKodikMainReduced[]) as unknown as MaterialObject[];
     return (
         <>
-            <Welcome_for_home_page logged={!!auth} />
+            {/* <Welcome_for_home_page logged={!!auth} /> */}
             <AnimeMainPageCarousel animes={await ResServiceApi.internals.top_chart_animes()} resServerUrl={envA.resource_service.url} />
-            <Anime_List_Component kodiks={reduced} resUrl={envA.resource_service.url} />
+            <Anime_List_Component kodiks={dedupeAnimes(data)} resUrl={envA.resource_service.url} />
         </>
     );
 }

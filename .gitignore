@@ -1,20 +1,12 @@
 # dependencies
-/node_modules  
+/node_modules
 # next.js
-/.next 
+/.next
 # Environment
-.env
-.env.*
-!.env.example
-*.env 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-drafts.md
-/temp
-/frequent-commands.md
-
-
+/.env
+/.env.*
+/!.env.example
+/next-env.d.ts
+/drafts.md
 /credentials.yaml
 /logs

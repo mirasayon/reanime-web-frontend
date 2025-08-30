@@ -5,7 +5,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
 import { getAnimePosterUrlByShikimoriId } from "../common/get-poster-url-by-inputted-server-url.dumbx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { kodikApiSSR } from "#/providers/kodik-api-client";
+import { getKodikApi } from "#/providers/kodik-api-client";
 import type { Metadata } from "next/types";
 
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
@@ -14,7 +14,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
     }
     const shikimori_id_web = Number(shikimori_id);
     const res = await (
-        await kodikApiSSR()
+        await getKodikApi()
     ).search({
         shikimori_id: shikimori_id_web,
         has_field: "shikimori_id",
