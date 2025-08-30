@@ -11,7 +11,7 @@ export function Anime_card_main({ data, resUrl }: Props) {
     };
     return (
         <div className={"p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] bg-violet-500/50 mx-[0.2px] my-2   mt-0 "}>
-            <Link href={get_anime_url_by_id_and_type(data.type, data.shikimori_id)}>
+            <Link href={`/anime/${data.shikimori_id}`}>
                 <img
                     width={200}
                     height={270}

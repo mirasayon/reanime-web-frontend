@@ -1,7 +1,5 @@
 "use server";
-
 import { kodikApiSSR } from "../kodik-api-client";
-
 export async function getAnyByShikimoriFromKodikApi(id: number) {
     const res = await (
         await kodikApiSSR()
@@ -15,3 +13,4 @@ export async function getAnyByShikimoriFromKodikApi(id: number) {
     const anime = res.results[0] || null;
     return anime;
 }
+

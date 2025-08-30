@@ -1,10 +1,6 @@
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-
 export const get_type_of_anime = (data: "anime-serial" | "anime" | (string & {})) => {
     return data === "anime" ? "Фильм" : ("ТВ Сериал" as const);
 };
-export const get_anime_url_by_id_and_type = (data: "anime-serial" | "anime" | (string & {}), sid: string | number) =>
-    `/${data === "anime" ? "movie" : "series"}/${sid}` as const;
 
 export const sleepX = async (milliseconds: number): Promise<void> => {
     return await new Promise((_void) => setTimeout(_void, milliseconds));

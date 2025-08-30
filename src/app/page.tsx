@@ -9,7 +9,6 @@ import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/ani
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
-import { Logger } from "log-it-colored";
 import { kodikApiSSR } from "#/providers/kodik-api-client";
 export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
     translation: {

@@ -5,105 +5,85 @@ import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 import { BoldX, It_will_be_known_soon, GhostedTextComponent } from "../utilities/common/assembler-of-utilities.utilx";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-
-// import { UserList } from "#/components/animes/options/user_list_animes";
-export function AnimeDescriptionModule({
-    current_user,
-    anime,
-    cover_image_src,
-}: {
-    cover_image_src: string;
-    anime: IReady_Animes_DB;
-    current_user: null;
-}) {
-    const type_ru = anime.type === "movie" ? "Фильм" : "ТВ Сериал";
+import type { MaterialObject } from "kodik-api-simplified/index";
+export function AnimeDescriptionModule({ anime, cover_image_src }: { cover_image_src: string; anime: MaterialObject }) {
+    const type_ru = anime.type === "anime" ? "Фильм" : "ТВ Сериал";
     return (
         <div className={rea_wrapper_border}>
-            <div className={`p-3 text-center`}>{anime.names.ru || anime.names.ofc}</div>
+            <div className={`p-3 text-center`}>{anime.title}</div>
             <div className={` p-4 flex-row flex max-md:grid`}>
                 <div className="min-w-max flex flex-col">
-                    <CoverImage image_src={cover_image_src} anime_title={`Обложка от аниме ${anime.names.ru}`} />
-                    {/* <div className="flex justify-between flex-wrap border-4 border-blue-400 mr-4">
-                        {current_user ? (
-                            <>
-                                <UserList.Add_to_liked_list_element userP={current_user} p_shiki_id={shikimori_id} />
-                                <UserList.Add_to_watch_list_element userP={current_user} p_shiki_id={shikimori_id} />
-                                <UserList.Add_to_plan_list_element userP={current_user} p_shiki_id={shikimori_id} />
-                                <UserList.Add_to_viewed_list_element userP={current_user} p_shiki_id={shikimori_id} />
-                            </>
-                        ) : (
-                            <AnimeListsIsNotPermitted />
-                        )}
-                    </div> */}
+                    <CoverImage image_src={cover_image_src} anime_title={`Обложка от аниме ${anime.title}`} />
                 </div>
 
                 <div className=" flex flex-col justify-between">
                     <div>
                         {" "}
                         <BoldX>Альтернативные названия: </BoldX>
-                        {anime.names.org}, {anime.names.all.toString()}{" "}
+                        {anime.other_title},{/* {anime.names.all.toString()}{" "} */}
                     </div>
                     <div>
                         <BoldX>Год выпуска: </BoldX>
-                        {anime.rel_year}
+                        {anime.year}
                     </div>
 
                     <div>
                         <BoldX>Тип: </BoldX>
-                        {anime.kind} ({type_ru})
+                        {anime.material_data?.anime_kind} ({type_ru})
                     </div>
 
-                    <div>
-                        {anime.type === "series" && (
+                    {/* <div>
+                        {anime.type === "anime-serial" && (
                             <>
                                 <BoldX>Сезон: </BoldX>
-                                {anime.season}
+                                {anime.material_data.sea}
                                 <br />
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     <div>
                         <span className="flex">
                             <BoldX>Рейтинг (от шикимори): </BoldX> <SiShikimori className="p-1" size={25} />{" "}
-                            {anime.rating ? `${anime.rating}/10` : "неизвестно"}
+                            {anime.material_data?.shikimori_rating
+                                ? `${anime.material_data?.shikimori_rating}/10 (${anime.material_data.shikimori_votes})`
+                                : "неизвестно"}
                         </span>
                     </div>
 
                     <div>
                         <BoldX>Статус: </BoldX>
-                        <Normalize_anime_status str={anime.status} />
+                        <Normalize_anime_status str={anime.material_data?.anime_status} />
                     </div>
                     <div>
                         <BoldX>Возрастной рейтинг: </BoldX>
-                        <Normalize_age_rating minimal_age={anime.minimal_age || null} rating={anime.rating_mpaa} />
+                        <Normalize_age_rating minimal_age={anime.material_data?.minimal_age || null} rating={anime.material_data?.rating_mpaa} />
                     </div>
 
                     <div>
-                        {anime.type === "series" && (
+                        {anime.type === "anime-serial" && (
                             <>
                                 <BoldX>Количество серий: </BoldX>
-                                {anime.eps_total || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
+                                {anime.episodes_count || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
                             </>
                         )}
                     </div>
 
                     <div>
-                        {anime.status !== "released" && (
+                        {anime.material_data?.anime_status !== "released" && (
                             <>
                                 <BoldX>Количество вышедших серий: </BoldX>
-                                {anime.eps_aired || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
+                                {anime.material_data?.episodes_aired || <GhostedTextComponent>неизвестно</GhostedTextComponent>}
                             </>
                         )}
                     </div>
 
                     <div>
                         <BoldX>Студии: </BoldX>
-                        {anime.studios_sh.length > 0 ? (
-                            anime.studios_sh.map((item, ind) => (
-                                <span key={item.id}>
-                                    {ind !== 0 && ","} {item.filtered_name}
+                        {anime.material_data?.anime_studios && anime.material_data?.anime_studios?.length > 0 ? (
+                            anime.material_data?.anime_studios.map((item, ind) => (
+                                <span key={item}>
+                                    {ind !== 0 && ","} {item}
                                 </span>
                             ))
                         ) : (
@@ -113,8 +93,8 @@ export function AnimeDescriptionModule({
 
                     <div>
                         <BoldX>Страна издания: </BoldX>
-                        {anime.cntrs ? (
-                            anime.cntrs.split(",").map((_county, ind) => (
+                        {anime.material_data?.countries ? (
+                            anime.material_data?.countries.map((_county, ind) => (
                                 <span key={_county}>
                                     {ind !== 0 && ","} {_county}
                                 </span>
@@ -126,40 +106,40 @@ export function AnimeDescriptionModule({
 
                     <div>
                         <BoldX>Дата релиза: </BoldX>
-                        {anime.rel_date}
+                        {anime.material_data?.released_at}
                     </div>
 
                     <div>
                         <BoldX>Жанры: </BoldX>
-                        {anime.genres_ShM.length === 0 ? (
-                            <It_will_be_known_soon />
-                        ) : (
-                            anime.genres_ShM.map((genre, ind) => (
-                                <Link href={`/genres/${genre.name.toLowerCase()}`} key={genre.id}>
+                        {anime.material_data?.genres && anime.material_data?.genres.length === 0 ? (
+                            anime.material_data?.genres.map((genre, ind) => (
+                                <Link href={`/genres/${genre.toLowerCase()}`} key={genre}>
                                     {ind !== 0 && ","}{" "}
-                                    <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre.russian}</span>
+                                    <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre}</span>
                                 </Link>
                             ))
+                        ) : (
+                            <It_will_be_known_soon />
                         )}
                     </div>
 
                     <div>
                         <BoldX>Актёры: </BoldX>
-                        {!anime.actors || anime.actors.length === 0 ? (
-                            <It_will_be_known_soon />
-                        ) : (
-                            anime.actors.map((actor, indx) => (
+                        {anime.material_data?.actors && anime.material_data.actors.length === 0 ? (
+                            anime.material_data.actors.map((actor, indx) => (
                                 <span key={actor}>
                                     {indx !== 0 && ","} {actor}
                                 </span>
                             ))
+                        ) : (
+                            <It_will_be_known_soon />
                         )}
                     </div>
                 </div>
             </div>
             <div className={` p-2`}>
                 <BoldX>Описание:</BoldX>
-                <div className="text-wrap whitespace-pre-wrap mt-2">{anime.desc || <It_will_be_known_soon />}</div>
+                <div className="text-wrap whitespace-pre-wrap mt-2">{anime.material_data?.anime_description || <It_will_be_known_soon />}</div>
             </div>
         </div>
     );

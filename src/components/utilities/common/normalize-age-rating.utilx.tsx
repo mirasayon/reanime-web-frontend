@@ -1,7 +1,6 @@
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import { type JSX } from "react";
 
-export function Normalize_age_rating({ rating, minimal_age }: { rating: IReady_Animes_DB["rating_mpaa"]; minimal_age: number | null }): JSX.Element {
+export function Normalize_age_rating({ rating, minimal_age }: { rating: string & {}; minimal_age: number | null }): JSX.Element {
     let age_rating_number = minimal_age || rating || undefined;
     let normal_age_rating = rating || undefined;
     let rating_description = "";

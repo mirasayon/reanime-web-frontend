@@ -3,10 +3,8 @@ import "#/styles/global/main.tailwind.css";
 import { inter } from "#/fonts/main-font.provider";
 import { useRouter } from "next/navigation";
 import type { JSX } from "react";
-
-type Props = { error: Error & { digest?: string }; reset: () => void };
-type ReturnTypes = JSX.Element;
-export default function __GlobalError({ error, reset }: Props): ReturnTypes {
+type __GlobalErrorProps = { error: Error & { digest?: string }; reset: () => void };
+export default function __GlobalError({ error, reset }: __GlobalErrorProps): JSX.Element {
     const _router = useRouter();
     return (
         <html lang="ru">
@@ -30,3 +28,4 @@ export default function __GlobalError({ error, reset }: Props): ReturnTypes {
         </html>
     );
 }
+

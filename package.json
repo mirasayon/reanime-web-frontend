@@ -4,8 +4,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev:turbo": "dotenv -e .env.development -- next dev --turbopack --port 3641 --hostname 192.168.0.105",
-        "dev": "dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
+        "dev:turbo": "rm -rf ./.next && dotenv -e .env.development -- next dev --turbopack --port 3641 --hostname 192.168.0.105",
+        "dev": "rm -rf ./.next && dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
         "build:prod": "rm -rf ./.next && node --env-file=.env.production ./check-env-post-build.ts && dotenv -e .env.production -- next build",
         "build:dev": "rm -rf ./.next && node --env-file=.env.development ./check-env-post-build.ts && dotenv -e .env.development -- next build",
         "build:test": "rm -rf ./.next && node --env-file=.env.test ./check-env-post-build.ts && dotenv -e .env.test -- next build",

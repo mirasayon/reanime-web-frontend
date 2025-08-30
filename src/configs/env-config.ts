@@ -11,5 +11,5 @@ export const envVarConfig = {
     REANIME_USER_SERVICE_URL: v.url(),
     REANIME_USER_SERVICE_API_KEY: v.string(),
     REANIME_MEDIA_SERVICE_URL: v.url(),
-};
+} as const;
 

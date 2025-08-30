@@ -1,5 +1,5 @@
 "use server";
-import { get_anime_url_by_id_and_type, is_contains_only_numeric_string } from "#/utils/common";
+import { is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
@@ -49,7 +49,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
             images: { url: image_src },
             locale: "ru_RU",
             type: "website",
-            url: `${WebsiteConfigs.public_full_domain}${get_anime_url_by_id_and_type(anime.type, anime.shikimori_id)}`,
+            url: `${WebsiteConfigs.public_full_domain}/anime/${anime.shikimori_id}`,
         },
         robots: {
             index: true,
