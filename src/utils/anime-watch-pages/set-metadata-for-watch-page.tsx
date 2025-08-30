@@ -2,31 +2,39 @@
 import { get_anime_url_by_id_and_type, is_contains_only_numeric_string } from "#/utils/common";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { metadata404 } from "#/constants/common.constants";
-import { get_poster_image_url_by_filename } from "../common/get-poster-url-by-inputted-server-url.dumbx";
+import { getAnimePosterUrlByShikimoriId } from "../common/get-poster-url-by-inputted-server-url.dumbx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
+import { kodikApiSSR } from "#/providers/kodik-api-client";
+import type { Metadata } from "next/types";
 
-export async function setMetadataForWatchAnimePage(shikimori_id: string) {
+export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
     if (Number.isNaN(shikimori_id) || !is_contains_only_numeric_string(shikimori_id)) {
         return notFound();
     }
     const shikimori_id_web = Number(shikimori_id);
-
-    const anime: IReady_Animes_DB | null = await ResServiceApi.byid.any_by_id({ shikimori_id: shikimori_id_web });
+    const res = await (
+        await kodikApiSSR()
+    ).search({
+        shikimori_id: shikimori_id_web,
+        has_field: "shikimori_id",
+        with_material_data: true,
+        limit: 1,
+        types: ["anime", "anime-serial"],
+    });
+    const anime = res.results[0] || null;
     if (!anime) {
         return metadata404;
     }
-    const season = anime.season ? `${anime.season} сезон` : "";
-    const anime_title = `${anime.names.ru} ${season}`;
-    const image_src = get_poster_image_url_by_filename(anime.poster_image_for_rea, (await loadEnvFile()).resource_service.url);
+    const anime_title = `${anime.title} `;
+    const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id, (await loadEnvFile()).resource_service.url);
+    const names = anime.material_data?.other_titles || [];
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
         description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
         keywords: [
             anime_title,
-            ...anime.names.all,
+            ...names,
             "anime",
             "смотреть",
             "смотреть аниме",
@@ -41,7 +49,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string) {
             images: { url: image_src },
             locale: "ru_RU",
             type: "website",
-            url: `${WebsiteConfigs.public_full_domain}${get_anime_url_by_id_and_type(anime)}`,
+            url: `${WebsiteConfigs.public_full_domain}${get_anime_url_by_id_and_type(anime.type, anime.shikimori_id)}`,
         },
         robots: {
             index: true,

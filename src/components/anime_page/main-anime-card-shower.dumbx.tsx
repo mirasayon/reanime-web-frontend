@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { get_anime_url_by_id_and_type, get_type_of_anime } from "#/utils/common";
-import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import { getAnimePosterUrlByShikimoriId } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smartx";
-import type { IFetchedKodikMainReduced } from "#/integrators/kodik-api/kodik-main.types";
+import type { IFetchedKodikMainReduced } from "#app/page";
 type Props = { data: IFetchedKodikMainReduced; resUrl: string };
 export function Anime_card_main({ data, resUrl }: Props) {
     const ruStatus = {
@@ -16,7 +16,7 @@ export function Anime_card_main({ data, resUrl }: Props) {
                     width={200}
                     height={270}
                     loading="lazy"
-                    src={get_poster_image_url_by_filename(String(data.shikimori_id), resUrl)}
+                    src={getAnimePosterUrlByShikimoriId(String(data.shikimori_id), resUrl)}
                     alt={`Обложка от аниме ${data.title}`}
                     className="object-cover h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px]"
                 />
@@ -32,7 +32,7 @@ export function Anime_card_main({ data, resUrl }: Props) {
                 </div>
 
                 <div className=" absolute bottom-1 bg-blue-900 p-1 left-0 font-bold">
-                    {ruStatus[data.material_data.anime_status as keyof typeof ruStatus] || ""}
+                    {ruStatus[data.material_data?.anime_status as keyof typeof ruStatus] || ""}
                 </div>
             </Link>
         </div>

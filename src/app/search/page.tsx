@@ -42,7 +42,7 @@ export default async function Root_search_page({ searchParams }: { searchParams:
 }
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
-    const sq = (await searchParams).search_query;
+    const sq = String((await searchParams).search_query);
     return {
         title: `Поиск по запросу \"${sq}\" | ${WebsiteConfigs.public_domain}`,
     } satisfies Metadata;

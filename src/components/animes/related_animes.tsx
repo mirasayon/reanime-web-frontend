@@ -1,7 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-import { RelatedCardForManga } from "./related-animes-element/related-anime-of-anime";
-import { RelatedCardForAnime } from "./related-animes-element/related-manga-of-anime";
+import { RelatedCardForManga } from "./related-animes-element/show-related-manga-of-anime";
+import { RelatedCardForAnime } from "./related-animes-element/show-related-anime-of-anime";
 import type { JSX } from "react";
 
 export async function Related_animes({ related }: { related: IReady_Animes_DB["rels"] }): Promise<JSX.Element | null> {

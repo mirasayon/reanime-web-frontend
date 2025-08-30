@@ -1,6 +1,6 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower.dumbx";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { IFetchedKodikMain, IFetchedKodikMainReduced } from "#/integrators/kodik-api/kodik-main.types";
+import type { IFetchedKodikMainReduced } from "#app/page";
 import type { JSX } from "react";
 
 export const BoldX = ({ children, className }: { className?: string; children: React.ReactNode }) => {

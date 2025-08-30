@@ -10,7 +10,7 @@ import type { IPageParams, SearchParams } from "#T/next";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { setMetadataForWatchAnimePage } from "#/utils/anime-watch-pages/set-metadata-for-watch-page";
 import { is_contains_only_numeric_string } from "#/utils/common";
-import { get_poster_image_url_by_filename } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
+import { getAnimePosterUrlByShikimoriId } from "#/utils/common/get-poster-url-by-inputted-server-url.dumbx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 type Props = {
@@ -44,7 +44,7 @@ export default async function __MovieWatchPage({ params, searchParams }: Props) 
     return (
         <>
             <AnimeDescriptionModule
-                cover_image_src={get_poster_image_url_by_filename(movie.poster_image_for_rea, res_url)}
+                cover_image_src={getAnimePosterUrlByShikimoriId(movie.poster_image_for_rea, res_url)}
                 current_user={null}
                 anime={movie}
             />

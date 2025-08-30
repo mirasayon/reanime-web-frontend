@@ -1,6 +1,6 @@
 "use server";
 import type { SearchParams } from "#T/next.ts";
-import { KodikApiClient, type MaterialObject } from "kodik-api-simplified/index";
+import { type MaterialObject } from "kodik-api-simplified/index";
 import { ResServiceApi } from "#/integrators/resource-service/resource-service-main.integrator";
 import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
 import { cookies, headers } from "next/headers";
@@ -10,14 +10,23 @@ import { Anime_List_Component } from "#/components/utilities/common/assembler-of
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
 import { Logger } from "log-it-colored";
+import { kodikApiSSR } from "#/providers/kodik-api-client";
+export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
+    translation: {
+        id: number;
+        unique_link: string;
+        title: string;
+        type: string;
+    }[];
+}
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {
     const envA = await loadEnvFile();
     const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     const searchPms = await searchParams;
-    const kodikClient = new KodikApiClient({
-        token: envA.kodikApiToken,
-    });
-    const kodikResponse = await kodikClient.list({
+
+    const kodikResponse = await (
+        await kodikApiSSR()
+    ).list({
         with_material_data: true,
         limit: Number(searchPms.limit) || 100,
         has_field: "shikimori_id",
@@ -27,14 +36,7 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
         types: ["anime", "anime-serial"],
     });
     const { results: data, prev_page, next_page, total } = kodikResponse;
-    interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
-        translation: {
-            id: number;
-            unique_link: string;
-            title: string;
-            type: string;
-        }[];
-    }
+
     const reduced: IFetchedKodikMainReduced[] = data.reduce((accumulator, curr_item) => {
         const existing_index: number = accumulator.findIndex((one_item) => one_item.shikimori_id === curr_item.shikimori_id);
         const is_not_found = existing_index === -1;
