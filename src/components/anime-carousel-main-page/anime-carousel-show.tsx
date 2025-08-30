@@ -27,7 +27,6 @@ export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCar
                     {animes.map((one_slide) => {
                         return (
                             <CarouselItem key={one_slide.page_url} className=" ">
-                                {/* <div> */}
                                 <Link href={one_slide.page_url} className={"flex  flex-row"}>
                                     <div
                                         className=" "
@@ -47,7 +46,6 @@ export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCar
                                         </div>
                                     </div>
                                 </Link>
-                                {/* </div> */}
                             </CarouselItem>
                         );
                     })}
@@ -58,3 +56,4 @@ export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCar
         </div>
     );
 }
+

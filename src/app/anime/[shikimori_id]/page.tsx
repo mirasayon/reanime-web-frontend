@@ -13,6 +13,8 @@ import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
+import { Related_animes } from "#/components/animes/related_animes";
+import { GetRelatedAnimes } from "#/integrators/resource-service/get-related-animes";
 type __AnimeSeriesPageProps = {
     params: IPageParams<{ shikimori_id: string }>;
 };
@@ -41,13 +43,14 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
         }
         return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru });
     }
+
     return (
         <>
             <AnimeDescriptionModule cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id, res_url)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
-            {/* <Related_animes related={anime.rels} /> */}
+            <Related_animes related={await GetRelatedAnimes(current_shikimori_id)} />
         </>
     );
 }

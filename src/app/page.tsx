@@ -8,7 +8,6 @@ import { Welcome_for_home_page } from "#/components/info/welcome-text-for-home-p
 import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { PaginationWithLinks } from "#/components/anime_page/pagination/utility-pagination";
 import { kodikApiSSR } from "#/providers/kodik-api-client";
 export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
     translation: {
@@ -36,7 +35,7 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
     });
     const { results: data, prev_page, next_page, total } = kodikResponse;
 
-    const reduced: IFetchedKodikMainReduced[] = data.reduce((accumulator, curr_item) => {
+    const reduced = data.reduce((accumulator, curr_item) => {
         const existing_index: number = accumulator.findIndex((one_item) => one_item.shikimori_id === curr_item.shikimori_id);
         const is_not_found = existing_index === -1;
         if (!is_not_found) {
@@ -54,13 +53,12 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
             accumulator.push(one_new);
         }
         return accumulator;
-    }, [] as IFetchedKodikMainReduced[]);
+    }, [] as IFetchedKodikMainReduced[]) as unknown as MaterialObject[];
     return (
         <>
             <Welcome_for_home_page logged={!!auth} />
             <AnimeMainPageCarousel animes={await ResServiceApi.internals.top_chart_animes()} resServerUrl={envA.resource_service.url} />
             <Anime_List_Component kodiks={reduced} resUrl={envA.resource_service.url} />
-            <PaginationWithLinks pageSearchParam={"page"} totalCount={total} page={1} pageSize={100} />
         </>
     );
 }

@@ -1,6 +1,4 @@
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-
-export function AnimeWatchPagePromoVideos({ trailer }: { trailer: IReady_Animes_DB["promo"] }) {
+export function AnimeWatchPagePromoVideos({ trailer }: { trailer: { hosting: string; player_url: string }[] }) {
     return (
         <div className={`flex m-4 max-md:grid`}>
             {trailer?.map((item) => {

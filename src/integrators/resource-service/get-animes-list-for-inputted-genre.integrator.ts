@@ -1,17 +1,22 @@
-import type { paginated } from "#T/apis/resource_service_integrator";
+import { kodikApiSSR } from "#/providers/kodik-api-client";
 import type { AwaitedNextSQ } from "#T/next";
-import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
+import type { GenresResponse, ListResponse } from "kodik-api-simplified/resources";
 import { ValidateSearchQueryForGenres } from "./validators/validate-searchquery-for-genres";
 
-type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQueryForGenres>; data: paginated } | null>;
+type ResCateReturnTypes = Promise<ListResponse | null>;
 
-export const by_genre = async (searchquery: AwaitedNextSQ, _genre: string): ResCateReturnTypes => {
+export const by_genre = async (_genre: string): ResCateReturnTypes => {
     try {
-        const input = ValidateSearchQueryForGenres(searchquery, _genre);
-        const data = await ResourseServiceFetcher<paginated>(`/animedb/genre/${input.genre}?page=${input.current_page}&interval=${input.page_size}`);
+        const data = await (
+            await kodikApiSSR()
+        ).list({
+            types: ["anime", "anime-serial"],
+            all_genres: _genre,
+        });
 
-        return { data, input };
+        return data;
     } catch (error) {
         return null;
     }
 };
+

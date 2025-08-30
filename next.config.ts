@@ -1,22 +1,35 @@
 import type { NextConfig } from "next";
-
+const animePath = "/anime/:path*";
 export default {
+    images: {
+        remotePatterns: [new URL("https://shikimori.one/system/mangas/original/**")],
+    },
     async redirects() {
         return [
             {
+                source: "/series/:path*",
+                destination: animePath,
+                permanent: true,
+            },
+            {
+                source: "/movie/:path*",
+                destination: animePath,
+                permanent: true,
+            },
+            {
                 source: "/serial/:path*",
-                destination: "/s/:path*",
+                destination: animePath,
                 permanent: true,
             },
 
             {
                 source: "/m/:path*",
-                destination: "/movie/:path*",
+                destination: animePath,
                 permanent: true,
             },
             {
                 source: "/s/:path*",
-                destination: "/series/:path*",
+                destination: animePath,
                 permanent: true,
             },
         ];
@@ -35,3 +48,4 @@ export default {
     ],
     poweredByHeader: false,
 } satisfies NextConfig;
+

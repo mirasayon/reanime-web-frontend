@@ -1,10 +1,11 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
 import { RelatedCardForManga } from "./related-animes-element/show-related-manga-of-anime";
 import { RelatedCardForAnime } from "./related-animes-element/show-related-anime-of-anime";
 import type { JSX } from "react";
+import type { IShikimoriRelated } from "#/integrators/resource-service/get-related-animes";
+import { Logger } from "log-it-colored";
 
-export async function Related_animes({ related }: { related: IReady_Animes_DB["rels"] }): Promise<JSX.Element | null> {
+export async function Related_animes({ related }: { related: IShikimoriRelated[] }): Promise<JSX.Element | null> {
     const pass = related && related.length > 0;
 
     return pass ? (
@@ -21,12 +22,12 @@ export async function Related_animes({ related }: { related: IReady_Animes_DB["r
                         <div key={_index}>
                             {valid && (
                                 <div>
-                                    <RelatedCardForAnime relation={item.rel_ru} shiki_id={item.anime!.id} />
+                                    <RelatedCardForAnime relation={item.relation_russian} shiki_id={item.anime!.id} />
                                 </div>
                             )}
                             {item?.manga?.id && (
                                 <div>
-                                    <RelatedCardForManga relation={item.rel_ru} data={item.manga} />
+                                    <RelatedCardForManga relation={item.relation_russian} data={item.manga} />
                                 </div>
                             )}
                         </div>

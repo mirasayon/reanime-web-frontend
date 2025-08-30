@@ -1,21 +1,28 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import type { IReady_Animes_DB } from "&rs/ready-animes.types";
-export function RelatedCardForManga({ data, relation }: { data: IReady_Animes_DB["rels"][number]["manga"]; relation: string }) {
-    if (!data) return;
-    type ikind = typeof data.kind;
-    function GetKindManga({ kind }: { kind: ikind }) {
-        if (kind === "manga") {
-            return <span>Манга</span>;
-        }
-        if (kind === "light_novel") {
-            return <span>Новелла</span>;
-        }
-        return <span>{kind}</span>;
+import type { IShikimoriRelated } from "#/integrators/resource-service/get-related-animes";
+import Image from "next/image";
+import type { JSX } from "react";
+function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "manga") }) {
+    if (kind === "manga") {
+        return <span>Манга</span>;
     }
+    if (kind === "light_novel") {
+        return <span>Новелла</span>;
+    }
+    return <span>{kind}</span>;
+}
+export function RelatedCardForManga({ data, relation }: { data: IShikimoriRelated["manga"]; relation: string }): JSX.Element | null {
+    if (!data) {
+        return null;
+    }
+    const url = "https://shikimori.one" + data.image.original.split("?")[0];
     return (
         <div className="w-[20rem] border-4 h-[240px] overflow-hidden flex m-2 border-slate-100 p-2">
-            <img
-                src={`https://shikimori.one${data.poster}`}
+            <Image
+                width={150}
+                height={212}
+                loading="lazy"
+                src={url}
                 alt={`Обложка от манги ${data.russian || ""}`}
                 className="rounded-sm object-cover h-[212px] w-[150px]"
             />
