@@ -7,7 +7,7 @@ import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-in
 import type { Profile, Account } from "&us/orm/client";
 
 // import { TestModeBanner } from "../messages/test-mode-banner";
-export function Layout_Header({ profile, account }: { profile: Profile | null; account: Account | null }) {
+export function Layout_Header({ profile, account }: { profile?: Profile | null; account?: Account | null }) {
     return (
         <header className={`flex flex-wrap justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100`} id="home">
             {/* <TestModeBanner /> */}
@@ -18,9 +18,9 @@ export function Layout_Header({ profile, account }: { profile: Profile | null; a
                 <AnimeCategoriesComponent />
                 <UI_Menu />
             </div>
-            <div className=" flex flex-wrap justify-end">
+            {/* <div className=" flex flex-wrap justify-end">
                 <DropdownMenuInHeader profile={profile} account={account} />
-            </div>
+            </div> */}
         </header>
     );
 }

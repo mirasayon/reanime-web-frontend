@@ -1,36 +1,34 @@
 "use client";
 import { rea_wrapper_border } from "#/styles/provider";
-import { useRouter, useSearchParams } from "next/navigation";
-import { type JSX, useState } from "react";
-export const search_query_name = "search_query" as const;
-export function SearchAnimeAddressBarInHeader(): JSX.Element {
+import { useRouter } from "next/navigation";
+import { type JSX } from "react";
+type Props = {
+    query: string | null;
+};
+export function SearchAnimeAddressBarInHeader({ query }: Props): JSX.Element {
     const router = useRouter();
-    const sp = useSearchParams().get(search_query_name);
-    const [searhQ, setQ] = useState(sp ?? "");
     return (
         <form
             className={` ${rea_wrapper_border} flex justify-between`}
             onSubmit={(event) => {
                 event.preventDefault();
-                const sq = event.currentTarget[search_query_name].value as string | undefined;
+                const sq = event.currentTarget["search_query"].value as string | undefined;
                 if (!sq || !/\S/.test(sq)) {
                     return;
                 }
-                const search_query = encodeURI(sq);
-                return router.push(`?${search_query_name}=${search_query}`);
+                return router.push(`?search_query=${encodeURI(sq)}`);
             }}
         >
             <input
-                type="text"
-                id={search_query_name}
-                value={searhQ}
-                onChange={(e) => {
-                    e.preventDefault();
-                    setQ(() => e.target.value);
-                }}
-                name={search_query_name}
+                type="search"
+                id={"search_query"}
+                {...(query ? { defaultValue: query } : {})}
+                name={"search_query"}
+                required
+                minLength={2}
+                inputMode="search"
                 className={`px-2 bg-transparent w-full rounded-md outline-hidden`}
-                placeholder={"Что ищем, сэмпай?"}
+                placeholder={"Что ищем?"}
             />
             <button className={`dark:bg-blue-900 bg-blue-300 p-2 cursor-pointer hover:bg-blue-900/50`} type="submit">
                 Поиск
@@ -38,3 +36,4 @@ export function SearchAnimeAddressBarInHeader(): JSX.Element {
         </form>
     );
 }
+

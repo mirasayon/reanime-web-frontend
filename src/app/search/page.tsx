@@ -8,27 +8,30 @@ import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-an
 import { getKodikApi } from "#/providers/kodik-api-client";
 import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
 
-export default async function Root_search_page({ searchParams }: { searchParams: SearchParams }) {
-    const sp = await searchParams;
+type Root_search_page = { searchParams: SearchParams };
+
+export default async function Root_search_page({ searchParams }: Root_search_page) {
+    const search_query = (await searchParams).search_query ? decodeURI(String((await searchParams).search_query)) : null;
     let _inputted = true;
-    const res_url = (await loadEnvFile()).resource_service.url;
-    const search_query = sp.search_query as string | undefined;
     if (!search_query || !/\S/.test(search_query)) {
         _inputted = false;
     }
-    const res = await (
-        await getKodikApi()
-    ).search({
-        limit: 100,
-        title: search_query,
-        has_field: "shikimori_id",
-        types: ["anime", "anime-serial"],
-    });
+    const res_url = (await loadEnvFile()).resource_service.url;
+    const res = search_query
+        ? await (
+              await getKodikApi()
+          ).search({
+              limit: 100,
+              title: search_query,
+              has_field: "shikimori_id",
+              types: ["anime", "anime-serial"],
+          })
+        : null;
 
     return (
         <div>
-            <SearchAnimeAddressBarInHeader />
-            {res ? (
+            <SearchAnimeAddressBarInHeader query={search_query} />
+            {res?.results?.length ? (
                 <Anime_List_Component resUrl={res_url} kodiks={dedupeAnimes(res.results)} />
             ) : _inputted ? (
                 <Found_no_animes />
@@ -39,10 +42,15 @@ export default async function Root_search_page({ searchParams }: { searchParams:
     );
 }
 
-export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
-    const sq = String((await searchParams).search_query);
+export async function generateMetadata({ searchParams }: Root_search_page): Promise<Metadata> {
+    const search_query = (await searchParams).search_query ? decodeURI(String((await searchParams).search_query)) : null;
+    if (!search_query) {
+        return {
+            title: `Поиск аниме | ${WebsiteConfigs.public_domain}`,
+        };
+    }
     return {
-        title: `Поиск по запросу \"${sq}\" | ${WebsiteConfigs.public_domain}`,
+        title: `Поиск по запросу \"${search_query}\"`,
     } satisfies Metadata;
 }
 

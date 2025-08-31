@@ -29,20 +29,11 @@ export function Anime_List_Component({ kodiks, resUrl }: Anime_List_ComponentPro
     );
 }
 
-export const It_will_be_known_soon = ({ className }: { className?: string }) => {
-    const styles = className === undefined ? "" : className;
-    return <span className={` text-slate-500/80 ${styles}`}> Данные скоро появятся</span>;
-};
 export const GhostedTextComponent = ({ children }: { children: React.ReactNode }) => {
     return <div className={` text-slate-500/80 `}>{children}</div>;
 };
-
-export const Normalize_ds_names = (title: string) => {
-    return title.replace(".Subtitles", " (Субтитры)").replace(".TV", "").replace("Jut.su", "Jutsu");
-};
-
-export const Image_in_anime_cards = ({ anime_title, img_src }: { img_src: string; anime_title: string }) => {
-    return <img width={200} height={300} loading="lazy" src={img_src} alt={anime_title} className="object-cover w-[200px]" />;
+export const GhostedUnknown = () => {
+    return <span className={` text-slate-500/80 `}>неизвестно</span>;
 };
 
 export const Default_poster = (is_dark = true) => {

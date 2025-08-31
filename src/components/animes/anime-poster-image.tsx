@@ -1,4 +1,4 @@
-export function CoverImage({ anime_title, image_src }: { anime_title: string; image_src: string }) {
+export function AnimePosterImage({ anime_title, image_src }: { anime_title: string; image_src: string }) {
     const _width = 200 * 1.5;
     const _height = 300 * 1.5;
     return (
@@ -12,3 +12,4 @@ export function CoverImage({ anime_title, image_src }: { anime_title: string; im
         />
     );
 }
+

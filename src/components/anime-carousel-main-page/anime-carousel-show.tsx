@@ -1,11 +1,11 @@
 "use client";
-import type { i_top_charts_anime_json } from "#T/userinserface.types";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { set_top_chart_animes_image_urlByUrl } from "#/utils";
+import type { IStaticTopChartAnimes } from "&rs/internal-statics";
 type AnimeMainPageCarouselProps = {
-    animes: i_top_charts_anime_json[];
+    animes: IStaticTopChartAnimes[];
     resServerUrl: string;
 };
 
@@ -26,8 +26,8 @@ export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCar
                 <CarouselContent>
                     {animes.map((one_slide) => {
                         return (
-                            <CarouselItem key={one_slide.page_url} className=" ">
-                                <Link href={one_slide.page_url} className={"flex  flex-row"}>
+                            <CarouselItem key={one_slide.shikimori_id} className=" ">
+                                <Link href={"/anime/" + one_slide.shikimori_id} className={"flex  flex-row"}>
                                     <div
                                         className=" "
                                         style={{

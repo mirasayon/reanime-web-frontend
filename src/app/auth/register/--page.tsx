@@ -14,6 +14,4 @@
 //     }
 //     return <Register_Component />;
 // }
-export default function __Registeration() {
-    return <div className=" p-5 m-4 ">Скоро...</div>;
-}
+

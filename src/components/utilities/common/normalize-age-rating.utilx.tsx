@@ -24,14 +24,9 @@ export function Normalize_age_rating({ rating, minimal_age }: { rating?: string 
             rating_description = "Дети 17 лет возраста и младше на фильм не допускаются.";
             normal_age_rating = "R Plus (NC-17)";
             break;
-        case null:
-            age_rating_number = "Неизвестно";
-            rating_description = "Скоро будет известно";
-            normal_age_rating = "_";
-            break;
         default:
             age_rating_number = "Неизвестно";
-            rating_description = "Скоро будет известно...";
+            rating_description = "";
             normal_age_rating = "_";
             break;
     }

@@ -9,7 +9,7 @@
         "build:prod": "rm -rf ./.next && node --env-file=.env.production ./scripts/check-env.ts && dotenv -e .env.production -- next build",
         "build:dev": "rm -rf ./.next && node --env-file=.env.development ./scripts/check-env.ts && dotenv -e .env.development -- next build",
         "build:test": "rm -rf ./.next && node --env-file=.env.test ./scripts/check-env.ts && dotenv -e .env.test -- next build",
-        "start:test": "dotenv -e .env.test -- next start --port 2641",
+        "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
         "inspect:hot": "tsc --watch --noEmit --project ./tsconfig.json",
         "inspect": "tsc --noEmit --project ./tsconfig.json",
         "start:production": "dotenv -e .env.production -- next start --port 4641 --hostname 192.168.0.105"
@@ -30,7 +30,6 @@
         "consola": "^3.4.2",
         "cookies-next": "^6.1.0",
         "date-fns": "^4.1.0",
-        "delay": "^6.0.0",
         "dotenv-cli": "^10.0.0",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",

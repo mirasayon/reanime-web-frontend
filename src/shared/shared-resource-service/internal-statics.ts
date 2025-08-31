@@ -1,13 +1,12 @@
-export type IStaticDescribeGenres = {
+export interface IStaticDescribeGenres {
     english_name: string;
     russian_name: string;
     description: string;
-};
+}
 export interface IStaticTopChartAnimes {
-    page_url: string;
-    rating?: number;
+    shikimori_id: number;
     title: string;
     cover: string;
-    description?: string;
+    description: string;
 }
 

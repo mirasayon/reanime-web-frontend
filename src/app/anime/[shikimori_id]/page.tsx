@@ -1,8 +1,8 @@
 "use server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AnimeDescriptionModule } from "#/components/anime_page/anime-description-module";
-import { ShowAnimesScreenshotsComponent } from "#/components/animes/frames_anime";
+import { AnimeDescription } from "#/components/anime_page/anime-description";
+import { ShowAnimesScreenshotsComponent } from "#/components/animes/anime-screenshots";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
@@ -33,7 +33,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
 
     return (
         <>
-            <AnimeDescriptionModule cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id, res_url)} anime={anime} />
+            <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id, res_url)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />

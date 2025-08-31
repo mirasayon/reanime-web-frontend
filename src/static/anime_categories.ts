@@ -1,5 +1,5 @@
 import type { filter_search_params } from "#/constants/common.constants";
-import type { i_describe_genres } from "#T/userinserface.types";
+import type { IStaticDescribeGenres } from "&rs/internal-statics";
 
 export type categories = {
     link_url: `/list/${filter_search_params}`;
@@ -35,7 +35,7 @@ export const _categories: categories[] = [
         link_url: "/list/this_year",
     },
 ];
-export const typed_description_genres: Omit<i_describe_genres, "description">[] = [
+export const typed_description_genres: Omit<IStaticDescribeGenres, "description">[] = [
     {
         english_name: "Slice of Life",
         russian_name: "Повседневность",

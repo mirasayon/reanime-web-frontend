@@ -13,6 +13,3 @@
 //     }
 //     return <Login_Component />;
 // }
-export default function __Login() {
-    return <div className=" p-5 m-4 ">Скоро...</div>;
-}
