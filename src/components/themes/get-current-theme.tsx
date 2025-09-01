@@ -1,7 +1,7 @@
 "use client";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-export function Get_Current_Theme() {
+export function getCurrentTheme() {
     const { theme, systemTheme: _systemTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
@@ -26,3 +26,4 @@ export function Get_Current_Theme() {
         is_system,
     } as const;
 }
+

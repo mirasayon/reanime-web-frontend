@@ -10,6 +10,7 @@ export const WebsiteConfigs = new (class WebsiteConfigsClass {
     cyrillic_name = "реаниме" as const;
     cyrillic_normalized_name = "РЕАниме" as const;
     full_domain_URL: URL = new URL(this.public_full_domain);
-    developer_website = "https://mirasayon.com/";
+    developer_website = "https://mirasayon.com/" as const;
+    support_link = this.developer_website + "buy-me-ramen";
 })();
 

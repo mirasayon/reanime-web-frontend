@@ -24,6 +24,7 @@ export default async function Root_search_page({ searchParams }: Root_search_pag
               limit: 100,
               title: search_query,
               has_field: "shikimori_id",
+              with_material_data: true,
               types: ["anime", "anime-serial"],
           })
         : null;

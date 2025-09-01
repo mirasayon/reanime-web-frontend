@@ -17,8 +17,7 @@ type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
 export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<JSX.Element> {
-    const _params = await params;
-    const shikimori_id_web = _params.shikimori_id;
+    const shikimori_id_web = (await params).shikimori_id;
     if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
     }

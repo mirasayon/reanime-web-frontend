@@ -2,7 +2,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { RelatedCardForManga } from "./related-animes/show-related-manga-of-anime";
 import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anime";
 import type { JSX } from "react";
-import type { IShikimoriRelated } from "#/integrators/resource-service/get-related-animes";
+import type { IShikimoriRelated } from "&rs/shikimori-related.types";
 
 export async function Related_animes({ related }: { related: IShikimoriRelated[] }): Promise<JSX.Element | null> {
     const pass = related && related.length > 0;

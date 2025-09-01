@@ -23,7 +23,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
     const _env = await loadEnvFile();
     // const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     return (
-        <html lang="ru">
+        <html lang="ru" suppressHydrationWarning>
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>

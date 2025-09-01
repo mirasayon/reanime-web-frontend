@@ -5,7 +5,7 @@ import { Anime_List_Component } from "#/components/utilities/common/assembler-of
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { getKodikApi } from "#/providers/kodik-api-client";
 import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
-import { r6TopChartAnimes } from "#/integrators/resource-service/get-internals-static-datas.integrator";
+import { topChartAnimesStaticData } from "#/static-but-it-is-typescript/top-chart-animes.static";
 
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {
     const envA = await loadEnvFile();
@@ -26,7 +26,7 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
     return (
         <>
             {/* <Welcome_for_home_page logged={!!auth} /> */}
-            <AnimeMainPageCarousel animes={await r6TopChartAnimes()} resServerUrl={envA.resource_service.url} />
+            <AnimeMainPageCarousel animes={topChartAnimesStaticData} resServerUrl={envA.resource_service.url} />
             <Anime_List_Component kodiks={dedupeAnimes(data)} resUrl={envA.resource_service.url} />
         </>
     );

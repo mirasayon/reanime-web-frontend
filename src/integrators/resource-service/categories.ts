@@ -1,7 +1,6 @@
 import type { AwaitedNextSQ } from "#T/nextjs";
 import type { ListResponse } from "kodik-api-simplified/resources";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
-import { ValidateSearchQuery } from "./validators/validate-searchquery-for-resource-service";
 type paginated = ListResponse;
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
 /** `res service`/categories */
@@ -74,4 +73,18 @@ export const kodikCategories = new (class ResService_Categories {
         }
     };
 })();
+
+import { UserServiceConfig } from "#/settings/resource-service";
+
+type ReturnTypes = { page_size: number; current_page: number };
+
+export function ValidateSearchQuery(searchParams: AwaitedNextSQ): ReturnTypes {
+    const page_size = Number(searchParams.pagesize) || UserServiceConfig.default_page_size;
+    const current_page = Number(searchParams.page) || 1;
+    if (page_size > UserServiceConfig.maxLimitPageSize || page_size < 1) {
+        throw new Error("Max page size exceed");
+    }
+
+    return { page_size, current_page };
+}
 

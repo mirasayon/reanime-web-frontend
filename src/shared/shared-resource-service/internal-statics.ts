@@ -1,5 +1,4 @@
 export interface IStaticDescribeGenres {
-    english_name: string;
     russian_name: string;
     description: string;
 }

@@ -1,20 +1,20 @@
-import { genres, typed_description_genres } from "#/static/anime_categories";
+import { uiNeededGenreLinks } from "#/static-but-it-is-typescript/describe-genres.static";
 import Link from "next/link";
-type RadioGroupSelectGenreProps = {
-    current: (typeof typed_description_genres)[number]["russian_name"];
+type Props = {
+    current: string;
 };
-export function RadioGroupSelectGenre({ current }: RadioGroupSelectGenreProps) {
+export function RadioGroupSelectGenre({ current }: Props) {
     return (
         <div className="p-5 flex flex-2/5 flex-wrap gap-2">
-            {genres.map((cate) => {
-                const active = `/genres/${current}` === cate.link_url;
+            {uiNeededGenreLinks.map((cate) => {
+                const active = current === cate.russian_name;
                 return (
                     <Link
                         href={cate.link_url}
                         key={cate.link_url}
-                        className={`cursor-pointer w-44 items-center border-2 p-2 border-blue-500 ${active && "bg-blue-600"}`}
+                        className={`cursor-pointer items-center border-2 p-2 border-blue-500 ${active && "dark:bg-blue-900 bg-blue-400"}`}
                     >
-                        {cate.title}
+                        {cate.russian_name}
                     </Link>
                 );
             })}

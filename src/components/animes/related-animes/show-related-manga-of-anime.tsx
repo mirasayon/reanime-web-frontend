@@ -1,5 +1,5 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import type { IShikimoriRelated } from "#/integrators/resource-service/get-related-animes";
+import type { IShikimoriRelated } from "&rs/shikimori-related.types";
 import Image from "next/image";
 import type { JSX } from "react";
 function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "manga") }) {

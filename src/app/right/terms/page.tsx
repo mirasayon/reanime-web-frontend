@@ -85,5 +85,3 @@ export default function TermsPage() {
         </main>
     );
 }
-// . Приятного просмотра аниме&#41;
-// <span className="p-2 text-slate-500/80">Все материалы взяты из свободных источников и открытых Web API</span>

@@ -3,7 +3,6 @@
     color: black;
     background: linear-gradient(to bottom, transparent, rgb(231, 251, 255)) rgb(228, 243, 255);
     &:where([data-theme="dark"] *) {
-        margin: 5% 10% 15% 10%;
         color: white;
         background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);
     }
@@ -26,9 +25,3 @@
         margin: 0px;
     }
 }
-
-/* @media (max-width: 1300px) {
-    .rootweb {
-        margin: 5% 5% 10% 5%;
-    }
-} */

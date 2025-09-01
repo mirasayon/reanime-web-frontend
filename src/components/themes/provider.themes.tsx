@@ -1,19 +1,19 @@
-"use client";
+// "use client";
 import { ThemeProvider } from "next-themes";
 import type { JSX, ReactNode } from "react";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 type Props = {
     children: ReactNode;
 };
 
 export function ThemeProviderCustom({ children }: Props): JSX.Element | null {
-    const [mounted, setMounted] = useState<boolean>(false);
-    useEffect(() => setMounted(true), []);
+    // const [mounted, setMounted] = useState<boolean>(false);
+    // useEffect(() => setMounted(true), []);
 
-    if (!mounted) {
-        return null;
-    }
+    // if (!mounted) {
+    //     return <>{children}</>;
+    // }
 
     return (
         <ThemeProvider
@@ -25,3 +25,4 @@ export function ThemeProviderCustom({ children }: Props): JSX.Element | null {
         </ThemeProvider>
     );
 }
+
