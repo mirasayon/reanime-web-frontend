@@ -6,7 +6,7 @@ import { Anime_List_Component } from "#/components/utilities/common/assembler-of
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { getKodikApi } from "#/providers/kodik-api-client";
-import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
+import { dedupeAnimes } from "#/utils/reducer-deduper";
 
 type Root_search_page = { searchParams: SearchParams };
 

@@ -1,4 +1,4 @@
-import type { IStaticTopChartAnimes } from "&rs/internal-statics";
+import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
 
 export const topChartAnimesStaticData: IStaticTopChartAnimes[] = [
     {

@@ -1,6 +1,6 @@
-import type { MaterialObject } from "kodik-api-simplified/resources";
+import type { EntityDataObject } from "kodik/types";
 
-export function dedupeAnimes(data: MaterialObject[]) {
+export function dedupeAnimes(data: EntityDataObject[]) {
     const reduced = data.reduce((accumulator, curr_item) => {
         const existing_index: number = accumulator.findIndex((one_item) => one_item.shikimori_id === curr_item.shikimori_id);
         const is_not_found = existing_index === -1;
@@ -19,12 +19,12 @@ export function dedupeAnimes(data: MaterialObject[]) {
             accumulator.push(one_new);
         }
         return accumulator;
-    }, [] as IFetchedKodikMainReduced[]) as unknown as MaterialObject[];
+    }, [] as IFetchedKodikMainReduced[]) as unknown as EntityDataObject[];
 
     return reduced;
 }
 
-export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translation"> {
+export interface IFetchedKodikMainReduced extends Omit<EntityDataObject, "translation"> {
     translation: {
         id: number;
         unique_link: string;
@@ -32,3 +32,15 @@ export interface IFetchedKodikMainReduced extends Omit<MaterialObject, "translat
         type: string;
     }[];
 }
+
+// import type { IDownloadedKodikMovies } from "#/types/downloaded-kodik-animes/movies-dumps.js";
+// import type { IDownloadedKodikSeries } from "#/types/downloaded-kodik-animes/series-dumps.js";
+
+// export interface reducedSeries extends Omit<IDownloadedKodikSeries, "translation"> {
+//     translation: (IDownloadedKodikSeries["translation"] & { unique_link: string })[];
+// }
+
+// export interface reducedMovies extends Omit<IDownloadedKodikMovies, "translation"> {
+//     translation: (IDownloadedKodikMovies["translation"] & { unique_link: string })[];
+// }
+

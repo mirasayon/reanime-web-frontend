@@ -1,4 +1,4 @@
-import type { IStaticDescribeGenres } from "&rs/internal-statics";
+import type { IStaticDescribeGenres } from "#/static-but-it-is-typescript/internal-statics";
 export type genresType = {
     russian_name: string;
     link_url: `/genres/${string}`;

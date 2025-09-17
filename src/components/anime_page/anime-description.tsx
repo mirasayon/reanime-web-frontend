@@ -5,10 +5,10 @@ import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilities.utilx";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
-import type { MaterialObject } from "kodik-api-simplified/index";
+import type { EntityDataObject } from "kodik/types";
 import { getTypeOfAnime } from "#/utils";
 import { Logger } from "log-it-colored";
-export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: string; anime: MaterialObject }) {
+export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: string; anime: EntityDataObject }) {
     const type_ru = getTypeOfAnime(anime.type);
     return (
         <div className={rea_wrapper_border}>

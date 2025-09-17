@@ -1,5 +1,5 @@
 import type { AwaitedNextSQ } from "#T/nextjs";
-import type { ListResponse } from "kodik-api-simplified/resources";
+import type { ListResponse } from "kodik/types";
 import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
 type paginated = ListResponse;
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;

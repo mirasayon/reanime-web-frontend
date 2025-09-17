@@ -8,9 +8,9 @@ import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { kodikByGenre } from "#/integrators/resource-service/get-animes-list-for-inputted-genre.integrator";
-import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
 import { DescribeGenresStaticData, uiNeededGenres } from "#/static-but-it-is-typescript/describe-genres.static";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
+import { dedupeAnimes } from "#/utils/reducer-deduper";
 type GenresPageProps = {
     params: Promise<{ genre: string }>;
     searchParams: SearchParams;

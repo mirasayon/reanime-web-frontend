@@ -25,7 +25,6 @@
             "#T/*": ["./src/types/*"],
             "&rs/*": ["./src/shared/shared-resource-service/*"],
             "&us/*": ["./src/shared/shared-user-service/*"],
-            "kodik-api-simplified/*": ["./src/libs/kodik-api-prototype-experimental/*"],
             "#/*": ["./src/*"]
         }
     },

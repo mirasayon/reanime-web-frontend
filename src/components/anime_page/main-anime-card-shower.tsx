@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smartx";
-import type { MaterialObject } from "kodik-api-simplified/resources";
-type Props = { data: MaterialObject; resUrl: string };
+import type { EntityDataObject } from "kodik/types";
+type Props = { data: EntityDataObject; resUrl: string };
 export function Anime_card_main({ data, resUrl }: Props) {
     const imgUrl = getAnimePosterUrlByShikimoriId(String(data.shikimori_id), resUrl);
     return (

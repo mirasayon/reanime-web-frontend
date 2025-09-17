@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { set_top_chart_animes_image_urlByUrl } from "#/utils";
-import type { IStaticTopChartAnimes } from "&rs/internal-statics";
+import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
 type AnimeMainPageCarouselProps = {
     animes: IStaticTopChartAnimes[];
     resServerUrl: string;

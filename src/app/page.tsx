@@ -4,8 +4,8 @@ import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/ani
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { getKodikApi } from "#/providers/kodik-api-client";
-import { dedupeAnimes } from "#/libs/kodik-wrapper-utils/reducer-deduper";
 import { topChartAnimesStaticData } from "#/static-but-it-is-typescript/top-chart-animes.static";
+import { dedupeAnimes } from "#/utils/reducer-deduper";
 
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {
     const envA = await loadEnvFile();

@@ -1,8 +1,8 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
-import type { MaterialObject } from "kodik-api-simplified/index";
 import type { JSX } from "react";
 import { LinkX } from "./link-x.utilx";
+import type { EntityDataObject } from "kodik/types";
 
 export function BoldX({ children, className }: { className?: string; children: React.ReactNode }) {
     return <span className={`font-bold ${className ?? ""} `}>{children}</span>;
@@ -17,7 +17,7 @@ export function AnimeListsIsNotPermitted() {
 }
 type Anime_List_ComponentProps = {
     resUrl: string;
-    kodiks: MaterialObject[];
+    kodiks: EntityDataObject[];
 };
 export function Anime_List_Component({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element {
     return (
