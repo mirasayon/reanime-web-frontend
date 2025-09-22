@@ -1,6 +1,5 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import type { JSX } from "react";
-import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { _categories } from "#/static/anime_categories";
@@ -13,9 +12,8 @@ import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 type GenresPageProps = {
     params: Promise<{ genre: string }>;
-    searchParams: SearchParams;
 };
-export default async function GenresPage({ params, searchParams }: GenresPageProps): Promise<JSX.Element> {
+export default async function GenresPage({ params }: GenresPageProps): Promise<JSX.Element> {
     const genre = decodeURI((await params).genre);
     const desc = DescribeGenresStaticData.find((g) => g.russian_name === genre);
 
