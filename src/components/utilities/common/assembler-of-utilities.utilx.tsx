@@ -16,14 +16,13 @@ export function AnimeListsIsNotPermitted() {
     );
 }
 type Anime_List_ComponentProps = {
-    resUrl: string;
     kodiks: EntityDataObject[];
 };
-export function Anime_List_Component({ kodiks, resUrl }: Anime_List_ComponentProps): JSX.Element {
+export function Anime_List_Component({ kodiks }: Anime_List_ComponentProps): JSX.Element {
     return (
         <div className=" flex  flex-wrap justify-around ">
             {kodiks.map((kodik) => (
-                <Anime_card_main resUrl={resUrl} key={kodik.id} data={kodik} />
+                <Anime_card_main key={kodik.id} data={kodik} />
             ))}
         </div>
     );

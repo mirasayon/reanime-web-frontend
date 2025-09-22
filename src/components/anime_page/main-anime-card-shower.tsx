@@ -3,9 +3,9 @@ import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smartx";
 import type { EntityDataObject } from "kodik/types";
 import { AnimePosterImageForMainCard } from "./anime-cover-for-main-card";
-type Props = { data: EntityDataObject; resUrl: string };
-export function Anime_card_main({ data, resUrl }: Props) {
-    const imgUrl = getAnimePosterUrlByShikimoriId(String(data.shikimori_id), resUrl);
+type Props = { data: EntityDataObject };
+export function Anime_card_main({ data }: Props) {
+    const imgUrl = getAnimePosterUrlByShikimoriId(String(data.shikimori_id));
     return (
         <div className={"p-1 max-[600px]:w-[150px] max-[600px]:h-[230px] h-[280px] relative  w-[200px] bg-violet-500/50 mx-[0.2px] m-2"}>
             <Link href={`/anime/${data.shikimori_id}`}>

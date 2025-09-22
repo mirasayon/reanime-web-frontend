@@ -28,11 +28,9 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     if (!anime) {
         return notFound();
     }
-    const res_url = (await loadEnvFile()).resource_service_url;
-
     return (
         <>
-            <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id, res_url)} anime={anime} />
+            <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />

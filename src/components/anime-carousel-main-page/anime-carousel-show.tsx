@@ -6,10 +6,9 @@ import { set_top_chart_animes_image_urlByUrl } from "#/utils";
 import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
 type AnimeMainPageCarouselProps = {
     animes: IStaticTopChartAnimes[];
-    resServerUrl: string;
 };
 
-export function AnimeMainPageCarousel({ resServerUrl, animes }: AnimeMainPageCarouselProps) {
+export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
     return (
         <div className="lg:mx-45 mx-18">
             <Carousel

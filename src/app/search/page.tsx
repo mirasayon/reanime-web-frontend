@@ -3,7 +3,6 @@ import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { getKodikApi } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
@@ -16,14 +15,13 @@ export default async function Root_search_page({ searchParams }: SearchPageParam
     let search_query = null;
     try {
         search_query = getSearchQuery(await searchParams);
-    } catch (error) {
+    } catch {
         return redirect("/");
     }
     let _inputted = true;
     if (!search_query || !/\S/.test(search_query)) {
         _inputted = false;
     }
-    const res_url = (await loadEnvFile()).resource_service_url;
     const res = search_query
         ? await (
               await getKodikApi()
@@ -40,7 +38,7 @@ export default async function Root_search_page({ searchParams }: SearchPageParam
         <div>
             <SearchAnimeAddressBarInHeader query={search_query} />
             {res?.results?.length ? (
-                <Anime_List_Component resUrl={res_url} kodiks={dedupeAnimes(res.results)} />
+                <Anime_List_Component kodiks={dedupeAnimes(res.results)} />
             ) : _inputted ? (
                 <Found_no_animes />
             ) : (

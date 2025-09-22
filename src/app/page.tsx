@@ -26,8 +26,8 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
     return (
         <>
             {/* <Welcome_for_home_page logged={!!auth} /> */}
-            <AnimeMainPageCarousel animes={topChartAnimesStaticData} resServerUrl={envA.resource_service_url} />
-            <Anime_List_Component kodiks={dedupeAnimes(data)} resUrl={envA.resource_service_url} />
+            <AnimeMainPageCarousel animes={topChartAnimesStaticData} />
+            <Anime_List_Component kodiks={dedupeAnimes(data)} />
         </>
     );
 }

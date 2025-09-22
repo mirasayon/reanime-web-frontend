@@ -3,7 +3,6 @@ import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { getKodikApi } from "#/providers/kodik-api";
 import type { Metadata } from "next/types";
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
@@ -25,7 +24,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
         return metadata404;
     }
     const anime_title = `${anime.title} `;
-    const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id, (await loadEnvFile()).resource_service_url);
+    const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id);
     const names = anime.material_data?.other_titles || [];
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,

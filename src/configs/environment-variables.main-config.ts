@@ -29,8 +29,6 @@ export async function loadEnvFile() {
             url: _env.REANIME_USER_SERVICE_URL,
         };
         kodikApiToken = _env.KODIK_API_TOKEN;
-
-        resource_service_url = _env.REANIME_RESOURCE_SERVICE_URL;
     })();
     return ProcessedEnv;
 }
