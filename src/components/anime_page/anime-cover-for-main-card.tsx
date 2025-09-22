@@ -1,9 +1,8 @@
 "use client";
-const _width = 200 * 1.5;
-const _height = 300 * 1.5;
+const _width = 200;
+const _height = 270;
 import { useCurrentTheme } from "../themes/get-current-theme";
-
-export function AnimePosterImage({ anime_title, image_src }: { anime_title: string; image_src: string }) {
+export function AnimePosterImageForMainCard({ anime_title, image_src }: { anime_title: string; image_src: string }) {
     const { is_dark } = useCurrentTheme();
     return (
         <>
@@ -16,7 +15,7 @@ export function AnimePosterImage({ anime_title, image_src }: { anime_title: stri
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                 }}
-                className={`pr-5 w-[${_width}px] h-[${_height}px] object-cover ${!is_dark && "hidden"}`}
+                className={`object-cover bg-cover bg-center h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px] ${!is_dark && "hidden"}`}
                 width={_width}
                 height={_height}
             />
@@ -30,7 +29,7 @@ export function AnimePosterImage({ anime_title, image_src }: { anime_title: stri
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
                 }}
-                className={`pr-5 w-[${_width}px] h-[${_height}px] object-cover ${is_dark && "hidden"}`}
+                className={`object-cover bg-cover bg-center h-[270px] w-[200px] max-[600px]:w-[150px] max-[600px]:h-[220px] ${is_dark && "hidden"}`}
                 width={_width}
                 height={_height}
             />

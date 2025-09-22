@@ -1,11 +1,11 @@
 "use client";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-export function getCurrentTheme() {
+export function useCurrentTheme() {
     const { theme, systemTheme: _systemTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
-        setMounted(true);
+        return setMounted(true);
     }, []);
     if (!mounted) {
         return {

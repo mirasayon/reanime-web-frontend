@@ -1,7 +1,8 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import type { IShikimoriRelated } from "&rs/shikimori-related.types";
+
 import Image from "next/image";
 import type { JSX } from "react";
+import type { AnimeRelationData } from "shikimoript/types/animes.js";
 function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "manga") }) {
     if (kind === "manga") {
         return <span>Манга</span>;
@@ -11,7 +12,8 @@ function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "manga"
     }
     return <span>{kind}</span>;
 }
-export function RelatedCardForManga({ data, relation }: { data: IShikimoriRelated["manga"]; relation: string }): JSX.Element | null {
+
+export function RelatedCardForManga({ data, relation }: { data: AnimeRelationData["manga"]; relation: string }): JSX.Element | null {
     if (!data) {
         return null;
     }

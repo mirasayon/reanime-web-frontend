@@ -7,9 +7,14 @@ import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilitie
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
 import type { EntityDataObject } from "kodik/types";
 import { getTypeOfAnime } from "#/utils";
-import { Logger } from "log-it-colored";
 export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: string; anime: EntityDataObject }) {
     const type_ru = getTypeOfAnime(anime.type);
+    const dedupedNamesSet = new Set<string>();
+    const allNames = [anime.other_title].concat(anime.material_data?.other_titles ?? []);
+    for (const _name of allNames) {
+        dedupedNamesSet.add(_name);
+    }
+    const dedupedNames = [...dedupedNamesSet.values()];
     return (
         <div className={rea_wrapper_border}>
             <div className={`p-3 text-center`}>{anime.title}</div>
@@ -22,7 +27,7 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
                     <div className=" flex flex-col">
                         {" "}
                         <BoldX>Альтернативные названия: </BoldX>
-                        {[anime.other_title].concat(anime.material_data?.other_titles ?? []).map((item) => (
+                        {dedupedNames.map((item) => (
                             <div className=" px-2" key={item}>
                                 {/* {ind !== 0 && ","}  */}
                                 {item}
@@ -173,7 +178,7 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
                 </div>
             </div>
             <div className={` p-2`}>
-                <BoldX>Описание:</BoldX>
+                <BoldX>Описание: </BoldX>
                 {anime.material_data?.anime_description ? (
                     <div className="text-wrap whitespace-pre-wrap mt-2">{anime.material_data.anime_description}</div>
                 ) : (
