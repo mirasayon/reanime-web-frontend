@@ -1,5 +1,5 @@
 "use server";
-import { getKodikApi } from "../kodik-api-client";
+import { getKodikApi } from "#/providers/kodik-api";
 export async function getAnyByShikimoriFromKodikApi(id: number) {
     const res = await (
         await getKodikApi()

@@ -1,4 +1,4 @@
-import { getKodikApi } from "#/providers/kodik-api-client";
+import { getKodikApi } from "#/providers/kodik-api";
 import type { ListResponse } from "kodik/types";
 
 type kodikByGenreRT = Promise<ListResponse | null>;

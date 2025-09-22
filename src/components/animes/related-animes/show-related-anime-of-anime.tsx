@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { JSX } from "react";
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
+import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 type RelatedCardForAnimeProps = { shiki_id: number; relation: string };
 export async function RelatedCardForAnime({ shiki_id, relation }: RelatedCardForAnimeProps): Promise<JSX.Element | null> {
     const data = await getAnyByShikimoriFromKodikApi(shiki_id);

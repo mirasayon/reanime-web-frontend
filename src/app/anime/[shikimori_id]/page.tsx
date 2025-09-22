@@ -8,10 +8,10 @@ import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
-import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
+import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
 import { Related_animes } from "#/components/animes/related_animes";
-import { GetRelatedAnimes } from "#/libs/kodik/get-related-animes";
+import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;

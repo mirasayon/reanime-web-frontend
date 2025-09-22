@@ -5,7 +5,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
-import { getKodikApi } from "#/providers/kodik-api-client";
+import { getKodikApi } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 import { redirect } from "next/navigation";
 type SearchPageParams = { searchParams: SearchParams };

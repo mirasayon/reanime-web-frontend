@@ -3,10 +3,9 @@ import type { AnimeRelationData } from "shikimoript/types/animes.js";
 
 export const GetRelatedAnimes = async (sid: number): Promise<AnimeRelationData[]> => {
     try {
-        const json = await shikimoriApi.animes.related({ id: sid });
-        return json;
-    } catch (error) {
-        return [];
+        return await shikimoriApi.animes.related({ id: sid });
+    } catch {
+        return await shikimoriApi.animes.related({ id: sid }).catch(() => []);
     }
 };
 

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { getKodikApi } from "#/providers/kodik-api-client";
+import { getKodikApi } from "#/providers/kodik-api";
 import type { Metadata } from "next/types";
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
     if (Number.isNaN(shikimori_id) || !hasOnlyNumericString(shikimori_id)) {
