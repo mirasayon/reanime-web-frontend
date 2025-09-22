@@ -25,7 +25,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
         return metadata404;
     }
     const anime_title = `${anime.title} `;
-    const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id, (await loadEnvFile()).resource_service.url);
+    const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id, (await loadEnvFile()).resource_service_url);
     const names = anime.material_data?.other_titles || [];
     return {
         title: `${anime_title} | ${WebsiteConfigs.public_domain}`,

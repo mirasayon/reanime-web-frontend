@@ -1,7 +1,7 @@
 "use server";
 import { OnlyShowOthersAvatar } from "#/components/avatars/only-show-avatar";
 import { Others_Profile_Dashboard } from "#/components/users/others-profile";
-import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { notFound } from "next/navigation";
 import type { JSX } from "react";

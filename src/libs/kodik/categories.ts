@@ -1,14 +1,16 @@
 import type { AwaitedNextSQ } from "#T/nextjs";
-import type { ListResponse } from "kodik/types";
-import { ResourseServiceFetcher } from "./resource-service-fetcher.integrator";
-type paginated = ListResponse;
+import { UserServiceConfig } from "#/settings/resource-service";
+import { shikimoriApi } from "#/providers/shikimori-api";
+import { this_year } from "#/constants/common.constants";
+import type { AnimeBasicData } from "shikimoript/types/animes.js";
+type paginated = AnimeBasicData[];
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
 /** `res service`/categories */
 export const kodikCategories = new (class ResService_Categories {
     series = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(`/animedb/categories/series?page=${input.current_page}&interval=${input.page_size}`);
+            const data = await shikimoriApi.animes.list({ kind: "tv" });
             return { input, data };
         } catch (error) {
             return null;
@@ -18,7 +20,7 @@ export const kodikCategories = new (class ResService_Categories {
     movie = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(`/animedb/categories/movie?page=${input.current_page}&interval=${input.page_size}`);
+            const data = await shikimoriApi.animes.list({ kind: "movie" });
             return { input, data };
         } catch (error) {
             return null;
@@ -28,9 +30,7 @@ export const kodikCategories = new (class ResService_Categories {
     released = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(
-                `/animedb/categories/released?page=${input.current_page}&interval=${input.page_size}`,
-            );
+            const data = await shikimoriApi.animes.list({ status: "released" });
             return { input, data };
         } catch (error) {
             return null;
@@ -40,9 +40,7 @@ export const kodikCategories = new (class ResService_Categories {
     popular = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(
-                `/animedb/categories/popular?page=${input.current_page}&interval=${input.page_size}`,
-            );
+            const data = await shikimoriApi.animes.list({ order: "popularity" });
             return { input, data };
         } catch (error) {
             return null;
@@ -52,9 +50,7 @@ export const kodikCategories = new (class ResService_Categories {
     this_year = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(
-                `/animedb/categories/this_year?page=${input.current_page}&interval=${input.page_size}`,
-            );
+            const data = await shikimoriApi.animes.list({ season: `${this_year}` });
             return { input, data };
         } catch (error) {
             return null;
@@ -64,17 +60,13 @@ export const kodikCategories = new (class ResService_Categories {
     ongoing = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await ResourseServiceFetcher<paginated>(
-                `/animedb/categories/ongoing?page=${input.current_page}&interval=${input.page_size}`,
-            );
+            const data = await shikimoriApi.animes.list({ status: "ongoing" });
             return { input, data };
         } catch (error) {
             return null;
         }
     };
 })();
-
-import { UserServiceConfig } from "#/settings/resource-service";
 
 type ReturnTypes = { page_size: number; current_page: number };
 

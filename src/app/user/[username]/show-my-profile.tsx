@@ -1,7 +1,7 @@
 "use server";
 import { Upload_avatar_or_show } from "#/components/avatars/upload_avatar_or_show";
 import { My_Profile_Dashboard } from "#/components/users/my-profile";
-import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { notFound } from "next/navigation";
 import { MyAccoutDashboard } from "#/components/profile-dashboard";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";

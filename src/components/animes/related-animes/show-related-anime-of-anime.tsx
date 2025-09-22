@@ -10,7 +10,7 @@ export async function RelatedCardForAnime({ shiki_id, relation }: RelatedCardFor
     return data ? (
         <Link href={"/anime/" + data.shikimori_id} className="w-[20rem] border-4 h-[240px] flex m-2 border-blue-300 p-2">
             <img
-                src={getAnimePosterUrlByShikimoriId(data.shikimori_id, (await loadEnvFile()).resource_service.url)}
+                src={getAnimePosterUrlByShikimoriId(data.shikimori_id, (await loadEnvFile()).resource_service_url)}
                 alt={`Обложка от аниме ${data.title}`}
                 className="rounded-sm object-cover h-[212px] w-[150px]"
             />

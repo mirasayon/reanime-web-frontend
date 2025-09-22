@@ -7,7 +7,7 @@ import { _categories } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import { kodikByGenre } from "#/integrators/resource-service/get-animes-list-for-inputted-genre.integrator";
+import { kodikByGenre } from "#/libs/kodik/get-animes-list-for-inputted-genre.integrator";
 import { DescribeGenresStaticData, uiNeededGenres } from "#/static-but-it-is-typescript/describe-genres.static";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
@@ -28,7 +28,7 @@ export default async function GenresPage({ params, searchParams }: GenresPagePro
 
     const results = res ? dedupeAnimes(res.results) : null;
 
-    const res_url = (await loadEnvFile()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service_url;
     return (
         <>
             <h1 className=" font-bold text-center border-b-4 border-blue-300">

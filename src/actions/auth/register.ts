@@ -1,11 +1,11 @@
 "use server";
-import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { Logger } from "log-it-colored";
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
-import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
+import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;

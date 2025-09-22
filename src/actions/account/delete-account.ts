@@ -1,6 +1,6 @@
 "use server";
-import { getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
-import { UserServiceFetcher } from "#/integrators/user_service/user-service-fetcher.integrator-util";
+import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { cookies, headers } from "next/headers";

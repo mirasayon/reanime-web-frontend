@@ -7,16 +7,23 @@ import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { getKodikApi } from "#/providers/kodik-api-client";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
-
-type Root_search_page = { searchParams: SearchParams };
-
-export default async function Root_search_page({ searchParams }: Root_search_page) {
-    const search_query = (await searchParams).search_query ? decodeURI(String((await searchParams).search_query)) : null;
+import { redirect } from "next/navigation";
+type SearchPageParams = { searchParams: SearchParams };
+function getSearchQuery(searchParams: Awaited<SearchParams>): string | null {
+    return searchParams.search_query ? decodeURI(String(searchParams.search_query)) : null;
+}
+export default async function Root_search_page({ searchParams }: SearchPageParams) {
+    let search_query = null;
+    try {
+        search_query = getSearchQuery(await searchParams);
+    } catch (error) {
+        return redirect("/");
+    }
     let _inputted = true;
     if (!search_query || !/\S/.test(search_query)) {
         _inputted = false;
     }
-    const res_url = (await loadEnvFile()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service_url;
     const res = search_query
         ? await (
               await getKodikApi()
@@ -43,8 +50,8 @@ export default async function Root_search_page({ searchParams }: Root_search_pag
     );
 }
 
-export async function generateMetadata({ searchParams }: Root_search_page): Promise<Metadata> {
-    const search_query = (await searchParams).search_query ? decodeURI(String((await searchParams).search_query)) : null;
+export async function generateMetadata({ searchParams }: SearchPageParams): Promise<Metadata> {
+    const search_query = getSearchQuery(await searchParams);
     if (!search_query) {
         return {
             title: `Поиск аниме | ${WebsiteConfigs.public_domain}`,

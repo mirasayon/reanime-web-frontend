@@ -11,7 +11,7 @@ import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/providers/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
 import { Related_animes } from "#/components/animes/related_animes";
-import { GetRelatedAnimes } from "#/integrators/resource-service/get-related-animes";
+import { GetRelatedAnimes } from "#/libs/kodik/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
@@ -28,7 +28,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     if (!anime) {
         return notFound();
     }
-    const res_url = (await loadEnvFile()).resource_service.url;
+    const res_url = (await loadEnvFile()).resource_service_url;
 
     return (
         <>
