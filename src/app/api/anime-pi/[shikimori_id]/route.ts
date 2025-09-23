@@ -31,7 +31,7 @@ export async function GET(request: Request, { params }: GetParams) {
     let kodikMaterialData = null;
     try {
         const res = await getAnyByShikimoriFromKodikApi(_shikimori_id);
-        if (res.material_data) {
+        if (res && res.material_data) {
             kodikMaterialData = res.material_data;
         }
     } catch {}
