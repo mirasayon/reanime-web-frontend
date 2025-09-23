@@ -1,17 +1,23 @@
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { existsSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import sharp from "sharp";
-import z from "zod";
+import { z } from "zod";
 import { serveFile } from "./send-file";
-const animePosterImagePath = join(process.cwd(), "uploads");
-
+import { fileURLToPath } from "node:url";
+import { ensuredPathJoin } from "#app/api/utils/ensured-path-join.util";
+const filename = fileURLToPath(import.meta.url);
+const rootPath = join(dirname(filename), "..", "..", "..", "..", "..");
 const ShikimoriIdSchema = z.int().positive().min(1).max(10_000_000);
 
 type GetParams = { params: Promise<{ shikimori_id: string }> };
 const notFoundResponse = new Response("Not found", { status: 404 });
 export async function GET(request: Request, { params }: GetParams) {
+    const animePosterImagePath = await ensuredPathJoin(rootPath, "uploads");
+    if (rootPath !== process.cwd()) {
+        return new Response("Internal Server Error", { status: 500 });
+    }
     const _params = await params;
     const shikimori_id = await ShikimoriIdSchema.safeParseAsync(Number(_params.shikimori_id));
     if (!shikimori_id.success) {
@@ -22,7 +28,13 @@ export async function GET(request: Request, { params }: GetParams) {
     if (existsSync(imgPath)) {
         return await serveFile({ fullPath: imgPath });
     }
-    const kodikMaterialData = (await getAnyByShikimoriFromKodikApi(_shikimori_id).catch(() => null))?.material_data || null;
+    let kodikMaterialData = null;
+    try {
+        const res = await getAnyByShikimoriFromKodikApi(_shikimori_id);
+        if (res.material_data) {
+            kodikMaterialData = res.material_data;
+        }
+    } catch {}
     if (!kodikMaterialData) {
         return notFoundResponse;
     }

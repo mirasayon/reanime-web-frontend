@@ -4,7 +4,7 @@ import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anim
 import type { JSX } from "react";
 import type { AnimeRelationData } from "shikimoript/types/animes.js";
 
-export async function Related_animes({ related }: { related: AnimeRelationData[] }): Promise<JSX.Element | null> {
+export function Related_animes({ related }: { related: AnimeRelationData[] }): JSX.Element | null {
     const pass = related && related.length > 0;
     return pass ? (
         <div className={`${rea_wrapper_border} `}>
