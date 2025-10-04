@@ -27,7 +27,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {_env.mode.prod && _env.gtm_id && <Google_TagManager gtm_id={_env.gtm_id} />}
+            {_env.is_prod && _env.gtm_id && <Google_TagManager gtm_id={_env.gtm_id} />}
             <body className={`${inter.className} ${layoutStyles.rootweb}   `}>
                 <ThemeProviderCustom>
                     <Layout_Header />
@@ -35,13 +35,12 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                     <Layout_Footer />
                     <Cookie_consent_banner />
                 </ThemeProviderCustom>
-                {_env.mode.prod && <YandexMekrikaAnalytics />}
+                {_env.is_prod && <YandexMekrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            {_env.mode.prod && _env.gaid && <Google_Analytics gaid={_env.gaid} />}
+            {_env.is_prod && _env.gaid && <Google_Analytics gaid={_env.gaid} />}
         </html>
     );
 }
 
 export const metadata: Metadata = root_layout_metas;
-
