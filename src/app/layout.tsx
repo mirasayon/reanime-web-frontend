@@ -10,18 +10,18 @@ import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { Layout_Header } from "#/components/layout/global/global-main-header";
 import { root_layout_metas } from "#/meta/root-layout.metadata";
-// import { type AutherType, getSessionFromClient } from "#/integrators/auth/cookie-auther.integrator";
-// import { cookies, headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
 
 type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
     const _env = await loadEnvFile();
-    // const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const auth = await getSessionFromClient(); //{ cookies: await cookies(), headers: await headers() }
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>
@@ -30,7 +30,11 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
             {_env.is_prod && _env.gtm_id && <Google_TagManager gtm_id={_env.gtm_id} />}
             <body className={`${inter.className} ${layoutStyles.rootweb}   `}>
                 <ThemeProviderCustom>
-                    <Layout_Header />
+                    <Layout_Header
+                        account={auth?.data.account || null}
+                        profile={auth?.profile.profile || null}
+                        userServiceBaseUrl={_env.user_service.url}
+                    />
                     {children}
                     <Layout_Footer />
                     <Cookie_consent_banner />

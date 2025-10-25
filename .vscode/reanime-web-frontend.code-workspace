@@ -5,6 +5,19 @@
         }
     ],
     "settings": {
-        "cSpell.words": ["animes", "auther", "autoplay", "gaid", "kodik", "reanime", "shikimori", "shikimoript"]
+        "cSpell.words": [
+            "animes",
+            "auther",
+            "autoplay",
+            "gaid",
+            "kodik",
+            "mirasayon",
+            "nodenext",
+            "reanime",
+            "setclient",
+            "shadcn",
+            "shikimori",
+            "shikimoript"
+        ]
     }
 }

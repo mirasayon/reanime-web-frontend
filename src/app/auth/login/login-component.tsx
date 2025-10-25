@@ -21,7 +21,6 @@ export function Login_Component() {
 
     const onSubmit = handleSubmit(((data) => {
         setServerErrors([]);
-        // call the Server Action directly
         startTransition(async () => {
             const result = await loginAction(data);
             if (typeof result === "object") {
@@ -108,4 +107,3 @@ export function Login_Component() {
         </div>
     );
 }
-

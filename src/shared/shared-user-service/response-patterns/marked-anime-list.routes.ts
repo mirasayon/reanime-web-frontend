@@ -1,4 +1,4 @@
-import type { AnimeBookmark } from "#/databases/orm/client.js";
+import type { AnimeBookmark } from "../orm/client";
 
 /** RESPONSES For Marked anime list Route */
 export namespace MarkedAnimeCollection_ResponseTypes {
@@ -17,4 +17,3 @@ export namespace MarkedAnimeCollection_ResponseTypes {
     export type delete_planned = AnimeBookmark;
     export type delete_completed = AnimeBookmark;
 }
-

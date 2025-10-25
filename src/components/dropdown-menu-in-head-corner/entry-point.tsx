@@ -10,9 +10,10 @@ type Props = {
         show_name: string;
         avatar: string | null;
     } | null;
+    userServiceBaseUrl: string;
     isOpen: boolean;
 };
-export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpen }: Props) {
+export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpen, userServiceBaseUrl }: Props) {
     return (
         <>
             <div>
@@ -28,10 +29,9 @@ export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpe
                     {loggedUser ? (
                         <div className="">
                             <Avatar>
-                                <AvatarImage src={`https://media-service.reanime.art/storage/avatar/${loggedUser.avatar}`} />
+                                <AvatarImage src={userServiceBaseUrl + "/v1/profile/avatar/view/" + loggedUser.avatar} />
                                 <AvatarFallback>{loggedUser.show_name}</AvatarFallback>
                             </Avatar>
-                            {/* <AvatarImage className="size-12 rounded-full" avatar={profile.avatar_url_hash} /> */}
                         </div>
                     ) : isOpen ? (
                         <MdCancelPresentation size={40} />
@@ -43,4 +43,3 @@ export function DropdownMenuInHeaderEntryPoint({ loggedUser, setterIsOpen, isOpe
         </>
     );
 }
-

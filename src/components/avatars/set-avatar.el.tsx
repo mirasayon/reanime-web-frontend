@@ -27,7 +27,7 @@ export function SetAvatarForm({}: {}) {
         if (res.errors.length) {
             setclientErrors(res.errors);
         }
-        if (res.hash) {
+        if (res.uploaded) {
             _router.refresh();
         }
     }

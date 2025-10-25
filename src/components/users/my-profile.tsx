@@ -1,7 +1,5 @@
-import React from "react";
 import { Card, Badge, CardContent } from "./dashboard/common";
 import type { Profile, Account } from "&us/orm/client";
-
 export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Account }) {
     return (
         <div className="py-4 flex flex-col">
@@ -19,4 +17,3 @@ export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { 
         </div>
     );
 }
-

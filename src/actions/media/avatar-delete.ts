@@ -14,7 +14,7 @@ type UploadImageRT = Promise<{
  * Deleted A user avatar */
 export async function DeleteAvatar(): UploadImageRT {
     const _cookies = await cookies();
-    const auth = await getSessionFromClient({ cookies: _cookies, headers: await headers() });
+    const auth = await getSessionFromClient();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],
@@ -47,4 +47,3 @@ export async function DeleteAvatar(): UploadImageRT {
         ok: false,
     };
 }
-

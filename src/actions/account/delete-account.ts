@@ -14,7 +14,7 @@ type DeleteAccountPermanently_ServerActionRT = Promise<{
  * Deletes account */
 export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPermanently_ServerActionRT {
     const _cookies = await cookies();
-    const auth = await getSessionFromClient({ cookies: _cookies, headers: await headers() });
+    const auth = await getSessionFromClient();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],
@@ -46,4 +46,3 @@ export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPerm
         ok: false,
     };
 }
-

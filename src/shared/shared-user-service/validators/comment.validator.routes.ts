@@ -1,4 +1,4 @@
-import { UtilitySchemas } from "./utils/common.js";
+import { UtilitySchemas } from "./utils/common";
 import { z } from "zod";
 
 const schemas = new (class Comment_ValidatorSchemas {

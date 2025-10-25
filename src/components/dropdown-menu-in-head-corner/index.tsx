@@ -3,20 +3,33 @@ import { useState } from "react";
 import { Avatar_Dashboard } from "./for-logged-users";
 import { Avatar_Login } from "./for-guests";
 import { DropdownMenuInHeaderEntryPoint } from "./entry-point";
-import type { Profile, Account } from "&us/orm/client";
-export function DropdownMenuInHeader({ profile, account }: { profile: Profile | null; account: Account | null }) {
+import type { Profile, Account, AvatarPicture } from "&us/orm/client";
+export function DropdownMenuInHeader({
+    profile,
+    userServiceBaseUrl,
+    account,
+}: {
+    profile: (Profile & { avatar: AvatarPicture | null }) | null;
+    account: Account | null;
+    userServiceBaseUrl: string;
+}) {
     const [is_open, set_is_open] = useState(false);
     const auth =
         profile && account
             ? {
                   show_name: profile.nickname ?? account.username,
-                  avatar: profile.avatar_url_hash,
+                  avatar: profile.avatar?.url || null,
               }
             : null;
     return (
         <>
             <div className={`relative `}>
-                <DropdownMenuInHeaderEntryPoint setterIsOpen={set_is_open} isOpen={is_open} loggedUser={auth} />
+                <DropdownMenuInHeaderEntryPoint
+                    setterIsOpen={set_is_open}
+                    isOpen={is_open}
+                    loggedUser={auth}
+                    userServiceBaseUrl={userServiceBaseUrl}
+                />
 
                 <div className={!is_open ? "w-0 h-0" : ""}>
                     <div className={`absolute right-[0px] top-[70px] dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
@@ -31,4 +44,3 @@ export function DropdownMenuInHeader({ profile, account }: { profile: Profile | 
         </>
     );
 }
-

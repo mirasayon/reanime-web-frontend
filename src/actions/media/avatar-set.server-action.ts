@@ -7,14 +7,14 @@ import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes
 import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
 type AvatarSet_ServerActionRT = Promise<{
     errors: string[];
-    hash: null | string;
+    uploaded: boolean;
 }>;
 export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_ServerActionRT {
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const auth = await getSessionFromClient();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],
-            hash: null,
+            uploaded: false,
         };
     }
     const imageFile = formData.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
@@ -22,16 +22,14 @@ export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_Serv
     if (!imageFile?.size) {
         return {
             errors: ["Изображение не добавлено"],
-            hash: null,
+            uploaded: false,
         };
     }
 
     if (!supported_pfp_format.includes(imageFile.type)) {
-        return { errors: ["Неподерживаемый формат"], hash: null };
+        return { errors: ["Неподдерживаемый формат"], uploaded: false };
     }
-    // Example: read the bytes
     const arrayBuffer = await imageFile.arrayBuffer();
-    // const buffer = Buffer.from(arrayBuffer);
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
     const forwardData = new FormData();
     forwardData.append(UserServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
@@ -45,20 +43,13 @@ export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_Serv
     });
 
     if (res.errors.length) {
-        return { errors: res.errors, hash: null };
+        return { errors: res.errors, uploaded: false };
     }
     if (res.data) {
-        return { hash: res.data, errors: [] };
-    }
-    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
-        return {
-            errors: ["Слишком много запросов. Попробуйте позже"],
-            hash: null,
-        };
+        return { uploaded: res.data, errors: [] };
     }
     return {
         errors: ["Что-то пошло не так"],
-        hash: null,
+        uploaded: false,
     };
 }
-

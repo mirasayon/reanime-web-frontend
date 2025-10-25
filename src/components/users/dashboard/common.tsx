@@ -12,12 +12,12 @@ export function Avatar({ children, className = "" }: { children: React.ReactNode
     return <div className={`overflow-hidden ${className}`}>{children}</div>;
 }
 type AvatarImageProps = {
-    /** hash */
-    avatar: string | null;
+    /** just profile cuid */
+    avatar: string;
     className?: string;
 };
 export function AvatarImage({ avatar, className }: AvatarImageProps) {
-    return avatar ? <img src={`https://media-service.reanime.art/storage/avatar/${avatar}`} alt="avatar" className={`${className ?? ""}`} /> : null;
+    return <img src={avatar} alt="avatar" className={`${className ?? ""}`} />;
 }
 
 export function AvatarFallback({ children, className = "" }: { children: React.ReactNode; className?: string }) {

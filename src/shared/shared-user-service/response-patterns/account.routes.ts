@@ -1,4 +1,4 @@
-import type { Account, Session } from "#/databases/orm/client.js";
+import type { Account, Session } from "../orm/client";
 
 /** RESPONSES For Account Route */
 export namespace Account_ResponseTypes {

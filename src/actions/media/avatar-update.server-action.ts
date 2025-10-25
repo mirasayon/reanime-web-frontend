@@ -1,16 +1,15 @@
 "use server";
 import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { cookies, headers } from "next/headers";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import { ResponseCode, UserServiceResponseStatusCodes } from "&us/constants/response.constants";
+import { ResponseCode } from "&us/constants/response.constants";
 type AvatarUpdate_ServerActionRT = Promise<{
     errors: string[];
     hash: null | string;
 }>;
 export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdate_ServerActionRT {
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const auth = await getSessionFromClient();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],
@@ -27,11 +26,9 @@ export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdat
     }
 
     if (!supported_pfp_format.includes(imageFile.type)) {
-        return { errors: ["Неподерживаемый формат"], hash: null };
+        return { errors: ["Недодерживаемый формат"], hash: null };
     }
-    // Example: read the bytes
     const arrayBuffer = await imageFile.arrayBuffer();
-    // const buffer = Buffer.from(arrayBuffer);
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
     const forwardData = new FormData();
     forwardData.append(UserServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
@@ -50,12 +47,6 @@ export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdat
     if (res.data) {
         return { hash: res.data, errors: [] };
     }
-    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
-        return {
-            errors: ["Слишком много запросов. Попробуйте позже"],
-            hash: null,
-        };
-    }
 
     if (res.response_code === ResponseCode.PAYLOAD_TOO_LARGE) {
         return {
@@ -68,4 +59,3 @@ export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdat
         hash: null,
     };
 }
-

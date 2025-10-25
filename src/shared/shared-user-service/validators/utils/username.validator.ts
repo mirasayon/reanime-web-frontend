@@ -2,7 +2,7 @@ import { z } from "zod";
 import psl from "better-psl";
 import { rules as domainSuffixes } from "better-psl";
 import consola from "consola";
-import { reserved_usernames } from "#/shared/validators/static/reserved_usernames.static.js";
+import { reserved_usernames } from "../static/reserved_usernames.static";
 /** Regexp for login string.
  *
  *  Description:
@@ -67,4 +67,3 @@ export const account_username = (() => {
             },
         );
 })();
-

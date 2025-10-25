@@ -1,6 +1,6 @@
-import { profile_nickname } from "./utils/profile_name.schema.js";
-import { UtilitySchemas } from "./utils/common.js";
-import { account_username } from "./utils/username.validator.js";
+import { profile_nickname } from "./utils/profile_name.schema";
+import { UtilitySchemas } from "./utils/common";
+import { account_username } from "./utils/username.validator";
 import { z } from "zod";
 
 const schemas = new (class Auth_ValidatorSchemas {

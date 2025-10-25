@@ -4,10 +4,18 @@ import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner"
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
-import type { Profile, Account } from "&us/orm/client";
+import type { Profile, Account, AvatarPicture } from "&us/orm/client";
 
 // import { TestModeBanner } from "../messages/test-mode-banner";
-export function Layout_Header({ profile, account }: { profile?: Profile | null; account?: Account | null }) {
+export function Layout_Header({
+    profile,
+    account,
+    userServiceBaseUrl,
+}: {
+    userServiceBaseUrl: string;
+    profile: (Profile & { avatar: AvatarPicture | null }) | null;
+    account: Account | null;
+}) {
     return (
         <header className={`flex flex-wrap justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100`} id="home">
             {/* <TestModeBanner /> */}
@@ -19,7 +27,7 @@ export function Layout_Header({ profile, account }: { profile?: Profile | null; 
                 <UI_Menu />
             </div>
             <div className=" flex flex-wrap justify-end">
-                <DropdownMenuInHeader profile={profile} account={account} />
+                <DropdownMenuInHeader profile={profile} account={account} userServiceBaseUrl={userServiceBaseUrl} />
             </div>
         </header>
     );

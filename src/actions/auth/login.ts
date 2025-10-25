@@ -10,7 +10,7 @@ import type { Authentication_ResponseTypes } from "&us/response-patterns/authent
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
-    const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
+    const auth = await getSessionFromClient();
     if (auth) {
         return ["Вы уже авторизованы"];
     }
@@ -62,4 +62,3 @@ async function LoginFetch(username: string, password: string) {
     Logger.success("Succesfully logged the user in");
     return res;
 }
-

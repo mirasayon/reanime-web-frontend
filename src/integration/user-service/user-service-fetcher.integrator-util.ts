@@ -52,4 +52,3 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     }
     return jsoned;
 }
-

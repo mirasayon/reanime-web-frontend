@@ -1,16 +1,16 @@
-import type { Account, AvatarPicture, Profile } from "#/databases/orm/client.js";
+import type { Account, AvatarPicture, Profile } from "../orm/client";
 
 /** RESPONSES For Profile Route */
 export namespace Profile_ResponseTypes {
     export type view_other_profiles = {
-        account: Account;
-        profile: Profile;
+        account: Omit<Account, "password_hash">;
+        profile: Profile & { avatar: AvatarPicture | null };
     };
     export type update_nickname = Profile;
     export type update_bio = Profile;
     export type view_my_profile = {
         account: Account;
-        profile: Profile;
+        profile: Profile & { avatar: AvatarPicture | null };
     };
     /** avatar hash */
     export type set_avatar = boolean;

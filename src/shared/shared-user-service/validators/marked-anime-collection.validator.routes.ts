@@ -1,4 +1,4 @@
-import { UtilitySchemas } from "./utils/common.js";
+import { UtilitySchemas } from "./utils/common";
 import { z } from "zod";
 const schemas = new (class AnimeMarkedCollection_ValidatorSchemas {
     get_all_list = UtilitySchemas.void;

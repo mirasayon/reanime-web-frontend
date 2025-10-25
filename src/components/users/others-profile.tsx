@@ -2,13 +2,7 @@ import React from "react";
 import { Badge, Card, CardContent } from "./dashboard/common";
 import type { Profile, Account } from "&us/orm/client";
 
-export function Others_Profile_Dashboard({
-    profile: { nickname, avatar_url_hash, cover_url_hash, bio },
-    account,
-}: {
-    profile: Profile;
-    account: Account;
-}) {
+export function Others_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Omit<Account, "password_hash"> }) {
     return (
         <div className="py-4 flex flex-col">
             <Card className="flex gap-6 items-start">
@@ -25,4 +19,3 @@ export function Others_Profile_Dashboard({
         </div>
     );
 }
-

@@ -21,7 +21,6 @@ export function Register_Component() {
 
     const onSubmit = handleSubmit(((data) => {
         setServerErrors([]);
-        // call the Server Action directly
         startTransition(async () => {
             const result = await registerAction(data);
             if (typeof result === "object") {
@@ -158,4 +157,3 @@ export function Register_Component() {
         </div>
     );
 }
-
