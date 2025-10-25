@@ -4,7 +4,7 @@ import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    url: `/v1/${"profile" | "authentication" | "ping" | "account" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;
+    url: `/v1/${"profile" | "authentication" | "ping" | "account" | "comment" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;
     json_body?: B;
     session_token?: string;
     ip: string | undefined;

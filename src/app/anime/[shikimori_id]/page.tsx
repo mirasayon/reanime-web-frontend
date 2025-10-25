@@ -13,6 +13,8 @@ import { AnimePlayer } from "#/components/animes/anime-player";
 import { Related_animes } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
+import { Comments_section } from "#/integration/user-service/comments/сomments_section";
+import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
@@ -21,8 +23,10 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
     }
+    const auth = await getSessionFromClient();
     const current_shikimori_id = Number(shikimori_id_web); //* * **
 
+    const env = await loadEnvFile();
     const anime = await getAnyByShikimoriFromKodikApi(current_shikimori_id);
 
     if (!anime) {
@@ -35,6 +39,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
             <Related_animes related={await GetRelatedAnimes(current_shikimori_id)} />
+            <Comments_section shikimori_id={anime.shikimori_id} current_user={auth} userServerBaseUrl={env.user_service.url} />
         </>
     );
 }
@@ -53,4 +58,3 @@ function nextEpisodeSimple(_nextEpisodeAt?: string) {
     }
     return formatDistanceToNow(nextEpisodeAt, { addSuffix: true, locale: ru });
 }
-

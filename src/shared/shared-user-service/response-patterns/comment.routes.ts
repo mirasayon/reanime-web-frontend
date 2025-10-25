@@ -1,4 +1,4 @@
-import type { Comment, CommentVote } from "../orm/client";
+import type { AvatarPicture, Comment, CommentVote, Profile } from "../orm/client";
 
 /** RESPONSES For Comment Route */
 export namespace Comment_ResponseTypes {
@@ -6,6 +6,12 @@ export namespace Comment_ResponseTypes {
     export type update_comment = Comment;
     export type get_all_for_anime = (Comment & {
         ratings: CommentVote[];
+        by_profile: Profile & {
+            avatar: AvatarPicture | null;
+            by_account: {
+                username: string;
+            };
+        };
     })[];
     export type add_like = {
         vote: CommentVote;

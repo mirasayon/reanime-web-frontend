@@ -17,7 +17,9 @@
             "setclient",
             "shadcn",
             "shikimori",
-            "shikimoript"
+            "shikimoript",
+            "utilx",
+            "Залогинтесь"
         ]
     }
 }
