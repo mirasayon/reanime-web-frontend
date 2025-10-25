@@ -1,5 +1,5 @@
-import { UtilitySchemas } from "./utils/common";
-import { account_username } from "./utils/username.validator";
+import { UtilitySchemas } from "./utils/common.js";
+import { account_username } from "./utils/username.validator.js";
 import { z } from "zod";
 
 const schemas = new (class Account_ValidatorSchemas {

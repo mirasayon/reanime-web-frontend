@@ -1,4 +1,4 @@
-import type { Account, Profile, Session } from "&us/orm/client";
+import type { Account, Profile, Session } from "#/databases/orm/client.js";
 
 /** RESPONSES For Auth Route */
 export namespace Authentication_ResponseTypes {
@@ -15,4 +15,3 @@ export namespace Authentication_ResponseTypes {
     /** deleted session's token */
     export type logout = string;
 }
-

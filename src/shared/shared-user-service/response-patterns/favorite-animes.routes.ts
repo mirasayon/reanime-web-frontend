@@ -1,4 +1,4 @@
-import type { AnimeFavorite } from "&us/orm/client";
+import type { AnimeFavorite } from "#/databases/orm/client.js";
 
 /** RESPONSES For Favorite Animes Route */
 export namespace FavoriteAnimes_ResponseTypes {
@@ -16,4 +16,3 @@ export namespace FavoriteAnimes_ResponseTypes {
     };
     export type delete_dislike_from_anime = AnimeFavorite;
 }
-

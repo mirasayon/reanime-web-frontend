@@ -24,4 +24,3 @@ export function getAnimePosterUrlByShikimoriId(shikimori_id: string | number) {
 export function set_top_chart_animes_image_urlByUrl(segment: string) {
     return `_animes/top-chart-anime-posters/${segment}`;
 }
-

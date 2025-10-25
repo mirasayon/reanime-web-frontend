@@ -1,4 +1,4 @@
-import type { Account, AvatarPicture, Profile } from "&us/orm/client";
+import type { Account, AvatarPicture, Profile } from "#/databases/orm/client.js";
 
 /** RESPONSES For Profile Route */
 export namespace Profile_ResponseTypes {
@@ -13,10 +13,9 @@ export namespace Profile_ResponseTypes {
         profile: Profile;
     };
     /** avatar hash */
-    export type set_avatar = string;
+    export type set_avatar = boolean;
 
     export type delete_avatar = AvatarPicture;
     /** avatar hash */
     export type update_avatar = string;
 }
-

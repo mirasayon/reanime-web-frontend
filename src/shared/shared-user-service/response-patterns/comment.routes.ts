@@ -1,4 +1,4 @@
-import type { Comment, CommentVote } from "&us/orm/client";
+import type { Comment, CommentVote } from "#/databases/orm/client.js";
 
 /** RESPONSES For Comment Route */
 export namespace Comment_ResponseTypes {
@@ -19,4 +19,3 @@ export namespace Comment_ResponseTypes {
     export type delete_dislike = CommentVote;
     export type delete_comment = Comment;
 }
-

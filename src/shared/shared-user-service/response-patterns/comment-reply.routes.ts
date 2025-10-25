@@ -1,4 +1,4 @@
-import type { Reply, ReplyVote } from "&us/orm/client";
+import type { Reply, ReplyVote } from "#/databases/orm/client.js";
 
 /** RESPONSES For Reply Route */
 export namespace Reply_ResponseTypes {
@@ -20,4 +20,3 @@ export namespace Reply_ResponseTypes {
     /** Deleted reply type */
     export type delete_reply = Reply;
 }
-

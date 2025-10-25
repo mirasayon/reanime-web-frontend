@@ -1,4 +1,4 @@
-import type { Account, Session } from "&us/orm/client";
+import type { Account, Session } from "#/databases/orm/client.js";
 
 /** RESPONSES For Account Route */
 export namespace Account_ResponseTypes {
@@ -11,4 +11,3 @@ export namespace Account_ResponseTypes {
     export type delete_all_other_sessions = number;
     export type delete_account = Account;
 }
-

@@ -12,7 +12,7 @@
         "tsBuildInfoFile": "./.next/.tsbuild.tsbuildinfo",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve",
+        "jsx": "react-jsx",
         "verbatimModuleSyntax": true,
         "incremental": true,
         "plugins": [
@@ -23,12 +23,11 @@
         "paths": {
             "#app/*": ["./src/app/*"],
             "#T/*": ["./src/types/*"],
-            "&rs/*": ["./src/shared/shared-resource-service/*"],
             "&us/*": ["./src/shared/shared-user-service/*"],
             "#/*": ["./src/*"]
         }
     },
-    "include": ["./next-env.d.ts", "./src", ".next/types/**/*.ts"],
+    "include": ["./next-env.d.ts", "./src", ".next\\dev/types/**/*.ts"],
     "exclude": ["node_modules", "./src/scripts"]
 }
 

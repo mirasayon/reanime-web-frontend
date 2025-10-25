@@ -13,8 +13,6 @@ export const ResponseCode = {
     NOT_IMPLEMENTED: "NOT_IMPLEMENTED",
     INTERNAL_ERROR: "INTERNAL_ERROR",
     SERVICE_UNAVAILABLE: "SERVICE_UNAVAILABLE",
-    MEDIA_SERVICE_NOT_AVAILABLE: "MEDIA_SERVICE_NOT_AVAILABLE",
-    MEDIA_SERVICE_ERROR: "MEDIA_SERVICE_ERROR",
     I_AM_A_TEAPOT: "I_AM_A_TEAPOT",
 } as const;
 export type ResponseCode = (typeof ResponseCode)[keyof typeof ResponseCode];

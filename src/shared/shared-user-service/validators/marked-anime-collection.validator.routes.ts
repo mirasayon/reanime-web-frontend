@@ -1,4 +1,4 @@
-import { UtilitySchemas } from "./utils/common";
+import { UtilitySchemas } from "./utils/common.js";
 import { z } from "zod";
 const schemas = new (class AnimeMarkedCollection_ValidatorSchemas {
     get_all_list = UtilitySchemas.void;
@@ -39,4 +39,3 @@ export namespace dto {
     export type delete_abandoned = z.infer<Schemas["delete_abandoned"]>;
     export type delete_watching = z.infer<Schemas["delete_watching"]>;
 }
-

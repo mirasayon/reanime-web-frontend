@@ -18,10 +18,9 @@ export function Layout_Header({ profile, account }: { profile?: Profile | null; 
                 <AnimeCategoriesComponent />
                 <UI_Menu />
             </div>
-            {/* <div className=" flex flex-wrap justify-end">
+            <div className=" flex flex-wrap justify-end">
                 <DropdownMenuInHeader profile={profile} account={account} />
-            </div> */}
+            </div>
         </header>
     );
 }
-

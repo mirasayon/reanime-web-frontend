@@ -8,14 +8,15 @@ import { serveFile } from "./send-file";
 import { fileURLToPath } from "node:url";
 import { ensuredPathJoin } from "#app/api/utils/ensured-path-join.util";
 const filename = fileURLToPath(import.meta.url);
-const rootPath = join(dirname(filename), "..", "..", "..", "..", "..");
+const rootPath = join(dirname(filename), "..", "..", "..", "..", "..", "..");
 const ShikimoriIdSchema = z.int().positive().min(1).max(10_000_000);
+const animePosterImagePath = await ensuredPathJoin(rootPath, "uploads");
 
 type GetParams = { params: Promise<{ shikimori_id: string }> };
 const notFoundResponse = new Response("Not found", { status: 404 });
 export async function GET(request: Request, { params }: GetParams) {
-    const animePosterImagePath = await ensuredPathJoin(rootPath, "uploads");
     if (rootPath !== process.cwd()) {
+        console.info({ rootPath, cwd: process.cwd() });
         return new Response("Internal Server Error", { status: 500 });
     }
     const _params = await params;
@@ -49,4 +50,3 @@ export async function GET(request: Request, { params }: GetParams) {
     await writeFile(imgPath, imgBuffer, {});
     return await serveFile({ imgBuffer });
 }
-
