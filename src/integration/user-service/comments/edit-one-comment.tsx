@@ -1,13 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { PiDotsThreeOutline } from "react-icons/pi";
-// import { Delete_Comment_F } from "#server/comments/comments";
 import { useRouter } from "next/navigation";
-// biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
 
-export function EditComments({ comment_id }: { comment_id: string }): React.JSX.Element {
+export function EditOneCommentOnAnime({ comment_id }: { comment_id: string }): JSX.Element {
     const router = useRouter();
     const [show_options, setShow] = useState<boolean>(false);
     async function DeleteCommentON(event: React.FormEvent<HTMLFormElement>) {

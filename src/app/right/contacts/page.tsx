@@ -1,7 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import type { Metadata } from "next";
-import { LinkX } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/link-x.utilx";
 
 export default function __Contacts_page() {
     return (
@@ -10,15 +10,15 @@ export default function __Contacts_page() {
                 <h1 className="text-xl">Контакты:</h1>
                 <span>
                     По вопросам сотрудничества или связь с администрацией сайта:{" "}
-                    <LinkX email href={WebsiteConfigs.mail}>
+                    <Linker email href={WebsiteConfigs.mail}>
                         {WebsiteConfigs.mail}
-                    </LinkX>
+                    </Linker>
                 </span>
                 <span>
                     Для поддержки пользователей или сообщению об ошибках (контакт разработчика):{" "}
-                    <LinkX email href={`${WebsiteConfigs.devs_mail}`}>
+                    <Linker email href={`${WebsiteConfigs.devs_mail}`}>
                         {WebsiteConfigs.devs_mail}
-                    </LinkX>
+                    </Linker>
                 </span>
             </div>
         </div>

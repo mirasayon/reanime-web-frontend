@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-export async function getSessionFromClient(): Promise<AutherType | null> {
+export async function sessionAuthenticator(): Promise<AuthenticatorType | null> {
     const _headers = await headers();
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
@@ -36,7 +36,7 @@ export async function getSessionFromClient(): Promise<AutherType | null> {
     __cookies.delete(UserService.session_token_name);
     return null;
 }
-export type AutherType = {
+export type AuthenticatorType = {
     data: Authentication_ResponseTypes.check_session;
     ip: string | undefined;
     agent: string | undefined;

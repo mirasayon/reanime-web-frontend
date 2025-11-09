@@ -5,13 +5,13 @@ import { useState } from "react";
 export function Logout_user() {
     const [confirm, set_confirm] = useState<boolean>(false);
 
-    const [clientErrors, setclientErrors] = useState<string[]>([]);
+    const [clientErrors, setClientErrors] = useState<string[]>([]);
     const _router = useRouter();
 
     async function LogOutAccountHandle(fd: FormData) {
         const res = await LogOutAccount();
         if (res.errors.length) {
-            return setclientErrors(res.errors);
+            return setClientErrors(res.errors);
         }
         _router.push("/");
     }

@@ -5,12 +5,12 @@ import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
-    const auth = await getSessionFromClient();
+    const auth = await sessionAuthenticator();
     if (auth) {
         return ["Вы уже авторизованы"];
     }

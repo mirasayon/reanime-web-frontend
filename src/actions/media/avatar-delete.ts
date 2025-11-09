@@ -1,5 +1,5 @@
 "use server";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
@@ -14,7 +14,7 @@ type UploadImageRT = Promise<{
  * Deleted A user avatar */
 export async function DeleteAvatar(): UploadImageRT {
     const _cookies = await cookies();
-    const auth = await getSessionFromClient();
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],

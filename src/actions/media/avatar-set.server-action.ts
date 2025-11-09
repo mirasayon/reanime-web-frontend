@@ -1,5 +1,5 @@
 "use server";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
@@ -10,7 +10,7 @@ type AvatarSet_ServerActionRT = Promise<{
     uploaded: boolean;
 }>;
 export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_ServerActionRT {
-    const auth = await getSessionFromClient();
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],

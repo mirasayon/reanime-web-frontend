@@ -2,12 +2,12 @@
 import { cookies, headers } from "next/headers";
 import { Register_Component } from "./register-component";
 import { redirect } from "next/navigation";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 
 export default async function __Registration() {
     // const _cookies = await cookies();
     // const _headers = await headers();
-    const is_logged = await getSessionFromClient();
+    const is_logged = await sessionAuthenticator();
 
     if (is_logged) {
         return redirect(`/user/${is_logged.data.account.username}`);

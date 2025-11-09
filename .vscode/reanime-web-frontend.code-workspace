@@ -11,6 +11,8 @@
             "autoplay",
             "gaid",
             "kodik",
+            "Mekrika",
+            "metadatas",
             "mirasayon",
             "nodenext",
             "reanime",
@@ -19,7 +21,9 @@
             "shikimori",
             "shikimoript",
             "utilx",
-            "Залогинтесь"
+            "автозакрытие",
+            "Залогинтесь",
+            "тайтла"
         ]
     }
 }

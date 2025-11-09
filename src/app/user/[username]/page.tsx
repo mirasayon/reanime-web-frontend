@@ -2,7 +2,7 @@
 import { cookies, headers } from "next/headers";
 import { ShowOthersProfile } from "./show-others-profile";
 import { ShowMyProfile_Dashboard } from "./show-my-profile";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { SearchParams } from "#T/nextjs";
 import { UserService } from "#/configs/user-service.app-config";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
@@ -20,7 +20,7 @@ export default async function __Profile_Page({
     const _username = _params.username;
     const _cookies = await cookies();
     // const _headers = await headers();
-    const auth = await getSessionFromClient();
+    const auth = await sessionAuthenticator();
     // {
     // cookies: _cookies,
     // headers: _headers,

@@ -1,6 +1,6 @@
 "use server";
 import { UserService } from "#/configs/user-service.app-config";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { cookies } from "next/headers";
@@ -9,7 +9,7 @@ type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
 
 export async function LogOutAccount(): LogOutAccountRT {
     const _cookies = await cookies();
-    const auth = await getSessionFromClient();
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return { errors: ["Вы не авторизованы"], ok: false };
     }

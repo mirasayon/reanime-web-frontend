@@ -1,32 +1,27 @@
 "use server";
-import { getSessionFromClient } from "#/integration/user-service/auth/cookie-auther.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import { ResponseCode } from "&us/constants/response.constants";
-type AvatarUpdate_ServerActionRT = Promise<{
-    errors: string[];
-    hash: null | string;
-}>;
-export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdate_ServerActionRT {
-    const auth = await getSessionFromClient();
+import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
+/** Server Action */
+export async function AvatarUpdate_ServerAction(
+    imageFile: File,
+    currUrl: string,
+): Promise<{ res?: UserServiceResponceBodyPattern<string>; internalError?: true; middleErrors?: string[] }> {
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
-            errors: ["Вы не авторизованы"],
-            hash: null,
+            middleErrors: ["Вы не авторизованы"],
         };
     }
-    const imageFile = formData.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
-
     if (!imageFile?.size) {
         return {
-            errors: ["Изображение не добавлено"],
-            hash: null,
+            middleErrors: ["Изображение не добавлено"],
         };
     }
-
     if (!supported_pfp_format.includes(imageFile.type)) {
-        return { errors: ["Недодерживаемый формат"], hash: null };
+        return { middleErrors: ["Недодерживаемый формат"] };
     }
     const arrayBuffer = await imageFile.arrayBuffer();
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
@@ -42,20 +37,10 @@ export async function AvatarUpdate_ServerAction(formData: FormData): AvatarUpdat
     });
 
     if (res.errors.length) {
-        return { errors: res.errors, hash: null };
+        return { res };
     }
     if (res.data) {
-        return { hash: res.data, errors: [] };
+        return { res };
     }
-
-    if (res.response_code === ResponseCode.PAYLOAD_TOO_LARGE) {
-        return {
-            errors: ["Слишком большой файл"],
-            hash: null,
-        };
-    }
-    return {
-        errors: ["Что-то пошло не так"],
-        hash: null,
-    };
+    return { internalError: true };
 }

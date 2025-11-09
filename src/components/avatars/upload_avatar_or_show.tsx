@@ -1,4 +1,4 @@
-import { ShowAvatar } from "./show-avatar";
+import { ShowAvatarElement } from "./show-avatar";
 import { SetAvatarForm } from "./set-avatar.el";
 import type { AvatarPicture, Profile } from "&us/orm/client";
 export function Upload_avatar_or_show({
@@ -13,7 +13,7 @@ export function Upload_avatar_or_show({
 
     return (
         <div className=" flex">
-            {profile.avatar?.url ? <ShowAvatar avatar={profile.avatar.url} userServiceBaseUrl={userServiceBaseUrl} /> : <SetAvatarForm />}
+            {profile.avatar?.url ? <ShowAvatarElement username={profile.avatar.url} userServiceBaseUrl={userServiceBaseUrl} /> : <SetAvatarForm />}
         </div>
     );
 }

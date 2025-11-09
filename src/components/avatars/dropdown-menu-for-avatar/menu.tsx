@@ -1,7 +1,8 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "#/shadcn-ui/dropdown-menu";
 import { UpdateAvatarForm } from "../update-avatar";
 import { DeleteAvatarForm } from "../delete-avatar";
-export function DropdownMenuForAvatar() {
+import type { JSX } from "react";
+export function DropdownMenuForAvatar({ currUrl }: { currUrl: string }): JSX.Element {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="dark:bg-slate-900 bg-blue-200 dark:text-blue-100 text-black">
@@ -19,7 +20,7 @@ export function DropdownMenuForAvatar() {
                         e.preventDefault();
                     }}
                 > */}
-                <UpdateAvatarForm />
+                <UpdateAvatarForm currUrl={currUrl} />
                 {/* </DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 {/* <DropdownMenuItem
@@ -34,4 +35,3 @@ export function DropdownMenuForAvatar() {
         </DropdownMenu>
     );
 }
-

@@ -3,10 +3,10 @@ import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 // import { FaArrowDown } from "react-icons/fa";
 // import { FaArrowUp } from "react-icons/fa";
-import { Add_comment_form } from "./add_comment";
-import { EditComments } from "./edit_comment";
+import { Add_comment_form } from "./component-create_comment";
+import { EditOneCommentOnAnime } from "./edit-one-comment";
 import type { JSX } from "react";
-import type { AutherType } from "../auth/cookie-auther.integrator";
+import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "../user-service-fetcher.integrator-util";
 import type { Comment_ResponseTypes } from "&us/response-patterns/comment.routes";
 
@@ -15,7 +15,7 @@ export async function Comments_section({
     userServerBaseUrl,
     current_user,
 }: {
-    current_user: AutherType | null;
+    current_user: AuthenticatorType | null;
     shikimori_id: number;
     userServerBaseUrl: string;
 }): Promise<JSX.Element> {
@@ -44,7 +44,7 @@ export async function Comments_section({
                                                 <img
                                                     src={userServerBaseUrl + "/v1/profile/avatar/view/" + user.avatar.url}
                                                     alt="user avatar"
-                                                    className="rounded object-cover w-[50px] h-[50px]"
+                                                    className="rounded-full object-cover w-[50px] h-[50px]"
                                                 />
                                             </Link>
                                         ) : (
@@ -56,7 +56,7 @@ export async function Comments_section({
 
                                         {current_user && current_user.profile.profile.id === item.by_profile_id && (
                                             <div className="relative">
-                                                <EditComments comment_id={item.id} />
+                                                <EditOneCommentOnAnime comment_id={item.id} />
                                             </div>
                                         )}
                                     </div>
@@ -72,7 +72,7 @@ export async function Comments_section({
                         })
                     ) : (
                         <>
-                            <div>Комментарии пока нет...</div>
+                            <div className=" py-4 px-3">Пока нет комментариев...</div>
                         </>
                     )}
                 </div>

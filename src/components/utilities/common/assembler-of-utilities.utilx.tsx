@@ -1,7 +1,7 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JSX } from "react";
-import { LinkX } from "./link-x.utilx";
+import { Linker } from "./link-x.utilx";
 import type { EntityDataObject } from "kodik/types";
 
 export function BoldX({ children, className }: { className?: string; children: React.ReactNode }) {
@@ -10,9 +10,9 @@ export function BoldX({ children, className }: { className?: string; children: R
 
 export function AnimeListsIsNotPermitted() {
     return (
-        <LinkX className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
+        <Linker className="flex flex-wrap max-w-[30px] p-2" href={"/auth/login"}>
             <span className="text-sm text-wrap">Авторизуйтесь или создайте аккаунт чтобы добавлять в свои списки</span>
-        </LinkX>
+        </Linker>
     );
 }
 type Anime_List_ComponentProps = {
@@ -38,4 +38,3 @@ export const GhostedUnknown = () => {
 export const Default_poster = (is_dark = true) => {
     return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
 };
-

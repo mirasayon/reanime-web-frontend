@@ -1,7 +1,7 @@
 import { rea_docs_wrapper, rea_wrapper_border } from "#/styles/provider";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { LinkX } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/link-x.utilx";
 const curl = `https://${WebsiteConfigs.public_domain}/right/terms`;
 export const metadata: Metadata = {
     title: `Пользовательское соглашение сайта ${WebsiteConfigs.name}`,
@@ -17,7 +17,7 @@ export default function TermsPage() {
             друг с другом информацией об аниме в свободной форме
             <h2 className={"h2"}>1. О пользовательском соглашении</h2>
             Используя/посещая Ресурс (включая весь контент, размещенный на ресурсе), вы соглашаетесь с Настоящим ПОЛЬЗОВАТЕЛЬСКИМ СОГЛАШЕНИЕМ,
-            размещенным по адресу <LinkX href={curl}>{curl}</LinkX> Если вы не согласны с любым из пунктов данного пользовательского соглашения,
+            размещенным по адресу <Linker href={curl}>{curl}</Linker> Если вы не согласны с любым из пунктов данного пользовательского соглашения,
             пожалуйста, покиньте ресурс. ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ может быть изменено Администрацией без какого-либо уведомления пользователей.
             Новая версия ПС вступает в силу по истечении 3 (трех) дней с момента ее размещения, если иное не предусмотрено новой редакцией
             ПОЛЬЗОВАТЕЛЬСКОГО СОГЛАШЕНИЯ.

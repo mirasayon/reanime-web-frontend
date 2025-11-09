@@ -23,7 +23,7 @@ export function DropdownMenuInHeader({
             : null;
     return (
         <>
-            <div className={`relative `}>
+            <div className={`relative z-50`}>
                 <DropdownMenuInHeaderEntryPoint
                     setterIsOpen={set_is_open}
                     isOpen={is_open}

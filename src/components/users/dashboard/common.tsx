@@ -17,7 +17,7 @@ type AvatarImageProps = {
     className?: string;
 };
 export function AvatarImage({ avatar, className }: AvatarImageProps) {
-    return <img src={avatar} alt="avatar" className={`${className ?? ""}`} />;
+    return <img src={avatar} alt="avatar" className={`${className ?? ""} w-40 h-40`} />;
 }
 
 export function AvatarFallback({ children, className = "" }: { children: React.ReactNode; className?: string }) {

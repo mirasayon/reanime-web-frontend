@@ -34,6 +34,7 @@
         "dotenv-cli": "^11.0.0",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
+        "jotai": "^2.15.1",
         "kodik": "^0.0.2",
         "log-it-colored": "^0.0.3",
         "lucide-react": "^0.553.0",

@@ -1,16 +1,17 @@
 "use client";
 import { AvatarUpdate_ServerAction } from "#/actions/media/avatar-update.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
+import { useToast } from "../layout/atoms-toasts-components/useToast";
+import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { useRouter } from "next/navigation";
 
-export function UpdateAvatarForm() {
+export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
+    const { success, error, info } = useToast();
+    const router = useRouter();
+    const [pending, startTransition] = useTransition();
     const [previewSrc, setPreviewSrc] = useState<string>();
-    const [clientErrors, setclientErrors] = useState<string[]>([]);
-    const { pending } = useFormStatus();
-    const _router = useRouter();
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         if (file) {
@@ -20,21 +21,30 @@ export function UpdateAvatarForm() {
     }
 
     async function UploadAvatarHandle(fd: FormData) {
-        const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
-
-        if (!imageFile?.size) {
-            return;
-        }
-        const res = await AvatarUpdate_ServerAction(fd);
-        if (res.errors.length) {
-            return setclientErrors(res.errors);
-        }
-        if (res.hash) {
-            if (window) {
-                return window.location.reload();
+        startTransition(async () => {
+            const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+            if (!imageFile?.size) {
+                return;
             }
-            return _router.push("/");
-        }
+            const res = await AvatarUpdate_ServerAction(imageFile, currUrl);
+            if (res.middleErrors) {
+                error(res.middleErrors.toString());
+                return;
+            }
+            if (res?.res?.errors?.length) {
+                error(res?.res?.errors.toString());
+                return;
+            }
+            if (res?.res?.message) {
+                success(res.res.message);
+                window.location.reload();
+                return;
+            }
+            if (res.internalError) {
+                error(internalErrTxt);
+                return;
+            }
+        });
     }
     return (
         <div>
@@ -73,16 +83,6 @@ export function UpdateAvatarForm() {
                     )}
                 </form>
             </div>
-
-            {clientErrors.length > 0 && <span>Ошибка: </span>}
-            {clientErrors.length > 0 &&
-                clientErrors.map((err, ind) => {
-                    return (
-                        <span key={`${err + ind}`} className=" text-red-700 dark:text-red-500">
-                            {err}
-                        </span>
-                    );
-                })}
         </div>
     );
 }
