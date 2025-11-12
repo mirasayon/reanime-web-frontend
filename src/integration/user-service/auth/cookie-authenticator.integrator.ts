@@ -3,19 +3,13 @@ import { UserService } from "#/configs/user-service.app-config";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import type { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-export async function sessionAuthenticator({
-    cookies,
-    headers,
-}: {
-    headers: ReadonlyHeaders;
-    cookies: ReadonlyRequestCookies;
-}): Promise<AuthenticatorType | null> {
-    "use server";
-    const agent = headers.get("user-agent") ?? undefined;
-    const ip = headers.get("x-forwarded-for") ?? undefined;
-    const session_token = cookies.get(UserService.session_token_name)?.value;
+import { cookies, headers } from "next/headers";
+export async function sessionAuthenticator(): Promise<AuthenticatorType | null> {
+    const _headers = await headers();
+    const _cookies = await cookies();
+    const agent = _headers.get("user-agent") ?? undefined;
+    const ip = _headers.get("x-forwarded-for") ?? undefined;
+    const session_token = _cookies.get(UserService.session_token_name)?.value;
     if (!session_token || session_token.length < 20) {
         return null;
     }
@@ -39,7 +33,9 @@ export async function sessionAuthenticator({
             return { data: res.data, ip, agent, profile: profile.data };
         }
     }
-    // __cookies.delete(UserService.session_token_name);
+    if (session_token !== "" && typeof session_token === "string") {
+        _cookies.delete(UserService.session_token_name);
+    }
     return null;
 }
 export type AuthenticatorType = {

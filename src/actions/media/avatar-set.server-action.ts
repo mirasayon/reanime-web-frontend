@@ -9,12 +9,7 @@ type AvatarSet_ServerActionRT = Promise<{
     uploaded: boolean;
 }>;
 export async function AvatarSet_ServerAction(formData: FormData): AvatarSet_ServerActionRT {
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],

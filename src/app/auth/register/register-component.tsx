@@ -30,26 +30,19 @@ export function Register_Component() {
     }) as SubmitHandler<dto.registration>);
     return (
         <div className="p-10 flex-row justify-evenly flex ">
-            {/* /* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
             <form onSubmit={onSubmit} className="w-2xl border-4 border-blue-500/50 rounded-lg p-8 flex text-xl flex-col m-4 " noValidate>
-                {/* register your input into the hook by invoking the "register" function */}
                 <div className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}>Добро пожаловать!</div>
 
                 <div className="  NICKNAME">
-                    {/* Login */}
                     <label htmlFor="login" className="text-slate-500">
                         Ваш никнейм
                     </label>
                     <div className={" border-4  border-slate-600 rounded-lg p-2"}>
-                        {/* <span className="text-slate-400">@</span> */}
-                        {/* Login */}
                         <input
                             className={"pl-2 bg-transparent font-mono outline-none"}
                             type={"text"}
-                            // name={"login"}
                             id={"nickname"}
                             minLength={4}
-                            // defaultValue="mirasayon"
                             {...register("nickname", { required: true })}
                             maxLength={20}
                             required={true}
@@ -58,20 +51,16 @@ export function Register_Component() {
                     {clientErrors.nickname && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.nickname.message}</p>}
                 </div>
                 <div className=" LOGIN">
-                    {/* Login */}
                     <label htmlFor="login" className="text-slate-500">
                         Ваш логин
                     </label>
                     <div className={" border-4  border-slate-600 rounded-lg p-2"}>
                         <span className="text-slate-400">@</span>
-                        {/* Login */}
                         <input
                             className={"pl-2 bg-transparent font-mono outline-none"}
                             type={"text"}
-                            // name={"login"}
                             id={"login"}
                             minLength={4}
-                            // defaultValue="mirasayon"
                             {...register("username", { required: true })}
                             maxLength={20}
                             required={true}
@@ -80,7 +69,6 @@ export function Register_Component() {
                     {clientErrors.username && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.username.message}</p>}
                 </div>
                 <div className="PASSWORD">
-                    {/* Password */}
                     <label htmlFor="password" className="text-slate-500">
                         Введите пароль
                     </label>
@@ -91,8 +79,6 @@ export function Register_Component() {
                             type={is_password_type ? "password" : "text"}
                             minLength={8}
                             maxLength={80}
-                            // defaultValue="root1234"
-                            //    name={"password"}
                             id={"password"}
                             {...register("password_repeat", { required: true })}
                             required={true}
@@ -113,7 +99,6 @@ export function Register_Component() {
                 </div>
 
                 <div className="PASSWORD_REPEAT">
-                    {/* Password */}
                     <label htmlFor="password" className="text-slate-500">
                         Повторите пароль
                     </label>
@@ -124,8 +109,6 @@ export function Register_Component() {
                             type={is_password_type ? "password" : "text"}
                             minLength={8}
                             maxLength={80}
-                            // defaultValue="root1234"
-                            //    name={"password"}
                             id={"password"}
                             {...register("password", { required: true })}
                             required={true}

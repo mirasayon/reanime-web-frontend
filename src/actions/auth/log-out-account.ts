@@ -9,11 +9,7 @@ type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
 
 export async function LogOutAccount(): LogOutAccountRT {
     const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return { errors: ["Вы не авторизованы"], ok: false };
     }

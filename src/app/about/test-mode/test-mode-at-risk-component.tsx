@@ -1,4 +1,3 @@
-// components/ModalDbConsent.jsx
 "use client";
 import { useEffect, useState, type MouseEventHandler } from "react";
 

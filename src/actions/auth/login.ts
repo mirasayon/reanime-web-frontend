@@ -1,6 +1,5 @@
 "use server";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { Logger } from "log-it-colored";
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { two_thousand_years } from "#/constants/common.constants";
@@ -8,14 +7,8 @@ import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
-
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (auth) {
         return ["Вы уже авторизованы"];
     }
@@ -55,15 +48,12 @@ async function LoginFetch(username: string, password: string) {
     if (res.errors.length || !res.data) {
         return res;
     }
-
     _cookies.set({
         name: UserService.session_token_name,
         value: res.data.session.token,
-        httpOnly: false,
+        httpOnly: true,
         maxAge: two_thousand_years,
         path: "/",
     });
-
-    Logger.success("Succesfully logged the user in");
     return res;
 }

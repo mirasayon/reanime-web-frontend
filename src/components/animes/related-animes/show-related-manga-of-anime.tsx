@@ -1,6 +1,5 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 
-import Image from "next/image";
 import type { JSX } from "react";
 import type { AnimeRelationData } from "shikimoript/types/animes.js";
 function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "manga") }) {
@@ -20,7 +19,7 @@ export function RelatedCardForManga({ data, relation }: { data: AnimeRelationDat
     const url = "https://shikimori.one" + data.image.original.split("?")[0];
     return (
         <div className="w-[20rem] border-4 h-[240px] overflow-hidden flex m-2 border-slate-100 p-2">
-            <Image
+            <img
                 width={150}
                 height={212}
                 loading="lazy"
@@ -39,4 +38,3 @@ export function RelatedCardForManga({ data, relation }: { data: AnimeRelationDat
         </div>
     );
 }
-

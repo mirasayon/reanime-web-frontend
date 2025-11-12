@@ -10,12 +10,7 @@ export async function AvatarUpdate_ServerAction(
     imageFile: File,
     currUrl: string,
 ): Promise<{ res?: UserServiceResponceBodyPattern<string>; internalError?: true; middleErrors?: string[] }> {
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
             middleErrors: ["Вы не авторизованы"],

@@ -22,13 +22,8 @@ type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
-    const __cookies = await cookies();
     const _env = await loadEnvFile();
-    const auth = await sessionAuthenticator({ headers: await headers(), cookies: __cookies });
-    const token = __cookies.get(UserService.session_token_name)?.value;
-    if (!auth && token !== "" && typeof token === "string") {
-        __cookies.delete(UserService.session_token_name);
-    }
+    const auth = await sessionAuthenticator();
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>

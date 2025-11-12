@@ -13,12 +13,7 @@ type UploadImageRT = Promise<{
  *
  * Deleted A user avatar */
 export async function DeleteAvatar(): UploadImageRT {
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],

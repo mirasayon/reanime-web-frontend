@@ -1,5 +1,5 @@
 "use server";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { ShowOthersProfile } from "./show-others-profile";
 import { ShowMyProfile_Dashboard } from "./show-my-profile";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
@@ -19,12 +19,7 @@ export default async function __Profile_Page({
     const _params = await params;
     const _username = _params.username;
     const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
-
+    const auth = await sessionAuthenticator();
     const session_token = _cookies.get(UserService.session_token_name)?.value;
     if (!auth) {
         const env = await loadEnvFile();

@@ -1,7 +1,6 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
-import Link from "next/link";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 
 export function Layout_Footer() {
@@ -38,7 +37,7 @@ export function Layout_Footer() {
                     </Linker>
                 </nav>
                 <div className=" mx-2 mb-2 grid">
-                    <div className=" bg-slate-500/30 h-[1px] m-2" />
+                    <div className=" bg-slate-500/30 h-px m-2" />
                     <span className={"p-2 dark:text-violet-400/80 text-violet-900/80"}>
                         Все представленные на данном сайте материалы являются собственностью их изготовителя (владельца прав), охраняются
                         международными правовыми конвенциями и предназначены только для ознакомления, носят исключительно ознакомительный и

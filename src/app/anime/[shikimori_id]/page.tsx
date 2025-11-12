@@ -15,7 +15,6 @@ import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 import { Comments_section } from "#/integration/user-service/comments/сomments_section";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { cookies, headers } from "next/headers";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
@@ -24,9 +23,8 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
     }
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({ cookies: _cookies, headers: _headers });
+
+    const auth = await sessionAuthenticator();
     const current_shikimori_id = Number(shikimori_id_web); //* * **
     const env = await loadEnvFile();
     const anime = await getAnyByShikimoriFromKodikApi(current_shikimori_id);

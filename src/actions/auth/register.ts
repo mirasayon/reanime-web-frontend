@@ -10,12 +10,7 @@ import { authentication_schemas, type dto } from "&us/validators/authentication.
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {
-    const _cookies = await cookies();
-    const _headers = await headers();
-    const auth = await sessionAuthenticator({
-        cookies: _cookies,
-        headers: _headers,
-    });
+    const auth = await sessionAuthenticator();
     if (auth) {
         return ["Вы уже авторизованы"];
     }
