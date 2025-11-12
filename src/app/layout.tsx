@@ -1,7 +1,7 @@
 import "#/styles/global/main.tailwind.css";
 import type { Metadata } from "next";
 import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
-import { YandexMekrikaAnalytics } from "#/components/analytics/yandex_metrika";
+import { YandexMetrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { inter } from "#/fonts/main-font.provider";
 import type { LayoutProps } from "#T/nextjs";
 import layoutStyles from "#/styles/global/layout.module.css";
@@ -16,13 +16,19 @@ import type { JSX } from "react";
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
+import { UserService } from "#/configs/user-service.app-config";
 
 type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
+    const __cookies = await cookies();
     const _env = await loadEnvFile();
-    const auth = await sessionAuthenticator(); //{ cookies: await cookies(), headers: await headers() }
+    const auth = await sessionAuthenticator({ headers: await headers(), cookies: __cookies });
+    const token = __cookies.get(UserService.session_token_name)?.value;
+    if (!auth && token !== "" && typeof token === "string") {
+        __cookies.delete(UserService.session_token_name);
+    }
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>
@@ -42,7 +48,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                         <Cookie_consent_banner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>
-                {_env.is_prod && <YandexMekrikaAnalytics />}
+                {_env.is_prod && <YandexMetrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
             {_env.is_prod && _env.gaid && <Google_Analytics gaid={_env.gaid} />}

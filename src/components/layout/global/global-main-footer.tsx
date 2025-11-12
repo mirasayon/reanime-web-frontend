@@ -2,7 +2,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
 import Link from "next/link";
-import { Linker } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
 
 export function Layout_Footer() {
     const style = ` p-2  dark:hover:bg-violet-500/10 hover:bg-blue-300/40"  `;

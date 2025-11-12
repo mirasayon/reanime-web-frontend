@@ -1,7 +1,7 @@
 import { Anime_card_main } from "#/components/anime_page/main-anime-card-shower";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JSX } from "react";
-import { Linker } from "./link-x.utilx";
+import { Linker } from "./linker-utility-component";
 import type { EntityDataObject } from "kodik/types";
 
 export function BoldX({ children, className }: { className?: string; children: React.ReactNode }) {

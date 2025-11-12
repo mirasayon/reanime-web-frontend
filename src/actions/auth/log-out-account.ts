@@ -3,13 +3,17 @@ import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
 
 export async function LogOutAccount(): LogOutAccountRT {
     const _cookies = await cookies();
-    const auth = await sessionAuthenticator();
+    const _headers = await headers();
+    const auth = await sessionAuthenticator({
+        cookies: _cookies,
+        headers: _headers,
+    });
     if (!auth) {
         return { errors: ["Вы не авторизованы"], ok: false };
     }

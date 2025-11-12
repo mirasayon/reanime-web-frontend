@@ -4,12 +4,18 @@ import { UserServiceFetcher } from "#/integration/user-service/user-service-fetc
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import { cookies, headers } from "next/headers";
 /** Server Action */
 export async function AvatarUpdate_ServerAction(
     imageFile: File,
     currUrl: string,
 ): Promise<{ res?: UserServiceResponceBodyPattern<string>; internalError?: true; middleErrors?: string[] }> {
-    const auth = await sessionAuthenticator();
+    const _cookies = await cookies();
+    const _headers = await headers();
+    const auth = await sessionAuthenticator({
+        cookies: _cookies,
+        headers: _headers,
+    });
     if (!auth) {
         return {
             middleErrors: ["Вы не авторизованы"],

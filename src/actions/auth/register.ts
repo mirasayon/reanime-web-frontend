@@ -10,7 +10,12 @@ import { authentication_schemas, type dto } from "&us/validators/authentication.
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {
-    const auth = await sessionAuthenticator();
+    const _cookies = await cookies();
+    const _headers = await headers();
+    const auth = await sessionAuthenticator({
+        cookies: _cookies,
+        headers: _headers,
+    });
     if (auth) {
         return ["Вы уже авторизованы"];
     }
@@ -48,15 +53,13 @@ async function RegisterFetch(dto: RegFetchType) {
     if (res.errors.length || !res.data) {
         return res;
     }
-
     _cookies.set({
         name: UserService.session_token_name,
         value: res.data.session.token,
-        httpOnly: false,
+        httpOnly: true,
+
         maxAge: two_thousand_years,
         path: "/",
     });
-
-    Logger.success("Succesfully registered User");
     return res;
 }

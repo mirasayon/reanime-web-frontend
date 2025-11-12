@@ -2,7 +2,7 @@ import Script from "next/script";
 import type { JSX } from "react";
 
 /** Yandex Metrika Analytics */
-export const YandexMekrikaAnalytics = (): JSX.Element => {
+export const YandexMetrikaAnalytics = (): JSX.Element => {
     return (
         <>
             <Script strategy="afterInteractive" id="yandex_metrika">

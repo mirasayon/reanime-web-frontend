@@ -19,12 +19,11 @@ export default async function __Profile_Page({
     const _params = await params;
     const _username = _params.username;
     const _cookies = await cookies();
-    // const _headers = await headers();
-    const auth = await sessionAuthenticator();
-    // {
-    // cookies: _cookies,
-    // headers: _headers,
-    // });
+    const _headers = await headers();
+    const auth = await sessionAuthenticator({
+        cookies: _cookies,
+        headers: _headers,
+    });
 
     const session_token = _cookies.get(UserService.session_token_name)?.value;
     if (!auth) {

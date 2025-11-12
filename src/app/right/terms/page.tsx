@@ -1,7 +1,7 @@
 import { rea_docs_wrapper, rea_wrapper_border } from "#/styles/provider";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { Linker } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
 const curl = `https://${WebsiteConfigs.public_domain}/right/terms`;
 export const metadata: Metadata = {
     title: `Пользовательское соглашение сайта ${WebsiteConfigs.name}`,

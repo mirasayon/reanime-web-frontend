@@ -10,7 +10,12 @@ import type { Authentication_ResponseTypes } from "&us/response-patterns/authent
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 
 export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
-    const auth = await sessionAuthenticator();
+    const _cookies = await cookies();
+    const _headers = await headers();
+    const auth = await sessionAuthenticator({
+        cookies: _cookies,
+        headers: _headers,
+    });
     if (auth) {
         return ["Вы уже авторизованы"];
     }

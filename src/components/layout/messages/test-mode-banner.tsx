@@ -1,4 +1,4 @@
-import { Linker } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
 import type { JSX } from "react";
 
 type Props = {};

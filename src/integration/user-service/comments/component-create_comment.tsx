@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Linker } from "#/components/utilities/common/link-x.utilx";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile";
