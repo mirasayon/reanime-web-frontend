@@ -3,7 +3,7 @@ import { z } from "zod";
  *  Utility Zod schemas
  */
 export const UtilitySchemas = new (class Utility_ValidatorSchemas {
-    /** `undefined` validator */
+    /** `undefined` data type validator */
     void = z.undefined();
     /**
      * Account inputted password

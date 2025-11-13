@@ -1,7 +1,6 @@
 "use server";
-
 import { loadEnvFile } from "#/configs/environment-variables.main-config";
-import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: `/v1/${"profile" | "authentication" | "ping" | "account" | "comment" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;
@@ -19,7 +18,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     json_body,
     raw_body,
     ip,
-}: Props<B>): Promise<UserServiceResponceBodyPattern<T>> {
+}: Props<B>): Promise<UserServiceResponseBodyPattern<T>> {
     if (raw_body && json_body) {
         throw new Error("`raw_body` and `json_body` must not exist at the same time");
     }
@@ -46,7 +45,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
         cache: "no-cache",
     });
     const _req_json = await response.json();
-    const jsoned = _req_json as UserServiceResponceBodyPattern<T>;
+    const jsoned = _req_json as UserServiceResponseBodyPattern<T>;
     if (!response.ok) {
         return jsoned;
     }

@@ -664,5 +664,6 @@ export const reserved_usernames: string[] = [
     "reanimeapp",
     "reanimeart",
     "reanimeweb",
+    "anime",
     "reanime.art",
 ];

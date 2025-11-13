@@ -13,7 +13,7 @@ import { AnimePlayer } from "#/components/animes/anime-player";
 import { Related_animes } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
-import { Comments_section } from "#/integration/user-service/comments/сomments_section";
+import { Comments_section } from "#/integration/user-service/comments/comments_section";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
@@ -38,7 +38,12 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
             <Related_animes related={await GetRelatedAnimes(current_shikimori_id)} />
-            <Comments_section shikimori_id={anime.shikimori_id} current_user={auth} userServerBaseUrl={env.user_service.url} />
+            <Comments_section
+                shikimori_id={anime.shikimori_id}
+                currUrl={`/anime/${anime.shikimori_id}`}
+                current_user={auth}
+                userServerBaseUrl={env.user_service.url}
+            />
         </>
     );
 }

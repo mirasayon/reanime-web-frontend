@@ -1,4 +1,4 @@
-import type { AvatarPicture, Comment, CommentVote, Profile } from "../orm/client";
+import type { AvatarPicture, Comment, CommentVote, Profile } from "&us/orm/client";
 
 /** RESPONSES For Comment Route */
 export namespace Comment_ResponseTypes {

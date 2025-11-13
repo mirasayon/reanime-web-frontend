@@ -1,7 +1,7 @@
 "use server";
 
 import type { Comment_ResponseTypes } from "&us/response-patterns/comment.routes";
-import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
 import { revalidatePath } from "next/cache";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "../../user-service-fetcher.integrator-util";
@@ -13,7 +13,7 @@ type CreateOneCommentToAnimeParams = {
     anime_id: number;
     current_profile: AuthenticatorType;
 };
-type responseType = UserServiceResponceBodyPattern<Comment_ResponseTypes.create_comment>;
+type responseType = UserServiceResponseBodyPattern<Comment_ResponseTypes.create_comment>;
 /**
  * Server Action
  *
@@ -25,7 +25,6 @@ export async function CreateOneCommentToAnime({
     currPath,
     comment_content,
 }: CreateOneCommentToAnimeParams): Promise<responseType | false> {
-    // return false;
     try {
         const url = `/v1/comment/create/${anime_id}` as const;
         const res = await UserServiceFetcher<Comment_ResponseTypes.create_comment>({

@@ -5,6 +5,7 @@ export const WebsiteConfigs = new (class WebsiteConfigsClass {
     name = "REAnime" as const;
     mail = "send@reanime.art" as const;
     devs_mail = "mirasayon@ya.ru" as const;
+    developer_github = "https://github.com/mirasayon" as const;
     normalized_name = "REAnime" as const;
     public_full_domain = "https://reanime.art" as const;
     cyrillic_name = "реаниме" as const;
@@ -13,4 +14,3 @@ export const WebsiteConfigs = new (class WebsiteConfigsClass {
     developer_website = "https://mirasayon.com/" as const;
     support_link = this.developer_website + "buy-me-ramen";
 })();
-

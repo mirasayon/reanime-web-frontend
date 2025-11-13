@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utilx";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
@@ -19,7 +18,6 @@ export function Add_comment_form({
     const { success, error, info } = useToast();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
-    // const router = useRouter();
     if (!profile) {
         return <Linker href="/auth/login">Войдите в свой аккаунт чтобы оставлять комментарии</Linker>;
     }
@@ -29,38 +27,45 @@ export function Add_comment_form({
             return;
         }
         startTransition(async (): Promise<void> => {
-            const comment_content = event.currentTarget.comment_content.value as string;
-            if (comment_content?.length === 0) {
-                console.info("return");
-            }
-            const res = await CreateOneCommentToAnime({
-                anime_id: animeId,
-                profile_id: profile.profile.profile.id,
-                currPath: `/anime/${animeId}`,
-                current_profile: profile,
-                comment_content,
-            });
-            if (res !== false) {
-                if (res.errors.length) {
-                    error(res.errors.toString());
+            try {
+                const comment_content = event.currentTarget.comment_content.value as string;
+                if (comment_content?.length < 5) {
+                    error("Минимальная длина комментария - 5 символов");
                     return;
                 }
-                success(res.message);
-                return;
-            } else {
+                const res = await CreateOneCommentToAnime({
+                    anime_id: animeId,
+                    profile_id: profile.profile.profile.id,
+                    currPath: `/anime/${animeId}`,
+                    current_profile: profile,
+                    comment_content,
+                });
+                if (res !== false) {
+                    if (res.errors.length) {
+                        for (const _error of res.errors) {
+                            error(_error);
+                        }
+                        return;
+                    }
+                    success(res.message);
+                    return;
+                }
+            } catch (err) {
                 error(internalErrTxt);
                 return;
+            } finally {
+                setIWantToAddComment(false);
             }
         });
+        event.currentTarget.reset();
     }
-    // const userName = profile.profile?.profile.nickname || profile.profile?.account.username;
     return (
         <form onSubmit={SaveCommentON} id="comment_form" className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}>
             <Link href={`/user/${profile.profile?.account.username}`} className="flex p-2 flex-row items-center justify-between">
                 {profile.profile?.profile?.avatar?.url ? (
                     <img
                         src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.profile.profile.avatar.url}
-                        alt=""
+                        alt="user avatar"
                         className="rounded-full object-cover w-[40px] h-[40px]"
                     />
                 ) : (
@@ -102,7 +107,7 @@ export function Add_comment_form({
                 <div className=" p-2">
                     <button
                         type="button"
-                        className={`p-2 py-auto dark:bg-slate-500/50  bg-slate-200 active:bg-blue-400 hover:bg-slate-500/80 cursor-pointer`}
+                        className={`p-2 py-auto dark:bg-violet-700 bg-violet-200 active:bg-violet-900 dark:active:bg-violet-900 hover:bg-violet-500 dark:hover:bg-violet-600 rounded cursor-pointer`}
                         onClick={(e) => {
                             e.preventDefault();
                             return setIWantToAddComment(true);

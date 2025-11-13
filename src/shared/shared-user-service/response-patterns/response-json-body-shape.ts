@@ -4,9 +4,10 @@ import type { I_UserServiceResponseStatusCodes, ResponseCode } from "&us/constan
  * Type representing the standard JSON response structure
  * @template Data - The type of data included in the response
  */
-export interface UserServiceResponceBodyPattern<DATA> {
+export interface UserServiceResponseBodyPattern<DATA> {
     data: DATA | null;
     errors: string[];
+    ok: boolean;
     message: string;
     response_code: ResponseCode;
     status_code: I_UserServiceResponseStatusCodes;

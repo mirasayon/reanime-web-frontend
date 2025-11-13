@@ -1,24 +1,27 @@
 "use server";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { sessionAuthenticator, type AuthenticatorType } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import { cookies, headers } from "next/headers";
+import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
 
-type DeleteAccountPermanently_ServerActionRT = Promise<{
-    errors: string[];
-    ok: boolean;
-}>;
+type DeleteAccountPermanently_ServerActionRT = Promise<
+    | {
+          res: UserServiceResponseBodyPattern<Profile_ResponseTypes.delete_avatar>;
+          ok: true;
+      }
+    | {
+          errors: string[];
+          ok: false;
+      }
+>;
 /** `Server Action`
  *
  * Deletes account */
 export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPermanently_ServerActionRT {
-    const auth = await sessionAuthenticator();
+    const auth: AuthenticatorType | null = await sessionAuthenticator();
     if (!auth) {
-        return {
-            errors: ["Вы не авторизованы"],
-            ok: false,
-        };
+        return { ok: false, errors: ["Вы не авторизованы"] };
     }
     const res = await UserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
         url: `/v1/account/delete_account`,
@@ -32,16 +35,8 @@ export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPerm
         return { errors: res.errors, ok: false };
     }
     if (res.data) {
-        return { ok: true, errors: [] };
+        return { ok: true, res };
     }
-    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
-        return {
-            errors: ["Слишком много запросов. Попробуйте позже"],
-            ok: false,
-        };
-    }
-    return {
-        errors: ["Что-то пошло не так"],
-        ok: false,
-    };
+
+    return { ok: false, errors: [internalErrTxt] };
 }

@@ -25,7 +25,6 @@
             "#app/*": ["./src/app/*"],
             "#T/*": ["./src/types/*"],
             "&us/*": ["./src/shared/shared-user-service/*"],
-            // "&us/*": ["shared-user-service/*"],
             "#/*": ["./src/*"]
         }
     },

@@ -3,13 +3,13 @@ import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-aut
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import type { UserServiceResponceBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
 import { cookies, headers } from "next/headers";
 /** Server Action */
 export async function AvatarUpdate_ServerAction(
     imageFile: File,
     currUrl: string,
-): Promise<{ res?: UserServiceResponceBodyPattern<string>; internalError?: true; middleErrors?: string[] }> {
+): Promise<{ res?: UserServiceResponseBodyPattern<string>; internalError?: true; middleErrors?: string[] }> {
     const auth = await sessionAuthenticator();
     if (!auth) {
         return {

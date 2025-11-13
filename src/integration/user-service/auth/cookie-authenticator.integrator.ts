@@ -1,4 +1,5 @@
 "use server";
+import { deleteTokenCookie } from "#/actions/account/delete-token-cookie";
 import { UserService } from "#/configs/user-service.app-config";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
@@ -33,9 +34,7 @@ export async function sessionAuthenticator(): Promise<AuthenticatorType | null> 
             return { data: res.data, ip, agent, profile: profile.data };
         }
     }
-    if (session_token !== "" && typeof session_token === "string") {
-        _cookies.delete(UserService.session_token_name);
-    }
+    await deleteTokenCookie();
     return null;
 }
 export type AuthenticatorType = {

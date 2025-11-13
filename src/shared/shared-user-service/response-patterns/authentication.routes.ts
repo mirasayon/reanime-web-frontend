@@ -1,4 +1,4 @@
-import type { Account, Profile, Session } from "../orm/client";
+import type { Account, Profile, Session } from "&us/orm/client";
 
 /** RESPONSES For Auth Route */
 export namespace Authentication_ResponseTypes {

@@ -1,5 +1,4 @@
 "use client";
-
 import { DeleteAccountPermanently_ServerAction } from "#/actions/account/delete-account";
 import {
     AlertDialog,
@@ -13,21 +12,25 @@ import {
     AlertDialogTrigger,
 } from "#/shadcn-ui/alert-dialog";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTransition } from "react";
+import { useToast } from "../layout/atoms-toasts-components/useToast";
 
 export function DeleteAccountPermanently() {
-    const [clientErrors, setclientErrors] = useState<string[]>([]);
-
+    const [pending, startTransition] = useTransition();
+    const { success, error, info } = useToast();
     const _router = useRouter();
     async function deleteAvatarHandle(fd: FormData) {
-        const res = await DeleteAccountPermanently_ServerAction();
-        if (res.errors.length) {
-            setclientErrors(() => res.errors);
+        startTransition(async () => {
+            const res = await DeleteAccountPermanently_ServerAction();
+            if (res.ok) {
+                success("Аккаунт успешно удалён.");
+                return;
+            }
+            for (const err of res.errors) {
+                error(err);
+            }
             return;
-        }
-        if (res.ok) {
-            _router.push("/");
-        }
+        });
     }
     return (
         <div className=" p-4 ">
@@ -47,23 +50,13 @@ export function DeleteAccountPermanently() {
                         <AlertDialogFooter>
                             <AlertDialogCancel className="cursor-pointer dark:bg-slate-800 bg-blue-200">Отмена</AlertDialogCancel>
 
-                            <AlertDialogAction type="submit" className="cursor-pointer dark:bg-green-950 border-1 border-blue-200 bg-blue-200">
-                                Подтвердить{" "}
+                            <AlertDialogAction type="submit" className="cursor-pointer dark:bg-red-800 border  border-red-200 bg-blue-200">
+                                {pending ? "Удаляю..." : "Подтвердить"}
                             </AlertDialogAction>
                         </AlertDialogFooter>{" "}
                     </form>
                 </AlertDialogContent>
             </AlertDialog>
-
-            {clientErrors.length > 0 && <span>Ошибка: </span>}
-            {clientErrors.length > 0 &&
-                clientErrors.map((err, ind) => {
-                    return (
-                        <span key={`${err + ind}`} className=" text-red-700 dark:text-violet-500">
-                            {err}
-                        </span>
-                    );
-                })}
         </div>
     );
 }

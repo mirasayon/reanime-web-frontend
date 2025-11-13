@@ -2,6 +2,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
+import { AbuseIpDbContributor } from "#/components/badges/AbuseIPDB-Contributor";
 
 export function Layout_Footer() {
     const style = ` p-2  dark:hover:bg-violet-500/10 hover:bg-blue-300/40"  `;
@@ -23,17 +24,12 @@ export function Layout_Footer() {
                     <Linker className={style} href={"/right/contacts"}>
                         Контакты и поддержка
                     </Linker>
-
-                    {/* <LinkX
-                           
-                            className={style}
-                            href={"/info/support_us"}
-                        >
-                            Поддержите нас
-                        </LinkX> */}
+                    <Linker linkType="raw" className={style} href={WebsiteConfigs.developer_github + "/donate"}>
+                        Поддержать проект
+                    </Linker>
 
                     <Linker className="p-2 dark:hover:bg-violet-500/10 hover:bg-blue-300/40 float-right" href={WebsiteConfigs.developer_website}>
-                        О разработчиках
+                        О разработчике
                     </Linker>
                 </nav>
                 <div className=" mx-2 mb-2 grid">
@@ -41,10 +37,10 @@ export function Layout_Footer() {
                     <span className={"p-2 dark:text-violet-400/80 text-violet-900/80"}>
                         Все представленные на данном сайте материалы являются собственностью их изготовителя (владельца прав), охраняются
                         международными правовыми конвенциями и предназначены только для ознакомления, носят исключительно ознакомительный и
-                        развлекательный характер. Все материалы взяты из свободных источников и открытых Web API
+                        развлекательный характер. Все материалы взяты из свободных источников. Приятного просмотра аниме&#41;
                     </span>
-                    <span className="px-2 dark:text-violet-400/80 text-violet-900/80">Приятного просмотра аниме&#41;</span>
                 </div>
+                <AbuseIpDbContributor />
             </div>
         </footer>
     );

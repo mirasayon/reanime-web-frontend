@@ -13,18 +13,19 @@ import type { Comment_ResponseTypes } from "&us/response-patterns/comment.routes
 export async function Comments_section({
     shikimori_id,
     userServerBaseUrl,
+    currUrl,
     current_user,
 }: {
     current_user: AuthenticatorType | null;
     shikimori_id: number;
     userServerBaseUrl: string;
+    currUrl: string;
 }): Promise<JSX.Element> {
     const all_comments = await UserServiceFetcher<Comment_ResponseTypes.get_all_for_anime>({
         agent: current_user?.agent,
         ip: current_user?.ip,
         method: "GET",
         url: `/v1/comment/get/all/${shikimori_id}?page=1&limit=20`,
-        // session_token
     });
     const is_dark = true;
     return (
@@ -56,7 +57,7 @@ export async function Comments_section({
 
                                         {current_user && current_user.profile.profile.id === item.by_profile_id && (
                                             <div className="relative">
-                                                <EditOneCommentOnAnime comment_id={item.id} />
+                                                <EditOneCommentOnAnime comment_id={item.id} current_profile={current_user} currUrl={currUrl} />
                                             </div>
                                         )}
                                     </div>

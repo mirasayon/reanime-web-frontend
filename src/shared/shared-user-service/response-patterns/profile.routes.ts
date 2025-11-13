@@ -1,4 +1,4 @@
-import type { Account, AvatarPicture, Profile } from "../orm/client";
+import type { Account, AvatarPicture, Profile } from "&us/orm/client";
 
 /** RESPONSES For Profile Route */
 export namespace Profile_ResponseTypes {

@@ -1,4 +1,4 @@
-import type { AnimeBookmark } from "../orm/client";
+import type { AnimeBookmark } from "&us/orm/client";
 
 /** RESPONSES For Marked anime list Route */
 export namespace MarkedAnimeCollection_ResponseTypes {

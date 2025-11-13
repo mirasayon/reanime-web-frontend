@@ -1,4 +1,4 @@
-import type { Account, Session } from "../orm/client";
+import type { Account, Session } from "&us/orm/client";
 
 /** RESPONSES For Account Route */
 export namespace Account_ResponseTypes {
