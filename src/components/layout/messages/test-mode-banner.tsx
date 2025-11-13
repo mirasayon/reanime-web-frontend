@@ -1,8 +1,12 @@
 import { Linker } from "#/components/utilities/common/linker-utility-component";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import type { JSX } from "react";
 
 type Props = {};
-export function TestModeBanner({}: Props): JSX.Element {
+export function TestModeBanner({}: Props): JSX.Element | null {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+        return null;
+    }
     return (
         <div className="p-2 pt-3 text-red-500 flex flex-row gap-2">
             <div>

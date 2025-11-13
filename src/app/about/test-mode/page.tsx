@@ -1,20 +1,15 @@
 import Link from "next/link";
 import { error_reporting_form_link } from "./test-mode-constants";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 const TITLE = "Режим тестирования — возможна потеря пользовательских данных";
 const SUBTITLE = "Мы добавляем новые функции — комментарии, аватары и профили пользователей.";
 const DESCRIPTION = `Спасибо, что используете reanime.art. Сайт работает в обычном режиме — аниме и трансляции берутся из внешнего API и сохраняются как обычно.
 Однако наш собственный модуль хранения пользовательских данных (комментарии, аватары, профили, оценка и т. д.) сейчас проходит тестирование и временно находится в нестабильном состоянии.`;
 
-export function SmallBanner({ className = "" }) {
-    return (
-        <div className={`w-full bg-yellow-50 border border-yellow-200 text-yellow-900 px-4 py-2 rounded-md ${className}`} role="status">
-            <strong className="block">Тестовый режим</strong>
-            <span className="block text-sm">Некоторые функции временно недоступны — мы работаем над улучшениями.</span>
-        </div>
-    );
-}
-
 export default function MaintenancePage() {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+        return null;
+    }
     return (
         <main className="flex items-baseline justify-center  p-6">
             <div className="max-w-3xl w-full dark:bg-slate-700 bg-slate-200 shadow-lg rounded-2xl p-8 md:p-12">

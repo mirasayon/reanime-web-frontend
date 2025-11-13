@@ -2,10 +2,14 @@
 import { deleteTokenCookie } from "#/actions/account/delete-token-cookie";
 import { UserService } from "#/configs/user-service.app-config";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
 import { cookies, headers } from "next/headers";
 export async function sessionAuthenticator(): Promise<AuthenticatorType | null> {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+        return null;
+    }
     const _headers = await headers();
     const _cookies = await cookies();
     const agent = _headers.get("user-agent") ?? undefined;

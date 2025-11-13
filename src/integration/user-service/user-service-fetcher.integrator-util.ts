@@ -1,5 +1,6 @@
 "use server";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -19,10 +20,21 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     raw_body,
     ip,
 }: Props<B>): Promise<UserServiceResponseBodyPattern<T>> {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+        const _default: UserServiceResponseBodyPattern<T> = {
+            data: "DEFAULT" as unknown as T,
+            message: "DEFAULT",
+            ok: false,
+            response_code: "SERVICE_UNAVAILABLE",
+            status_code: 503,
+            errors: ["DEFAULT"],
+        };
+        return _default;
+    }
     if (raw_body && json_body) {
         throw new Error("`raw_body` and `json_body` must not exist at the same time");
     }
-    const full_url = (await loadEnvFile()).user_service.url + url;
+    const full_url = (await nextLoadEnvSSR()).user_service.url + url;
 
     const headers: HeadersInit = {
         ...(json_body ? { "Content-Type": "application/json" } : {}),
@@ -36,7 +48,7 @@ export async function UserServiceFetcher<T, B = { [key: string]: string }>({
     if (ip) {
         headers["x-forwarded-for"] = ip;
     }
-    headers["x-reanime-user-service-key"] = (await loadEnvFile()).user_service.api_key;
+    headers["x-reanime-user-service-key"] = (await nextLoadEnvSSR()).user_service.api_key;
     const response = await fetch(full_url, {
         method: method,
         headers: headers,

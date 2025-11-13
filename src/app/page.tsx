@@ -2,13 +2,13 @@
 import type { SearchParams } from "#T/nextjs";
 import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { getKodikApi } from "#/providers/kodik-api";
 import { topChartAnimesStaticData } from "#/static-but-it-is-typescript/top-chart-animes.static";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {
-    const envA = await loadEnvFile();
+    const envA = await nextLoadEnvSSR();
     // const auth = await getSessionFromClient({ cookies: await cookies(), headers: await headers() });
     const searchPms = await searchParams;
     const kodikResponse = await (
@@ -31,4 +31,3 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
         </>
     );
 }
-

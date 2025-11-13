@@ -6,7 +6,7 @@ import { ShowAnimesScreenshotsComponent } from "#/components/animes/anime-screen
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
@@ -26,7 +26,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
 
     const auth = await sessionAuthenticator();
     const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const env = await loadEnvFile();
+    const env = await nextLoadEnvSSR();
     const anime = await getAnyByShikimoriFromKodikApi(current_shikimori_id);
     if (!anime) {
         return notFound();

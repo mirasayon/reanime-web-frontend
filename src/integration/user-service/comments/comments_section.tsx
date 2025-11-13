@@ -27,6 +27,9 @@ export async function Comments_section({
         method: "GET",
         url: `/v1/comment/get/all/${shikimori_id}?page=1&limit=20`,
     });
+    if (!all_comments.ok) {
+        return <div>Ошибка при загрузке комментариев</div>;
+    }
     const is_dark = true;
     return (
         <section className={rea_wrapper_border}>

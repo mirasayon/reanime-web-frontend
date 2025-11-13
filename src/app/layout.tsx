@@ -13,7 +13,7 @@ import { root_layout_Metadata } from "#/meta/root-layout.metadata";
 import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
-import { loadEnvFile } from "#/configs/environment-variables.main-config";
+import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
 import { UserService } from "#/configs/user-service.app-config";
@@ -22,7 +22,7 @@ type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
-    const _env = await loadEnvFile();
+    const _env = await nextLoadEnvSSR();
     const auth = await sessionAuthenticator();
     return (
         <html lang="ru" suppressHydrationWarning>

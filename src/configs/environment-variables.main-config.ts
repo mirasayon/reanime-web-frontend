@@ -3,7 +3,7 @@ import { validateEnvironment } from "safest-env";
 import { envVarConfig } from "./env-config";
 
 /** Load Environment variables */
-export async function loadEnvFile() {
+export async function nextLoadEnvSSR() {
     const _env = validateEnvironment(envVarConfig);
     const ProcessedEnv = new (class EnvConfigClass {
         /** google analytics id */

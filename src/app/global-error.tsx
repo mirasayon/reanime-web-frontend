@@ -24,4 +24,3 @@ export default function __GlobalError({ error, reset }: __GlobalErrorProps) {
         </html>
     );
 }
-
