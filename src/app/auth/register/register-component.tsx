@@ -2,11 +2,12 @@
 import { registerAction } from "#/actions/auth/register";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
+import { UserNicknameInputForAuthForm } from "../components-jsx-for-auth-forms/nickname-input";
+import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 export function Register_Component() {
-    const [is_password_type, set_is_password_type] = useState<boolean>(false);
     const {
         register,
         handleSubmit,
@@ -17,6 +18,7 @@ export function Register_Component() {
         mode: "onBlur",
     });
 
+    const [pending, startTransition] = useTransition();
     const [serverErrors, setServerErrors] = useState<string[]>();
 
     const onSubmit = handleSubmit(((data) => {
@@ -25,6 +27,7 @@ export function Register_Component() {
             const result = await registerAction(data);
             if (typeof result === "object") {
                 setServerErrors(result);
+                return;
             }
         });
     }) as SubmitHandler<dto.registration>);
@@ -32,109 +35,27 @@ export function Register_Component() {
         <div className="p-10 flex-row justify-evenly flex ">
             <form onSubmit={onSubmit} className="w-2xl border-4 border-blue-500/50 rounded-lg p-8 flex text-xl flex-col m-4 " noValidate>
                 <div className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}>Добро пожаловать!</div>
-
-                <div className="  NICKNAME">
-                    <label htmlFor="login" className="text-slate-500">
-                        Ваш никнейм
-                    </label>
-                    <div className={" border-4  border-slate-600 rounded-lg p-2"}>
-                        <input
-                            className={"pl-2 bg-transparent font-mono outline-none"}
-                            type={"text"}
-                            id={"nickname"}
-                            minLength={4}
-                            {...register("nickname", { required: true })}
-                            maxLength={20}
-                            required={true}
-                        />
-                    </div>
-                    {clientErrors.nickname && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.nickname.message}</p>}
-                </div>
-                <div className=" LOGIN">
-                    <label htmlFor="login" className="text-slate-500">
-                        Ваш логин
-                    </label>
-                    <div className={" border-4  border-slate-600 rounded-lg p-2"}>
-                        <span className="text-slate-400">@</span>
-                        <input
-                            className={"pl-2 bg-transparent font-mono outline-none"}
-                            type={"text"}
-                            id={"login"}
-                            minLength={4}
-                            {...register("username", { required: true })}
-                            maxLength={20}
-                            required={true}
-                        />
-                    </div>
-                    {clientErrors.username && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.username.message}</p>}
-                </div>
-                <div className="PASSWORD">
-                    <label htmlFor="password" className="text-slate-500">
-                        Введите пароль
-                    </label>
-
-                    <div className="border-4 flex rounded justify-between border-slate-600">
-                        <input
-                            className="p-2 bg-transparent outline-none"
-                            type={is_password_type ? "password" : "text"}
-                            minLength={8}
-                            maxLength={80}
-                            id={"password"}
-                            {...register("password_repeat", { required: true })}
-                            required={true}
-                        />
-                        <button
-                            type="button"
-                            className="p-2 pr- cursor-pointer"
-                            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                                e.preventDefault();
-                                return set_is_password_type((pre_v) => !pre_v);
-                            }}
-                        >
-                            {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
-                        </button>
-                    </div>
-
-                    {clientErrors.password && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.password.message}</p>}
-                </div>
-
-                <div className="PASSWORD_REPEAT">
-                    <label htmlFor="password" className="text-slate-500">
-                        Повторите пароль
-                    </label>
-
-                    <div className="border-4 flex rounded justify-between border-slate-600">
-                        <input
-                            className="p-2 bg-transparent outline-none"
-                            type={is_password_type ? "password" : "text"}
-                            minLength={8}
-                            maxLength={80}
-                            id={"password"}
-                            {...register("password", { required: true })}
-                            required={true}
-                        />
-                        <button
-                            type="button"
-                            className="p-2 pr- cursor-pointer"
-                            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                                e.preventDefault();
-                                return set_is_password_type((pre_v) => !pre_v);
-                            }}
-                        >
-                            {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
-                        </button>
-                    </div>
-
-                    {clientErrors.password_repeat && <p className=" dark:text-violet-600 text-violet-800">{clientErrors.password_repeat.message}</p>}
-                    {serverErrors?.map((msg, i) => (
-                        <p key={i} className=" dark:text-red-600 text-red-800">
-                            {msg}
-                        </p>
-                    ))}
-                </div>
+                <UserNicknameInputForAuthForm
+                    inputId="nickname"
+                    fieldError={clientErrors.nickname}
+                    props={register("nickname", { required: true })}
+                />
+                <InputLoginForAuthForm inputId="username" fieldError={clientErrors.username} props={register("username", { required: true })} />
+                <InputPasswordForAuthForm inputId="password" fieldError={clientErrors.password} props={register("password", { required: true })} />
+                <InputPasswordForAuthForm
+                    propLabel="Повторите пароль"
+                    inputId="password_repeat"
+                    fieldError={clientErrors.password_repeat}
+                    props={register("password_repeat", { required: true })}
+                />
+                {serverErrors?.map((msg, i) => (
+                    <p key={i} className=" dark:text-red-600 text-red-800">
+                        {msg}
+                    </p>
+                ))}
 
                 <button className="p-2 m-1 mt-3 rounded-lg border-4 border-blue-500/50  cursor-pointer hover:bg-blue-500" type="submit">
-                    Зарегистрироваться
+                    {pending ? "Загрузка..." : "Зарегистрироваться"}
                 </button>
             </form>
         </div>

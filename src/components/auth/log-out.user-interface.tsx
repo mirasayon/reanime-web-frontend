@@ -1,19 +1,22 @@
 "use client";
 import { LogOutAccount } from "#/actions/auth/log-out-account";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 export function Logout_user() {
     const [confirm, set_confirm] = useState<boolean>(false);
 
+    const [pending, startTransition] = useTransition();
     const [clientErrors, setClientErrors] = useState<string[]>([]);
     const _router = useRouter();
 
     async function LogOutAccountHandle(fd: FormData) {
-        const res = await LogOutAccount();
-        if (res.errors.length) {
-            return setClientErrors(res.errors);
-        }
-        _router.push("/");
+        startTransition(async () => {
+            const res = await LogOutAccount();
+            if (res.errors.length) {
+                return setClientErrors(res.errors);
+            }
+            _router.push("/auth/login");
+        });
     }
     return (
         <div>
@@ -30,7 +33,7 @@ export function Logout_user() {
                 </button>
                 {confirm && (
                     <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white  "}>
-                        Подтвердить
+                        {pending ? "Загрузка..." : "Подтвердить"}
                     </button>
                 )}
             </form>

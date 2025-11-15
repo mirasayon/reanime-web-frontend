@@ -2,12 +2,12 @@
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
-import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
-export async function loginAction(data: dto.login_via_username): Promise<void | string[]> {
+import { cookieOptionsForSetToken } from "./cookie-option";
+export async function loginAction(data: { username: string; password: string }): Promise<void | string[]> {
     const auth = await sessionAuthenticator();
     if (auth) {
         return ["Вы уже авторизованы"];
@@ -32,7 +32,6 @@ async function LoginFetch(username: string, password: string) {
     const r6f_session_token = _cookies.get(UserService.session_token_name)?.value;
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
-
     const res = await UserServiceFetcher<Authentication_ResponseTypes.login_via_username>({
         url: "/v1/authentication/login/via/username",
         session_token: r6f_session_token,
@@ -48,12 +47,6 @@ async function LoginFetch(username: string, password: string) {
     if (res.errors.length || !res.data) {
         return res;
     }
-    _cookies.set({
-        name: UserService.session_token_name,
-        value: res.data.session.token,
-        httpOnly: true,
-        maxAge: two_thousand_years,
-        path: "/",
-    });
+    _cookies.set(cookieOptionsForSetToken(res.data.session.token));
     return res;
 }

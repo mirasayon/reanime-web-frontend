@@ -8,6 +8,7 @@ import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
+import { cookieOptionsForSetToken } from "./cookie-option";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {
     const auth = await sessionAuthenticator();
@@ -48,13 +49,7 @@ async function RegisterFetch(dto: RegFetchType) {
     if (res.errors.length || !res.data) {
         return res;
     }
-    _cookies.set({
-        name: UserService.session_token_name,
-        value: res.data.session.token,
-        httpOnly: true,
 
-        maxAge: two_thousand_years,
-        path: "/",
-    });
+    _cookies.set(cookieOptionsForSetToken(res.data.session.token));
     return res;
 }

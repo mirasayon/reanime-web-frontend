@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-export function InputLoginForAuthForm<R extends string>({
+export function UserNicknameInputForAuthForm<R extends string>({
     props,
     inputId,
     fieldError,
@@ -12,12 +12,11 @@ export function InputLoginForAuthForm<R extends string>({
 }): JSX.Element {
     return (
         <>
-            <div className=" LOGIN">
+            <div className=" NICKNAME">
                 <label htmlFor={inputId} className="dark:text-slate-500 text-slate-900">
-                    Ваш логин
+                    Ваш никнейм
                 </label>
                 <div className={" border-4 w-full  border-slate-600 rounded-lg p-2 flex"}>
-                    <span className="dark:text-slate-400 text-slate-800">@</span>
                     <input
                         className={"pl-2  w-full outline-none"}
                         type={"text"}
@@ -29,7 +28,6 @@ export function InputLoginForAuthForm<R extends string>({
                     />
                 </div>
                 {fieldError && <p className=" dark:text-red-500 text-red-800">{fieldError.message}</p>}
-                {/* {clientErrors.username && <p className=" dark:text-red-500 text-red-800">{clientErrors.username.message}</p>} */}
             </div>
         </>
     );

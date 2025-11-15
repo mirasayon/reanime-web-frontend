@@ -15,15 +15,16 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useToast } from "../layout/atoms-toasts-components/useToast";
 
-export function DeleteAccountPermanently() {
+export function DeleteAccountPermanentlyComponent() {
     const [pending, startTransition] = useTransition();
-    const { success, error, info } = useToast();
+    const { success, error } = useToast();
     const _router = useRouter();
-    async function deleteAvatarHandle(fd: FormData) {
+    async function deleteAvatarHandle() {
         startTransition(async () => {
             const res = await DeleteAccountPermanently_ServerAction();
             if (res.ok) {
-                success("Аккаунт успешно удалён.");
+                success(res.message);
+                _router.push("/auth/login");
                 return;
             }
             for (const err of res.errors) {

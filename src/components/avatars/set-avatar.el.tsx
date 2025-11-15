@@ -2,12 +2,14 @@
 import { AvatarSet_ServerAction } from "#/actions/media/avatar-set.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 
 export function SetAvatarForm({}: {}) {
     const [previewSrc, setPreviewSrc] = useState<string>();
-    const [clientErrors, setclientErrors] = useState<string[]>([]);
+    const [clientErrors, setClientErrors] = useState<string[]>([]);
+
+    const [pending, startTransition] = useTransition();
     const _router = useRouter();
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
@@ -25,7 +27,7 @@ export function SetAvatarForm({}: {}) {
         }
         const res = await AvatarSet_ServerAction(fd);
         if (res.errors.length) {
-            setclientErrors(res.errors);
+            setClientErrors(res.errors);
         }
         if (res.uploaded) {
             _router.refresh();
@@ -56,10 +58,14 @@ export function SetAvatarForm({}: {}) {
                         hidden
                         className="block mb-4"
                     />
-                    {previewSrc && <img src={previewSrc} alt="preview" className="mb-4 max-h-48" />}
                     {previewSrc && (
-                        <button type="submit" className="animate-pulse px-4 py-2 bg-blue-600 text-white rounded cursor-pointer">
-                            Загрузить аватарку
+                        <div className=" p-2 border-2 border-blue-300">
+                            <img src={previewSrc} alt="preview avatar image" className="m-2 h-48 w-48 object-cover" />
+                        </div>
+                    )}
+                    {previewSrc && (
+                        <button type="submit" className="animate-pulse m-2 p-2 bg-blue-600 text-white rounded cursor-pointer">
+                            {pending ? "Загрузка..." : "Загрузить аватарку"}
                         </button>
                     )}
                 </form>

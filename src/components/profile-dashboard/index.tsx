@@ -1,9 +1,9 @@
-import { DeleteAccountPermanently } from "./delete-account";
+import { DeleteAccountPermanentlyComponent } from "./delete-account";
 
 export function MyAccountDashboard() {
     return (
         <div className=" flex">
-            <DeleteAccountPermanently />
+            <DeleteAccountPermanentlyComponent />
         </div>
     );
 }

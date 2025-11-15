@@ -1,6 +1,5 @@
 "use server";
-import { deleteTokenCookie } from "#/actions/account/delete-token-cookie";
-import { UserService } from "#/configs/user-service.app-config";
+import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
@@ -14,7 +13,7 @@ export async function sessionAuthenticator(): Promise<AuthenticatorType | null> 
     const _cookies = await cookies();
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
-    const session_token = _cookies.get(UserService.session_token_name)?.value;
+    const session_token = _cookies.get(cookieOptionsForGETToken.name)?.value;
     if (!session_token || session_token.length < 20) {
         return null;
     }
@@ -38,7 +37,8 @@ export async function sessionAuthenticator(): Promise<AuthenticatorType | null> 
             return { data: res.data, ip, agent, profile: profile.data };
         }
     }
-    await deleteTokenCookie();
+
+    // await deleteTokenCookie(_cookies);
     return null;
 }
 export type AuthenticatorType = {

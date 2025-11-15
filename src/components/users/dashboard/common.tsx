@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     return <div className={`bg-white text-white dark:bg-blue-500/20 m-2 rounded-sm shadow p-4 ${className}`}>{children}</div>;
 }
@@ -12,16 +10,12 @@ export function Avatar({ children, className = "" }: { children: React.ReactNode
     return <div className={`overflow-hidden ${className}`}>{children}</div>;
 }
 type AvatarImageProps = {
-    /** just profile cuid */
+    /** just account username */
     avatar: string;
     className?: string;
 };
 export function AvatarImage({ avatar, className }: AvatarImageProps) {
     return <img src={avatar} alt="avatar" className={`${className ?? ""} w-40 h-40`} />;
-}
-
-export function AvatarFallback({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    return <div className={`flex items-center justify-center w-full h-full bg-gray-400 text-white ${className}`}>{children}</div>;
 }
 
 export function Badge({ children, variant = "outline" }: { children: React.ReactNode; variant?: string }) {

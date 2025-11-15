@@ -5,16 +5,20 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
 export function InputPasswordForAuthForm<R extends string>({
     props,
+    inputId,
+    propLabel = "Введите пароль",
     fieldError,
 }: {
     fieldError: FieldError | undefined;
+    propLabel?: string;
     props: UseFormRegisterReturn<R>;
+    inputId: string;
 }): JSX.Element {
     const [is_password_type, set_is_password_type] = useState<boolean>(false);
     return (
         <div className=" ">
-            <label htmlFor="password" className="dark:text-slate-500 text-slate-900">
-                Введите пароль
+            <label htmlFor={inputId} className="dark:text-slate-500 text-slate-900">
+                {propLabel}
             </label>
             <div className="border-4 flex rounded-lg justify-between border-slate-600">
                 <input
@@ -22,7 +26,7 @@ export function InputPasswordForAuthForm<R extends string>({
                     type={is_password_type ? "password" : "text"}
                     minLength={8}
                     maxLength={80}
-                    id={"password"}
+                    id={inputId}
                     {...props}
                     required={true}
                 />
@@ -37,8 +41,8 @@ export function InputPasswordForAuthForm<R extends string>({
                     {" "}
                     {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
                 </button>
-                {fieldError && <p className=" dark:text-red-500 text-red-800">{fieldError.message}</p>}
             </div>{" "}
+            {fieldError && <div className=" dark:text-red-500 text-red-800">{fieldError.message}</div>}
         </div>
     );
 }

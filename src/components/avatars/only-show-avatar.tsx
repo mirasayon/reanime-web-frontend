@@ -11,15 +11,12 @@ export function OnlyShowOthersAvatar({
     // const [is_hover, set_hover] = useState<boolean>(false);
     const _url = userServiceBaseUrl + "/v1/profile/avatar/view/" + (profile.avatar?.url ?? "--");
     return (
-        <div className=" flex">
+        <div className=" flex ">
             {profile.avatar ? (
-                <div>
-                    <div className=" flex flex-col">
-                        <Avatar className="w-28 h-28 shadow-md">
-                            <AvatarImage avatar={_url} />
-                            {/* <AvatarFallback className="text-lg font-semibold">{profile.nickname?.[0] || "U"}</AvatarFallback> */}
-                        </Avatar>
-                    </div>
+                <div className=" border-2 m-2 border-blue-400 w-full">
+                    <Avatar className="  m-2 h-48 w-48 object-cover ">
+                        <AvatarImage avatar={_url} />
+                    </Avatar>
                 </div>
             ) : (
                 <div>Аватар не найден</div>

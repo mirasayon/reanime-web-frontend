@@ -1,4 +1,4 @@
-import { ShowAvatarElement } from "./show-avatar";
+import { ShowAvatarElement } from "./show-avatar-for-logged-user";
 import { SetAvatarForm } from "./set-avatar.el";
 import type { AvatarPicture, Profile } from "&us/orm/client";
 export function Upload_avatar_or_show({
