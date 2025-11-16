@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Avatar_Dashboard } from "./for-logged-users";
 import { Avatar_Login } from "./for-guests";
 import { DropdownMenuInHeaderEntryPoint } from "./entry-point";
-import type { Profile, Account, AvatarPicture } from "&us/orm/client";
+import type { Profile, Account, AvatarPicture } from "#user-service/databases/orm/client.js";
 export function DropdownMenuInHeader({
     profile,
     userServiceBaseUrl,
@@ -32,7 +32,7 @@ export function DropdownMenuInHeader({
                 />
 
                 <div className={!is_open ? "w-0 h-0" : ""}>
-                    <div className={`absolute right-[0px] top-[70px] dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
+                    <div className={`absolute right-0 top-[70px] dark:bg-slate-800 bg-blue-200 ${!is_open && "h-0 w-0"} `}>
                         <div className={`${is_open ? "" : "hidden"} flex flex-col `}>
                             <div className={"m-1 p-2"}>
                                 {profile && account ? <Avatar_Dashboard username={account.username} /> : <Avatar_Login />}

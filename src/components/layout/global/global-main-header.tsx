@@ -4,7 +4,7 @@ import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner"
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
-import type { Profile, Account, AvatarPicture } from "&us/orm/client";
+import type { Profile, Account, AvatarPicture } from "#user-service/databases/orm/client.js";
 
 import { TestModeBanner } from "../messages/test-mode-banner";
 export function GlobalMainHeader({

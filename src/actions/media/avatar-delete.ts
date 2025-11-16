@@ -1,8 +1,8 @@
 "use server";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { UserServiceResponseStatusCodes } from "&us/constants/response.constants";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import { UserServiceResponseStatusCodes } from "#user-service/shared/constants/response.constants.js";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies, headers } from "next/headers";
 
 type UploadImageRT = Promise<{

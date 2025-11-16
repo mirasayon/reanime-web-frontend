@@ -1,15 +1,20 @@
 "use server";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
-// import { FaArrowDown } from "react-icons/fa";
-// import { FaArrowUp } from "react-icons/fa";
 import { Add_comment_form } from "./component-create_comment";
 import { EditOneCommentOnAnime } from "./edit-one-comment";
-import type { JSX } from "react";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "../user-service-fetcher.integrator-util";
-import type { Comment_ResponseTypes } from "&us/response-patterns/comment.routes";
+import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
+import type React from "react";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 
+import type { Comment } from "#user-service/databases/orm/client.js";
+import type { JSX } from "react";
+import { calculateAndShowTimeAgo } from "#/utils/time-ago";
+import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
+import { createHmac } from "node:crypto";
 export async function Comments_section({
     shikimori_id,
     userServerBaseUrl,
@@ -25,23 +30,41 @@ export async function Comments_section({
         agent: current_user?.agent,
         ip: current_user?.ip,
         method: "GET",
-        url: `/v1/comment/get/all/${shikimori_id}?page=1&limit=20`,
+        url: `/v1/comment/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
     });
-    if (!all_comments.ok) {
+    if (!all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
-    const is_dark = true;
+    const allCommentsProcessed: NonNullable<UserServiceResponseBodyPattern<Comment_ResponseTypes.get_all_for_anime>["data"]> = [];
+    for (const commentElements of all_comments.data) {
+        allCommentsProcessed.push({
+            ...commentElements,
+            anime_id: commentElements.anime_id,
+            created_at: commentElements.created_at,
+            content: commentElements.content,
+            updated_at: commentElements.updated_at,
+            is_visible: commentElements.is_visible,
+            id: createHmac("sha256", commentElements.by_profile_id).update(commentElements.id).digest("base64url"),
+        });
+    }
+
     return (
         <section className={rea_wrapper_border}>
             <div className="m-2">
                 <div>Комментарии</div>
                 <Add_comment_form profile={current_user} animeId={Number(shikimori_id)} userServerBaseUrl={userServerBaseUrl} />
-                <div className="grid">
-                    {all_comments?.data?.length ? (
-                        all_comments.data.map((item) => {
+                <div className="flex flex-col">
+                    {allCommentsProcessed.length ? (
+                        allCommentsProcessed.map((item) => {
+                            const updated = format(new Date(item.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
+
                             const user = item.by_profile;
+                            const linkToComment = `comment-${item.id}`;
+                            console.log(linkToComment);
+                            const linkToCommentFull = `/anime/${item.anime_id}#comment-${item.id}`;
+
                             return (
-                                <div key={item.id} className="m-2 grid p-2 items-center">
+                                <div key={item.id} className="m-2 grid p-2 items-center" id={linkToComment}>
                                     <div className=" flex items-center">
                                         {user?.avatar ? (
                                             <Link className="flex items-center" href={`/user/${user.by_account.username}`}>
@@ -65,11 +88,24 @@ export async function Comments_section({
                                         )}
                                     </div>
 
+                                    <div className=" flex flex-row gap-2 items-center p-2 ">
+                                        <time className="text-xs " dateTime={new Date(item.updated_at).toISOString()}>
+                                            Обновлён/создано: {updated}
+                                        </time>
+                                        <time className="text-xs text-gray-500">{calculateAndShowTimeAgo(new Date(item.updated_at))}</time>
+                                    </div>
                                     <div className="grid items-center">
-                                        <span id={`comment_id_${item.id}`} className={` p-2 m-2 w-full ${is_dark ? "bg-slate-800" : "bg-slate-100"}`}>
-                                            {item.content}
-                                            {/* {item.id} */}
-                                        </span>{" "}
+                                        <span className={` p-2 m-2 w-full dark:bg-slate-800 bg-slate-100 `}>{item.content}</span>{" "}
+                                    </div>
+                                    <div className="flex flex-col items-end gap-2 ml-4">
+                                        <Link
+                                            scroll={false}
+                                            href={linkToCommentFull}
+                                            className="inline-flex items-center gap-2 rounded-lg  border-blue-200 dark:border-blue-500 border-2 px-3 py-1 text-sm hover:bg-slate-100 dark:hover:bg-violet-700/50"
+                                            aria-label={`Взять ссылку на этот комментарий ${item.id}`}
+                                        >
+                                            🔗
+                                        </Link>
                                     </div>
                                 </div>
                             );

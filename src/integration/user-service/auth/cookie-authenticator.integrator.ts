@@ -2,8 +2,8 @@
 import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
-import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies, headers } from "next/headers";
 export async function sessionAuthenticator(): Promise<AuthenticatorType | null> {
     if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {

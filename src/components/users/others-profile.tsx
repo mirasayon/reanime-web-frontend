@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge, Card, CardContent } from "./dashboard/common";
-import type { Profile, Account } from "&us/orm/client";
+import type { Profile, Account } from "#user-service/databases/orm/client.js";
 
 export function Others_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Omit<Account, "password_hash"> }) {
     return (

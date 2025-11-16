@@ -2,8 +2,8 @@
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
-import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
+import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import { cookies, headers } from "next/headers";
 /** Server Action */
 export async function AvatarUpdate_ServerAction(

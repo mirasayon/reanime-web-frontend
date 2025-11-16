@@ -4,8 +4,8 @@ import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
-import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
+import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { cookieOptionsForSetToken } from "./cookie-option";
 export async function loginAction(data: { username: string; password: string }): Promise<void | string[]> {
     const auth = await sessionAuthenticator();

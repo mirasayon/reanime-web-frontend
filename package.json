@@ -69,7 +69,7 @@
         "node": ">=22.19.0"
     },
     "imports": {
-        "#reanime-user-service/*": "./shared/user-service/*"
+        "#user-service/*": "./shared/generated-shared-export/*"
     },
     "overrides": {
         "@types/react": "19.2.4",

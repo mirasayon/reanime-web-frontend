@@ -1,9 +1,8 @@
 "use server";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { cookies, headers } from "next/headers";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 type AvatarSet_ServerActionRT = Promise<{
     errors: string[];
     uploaded: boolean;

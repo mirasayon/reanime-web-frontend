@@ -2,7 +2,7 @@
 import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies } from "next/headers";
 
 type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;

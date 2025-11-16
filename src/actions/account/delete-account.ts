@@ -2,7 +2,7 @@
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { sessionAuthenticator, type AuthenticatorType } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import type { Profile_ResponseTypes } from "&us/response-patterns/profile.routes";
+import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies } from "next/headers";
 import { cookieOptionsForDELETEToken } from "../auth/cookie-option";
 

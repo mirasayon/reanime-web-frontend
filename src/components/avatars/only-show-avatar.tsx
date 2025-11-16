@@ -1,4 +1,4 @@
-import type { AvatarPicture, Profile } from "&us/orm/client";
+import type { AvatarPicture, Profile } from "#user-service/databases/orm/client.js";
 import { Avatar, AvatarImage } from "../users/dashboard/common";
 export function OnlyShowOthersAvatar({
     profile,

@@ -3,7 +3,7 @@ import { loginAction } from "#/actions/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 export function Login_Component() {

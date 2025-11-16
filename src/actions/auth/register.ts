@@ -6,8 +6,8 @@ import { redirect, RedirectType } from "next/navigation";
 import { two_thousand_years } from "#/constants/common.constants";
 import { UserService } from "#/configs/user-service.app-config";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
-import type { Authentication_ResponseTypes } from "&us/response-patterns/authentication.routes";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
+import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
 import { cookieOptionsForSetToken } from "./cookie-option";
 type RegFetchType = Omit<dto.registration, "ip" | "agent" | "email">;
 export async function registerAction(data: dto.registration): Promise<void | string[]> {

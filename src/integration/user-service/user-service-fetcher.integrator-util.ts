@@ -1,7 +1,7 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
-import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: `/v1/${"profile" | "authentication" | "ping" | "account" | "comment" | "reply" | "favorite_animes" | "marked_collection"}/${string}`;

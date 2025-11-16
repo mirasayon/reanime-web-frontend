@@ -1,6 +1,6 @@
 "use client";
 import { registerAction } from "#/actions/auth/register";
-import { authentication_schemas, type dto } from "&us/validators/authentication.validator.routes";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";

@@ -1,5 +1,5 @@
 import { Card, Badge, CardContent } from "./dashboard/common";
-import type { Profile, Account } from "&us/orm/client";
+import type { Profile, Account } from "#user-service/databases/orm/client.js";
 export function My_Profile_Dashboard({ profile: { nickname, bio }, account }: { profile: Profile; account: Account }) {
     return (
         <div className="py-4 flex flex-col">

@@ -1,7 +1,7 @@
 "use server";
 
-import type { Comment_ResponseTypes } from "&us/response-patterns/comment.routes";
-import type { UserServiceResponseBodyPattern } from "&us/response-patterns/response-json-body-shape";
+import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
+import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import { revalidatePath } from "next/cache";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import { UserServiceFetcher } from "../../user-service-fetcher.integrator-util";
