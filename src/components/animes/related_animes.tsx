@@ -18,9 +18,9 @@ export function Related_animes({ related }: { related: AnimeRelationData[] }): J
                     const _index: number = item.manga?.id || item.anime?.id || ind;
                     return (
                         <div key={_index}>
-                            {valid && (
+                            {valid && item.anime && (
                                 <div>
-                                    <RelatedCardForAnime relation={item.relation_russian} shiki_id={item.anime!.id} />
+                                    <RelatedCardForAnime relation={item.relation_russian} shiki_id={item.anime.id} />
                                 </div>
                             )}
                             {item?.manga?.id && (
@@ -35,4 +35,3 @@ export function Related_animes({ related }: { related: AnimeRelationData[] }): J
         </div>
     ) : null;
 }
-

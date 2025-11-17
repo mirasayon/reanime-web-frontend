@@ -1,21 +1,20 @@
 "use server";
+import { MyAccountDashboard } from "#/components/profile-dashboard";
 import { cookies } from "next/headers";
-import { ShowOthersProfile } from "./show-others-profile";
-import { MainShowMyProfileDashboard } from "./show-my-profile";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { SearchParams } from "#T/nextjs";
 import { UserService } from "#/configs/user-service.app-config";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import { ComingSoon } from "#/components/info/coming-soon";
-import type { Comment } from "#user-service/databases/orm/client.js";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
+import { MainShowMyProfileDashboard } from "#app/user/[username]/show-my-profile";
+import { CommentsFromUserList } from "#app/user/[username]/inside-profile-ui/comments-by-one-user";
+import { ShowOthersProfile } from "#app/user/[username]/show-others-profile";
 
-import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 export default async function __Profile_Page({
     params,
     searchParams,
@@ -51,7 +50,7 @@ export default async function __Profile_Page({
         if (!base_profile_data.data) {
             return notFound();
         }
-        return <ShowOthersProfile data={base_profile_data.data} userServiceBaseUrl={_env.user_service.url} />;
+        return redirect("/user/" + _username);
     }
     const ip = auth.ip;
     const agent = auth.agent;
@@ -73,7 +72,10 @@ export default async function __Profile_Page({
     return (
         <>
             <MainShowMyProfileDashboard data={loggedUser} userServiceBaseUrl={_env.user_service.url} />
-
+            <div className="  p-2  border-2 m-2 border-blue-400 w-full">
+                <h1>Настройки</h1>
+                <MyAccountDashboard />
+            </div>
             <CommentsFromUserList comments={all_comments_from_this_user?.data || []} />
         </>
     );

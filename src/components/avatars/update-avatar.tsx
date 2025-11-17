@@ -48,19 +48,19 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
     }
     return (
         <div>
-            <div className="flex flex-col p-2 gap-4">
+            <div className="flex flex-col p-1">
                 {/* <h1 className="text-xl font-bold mb-4">Upload an Image</h1> */}
 
                 {!previewSrc && (
                     <label
                         htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
-                        className="p-4 flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
+                        className="p-1  flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
                     >
-                        <div>Обновить аватарку</div>
-                        <IoIosCloudUpload size={50} color="violet" />
+                        {/* <div>Обновить аватарку</div> */}
+                        <IoIosCloudUpload size={30} color="violet" />
                     </label>
                 )}
-                <form action={UploadAvatarHandle}>
+                <form action={UploadAvatarHandle} className=" flex flex-col gap-2">
                     <input
                         type="file"
                         name={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
@@ -71,14 +71,16 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
                         hidden
                         className="block mb-4"
                     />
-                    {previewSrc && <img src={previewSrc} alt="preview" className="mb-4 max-h-48" />}
+                    {previewSrc && <img src={previewSrc} alt="preview" className="h-48 w-48 object-cover" />}
                     {previewSrc && (
                         <button
                             type="submit"
                             disabled={pending}
-                            className={`animate-pulse px-4 py-2 bg-blue-600 text-white rounded cursor-pointer ${pending && "cursor-wait"}`}
+                            className={`animate-pulse hover:animate-none hover:bg-blue-400 active:bg-blue-200 p-1 bg-blue-600 text-white rounded cursor-pointer ${
+                                pending && "cursor-wait"
+                            }`}
                         >
-                            Загрузить аватарку
+                            {pending ? "Загрузка..." : "Загрузить аватарку"}
                         </button>
                     )}
                 </form>

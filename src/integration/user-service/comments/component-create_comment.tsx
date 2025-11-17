@@ -38,7 +38,7 @@ export function Add_comment_form({
                     profile_id: profile.profile.profile.id,
                     currPath: `/anime/${animeId}`,
                     current_profile: profile,
-                    comment_content,
+                    comment_content: comment_content,
                 });
                 if (res !== false) {
                     if (res.errors.length) {

@@ -35,18 +35,6 @@ export async function Comments_section({
     if (!all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
-    const allCommentsProcessed: NonNullable<UserServiceResponseBodyPattern<Comment_ResponseTypes.get_all_for_anime>["data"]> = [];
-    for (const commentElements of all_comments.data) {
-        allCommentsProcessed.push({
-            ...commentElements,
-            anime_id: commentElements.anime_id,
-            created_at: commentElements.created_at,
-            content: commentElements.content,
-            updated_at: commentElements.updated_at,
-            is_visible: commentElements.is_visible,
-            id: createHmac("sha256", commentElements.by_profile_id).update(commentElements.id).digest("base64url"),
-        });
-    }
 
     return (
         <section className={rea_wrapper_border}>
@@ -54,17 +42,17 @@ export async function Comments_section({
                 <div>Комментарии</div>
                 <Add_comment_form profile={current_user} animeId={Number(shikimori_id)} userServerBaseUrl={userServerBaseUrl} />
                 <div className="flex flex-col">
-                    {allCommentsProcessed.length ? (
-                        allCommentsProcessed.map((item) => {
-                            const updated = format(new Date(item.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
+                    {all_comments.data.length ? (
+                        all_comments.data.map((cmt) => {
+                            const updated = format(new Date(cmt.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
 
-                            const user = item.by_profile;
-                            const linkToComment = `comment-${item.id}`;
+                            const user = cmt.by_profile;
+                            const linkToComment = `comment-${cmt.id}`;
                             console.log(linkToComment);
-                            const linkToCommentFull = `/anime/${item.anime_id}#comment-${item.id}`;
+                            const linkToCommentFull = `/anime/${cmt.anime_id}#comment-${cmt.id}`;
 
                             return (
-                                <div key={item.id} className="m-2 grid p-2 items-center" id={linkToComment}>
+                                <div key={cmt.id} className="m-2 grid p-2 items-center" id={linkToComment}>
                                     <div className=" flex items-center">
                                         {user?.avatar ? (
                                             <Link className="flex items-center" href={`/user/${user.by_account.username}`}>
@@ -81,28 +69,28 @@ export async function Comments_section({
                                         )}
                                         <span className="p-2 font-semibold  "> {user.nickname || user.by_account.username}</span>
 
-                                        {current_user && current_user.profile.profile.id === item.by_profile_id && (
+                                        {current_user && current_user.profile.profile.id === cmt.by_profile_id && (
                                             <div className="relative">
-                                                <EditOneCommentOnAnime comment_id={item.id} current_profile={current_user} currUrl={currUrl} />
+                                                <EditOneCommentOnAnime comment_id={cmt.id} current_profile={current_user} currUrl={currUrl} />
                                             </div>
                                         )}
                                     </div>
 
                                     <div className=" flex flex-row gap-2 items-center p-2 ">
-                                        <time className="text-xs " dateTime={new Date(item.updated_at).toISOString()}>
+                                        <time className="text-xs " dateTime={new Date(cmt.updated_at).toISOString()}>
                                             Обновлён/создано: {updated}
                                         </time>
-                                        <time className="text-xs text-gray-500">{calculateAndShowTimeAgo(new Date(item.updated_at))}</time>
+                                        <time className="text-xs text-gray-500">{calculateAndShowTimeAgo(new Date(cmt.updated_at))}</time>
                                     </div>
                                     <div className="grid items-center">
-                                        <span className={` p-2 m-2 w-full dark:bg-slate-800 bg-slate-100 `}>{item.content}</span>{" "}
+                                        <span className={` p-2 m-2 w-full dark:bg-slate-800 bg-slate-100 `}>{cmt.content}</span>{" "}
                                     </div>
                                     <div className="flex flex-col items-end gap-2 ml-4">
                                         <Link
                                             scroll={false}
                                             href={linkToCommentFull}
                                             className="inline-flex items-center gap-2 rounded-lg  border-blue-200 dark:border-blue-500 border-2 px-3 py-1 text-sm hover:bg-slate-100 dark:hover:bg-violet-700/50"
-                                            aria-label={`Взять ссылку на этот комментарий ${item.id}`}
+                                            aria-label={`Взять ссылку на этот комментарий ${cmt.id}`}
                                         >
                                             🔗
                                         </Link>

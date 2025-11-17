@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
 
-function timeAgo(date: Date | string) {
+export function timeAgoRU(date: Date | string) {
     return formatDistanceToNow(new Date(date), {
         addSuffix: true,
         locale: ru,
@@ -53,7 +53,7 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): J
                                         <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
                                             Обновлён/создано: {updated}
                                         </time>
-                                        <time className="text-sm text-gray-500">{timeAgo(new Date(c.updated_at))}</time>
+                                        <time className="text-sm text-gray-500">{timeAgoRU(new Date(c.updated_at))}</time>
 
                                         {/* <span
                                             className="ml-2 text-xs px-2 py-1 rounded-full font-medium"
@@ -83,6 +83,7 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): J
                                 <div className="flex flex-col items-end gap-2 ml-4">
                                     <Link
                                         href={linkToComment}
+                                        scroll={false}
                                         className="inline-flex items-center gap-2 rounded-lg  border-blue-200 dark:border-blue-500 border-2 px-3 py-1 text-sm hover:bg-slate-100 dark:hover:bg-violet-700/50"
                                         aria-label={`Перейти к комментарию ${c.id}`}
                                     >

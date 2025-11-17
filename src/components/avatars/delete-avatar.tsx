@@ -1,40 +1,32 @@
 "use client";
-import { useState } from "react";
 import { DeleteAvatar } from "#/actions/media/avatar-delete";
 import { useRouter } from "next/navigation";
+import { useToast } from "../layout/atoms-toasts-components/useToast";
+import { useTransition } from "react";
 export function DeleteAvatarForm() {
-    const [clientErrors, setclientErrors] = useState<string[]>([]);
-
+    const { error, success } = useToast();
     const _router = useRouter();
-    async function deleteAvatarHandle(fd: FormData) {
-        const res = await DeleteAvatar();
-        if (res.errors.length) {
-            setclientErrors(() => res.errors);
-            return;
-        }
-        if (res.ok) {
-            _router.refresh();
-        }
+    const [pending, startTransition] = useTransition();
+    async function deleteAvatarHandle() {
+        startTransition(async () => {
+            const res = await DeleteAvatar();
+            if (res.errors.length) {
+                for (const err of res.errors) {
+                    error(err);
+                }
+                return;
+            }
+            if (res.ok) {
+                success("Аватарка успешно удалена");
+                _router.refresh();
+            }
+        });
     }
     return (
-        <div className=" p-2">
-            <div className="p-2 bg-red-600 rounded cursor-pointer">
-                <form action={deleteAvatarHandle} className="">
-                    <button type="submit" className="cursor-pointer">
-                        Удалить аватар
-                    </button>
-                </form>
-            </div>
-
-            {clientErrors.length > 0 && <span>Ошибка: </span>}
-            {clientErrors.length > 0 &&
-                clientErrors.map((err, ind) => {
-                    return (
-                        <span key={`${err + ind}`} className=" text-red-700 dark:text-violet-500">
-                            {err}
-                        </span>
-                    );
-                })}
-        </div>
+        <form action={deleteAvatarHandle} className="flex flex-col">
+            <button type="submit" disabled={pending} className="p-1 rounded cursor-pointer bg-red-600  active:bg-red-300">
+                {pending ? "Загрузка..." : "Удалить аватар"}
+            </button>
+        </form>
     );
 }
