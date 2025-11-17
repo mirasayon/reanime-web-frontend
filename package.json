@@ -7,7 +7,7 @@
         "dev:webpack": "rimraf ./.next && dotenv -e .env.development -- next dev --webpack --port 3641 --hostname 192.168.0.105",
         "dev": "rimraf ./.next && dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
         "dev-s": "rimraf ./.next && dotenv -e .env.development -- next dev --experimental-https --port 3641 --hostname 192.168.0.105",
-        "build:production": "rimraf ./.next && node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
+        "build:prod": "rimraf ./.next && node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
         "build:dev": "rimraf ./.next && node --env-file=.env.development ./src/scripts/check-env.ts && dotenv -e .env.development -- next build",
         "build:test": "rimraf ./.next && node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
