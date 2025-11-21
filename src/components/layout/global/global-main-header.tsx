@@ -11,10 +11,12 @@ export function GlobalMainHeader({
     profile,
     account,
     userServiceBaseUrl,
+    avatar,
 }: {
     userServiceBaseUrl: string;
-    profile: (Profile & { avatar: AvatarPicture | null }) | null;
+    profile: Profile | null;
     account: Account | null;
+    avatar: AvatarPicture | null;
 }) {
     return (
         <div className=" flex flex-col">
@@ -28,7 +30,7 @@ export function GlobalMainHeader({
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <DropdownMenuInHeader profile={profile} account={account} userServiceBaseUrl={userServiceBaseUrl} />
+                    <DropdownMenuInHeader profile={profile} avatar={avatar} account={account} userServiceBaseUrl={userServiceBaseUrl} />
                 </div>
             </header>
         </div>

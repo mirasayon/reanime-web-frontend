@@ -2,12 +2,10 @@
 import { useState, useTransition, type JSX } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { PiDotsThreeOutline } from "react-icons/pi";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { deleteCommentServerAction } from "./actions-for-comments/delete-comment";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
 
 export function EditOneCommentOnAnime({
     comment_id,
@@ -25,20 +23,14 @@ export function EditOneCommentOnAnime({
         event.preventDefault();
         startTransition(async () => {
             const res = await deleteCommentServerAction({ comment_id, current_profile: current_profile, currPath: currUrl });
-
-            if (res !== false) {
-                if (res.errors.length) {
-                    for (const _error of res.errors) {
-                        error(_error);
-                    }
-                    return;
+            if (!res.ok) {
+                for (const err of res.errors) {
+                    error(err);
                 }
-                success(res.message);
-                return;
-            } else {
-                error(internalErrTxt);
                 return;
             }
+            success(res.msg);
+            return;
         });
     }
     return (

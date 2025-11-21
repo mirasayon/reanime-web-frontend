@@ -7,10 +7,12 @@ import type { Profile, Account, AvatarPicture } from "#user-service/databases/or
 export function DropdownMenuInHeader({
     profile,
     userServiceBaseUrl,
+    avatar,
     account,
 }: {
-    profile: (Profile & { avatar: AvatarPicture | null }) | null;
+    profile: Profile | null;
     account: Account | null;
+    avatar: AvatarPicture | null;
     userServiceBaseUrl: string;
 }) {
     const [is_open, set_is_open] = useState(false);
@@ -18,7 +20,7 @@ export function DropdownMenuInHeader({
         profile && account
             ? {
                   show_name: profile.nickname ?? account.username,
-                  avatar: profile.avatar?.url || null,
+                  avatar: avatar?.url || null,
               }
             : null;
     return (

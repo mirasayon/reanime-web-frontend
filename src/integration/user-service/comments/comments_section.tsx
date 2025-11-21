@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Add_comment_form } from "./component-create_comment";
 import { EditOneCommentOnAnime } from "./edit-one-comment";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import { UserServiceFetcher } from "../user-service-fetcher.integrator-util";
+import { mainUserServiceFetcher } from "../user-service-fetcher.integrator-util";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 import type React from "react";
 import { format } from "date-fns";
@@ -26,13 +26,16 @@ export async function Comments_section({
     userServerBaseUrl: string;
     currUrl: string;
 }): Promise<JSX.Element> {
-    const all_comments = await UserServiceFetcher<Comment_ResponseTypes.get_all_for_anime>({
+    if (!current_user || current_user === 500) {
+        return <div>Ошибка при загрузке комментариев</div>;
+    }
+    const all_comments = await mainUserServiceFetcher<Comment_ResponseTypes.get_all_for_anime>({
         agent: current_user?.agent,
         ip: current_user?.ip,
         method: "GET",
         url: `/v1/comment/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
     });
-    if (!all_comments.ok || !all_comments?.data) {
+    if (all_comments === 500 || !all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
 
@@ -48,7 +51,6 @@ export async function Comments_section({
 
                             const user = cmt.by_profile;
                             const linkToComment = `comment-${cmt.id}`;
-                            console.log(linkToComment);
                             const linkToCommentFull = `/anime/${cmt.anime_id}#comment-${cmt.id}`;
 
                             return (
@@ -69,7 +71,7 @@ export async function Comments_section({
                                         )}
                                         <span className="p-2 font-semibold  "> {user.nickname || user.by_account.username}</span>
 
-                                        {current_user && current_user.profile.profile.id === cmt.by_profile_id && (
+                                        {current_user && current_user.data.profile.id === cmt.by_profile_id && (
                                             <div className="relative">
                                                 <EditOneCommentOnAnime comment_id={cmt.id} current_profile={current_user} currUrl={currUrl} />
                                             </div>

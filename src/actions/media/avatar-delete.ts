@@ -1,10 +1,8 @@
 "use server";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { UserServiceResponseStatusCodes } from "#user-service/shared/constants/response.constants.js";
+import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
-import { cookies, headers } from "next/headers";
-
 type UploadImageRT = Promise<{
     errors: string[];
     ok: boolean;
@@ -13,36 +11,29 @@ type UploadImageRT = Promise<{
  *
  * Deleted A user avatar */
 export async function DeleteAvatar(): UploadImageRT {
-    const auth = await sessionAuthenticator();
+    const auth = await sessionAuthenticator_S_A();
+
+    if (!auth || auth === 500) {
+        return { ok: false, errors: [internalErrTxt] };
+    }
     if (!auth) {
         return {
             errors: ["Вы не авторизованы"],
             ok: false,
         };
     }
-    const res = await UserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
+    const res = await mainUserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
         url: `/v1/profile/avatar/delete`,
         method: "DELETE",
         agent: auth.agent,
         ip: auth.ip,
         session_token: auth.data.session.token,
     });
-
-    if (res.errors.length) {
-        console.log("avatar delete message: ", res.message);
-        return { errors: res.errors, ok: false };
+    if (!res || res === 500) {
+        return { ok: false, errors: [internalErrTxt] };
     }
-    if (res.data) {
+    if (res.data ?? res.ok) {
         return { ok: true, errors: [] };
     }
-    if (res.status_code === UserServiceResponseStatusCodes.TOO_MANY_REQUESTS) {
-        return {
-            errors: ["Слишком много запросов. Попробуйте позже"],
-            ok: false,
-        };
-    }
-    return {
-        errors: ["Что-то пошло не так"],
-        ok: false,
-    };
+    return { errors: res?.errors || [internalErrTxt], ok: false };
 }

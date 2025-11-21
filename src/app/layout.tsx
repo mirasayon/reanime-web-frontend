@@ -10,20 +10,22 @@ import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { GlobalMainHeader } from "#/components/layout/global/global-main-header";
 import { root_layout_Metadata } from "#/meta/root-layout.metadata";
-import { cookies, headers } from "next/headers";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
-import { UserService } from "#/configs/user-service.app-config";
+import { ComponentGlobalError } from "./global-error";
 
 type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
 export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
     const _env = await nextLoadEnvSSR();
-    const auth = await sessionAuthenticator();
+    const auth = await sessionAuthenticator_S_A();
+    if (auth === 500) {
+        return <ComponentGlobalError />;
+    }
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>
@@ -35,7 +37,8 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                     <JotaiMainProvider>
                         <GlobalMainHeader
                             account={auth?.data.account || null}
-                            profile={auth?.profile.profile || null}
+                            profile={auth?.data.profile || null}
+                            avatar={auth?.data.avatar || null}
                             userServiceBaseUrl={_env.user_service.url}
                         />
                         {children}

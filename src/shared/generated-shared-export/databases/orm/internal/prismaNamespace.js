@@ -13,17 +13,17 @@ export const Sql = runtime.Sql;
 export const Decimal = runtime.Decimal;
 export const getExtensionContext = runtime.Extensions.getExtensionContext;
 export const prismaVersion = {
-    client: "6.19.0",
-    engine: "2ba551f319ab1df4bc874a89965d8b3641056773"
+    client: "7.0.0",
+    engine: "0c19ccc313cf9911a90d99d2ac2eb0280c76c513"
 };
 export const NullTypes = {
-    DbNull: runtime.objectEnumValues.classes.DbNull,
-    JsonNull: runtime.objectEnumValues.classes.JsonNull,
-    AnyNull: runtime.objectEnumValues.classes.AnyNull,
+    DbNull: runtime.NullTypes.DbNull,
+    JsonNull: runtime.NullTypes.JsonNull,
+    AnyNull: runtime.NullTypes.AnyNull,
 };
-export const DbNull = runtime.objectEnumValues.instances.DbNull;
-export const JsonNull = runtime.objectEnumValues.instances.JsonNull;
-export const AnyNull = runtime.objectEnumValues.instances.AnyNull;
+export const DbNull = runtime.DbNull;
+export const JsonNull = runtime.JsonNull;
+export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     Account: 'Account',
     Session: 'Session',

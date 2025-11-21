@@ -9,3 +9,4 @@
 /.build.tsbuildinfo
 /uploads
 /certificates
+/src/shared/generated-shared-export

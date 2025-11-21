@@ -1,5 +1,5 @@
 "use client";
-import { registerAction } from "#/actions/auth/register";
+import { registerForm_S_A } from "#/actions/auth/register";
 import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
@@ -7,7 +7,9 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { UserNicknameInputForAuthForm } from "../components-jsx-for-auth-forms/nickname-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
+import { useRouter } from "next/navigation";
 export function Register_Component() {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -22,13 +24,15 @@ export function Register_Component() {
     const [serverErrors, setServerErrors] = useState<string[]>();
 
     const onSubmit = handleSubmit(((data) => {
-        setServerErrors([]);
         startTransition(async () => {
-            const result = await registerAction(data);
-            if (typeof result === "object") {
-                setServerErrors(result);
+            setServerErrors([]);
+            const result = await registerForm_S_A(data);
+            if (result.ok) {
+                router.push("/user/" + data.username);
                 return;
             }
+            setServerErrors(result.errors);
+            return;
         });
     }) as SubmitHandler<dto.registration>);
     return (

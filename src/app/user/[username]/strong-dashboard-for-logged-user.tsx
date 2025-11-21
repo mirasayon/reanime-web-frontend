@@ -1,7 +1,6 @@
 "use client";
 import React, { type JSX, type ReactNode } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import { User as UserIcon, Settings, Mail, Calendar, Briefcase, PieChart, LogOut, Edit, UserCircle } from "lucide-react";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { Logout_userForDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
@@ -12,7 +11,7 @@ type ProfileDashboardProps = {
 export function MainProfileDashboard({ user }: ProfileDashboardProps): JSX.Element {
     return (
         <div className="p-6  transition-colors ">
-            <motion.div initial={{ opacity: 0, y: 2 }} animate={{ opacity: 1, y: 0 }} className="p-4 rounded-2xl duration-1000  shadow">
+            <div className="p-4 rounded-2xl shadow">
                 <h2 className="text-lg font-medium mb-2">О себе</h2>
                 <p className="text-sm text-muted-foreground">{user.profile.bio || "О себе не написано"}</p>
 
@@ -23,14 +22,11 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): JSX.Eleme
                 </div>
 
                 <div className="mt-2 flex gap-2">
-                    <Link href={"/user-settings/" + user.account.username}>
-                        <div className="flex-1 p-2 rounded-lg border border-gray-200 dark:border-gray-700">Настройки профиля</div>
-                    </Link>
                     <div>
                         <Logout_userForDashboard />
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }

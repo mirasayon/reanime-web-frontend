@@ -1,4 +1,4 @@
-import type { Account, Profile, Session } from "../../databases/orm/client.js";
+import type { Account, Profile, Session, AvatarPicture } from "../../databases/orm/client.js";
 export declare namespace Authentication_ResponseTypes {
     type login_via_email = {
         session: Session;
@@ -16,6 +16,7 @@ export declare namespace Authentication_ResponseTypes {
     type check_session = {
         session: Session;
         profile: Profile;
+        avatar: AvatarPicture | null;
         account: Account;
     };
     type logout = string;

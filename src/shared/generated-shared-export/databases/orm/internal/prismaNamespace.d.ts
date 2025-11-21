@@ -23,10 +23,6 @@ export type Sql = runtime.Sql;
 export declare const Decimal: typeof runtime.Decimal;
 export type Decimal = runtime.Decimal;
 export type DecimalJsLike = runtime.DecimalJsLike;
-export type Metrics = runtime.Metrics;
-export type Metric<T> = runtime.Metric<T>;
-export type MetricHistogram = runtime.MetricHistogram;
-export type MetricHistogramBucket = runtime.MetricHistogramBucket;
 export type Extension = runtime.Types.Extensions.UserArgs;
 export declare const getExtensionContext: typeof runtime.Extensions.getExtensionContext;
 export type Args<T, F extends runtime.Operation> = runtime.Types.Public.Args<T, F>;
@@ -46,28 +42,13 @@ export type InputJsonObject = runtime.InputJsonObject;
 export type InputJsonArray = runtime.InputJsonArray;
 export type InputJsonValue = runtime.InputJsonValue;
 export declare const NullTypes: {
-    DbNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.DbNull);
-    JsonNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.JsonNull);
-    AnyNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.AnyNull);
+    DbNull: (new (secret: never) => typeof runtime.DbNull);
+    JsonNull: (new (secret: never) => typeof runtime.JsonNull);
+    AnyNull: (new (secret: never) => typeof runtime.AnyNull);
 };
-export declare const DbNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
-export declare const JsonNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
-export declare const AnyNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
+export declare const DbNull: import("@prisma/client-runtime-utils").DbNullClass;
+export declare const JsonNull: import("@prisma/client-runtime-utils").JsonNullClass;
+export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClass;
 type SelectAndInclude = {
     select: any;
     include: any;
@@ -1183,18 +1164,16 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 export type BatchPayload = {
     count: number;
 };
-export type Datasource = {
-    url?: string;
-};
-export type Datasources = {
-    db?: Datasource;
-};
 export declare const defineExtension: runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>;
 export type DefaultPrismaClient = PrismaClient;
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal';
-export interface PrismaClientOptions {
-    datasources?: Datasources;
-    datasourceUrl?: string;
+export type PrismaClientOptions = ({
+    adapter: runtime.SqlDriverAdapterFactory;
+    accelerateUrl?: never;
+} | {
+    accelerateUrl: string;
+    adapter?: never;
+}) & {
     errorFormat?: ErrorFormat;
     log?: (LogLevel | LogDefinition)[];
     transactionOptions?: {
@@ -1202,9 +1181,8 @@ export interface PrismaClientOptions {
         timeout?: number;
         isolationLevel?: TransactionIsolationLevel;
     };
-    adapter?: runtime.SqlDriverAdapterFactory | null;
     omit?: GlobalOmitConfig;
-}
+};
 export type GlobalOmitConfig = {
     account?: Prisma.AccountOmit;
     session?: Prisma.SessionOmit;

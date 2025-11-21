@@ -8,7 +8,6 @@ export function Upload_avatar_or_show({
     profile: Profile & { avatar: AvatarPicture | null };
     userServiceBaseUrl: string;
 }) {
-    // const has_avatar = !!profile.avatar?.url;
     return (
         <div className=" flex">
             {profile.avatar?.url ? <ShowAvatarElement username={profile.avatar.url} userServiceBaseUrl={userServiceBaseUrl} /> : <SetAvatarForm />}

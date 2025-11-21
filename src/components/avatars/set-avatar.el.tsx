@@ -33,7 +33,7 @@ export function SetAvatarForm({}: {}) {
                 error(err);
             }
         }
-        if (res.uploaded) {
+        if (res.ok) {
             success("Успешно добавлен");
             _router.refresh();
         }

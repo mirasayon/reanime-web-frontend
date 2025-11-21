@@ -1,20 +1,23 @@
 "use server";
 import { UserService } from "#/configs/user-service.app-config";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { UserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import type { ServerActionResponse } from "#T/integrator-main-types";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies } from "next/headers";
 
-type LogOutAccountRT = Promise<{ errors: string[]; ok: boolean }>;
-
-export async function LogOutAccount(): LogOutAccountRT {
+export async function LogOutAccount(): Promise<ServerActionResponse> {
     const _cookies = await cookies();
-    const auth = await sessionAuthenticator();
+    const auth = await sessionAuthenticator_S_A();
     if (!auth) {
         return { errors: ["Вы не авторизованы"], ok: false };
     }
+    if (auth === 500) {
+        return { errors: [internalErrTxt], ok: false };
+    }
 
-    const res = await UserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
+    const res = await mainUserServiceFetcher<Profile_ResponseTypes.delete_avatar>({
         url: `/v1/authentication/logout`,
         method: "DELETE",
         ip: auth.ip,
@@ -22,13 +25,16 @@ export async function LogOutAccount(): LogOutAccountRT {
         session_token: auth.data.session.token,
     });
 
+    if (!res || res === 500) {
+        return { errors: [internalErrTxt], ok: false };
+    }
     if (res.errors.length) {
         return { errors: res.errors, ok: false };
     }
 
     if (res.data) {
         _cookies.delete(UserService.session_token_name);
-        return { errors: [], ok: true };
+        return { msg: res.message, ok: true };
     }
     _cookies.delete(UserService.session_token_name);
     return { errors: [], ok: false };

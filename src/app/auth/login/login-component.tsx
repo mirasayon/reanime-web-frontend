@@ -6,7 +6,9 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
+import { useRouter } from "next/navigation";
 export function Login_Component() {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -20,12 +22,15 @@ export function Login_Component() {
     const [serverErrors, setServerErrors] = useState<string[]>();
 
     const onSubmit = handleSubmit(((data) => {
-        setServerErrors([]);
         startTransition(async () => {
+            setServerErrors([]);
             const result = await loginAction(data);
-            if (typeof result === "object") {
-                setServerErrors(result);
+            if (result.ok) {
+                router.push("/user/" + data.username);
+                return;
             }
+            setServerErrors(result.errors);
+            return;
         });
     }) as SubmitHandler<dto.login_via_username>);
     return (

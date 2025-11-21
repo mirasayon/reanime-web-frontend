@@ -12,14 +12,15 @@ export function Logout_userForDashboard() {
     async function LogOutAccountHandle(fd: FormData) {
         startTransition(async () => {
             const res = await LogOutAccount();
-            if (res.errors.length) {
-                for (const err of res.errors) {
-                    error(err);
-                }
+            if (res.ok) {
+                success("Успешно вышли из аккаунта");
+                _router.push("/");
                 return;
             }
-            success("Успешно вышли из аккаунта");
-            _router.push("/");
+            for (const err of res.errors) {
+                error(err);
+            }
+            return;
         });
     }
     return (

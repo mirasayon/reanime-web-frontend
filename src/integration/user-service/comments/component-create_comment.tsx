@@ -12,18 +12,19 @@ export function Add_comment_form({
     userServerBaseUrl,
 }: {
     userServerBaseUrl: string;
-    profile: AuthenticatorType | null;
+    profile: AuthenticatorType;
     animeId: number;
 }): JSX.Element {
     const { success, error, info } = useToast();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
-    if (!profile) {
+
+    if (!profile || profile === 500) {
         return <Linker href="/auth/login">Войдите в свой аккаунт чтобы оставлять комментарии</Linker>;
     }
     async function SaveCommentON(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (!profile) {
+        if (!profile || profile === 500) {
             return;
         }
         startTransition(async (): Promise<void> => {
@@ -35,21 +36,19 @@ export function Add_comment_form({
                 }
                 const res = await CreateOneCommentToAnime({
                     anime_id: animeId,
-                    profile_id: profile.profile.profile.id,
+                    profile_id: profile.data.profile.id,
                     currPath: `/anime/${animeId}`,
                     current_profile: profile,
                     comment_content: comment_content,
                 });
-                if (res !== false) {
-                    if (res.errors.length) {
-                        for (const _error of res.errors) {
-                            error(_error);
-                        }
-                        return;
+                if (!res.ok) {
+                    for (const _error of res.errors) {
+                        error(_error);
                     }
-                    success(res.message);
                     return;
                 }
+                success(res.msg);
+                return;
             } catch (err) {
                 error(internalErrTxt);
                 return;
@@ -61,10 +60,10 @@ export function Add_comment_form({
     }
     return (
         <form onSubmit={SaveCommentON} id="comment_form" className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}>
-            <Link href={`/user/${profile.profile?.account.username}`} className="flex p-2 flex-row items-center justify-between">
-                {profile.profile?.profile?.avatar?.url ? (
+            <Link href={`/user/${profile.data.account.username}`} className="flex p-2 flex-row items-center justify-between">
+                {profile.data.avatar?.url ? (
                     <img
-                        src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.profile.profile.avatar.url}
+                        src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.data.avatar.url}
                         alt="user avatar"
                         className="rounded-full object-cover w-[40px] h-[40px]"
                     />

@@ -4,18 +4,20 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 export function Logout_user() {
     const [confirm, set_confirm] = useState<boolean>(false);
+    const _router = useRouter();
 
     const [pending, startTransition] = useTransition();
     const [clientErrors, setClientErrors] = useState<string[]>([]);
-    const _router = useRouter();
 
-    async function LogOutAccountHandle(fd: FormData) {
+    async function LogOutAccountHandle() {
         startTransition(async () => {
             const res = await LogOutAccount();
-            if (res.errors.length) {
-                return setClientErrors(res.errors);
+            if (res.ok) {
+                _router.push("/auth/login");
+                return;
             }
-            _router.push("/auth/login");
+            setClientErrors(res.errors);
+            return;
         });
     }
     return (
