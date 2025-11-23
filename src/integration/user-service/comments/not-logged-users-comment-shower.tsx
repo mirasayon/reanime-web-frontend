@@ -1,7 +1,7 @@
 import { type JSX } from "react";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import { JustShowMainDataAboutComment } from "./components-primitives/show-main-datas-about-comment";
-import { JustShowCommentContent } from "./logged-users-comment-shower";
+import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";
+import { JustShowCommentContent } from "./components-primitives/just-show-comment-contents";
 
 export function NotLoggedProfileCommentShower({
     userServerBaseUrl,
@@ -23,7 +23,7 @@ export function NotLoggedProfileCommentShower({
                 />
             </div>
 
-            <JustShowCommentContent contentText={comment.content} />
+            <JustShowCommentContent comment={comment} current_user={null} />
         </div>
     );
 }

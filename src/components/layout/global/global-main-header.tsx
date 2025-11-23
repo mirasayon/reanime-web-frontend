@@ -1,6 +1,6 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
-import { DropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner";
+import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
@@ -42,7 +42,7 @@ export function GlobalMainHeader({
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <DropdownMenuInHeader
+                    <MainDropdownMenuInHeader
                         profile={profile}
                         avatar={avatar}
                         account={account}

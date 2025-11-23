@@ -4,7 +4,9 @@ import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator"
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 import { MenuCommentComponent } from "./comment-menu-component";
 import { MainEditFormCommentComponent } from "./edit-form-comment-comment";
-import { JustShowMainDataAboutComment } from "./components-primitives/show-main-datas-about-comment";
+import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";
+import { ShowCommentRatingComponent } from "./ratings-of-comment/show-comment-rating-component";
+import { JustShowCommentContent } from "./components-primitives/just-show-comment-contents";
 
 export function LoggedProfileCommentShower({
     userServerBaseUrl,
@@ -47,23 +49,11 @@ export function LoggedProfileCommentShower({
                     }}
                 />
             ) : (
-                <JustShowCommentContent contentText={comment.content} />
+                <JustShowCommentContent
+                    comment={comment}
+                    current_user={current_user}
+                />
             )}
-        </div>
-    );
-}
-export function JustShowCommentContent({
-    contentText,
-}: {
-    contentText: string;
-}) {
-    return (
-        <div className="grid items-center">
-            <span
-                className={` p-2 m-2 w-full dark:bg-slate-800/60 hover:dark:bg-slate-800/80 bg-slate-100  hover:bg-slate-200/40`}
-            >
-                {contentText}
-            </span>{" "}
         </div>
     );
 }

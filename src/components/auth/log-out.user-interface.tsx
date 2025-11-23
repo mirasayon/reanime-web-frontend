@@ -1,31 +1,49 @@
 "use client";
 import { LogOutAccount } from "#/actions/auth/log-out-account";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-export function Logout_user() {
+import {
+    useState,
+    useTransition,
+    type Dispatch,
+    type FormEvent,
+    type SetStateAction,
+} from "react";
+import { useToast } from "../layout/atoms-toasts-components/useToast";
+export function LogoutUserAtHeaderComponent({
+    setOpenFunction,
+}: {
+    setOpenFunction: Dispatch<SetStateAction<boolean>>;
+}) {
     const [confirm, set_confirm] = useState<boolean>(false);
     const _router = useRouter();
+    const { error, success } = useToast();
 
     const [pending, startTransition] = useTransition();
-    const [clientErrors, setClientErrors] = useState<string[]>([]);
 
-    async function LogOutAccountHandle() {
+    function LogOutAccountHandle(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setOpenFunction(false);
         startTransition(async () => {
             const res = await LogOutAccount();
             if (res.ok) {
-                _router.push("/auth/login");
+                success(res.msg);
+                _router.refresh();
                 return;
             }
-            setClientErrors(res.errors);
+            for (const err of res.errors) {
+                error(err);
+            }
             return;
         });
     }
     return (
         <div>
-            <form action={LogOutAccountHandle}>
+            <form onSubmit={LogOutAccountHandle}>
                 <button
                     type="button"
-                    className={`m-2 cursor-pointer p-2 ${confirm ? "bg-blue-500" : "bg-red-500 "} text-black dark:text-white`}
+                    className={`m-2 cursor-pointer p-2 ${
+                        confirm ? "bg-blue-500" : "bg-red-500 "
+                    } text-black dark:text-white`}
                     onClick={(e) => {
                         e.preventDefault();
                         set_confirm((pr) => !pr);
@@ -34,20 +52,16 @@ export function Logout_user() {
                     {!confirm ? "Выйти" : "Отмена"}
                 </button>
                 {confirm && (
-                    <button type={"submit"} className={"cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white  "}>
+                    <button
+                        type={"submit"}
+                        className={
+                            "cursor-pointer m-2 p-2 bg-red-500 text-black dark:text-white  "
+                        }
+                    >
                         {pending ? "Загрузка..." : "Подтвердить"}
                     </button>
                 )}
             </form>
-            {clientErrors.length > 0 && <span>Ошибка: </span>}
-            {clientErrors.length > 0 &&
-                clientErrors.map((err, ind) => {
-                    return (
-                        <span key={`${err + ind}`} className=" text-red-700 dark:text-violet-500">
-                            {err}
-                        </span>
-                    );
-                })}
         </div>
     );
 }
