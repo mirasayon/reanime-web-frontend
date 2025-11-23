@@ -10,7 +10,7 @@ type authCurrentUserFindingWrapperForServerActionsUtilityRT =
           data: null;
           error: { errors: string[]; ok: false };
       };
-export function authCurrentUserFindingWrapperForServerActionsUtility(
+export function ensuredPassedUser_ForServerActions(
     notProcessedAuthData: AuthenticatorType,
 ): authCurrentUserFindingWrapperForServerActionsUtilityRT {
     if (notProcessedAuthData === null) {
@@ -19,6 +19,25 @@ export function authCurrentUserFindingWrapperForServerActionsUtility(
             data: null,
         };
     }
+    if (notProcessedAuthData === 500) {
+        return { error: { errors: [internalErrTxt], ok: false }, data: null };
+    }
+
+    return { data: notProcessedAuthData, error: null };
+}
+
+type ensuredNullableUser_ForServerActionsRT =
+    | {
+          data: Exclude<AuthenticatorType, 500>;
+          error: null;
+      }
+    | {
+          data: null;
+          error: { errors: string[]; ok: false };
+      };
+export function ensuredNullableUser_ForServerActions(
+    notProcessedAuthData: AuthenticatorType,
+): ensuredNullableUser_ForServerActionsRT {
     if (notProcessedAuthData === 500) {
         return { error: { errors: [internalErrTxt], ok: false }, data: null };
     }

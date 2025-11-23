@@ -2,13 +2,13 @@
 
 import { atom } from "jotai";
 
-export const toastsAtom = atom<Toast[]>([]);
+export const uiToastsAtom = atom<ToastMessageType[]>([]);
 
-export type ToastKind = "success" | "error" | "info";
+export type ToastKindType = "success" | "error" | "info";
 
-export type Toast = {
+export type ToastMessageType = {
     id: string;
-    kind: ToastKind;
+    kind: ToastKindType;
     title?: string;
     message: string;
     /** мс, по умолчанию 3500 */

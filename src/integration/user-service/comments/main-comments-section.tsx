@@ -40,10 +40,9 @@ export async function MainCommentsSection({
                 <div className="flex flex-col">
                     {all_comments.data.length ? (
                         all_comments.data.map((comment) => {
-                            const isThereLoggedUserNow =
-                                current_user &&
-                                current_user.data.profile.id ===
-                                    comment.by_profile_id;
+                            const isThereLoggedUserNow = current_user;
+                            // && current_user.data.profile.id ===
+                            //     comment.by_profile_id;
 
                             if (isThereLoggedUserNow) {
                                 return (

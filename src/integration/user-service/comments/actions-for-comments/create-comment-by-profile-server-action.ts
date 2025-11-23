@@ -5,7 +5,7 @@ import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrat
 import { mainUserServiceFetcher } from "../../user-service-fetcher.integrator-util";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import { authCurrentUserFindingWrapperForServerActionsUtility } from "../../auth/auth-current-user-finding-wrapper-for-server-actions.utility";
+import { ensuredPassedUser_ForServerActions } from "../../auth/auth-current-user-finding-wrapper-for-server-actions.utility";
 
 type CreateOneCommentToAnimeParams = {
     profile_id: string;
@@ -26,8 +26,7 @@ export async function CreateOneCommentToAnime({
     comment_content,
 }: CreateOneCommentToAnimeParams): Promise<ServerActionResponse> {
     const url = `/v1/comment/create/${anime_id}` as const;
-    const authEnsured =
-        authCurrentUserFindingWrapperForServerActionsUtility(authNotEnsured);
+    const authEnsured = ensuredPassedUser_ForServerActions(authNotEnsured);
     if (authEnsured.error) {
         return authEnsured.error;
     }

@@ -1,6 +1,5 @@
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import consola from "consola";
 import Link from "next/link";
 
 export function JustShowMainDataAboutComment({

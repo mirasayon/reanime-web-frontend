@@ -1,7 +1,7 @@
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
+import consola from "consola";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
-import { ShowCommentRatingComponent } from "../ratings-of-comment/show-comment-rating-component";
-
+import { ShowCommentRatingComponent } from "../ratings-of-comment/main-comment-rating-component";
 export function JustShowCommentContent({
     comment,
     current_user,
@@ -9,8 +9,11 @@ export function JustShowCommentContent({
     comment: Comment_ResponseTypes.get_all_for_anime[number];
     current_user: Exclude<AuthenticatorType, 500>;
 }) {
+    consola.box({
+        current_user: current_user?.data.account.username || "NULL",
+    });
     if (current_user) {
-        const profileID = comment.ratings.find(
+        const foundUserVote = comment.ratings.find(
             (c) => c.by_profile_id === current_user.data.profile.id,
         );
         return (
@@ -19,10 +22,10 @@ export function JustShowCommentContent({
                     className={` p-2 m-2 w-full dark:bg-slate-800/60 hover:dark:bg-slate-800/80 bg-slate-100  hover:bg-slate-200/40`}
                 >
                     {comment.content}
-                </span>{" "}
+                </span>
                 <ShowCommentRatingComponent
                     comment={comment}
-                    userVote={profileID?.vote}
+                    userVote={foundUserVote ? foundUserVote.vote : null}
                     notProcessedAuthData={current_user}
                     currPath={"/anime/" + comment.anime_id}
                 />
@@ -39,6 +42,7 @@ export function JustShowCommentContent({
             <ShowCommentRatingComponent
                 comment={comment}
                 notProcessedAuthData={null}
+                userVote={null}
                 currPath={"/anime/" + comment.anime_id}
             />
         </div>

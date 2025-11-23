@@ -5,7 +5,6 @@ import type { Comment_ResponseTypes } from "#user-service/shared/response-patter
 import { MenuCommentComponent } from "./comment-menu-component";
 import { MainEditFormCommentComponent } from "./edit-form-comment-comment";
 import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";
-import { ShowCommentRatingComponent } from "./ratings-of-comment/show-comment-rating-component";
 import { JustShowCommentContent } from "./components-primitives/just-show-comment-contents";
 
 export function LoggedProfileCommentShower({
@@ -19,6 +18,8 @@ export function LoggedProfileCommentShower({
 }): JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
     const linkToComment = `comment-${comment.id}`;
+    const isThereLogged_and_HisCommentSeeing_UserNow =
+        current_user && current_user.data.profile.id === comment.by_profile_id;
     return (
         <div
             className="m-2 grid p-2 items-center"
@@ -29,15 +30,17 @@ export function LoggedProfileCommentShower({
                 <JustShowMainDataAboutComment
                     {...{ comment, userServerBaseUrl }}
                 />
-                <div className="relative">
-                    <MenuCommentComponent
-                        userServerBaseUrl={userServerBaseUrl}
-                        setFunction={setIsEditing}
-                        comment_id={comment.id}
-                        current_profile={current_user}
-                        animeId={comment.anime_id}
-                    />
-                </div>
+                {isThereLogged_and_HisCommentSeeing_UserNow && (
+                    <div className="relative">
+                        <MenuCommentComponent
+                            userServerBaseUrl={userServerBaseUrl}
+                            setFunction={setIsEditing}
+                            comment_id={comment.id}
+                            current_profile={current_user}
+                            animeId={comment.anime_id}
+                        />
+                    </div>
+                )}
             </div>
 
             {isEditing ? (
