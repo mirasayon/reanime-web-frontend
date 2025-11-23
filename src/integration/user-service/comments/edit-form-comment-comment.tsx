@@ -3,14 +3,14 @@ import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator"
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import {
     useTransition,
-    type JSX,
     type FormEvent,
     type Dispatch,
     type SetStateAction,
 } from "react";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import { UpdateComment_ServerAction } from "./actions-for-comments/edit-update-comment-by-profile";
+import { UpdateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
+import type React from "react";
 export function MainEditFormCommentComponent({
     current_user,
     comment,
@@ -19,14 +19,13 @@ export function MainEditFormCommentComponent({
     setIsEditing: Dispatch<SetStateAction<boolean>>;
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
     comment: Comment_ResponseTypes.get_all_for_anime[number];
-}): JSX.Element {
+}): React.JSX.Element {
     const { success, error, info } = useToast();
     const [pending, startTransition] = useTransition();
 
     async function SaveCommentON(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
             event.preventDefault();
-
             try {
                 const comment_content = event.currentTarget.comment_content
                     .value as string;
@@ -87,7 +86,7 @@ export function MainEditFormCommentComponent({
                         type="submit"
                         className={`p-1 border-4 border-transparent dark:bg-slate-500/70 bg-slate-200 hover:bg-slate-300 active:bg-blue-400 hover:dark:bg-green-600/50 cursor-pointer`}
                     >
-                        {pending ? "Обновляю…" : "Обновить"}
+                        {pending ? "Обновляется…" : "Обновить"}
                     </button>
                 </div>
             </div>

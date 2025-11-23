@@ -1,6 +1,6 @@
 "use client";
 import { MdDeleteForever } from "react-icons/md";
-import { deleteCommentServerAction } from "./actions-for-comments/delete-comment";
+import { deleteCommentServerAction } from "./actions-for-comments/delete-comment-server-action";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";

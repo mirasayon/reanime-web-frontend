@@ -3,7 +3,7 @@ import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import { PiDotsThreeOutline } from "react-icons/pi";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { MainDeleteCommentComponent } from "./delete-component";
-import { EditCommentComponent } from "./edit-the-component";
+import { EditTheComment_Button_Component } from "./edit-the-comment-button-component";
 
 export function MenuCommentComponent({
     comment_id,
@@ -39,7 +39,7 @@ export function MenuCommentComponent({
                             setShowOptionsMenu,
                         }}
                     />
-                    <EditCommentComponent
+                    <EditTheComment_Button_Component
                         {...{ setFunction, setShowOptionsMenu }}
                     />
                 </div>

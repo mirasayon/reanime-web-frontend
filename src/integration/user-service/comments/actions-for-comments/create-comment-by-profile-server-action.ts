@@ -5,13 +5,14 @@ import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrat
 import { mainUserServiceFetcher } from "../../user-service-fetcher.integrator-util";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { authCurrentUserFindingWrapperForServerActionsUtility } from "../../auth/auth-current-user-finding-wrapper-for-server-actions.utility";
 
 type CreateOneCommentToAnimeParams = {
     profile_id: string;
     comment_content: string;
     currPath: string;
     anime_id: number;
-    current_profile: AuthenticatorType;
+    authNotEnsured: AuthenticatorType;
 };
 /**
  * Server Action
@@ -19,28 +20,35 @@ type CreateOneCommentToAnimeParams = {
  * @returns
  */
 export async function CreateOneCommentToAnime({
-    current_profile,
+    authNotEnsured,
     anime_id,
     currPath,
     comment_content,
 }: CreateOneCommentToAnimeParams): Promise<ServerActionResponse> {
     const url = `/v1/comment/create/${anime_id}` as const;
-    if (current_profile === null) {
-        return { errors: [internalErrTxt], ok: false };
+    const authEnsured =
+        authCurrentUserFindingWrapperForServerActionsUtility(authNotEnsured);
+    if (authEnsured.error) {
+        return authEnsured.error;
     }
-    if (current_profile === 500) {
-        return { errors: [internalErrTxt], ok: false };
-    }
-    const res = await mainUserServiceFetcher<Comment_ResponseTypes.create_comment>({
-        agent: current_profile.agent,
-        ip: current_profile.ip,
-        method: "POST",
-        json_body: {
-            content: comment_content,
-        },
-        url: url,
-        session_token: current_profile.data.session.token,
-    });
+    const auth_ensured = authEnsured.data;
+    // if (current_profile === null) {
+    //     return { errors: [internalErrTxt], ok: false };
+    // }
+    // if (current_profile === 500) {
+    //     return { errors: [internalErrTxt], ok: false };
+    // }
+    const res =
+        await mainUserServiceFetcher<Comment_ResponseTypes.create_comment>({
+            agent: auth_ensured.agent,
+            ip: auth_ensured.ip,
+            method: "POST",
+            json_body: {
+                content: comment_content,
+            },
+            url: url,
+            session_token: auth_ensured.data.session.token,
+        });
     if (res === 500) {
         return { errors: [internalErrTxt], ok: false };
     }

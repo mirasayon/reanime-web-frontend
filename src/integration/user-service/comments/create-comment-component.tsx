@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile";
+import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type JSX, type FormEvent, useState } from "react";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
@@ -43,7 +43,7 @@ export function MainCreateCommentComponent({
                     anime_id: animeId,
                     profile_id: profile.data.profile.id,
                     currPath: `/anime/${animeId}`,
-                    current_profile: profile,
+                    authNotEnsured: profile,
                     comment_content: comment_content,
                 });
                 if (!res.ok) {

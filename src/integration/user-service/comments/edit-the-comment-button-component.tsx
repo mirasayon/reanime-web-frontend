@@ -1,7 +1,7 @@
 "use client";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { FaEdit } from "react-icons/fa";
-export function EditCommentComponent({
+export function EditTheComment_Button_Component({
     setFunction,
     setShowOptionsMenu,
 }: {
