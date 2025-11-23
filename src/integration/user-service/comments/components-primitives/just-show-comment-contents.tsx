@@ -1,5 +1,4 @@
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import consola from "consola";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import { ShowCommentRatingComponent } from "../ratings-of-comment/main-comment-rating-component";
 export function JustShowCommentContent({
@@ -9,9 +8,6 @@ export function JustShowCommentContent({
     comment: Comment_ResponseTypes.get_all_for_anime[number];
     current_user: Exclude<AuthenticatorType, 500>;
 }) {
-    consola.box({
-        current_user: current_user?.data.account.username || "NULL",
-    });
     if (current_user) {
         const foundUserVote = comment.ratings.find(
             (c) => c.by_profile_id === current_user.data.profile.id,

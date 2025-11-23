@@ -58,7 +58,6 @@ export function ShowCommentRatingComponent({
                 });
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error,
-                    info,
                     res,
                 });
             });
@@ -73,7 +72,6 @@ export function ShowCommentRatingComponent({
             });
             serverActionsResponsesProcessorFromClientEnvironment({
                 error,
-                info,
                 res,
             });
         });
