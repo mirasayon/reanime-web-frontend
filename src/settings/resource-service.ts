@@ -6,4 +6,4 @@ export enum UserServiceConfig {
 /**
  * TEMPORARY TURN OFF THE USER SERVICE
  */
-export const TEMPORARY_TURN_OFF_THE_USER_SERVICE = true;
+export const TEMPORARY_TURN_OFF_THE_USER_SERVICE = false;

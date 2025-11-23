@@ -13,7 +13,7 @@ import { AnimePlayer } from "#/components/animes/anime-player";
 import { MainRelatedAnimesSection } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
-import { MainCommentsSection } from "#/integration/user-service/comments/comments_section";
+import { MainCommentsSection } from "#/integration/user-service/comments/main-comments-section";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
@@ -74,7 +74,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
-
 function nextEpisodeSimple(_nextEpisodeAt?: string) {
     if (!_nextEpisodeAt) {
         return null;

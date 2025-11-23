@@ -11,7 +11,7 @@ export async function MainCommentsSection({
     userServerBaseUrl,
     current_user,
 }: {
-    current_user: AuthenticatorType | null;
+    current_user: AuthenticatorType;
     shikimori_id: number;
     userServerBaseUrl: string;
 }): Promise<JSX.Element> {

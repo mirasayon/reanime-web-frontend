@@ -6,9 +6,11 @@ export function Linker({
     className,
     target,
     rel,
+    cleanStyles = false,
 }: {
     className?: string | undefined;
     rel?: string;
+    cleanStyles?: boolean;
     children: React.ReactNode;
     target?: string;
     /**
@@ -22,7 +24,13 @@ export function Linker({
         <Link
             target={target}
             rel={rel}
-            className={`   dark:text-blue-400 dark:hover:text-blue-500  text-blue-700 hover:text-blue-900 ${className || ""}`}
+            className={
+                !cleanStyles
+                    ? `   dark:text-blue-400 dark:hover:text-blue-500  text-blue-700 hover:text-blue-900 ${
+                          className || ""
+                      }`
+                    : className || ""
+            }
             href={email ? `mailto:${href}` : href}
         >
             {children}
