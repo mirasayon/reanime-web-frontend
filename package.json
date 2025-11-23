@@ -8,7 +8,6 @@
         "dev": "rimraf ./.next && dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
         "dev-s": "rimraf ./.next && dotenv -e .env.development -- next dev --experimental-https --port 3641 --hostname 192.168.0.105",
         "build:prod": "rimraf ./.next && node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
-        "build:dev": "rimraf ./.next && node --env-file=.env.development ./src/scripts/check-env.ts && dotenv -e .env.development -- next build",
         "build:test": "rimraf ./.next && node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
         "inspector": "tsc --watch --noEmit --project ./tsconfig.json",
@@ -18,7 +17,6 @@
     "dependencies": {
         "@hookform/resolvers": "^5.2.2",
         "@next/third-parties": "^16.0.3",
-        "@prisma/client": "^7.0.0",
         "@radix-ui/react-alert-dialog": "^1.1.15",
         "@radix-ui/react-avatar": "^1.1.11",
         "@radix-ui/react-dropdown-menu": "^2.1.16",
@@ -44,7 +42,6 @@
         "ms": "^2.1.3",
         "next": "16.0.3",
         "next-themes": "^0.4.6",
-        "prisma": "^7.0.0",
         "react": "19.2.0",
         "react-dom": "19.2.0",
         "react-hook-form": "^7.66.1",
@@ -65,6 +62,7 @@
         "rimraf": "^6.1.2",
         "tailwindcss": "^4.1.17",
         "tw-animate-css": "^1.4.0",
+        "@prisma/client": "^7.0.0",
         "typescript": "^5.9.3"
     },
     "engines": {

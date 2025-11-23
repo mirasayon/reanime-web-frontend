@@ -4,11 +4,14 @@ import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anim
 import type { JSX } from "react";
 import type { AnimeRelationData } from "shikimoript/types/animes.js";
 
-export function Related_animes({ related }: { related: AnimeRelationData[] }): JSX.Element | null {
+export function MainRelatedAnimesSection({ related }: { related: AnimeRelationData[] }): JSX.Element | null {
     const pass = related && related.length > 0;
-    return pass ? (
-        <div className={`${rea_wrapper_border} `}>
-            <div className="w-max p-2 ml-2 mt-2 rounded-sm dark:bg-slate-800 bg-violet-200">Связанные:</div>
+    if (!pass) {
+        return null;
+    }
+    return (
+        <div className={rea_wrapper_border}>
+            <div className="p-2 font-medium">Связанные:</div>
             <div className="flex flex-wrap">
                 {related.map((item, ind) => {
                     let valid = false;
@@ -18,20 +21,12 @@ export function Related_animes({ related }: { related: AnimeRelationData[] }): J
                     const _index: number = item.manga?.id || item.anime?.id || ind;
                     return (
                         <div key={_index}>
-                            {valid && item.anime && (
-                                <div>
-                                    <RelatedCardForAnime relation={item.relation_russian} shiki_id={item.anime.id} />
-                                </div>
-                            )}
-                            {item?.manga?.id && (
-                                <div>
-                                    <RelatedCardForManga relation={item.relation_russian} data={item.manga} />
-                                </div>
-                            )}
+                            {valid && item.anime && <RelatedCardForAnime relation={item.relation_russian} shikimori_id={item.anime.id} />}
+                            {item?.manga?.id && <RelatedCardForManga relation={item.relation_russian} data={item.manga} />}
                         </div>
                     );
                 })}
             </div>
         </div>
-    ) : null;
+    );
 }

@@ -3,7 +3,6 @@ import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
-import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { cookies, headers } from "next/headers";
 export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {

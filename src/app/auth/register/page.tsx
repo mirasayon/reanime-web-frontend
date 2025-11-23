@@ -11,7 +11,7 @@ export default async function __Registration() {
     }
     const is_logged = await sessionAuthenticator_S_A();
 
-    if (!is_logged || is_logged === 500) {
+    if (is_logged === 500) {
         return <div>Ошибка</div>;
     }
     if (is_logged) {

@@ -2,7 +2,7 @@ import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utilx";
+import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { getKodikApi } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
@@ -59,4 +59,3 @@ export async function generateMetadata({ searchParams }: SearchPageParams): Prom
         title: `Поиск по запросу \"${search_query}\"`,
     } satisfies Metadata;
 }
-

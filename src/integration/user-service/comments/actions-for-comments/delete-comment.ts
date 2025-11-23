@@ -1,5 +1,4 @@
 "use server";
-
 import { revalidatePath } from "next/cache";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import { mainUserServiceFetcher } from "../../user-service-fetcher.integrator-util";
@@ -12,12 +11,12 @@ import type { ServerActionResponse } from "#T/integrator-main-types";
  */
 export async function deleteCommentServerAction({
     comment_id,
-    currPath,
+    animeId,
     current_profile,
 }: {
     comment_id: string;
     current_profile: AuthenticatorType;
-    currPath: string;
+    animeId: number;
 }): Promise<ServerActionResponse> {
     const url = `/v1/comment/delete/${comment_id}` as const;
     if (!current_profile || current_profile === 500) {
@@ -34,7 +33,7 @@ export async function deleteCommentServerAction({
         return { errors: [internalErrTxt], ok: false };
     }
     if (res.ok && res.data) {
-        revalidatePath(currPath, "page");
+        revalidatePath("/anime/" + animeId, "page");
         return { msg: res.message, ok: true };
     }
     if (!res.errors.length) {

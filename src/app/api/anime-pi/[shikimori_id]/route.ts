@@ -21,7 +21,9 @@ export async function GET(request: Request, { params }: GetParams) {
     //     return new Response("Internal Server Error", { status: 500 });
     // }
     const _params = await params;
-    const shikimori_id = await ShikimoriIdSchema.safeParseAsync(Number(_params.shikimori_id));
+    const shikimori_id = await ShikimoriIdSchema.safeParseAsync(
+        Number(_params.shikimori_id),
+    );
     if (!shikimori_id.success) {
         return notFoundResponse;
     }
@@ -41,13 +43,18 @@ export async function GET(request: Request, { params }: GetParams) {
         return notFoundResponse;
     }
 
-    const anyPoster = kodikMaterialData.anime_poster_url || kodikMaterialData.poster_url || null;
+    const anyPoster =
+        kodikMaterialData.anime_poster_url ||
+        kodikMaterialData.poster_url ||
+        null;
     if (!anyPoster) {
         return notFoundResponse;
     }
     const imgRes = await fetch(anyPoster);
     const buffer = await imgRes.arrayBuffer();
-    const imgBuffer = await sharp(buffer).toFormat("webp", { quality: 15, effort: 1 }).toBuffer();
+    const imgBuffer = await sharp(buffer, { failOn: "none" })
+        .toFormat("webp", { quality: 25, effort: 1 })
+        .toBuffer();
     await writeFile(imgPath, imgBuffer, {});
     return await serveFile({ imgBuffer });
 }

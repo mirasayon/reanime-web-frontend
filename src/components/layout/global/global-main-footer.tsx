@@ -3,9 +3,9 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { AbuseIpDbContributor } from "#/components/badges/AbuseIPDB-Contributor";
+const style = "p-2 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 export function Layout_Footer() {
-    const style = ` p-2  dark:hover:bg-violet-500/10 hover:bg-blue-300/40"  `;
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col h-auto ${rea_wrapper_border} `}>
@@ -24,7 +24,7 @@ export function Layout_Footer() {
                     <Linker className={style} href={"/right/contacts"}>
                         Контакты и поддержка
                     </Linker>
-                    <Linker linkType="raw" className={style} href={WebsiteConfigs.developer_github + "/donate"}>
+                    <Linker linkType="internal" className={style} href={"/about/donate"}>
                         Поддержать проект
                     </Linker>
 

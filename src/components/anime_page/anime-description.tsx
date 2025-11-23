@@ -3,7 +3,7 @@ import { SiShikimori } from "react-icons/si";
 import { AnimePosterImage } from "#/components/animes/anime-poster-image";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
-import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilities.utilx";
+import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilities.utility-components";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
 import type { EntityDataObject } from "kodik/types";
 import { getTypeOfAnime } from "#/utils";
@@ -188,4 +188,3 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
         </div>
     );
 }
-

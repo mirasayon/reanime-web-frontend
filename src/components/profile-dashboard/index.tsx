@@ -20,7 +20,7 @@ export function MyAccountDashboard({ auth }: { auth: Profile_ResponseTypes.view_
                 {isOpen ? <RxDropdownMenu size={25} /> : <Settings />}
                 Настройки профиля
             </button>
-            <div className={` ${isOpen && "hidden"}`}>
+            <div className={` ${!isOpen && "hidden"}`}>
                 <DeleteAccountPermanentlyComponent />
             </div>
         </div>

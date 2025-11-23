@@ -8,7 +8,10 @@ import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-in
 import { UserNicknameInputForAuthForm } from "../components-jsx-for-auth-forms/nickname-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
+import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
 export function Register_Component() {
+    const { error, info, push, success } = useToast();
     const router = useRouter();
     const {
         register,
@@ -28,6 +31,7 @@ export function Register_Component() {
             setServerErrors([]);
             const result = await registerForm_S_A(data);
             if (result.ok) {
+                success(result.msg);
                 router.push("/user/" + data.username);
                 return;
             }
@@ -36,7 +40,10 @@ export function Register_Component() {
         });
     }) as SubmitHandler<dto.registration>);
     return (
-        <div className="p-10 flex-row justify-evenly flex ">
+        <div className="p-10 flex-col justify-center items-center flex ">
+            <Linker href="/auth/login" linkType="internal">
+                или Войти в существующий аккаунт
+            </Linker>
             <form onSubmit={onSubmit} className="w-2xl border-4 border-blue-500/50 rounded-lg p-8 flex text-xl flex-col m-4 " noValidate>
                 <div className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}>Добро пожаловать!</div>
                 <UserNicknameInputForAuthForm

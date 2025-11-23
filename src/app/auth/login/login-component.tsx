@@ -7,7 +7,10 @@ import { authentication_schemas, type dto } from "#user-service/shared/validator
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
-export function Login_Component() {
+import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
+export function MainLoginComponent() {
+    const { error, info, push, success } = useToast();
     const router = useRouter();
     const {
         register,
@@ -26,7 +29,9 @@ export function Login_Component() {
             setServerErrors([]);
             const result = await loginAction(data);
             if (result.ok) {
+                success(result.msg);
                 router.push("/user/" + data.username);
+
                 return;
             }
             setServerErrors(result.errors);
@@ -34,7 +39,11 @@ export function Login_Component() {
         });
     }) as SubmitHandler<dto.login_via_username>);
     return (
-        <div className="p-10 flex-row justify-evenly flex ">
+        <div className="p-10 flex flex-col justify-center items-center ">
+            {" "}
+            <Linker href="/auth/register" linkType="internal">
+                или Зарегистрироваться
+            </Linker>
             <form onSubmit={onSubmit} className="w-2xl border-4 border-blue-500/50 rounded-lg p-8 flex text-xl flex-col m-4 " noValidate>
                 <div className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}>С возращением!</div>
                 <InputLoginForAuthForm inputId="username" fieldError={clientErrors.username} props={register("username", { required: true })} />

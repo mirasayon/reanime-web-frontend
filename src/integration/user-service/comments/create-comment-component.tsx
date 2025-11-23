@@ -6,7 +6,7 @@ import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-b
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type JSX, type FormEvent, useState } from "react";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-export function Add_comment_form({
+export function MainCreateCommentComponent({
     profile,
     animeId,
     userServerBaseUrl,
@@ -20,16 +20,21 @@ export function Add_comment_form({
     const [pending, startTransition] = useTransition();
 
     if (!profile || profile === 500) {
-        return <Linker href="/auth/login">Войдите в свой аккаунт чтобы оставлять комментарии</Linker>;
+        return (
+            <Linker href="/auth/login">
+                Войдите в свой аккаунт чтобы оставлять комментарии
+            </Linker>
+        );
     }
-    async function SaveCommentON(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        if (!profile || profile === 500) {
-            return;
-        }
+    async function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
+            event.preventDefault();
+            if (!profile || profile === 500) {
+                return;
+            }
             try {
-                const comment_content = event.currentTarget.comment_content.value as string;
+                const comment_content = event.currentTarget.comment_content
+                    .value as string;
                 if (comment_content?.length < 5) {
                     error("Минимальная длина комментария - 5 символов");
                     return;
@@ -59,19 +64,26 @@ export function Add_comment_form({
         event.currentTarget.reset();
     }
     return (
-        <form onSubmit={SaveCommentON} id="comment_form" className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}>
-            <Link href={`/user/${profile.data.account.username}`} className="flex p-2 flex-row items-center justify-between">
-                {profile.data.avatar?.url ? (
-                    <img
-                        src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.data.avatar.url}
-                        alt="user avatar"
-                        className="rounded-full object-cover w-[40px] h-[40px]"
-                    />
-                ) : (
-                    <>
-                        <div className="w-[40px] h-[40px]"></div>
-                    </>
-                )}
+        <form
+            onSubmit={formOnSubmitHandler}
+            id="comment_form"
+            className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}
+        >
+            <Link
+                href={`/user/${profile.data.account.username}`}
+                className="flex p-2 flex-row items-center justify-between"
+            >
+                <img
+                    src={
+                        profile.data.avatar
+                            ? userServerBaseUrl +
+                              "/v1/profile/avatar/view/" +
+                              profile.data.avatar.url
+                            : "/_assets/default-avatars/m.jpg"
+                    }
+                    alt="user avatar"
+                    className="rounded-full object-cover w-[40px] h-[40px]"
+                />
             </Link>
             {iWantToAddComment ? (
                 <div className="w-full">
@@ -96,7 +108,7 @@ export function Add_comment_form({
                         </button>
                         <button
                             type="submit"
-                            className={`p-1 border-4 border-transparent dark:bg-green-900/70  bg-blue-200 active:bg-blue-400 hover:dark:bg-green-800 cursor-pointer`}
+                            className={`p-1 border-4 border-transparent dark:bg-slate-500/70 bg-slate-200 hover:bg-slate-300 active:bg-blue-400 hover:dark:bg-green-600/50 cursor-pointer`}
                         >
                             {pending ? "Сохраняю…" : "Сохранить"}
                         </button>

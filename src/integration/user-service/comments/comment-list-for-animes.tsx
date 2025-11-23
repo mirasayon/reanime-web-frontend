@@ -4,7 +4,6 @@ import { ru } from "date-fns/locale";
 
 import type { Comment } from "#user-service/databases/orm/client.js";
 import Link from "next/link";
-import type { JSX } from "react";
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
 /**
  * Компонент: список комментариев для дашборда пользователя
@@ -12,17 +11,26 @@ import { calculateAndShowTimeAgo } from "#/utils/time-ago";
 type ___CommentListForAnime = {
     comments: Omit<Comment, "by_profile_id">[];
 };
-export function ___CommentListForAnime({ comments }: ___CommentListForAnime): JSX.Element {
+export function ___CommentListForAnime({
+    comments,
+}: ___CommentListForAnime): React.JSX.Element {
     return (
         <div className="w-full max-w-4xl mx-auto p-6">
-            <h1 className="text-2xl font-semibold leading-tight">Мои комментарии</h1>
+            <h1 className="text-2xl font-semibold leading-tight">
+                Мои комментарии
+            </h1>
             <div className="space-y-4">
                 {comments.length === 0 && (
-                    <div className="rounded-2xl border border-dashed border-blue-200 p-6 text-center text-gray-600">У вас пока нет комментариев.</div>
+                    <div className="rounded-2xl border border-dashed border-blue-200 p-6 text-center text-gray-600">
+                        У вас пока нет комментариев.
+                    </div>
                 )}
                 {comments.map((c) => {
-                    // const created = format(new Date(c.created_at), "d MMM yyyy, HH:mm", { locale: ru });
-                    const updated = format(new Date(c.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
+                    const updated = format(
+                        new Date(c.updated_at),
+                        "d MMM yyyy, HH:mm",
+                        { locale: ru },
+                    );
 
                     const linkToComment = `/anime/${c.anime_id}#comment-${c.id}`;
                     return (
@@ -43,10 +51,19 @@ export function ___CommentListForAnime({ comments }: ___CommentListForAnime): JS
                                         {/* <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
                                             Обновлён: {updated}
                                         </time> */}
-                                        <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
+                                        <time
+                                            className="text-xs "
+                                            dateTime={new Date(
+                                                c.updated_at,
+                                            ).toISOString()}
+                                        >
                                             Обновлён/создано: {updated}
                                         </time>
-                                        <time className="text-sm text-gray-500">{calculateAndShowTimeAgo(new Date(c.updated_at))}</time>
+                                        <time className="text-sm text-gray-500">
+                                            {calculateAndShowTimeAgo(
+                                                new Date(c.updated_at),
+                                            )}
+                                        </time>
 
                                         {/* <span
                                             className="ml-2 text-xs px-2 py-1 rounded-full font-medium"
@@ -66,7 +83,9 @@ export function ___CommentListForAnime({ comments }: ___CommentListForAnime): JS
                                         </span> */}
                                     </div>
 
-                                    <p className="text-sm whitespace-pre-line">{c.content}</p>
+                                    <p className="text-sm whitespace-pre-line">
+                                        {c.content}
+                                    </p>
 
                                     {/* <div className="mt-3 text-xs text-gray-500 flex flex-wrap gap-3">
                                         <span>Аниме ID: {c.anime_id}</span>

@@ -23,21 +23,12 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
 }: Props<B>): Promise<UserServiceResponseBodyPattern<T> | 500> {
     try {
         if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
-            const _default: UserServiceResponseBodyPattern<T> = {
-                data: "DEFAULT" as unknown as T,
-                message: "DEFAULT",
-                ok: false,
-                response_code: "SERVICE_UNAVAILABLE",
-                status_code: 503,
-                errors: ["DEFAULT"],
-            };
-            return _default;
+            return 500;
         }
         if (raw_body && json_body) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
         const full_url = (await nextLoadEnvSSR()).user_service.url + url;
-
         const headers: HeadersInit = {
             ...(json_body ? { "Content-Type": "application/json" } : {}),
         };
@@ -58,14 +49,14 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
             ...(raw_body ? { body: raw_body } : {}),
             cache: "no-cache",
         });
-        const _req_json = await response.json();
-        const jsoned = _req_json as UserServiceResponseBodyPattern<T>;
-        if (!response.ok) {
-            return jsoned;
-        }
+        const jsoned = (await response.json()) as UserServiceResponseBodyPattern<T>;
         return jsoned;
     } catch (error) {
-        consola.warn(mainUserServiceFetcher.name, ": ", error);
+        if (error instanceof TypeError) {
+            consola.fail(mainUserServiceFetcher.name, ":", error.message);
+        } else {
+            consola.warn("[The error is not with the network]: ", mainUserServiceFetcher.name, ": ", error);
+        }
         return 500;
     }
 }

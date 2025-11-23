@@ -10,17 +10,22 @@ import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
-import { Related_animes } from "#/components/animes/related_animes";
+import { MainRelatedAnimesSection } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
-import { Comments_section } from "#/integration/user-service/comments/comments_section";
+import { MainCommentsSection } from "#/integration/user-service/comments/comments_section";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
-export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<JSX.Element> {
+export default async function __AnimeSeriesPage({
+    params,
+}: __AnimeSeriesPageProps): Promise<JSX.Element> {
     const shikimori_id_web = (await params).shikimori_id;
-    if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
+    if (
+        Number.isNaN(shikimori_id_web) ||
+        !hasOnlyNumericString(shikimori_id_web)
+    ) {
         return notFound();
     }
 
@@ -33,14 +38,28 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     }
     return (
         <>
-            <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id)} anime={anime} />
+            <AnimeDescription
+                cover_image_src={getAnimePosterUrlByShikimoriId(
+                    anime.shikimori_id,
+                )}
+                anime={anime}
+            />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
-            <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
-            <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
-            <Related_animes related={await GetRelatedAnimes(current_shikimori_id)} />
-            <Comments_section
-                shikimori_id={anime.shikimori_id}
-                currUrl={`/anime/${anime.shikimori_id}`}
+            <AnimePlayer
+                vid_src={anime.link}
+                nextEpisodeAt={nextEpisodeSimple(
+                    anime.material_data?.next_episode_at,
+                )}
+            />
+            <ShowAnimesScreenshotsComponent
+                screenshots={anime.screenshots}
+                title_of_anime={anime.title}
+            />
+            <MainRelatedAnimesSection
+                related={await GetRelatedAnimes(current_shikimori_id)}
+            />
+            <MainCommentsSection
+                shikimori_id={current_shikimori_id}
                 current_user={auth}
                 userServerBaseUrl={env.user_service.url}
             />
@@ -48,7 +67,11 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ shikimori_id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ shikimori_id: string }>;
+}): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
 

@@ -1,25 +1,21 @@
 import Link from "next/link";
 import { error_reporting_form_link } from "./test-mode-constants";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
+import { notFound } from "next/navigation";
+import type { JSX } from "react";
 const TITLE = "Режим тестирования — возможна потеря пользовательских данных";
 const SUBTITLE = "Мы добавляем новые функции — комментарии, аватары и профили пользователей.";
 const DESCRIPTION = `Спасибо, что используете reanime.art. Сайт работает в обычном режиме — аниме и трансляции берутся из внешнего API и сохраняются как обычно.
 Однако наш собственный модуль хранения пользовательских данных (комментарии, аватары, профили, оценка и т. д.) сейчас проходит тестирование и временно находится в нестабильном состоянии.`;
 
-export default function MaintenancePage() {
+export default function __AboutTestModePage(): JSX.Element {
     if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
-        return null;
+        return notFound();
     }
     return (
         <main className="flex items-baseline justify-center  p-6">
-            <div className="max-w-3xl w-full dark:bg-slate-700 bg-slate-200 shadow-lg rounded-2xl p-8 md:p-12">
+            <div className="max-w-7xl w-full rounded-2xl p-8 md:p-12">
                 <div className="flex items-center gap-6">
-                    <Link href="/">
-                        <div className="shrink-0 w-20 h-20 rounded-lg flex items-center justify-center text-white text-3xl font-bold">
-                            <img src="/icon.png" alt="reanime.art icon" />
-                        </div>
-                    </Link>
-
                     <div>
                         <h1 className="text-2xl md:text-3xl font-semibold">{TITLE}</h1>
                         <p className="mt-1 text-sm text-gray-600 dark:text-gray-100">{SUBTITLE}</p>
@@ -47,9 +43,7 @@ export default function MaintenancePage() {
                         Сообщить о баге
                     </Link>
                 </div>
-                <footer className="mt-8 text-xs text-gray-400">
-                    reanime.art — платформа для просмотра аниме. Спасибо за вашу помощь в тестировании.
-                </footer>
+                <footer className="mt-8 text-xs text-gray-400">Спасибо за вашу помощь в тестировании.</footer>
             </div>
         </main>
     );
