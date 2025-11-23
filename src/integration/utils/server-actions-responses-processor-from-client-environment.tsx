@@ -9,20 +9,20 @@ export function serverActionsResponsesProcessorFromClientEnvironment({
     onFailFunction,
 }: {
     res: ServerActionResponse;
-    error: (msg: string) => void;
-    info: (msg: string) => void;
-    success: (msg: string) => void;
-    onSuccessFunction?: Function;
-    onFailFunction?: Function;
+    error?: (msg: string) => void;
+    info?: (msg: string) => void;
+    success?: (msg: string) => void;
+    onSuccessFunction?: (msg: string) => void;
+    onFailFunction?: (errors: string[]) => void;
 }) {
     if (res.ok) {
-        success(res.msg);
-        onSuccessFunction && onSuccessFunction();
+        success && success(res.msg);
+        onSuccessFunction && onSuccessFunction(res.msg);
         return;
     }
     for (const err of res.errors) {
-        onFailFunction && onFailFunction();
-        error(err);
+        onFailFunction && onFailFunction(res.errors);
+        error && error(err);
     }
     return;
 }

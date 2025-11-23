@@ -24,7 +24,7 @@ export function GlobalMainHeader({
     return (
         <div className=" flex flex-col">
             <header
-                className={`flex flex-wrap justify-between ${rea_wrapper_border} dark:bg-slate-800 bg-blue-100`}
+                className={`flex flex-wrap justify-between ${rea_wrapper_border} `}
                 id="home"
             >
                 <div className="flex flex-wrap justify-start">

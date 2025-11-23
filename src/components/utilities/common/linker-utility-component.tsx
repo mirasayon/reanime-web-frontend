@@ -6,11 +6,11 @@ export function Linker({
     className,
     target,
     rel,
-    cleanStyles = false,
+    clearTheDefaultStylings = false,
 }: {
     className?: string | undefined;
     rel?: string;
-    cleanStyles?: boolean;
+    clearTheDefaultStylings?: boolean;
     children: React.ReactNode;
     target?: string;
     /**
@@ -25,8 +25,8 @@ export function Linker({
             target={target}
             rel={rel}
             className={
-                !cleanStyles
-                    ? `   dark:text-blue-400 dark:hover:text-blue-500  text-blue-700 hover:text-blue-900 ${
+                !clearTheDefaultStylings
+                    ? `   dark:text-blue-400 dark:hover:text-blue-500  text-blue-800 hover:text-blue-900 ${
                           className || ""
                       }`
                     : className || ""

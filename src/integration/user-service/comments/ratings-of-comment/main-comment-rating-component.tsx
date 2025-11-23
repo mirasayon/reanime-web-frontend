@@ -22,7 +22,7 @@ export function ShowCommentRatingComponent({
     currPath: string;
     notProcessedAuthData: AuthenticatorType;
 }): React.JSX.Element {
-    const { error, info, success } = useToast();
+    const { error, info } = useToast();
     const [pending, startTransition] = useTransition();
     let likes = 0;
     let dislikes = 0;
@@ -59,7 +59,6 @@ export function ShowCommentRatingComponent({
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error,
                     info,
-                    success,
                     res,
                 });
             });
@@ -75,7 +74,6 @@ export function ShowCommentRatingComponent({
             serverActionsResponsesProcessorFromClientEnvironment({
                 error,
                 info,
-                success,
                 res,
             });
         });
@@ -94,7 +92,6 @@ export function ShowCommentRatingComponent({
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error,
                     info,
-                    success,
                     res,
                 });
             });
@@ -111,7 +108,6 @@ export function ShowCommentRatingComponent({
             serverActionsResponsesProcessorFromClientEnvironment({
                 error,
                 info,
-                success,
                 res,
             });
         });

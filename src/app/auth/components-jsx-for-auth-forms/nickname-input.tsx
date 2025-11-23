@@ -1,5 +1,7 @@
 import type { JSX } from "react";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import { LabelComponentForAuthForms } from "./label-component-for-auth-forms";
+import { WrapperForInputFromAuthForms } from "./input-wrapper-for-form-for-auth-forms";
 
 export function UserNicknameInputForAuthForm<R extends string>({
     props,
@@ -12,23 +14,23 @@ export function UserNicknameInputForAuthForm<R extends string>({
 }): JSX.Element {
     return (
         <>
-            <div className=" NICKNAME">
-                <label htmlFor={inputId} className="dark:text-slate-500 text-slate-900">
-                    Ваш никнейм
-                </label>
-                <div className={" border-4 w-full  border-slate-600 rounded-lg p-2 flex"}>
-                    <input
-                        className={"pl-2  w-full outline-none"}
-                        type={"text"}
-                        id={inputId}
-                        minLength={4}
-                        {...props}
-                        maxLength={20}
-                        required={true}
-                    />
-                </div>
-                {fieldError && <p className=" dark:text-red-500 text-red-800">{fieldError.message}</p>}
-            </div>
+            <LabelComponentForAuthForms labelText={"Ваш никнейм"} />
+            <WrapperForInputFromAuthForms>
+                <input
+                    className={"p-1  w-full outline-none"}
+                    type={"text"}
+                    id={inputId}
+                    minLength={4}
+                    {...props}
+                    maxLength={20}
+                    required={true}
+                />
+            </WrapperForInputFromAuthForms>
+            {fieldError && (
+                <p className=" dark:text-red-500 text-red-800">
+                    {fieldError.message}
+                </p>
+            )}
         </>
     );
 }
