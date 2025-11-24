@@ -3,15 +3,13 @@ import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
-type UploadImageRT = Promise<{
-    errors: string[];
-    ok: boolean;
-}>;
+
 /** `Server Action`
  *
  * Deleted A user avatar */
-export async function DeleteAvatar(): UploadImageRT {
+export async function DeleteAvatar_ServerAction(): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
 
     if (!auth || auth === 500) {
@@ -35,7 +33,7 @@ export async function DeleteAvatar(): UploadImageRT {
         return { ok: false, errors: [internalErrTxt] };
     }
     if (res.data ?? res.ok) {
-        return { ok: true, errors: [] };
+        return { ok: true, msg: res.message };
     }
     return { errors: res?.errors || [internalErrTxt], ok: false };
 }

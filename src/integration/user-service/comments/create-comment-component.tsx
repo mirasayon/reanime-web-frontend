@@ -5,7 +5,7 @@ import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator"
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type JSX, type FormEvent, useState } from "react";
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function MainCreateCommentComponent({
     profile,
     animeId,
@@ -15,7 +15,7 @@ export function MainCreateCommentComponent({
     profile: AuthenticatorType;
     animeId: number;
 }): JSX.Element {
-    const { success, error, info } = useToast();
+    const toaster = useToast();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
 
@@ -26,40 +26,31 @@ export function MainCreateCommentComponent({
             </Linker>
         );
     }
-    async function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
+    function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
             event.preventDefault();
             if (!profile || profile === 500) {
                 return;
             }
-            try {
-                const comment_content = event.currentTarget.comment_content
-                    .value as string;
-                if (comment_content?.length < 5) {
-                    error("Минимальная длина комментария - 5 символов");
-                    return;
-                }
-                const res = await CreateOneCommentToAnime({
-                    anime_id: animeId,
-                    profile_id: profile.data.profile.id,
-                    currPath: `/anime/${animeId}`,
-                    authNotEnsured: profile,
-                    comment_content: comment_content,
-                });
-                if (!res.ok) {
-                    for (const _error of res.errors) {
-                        error(_error);
-                    }
-                    return;
-                }
-                success(res.msg);
+            const comment_content = event.currentTarget.comment_content
+                .value as string;
+            if (comment_content?.length < 5) {
+                toaster.error("Минимальная длина комментария - 5 символов");
                 return;
-            } catch (err) {
-                error(internalErrTxt);
-                return;
-            } finally {
-                setIWantToAddComment(false);
             }
+            const res = await CreateOneCommentToAnime({
+                anime_id: animeId,
+                profile_id: profile.data.profile.id,
+                currPath: `/anime/${animeId}`,
+                authNotEnsured: profile,
+                comment_content: comment_content,
+            });
+            serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+            });
+            setIWantToAddComment(false);
+            return;
         });
         event.currentTarget.reset();
     }

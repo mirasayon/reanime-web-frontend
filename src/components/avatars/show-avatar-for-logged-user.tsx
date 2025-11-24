@@ -1,12 +1,21 @@
 import { Avatar, AvatarImage } from "../users/dashboard/common";
-import { DropdownMenuForAvatar } from "./dropdown-menu-for-avatar/menu";
+import { DropdownMenuForAvatar } from "./dropdown-menu-for-avatar/dashboard-drop-down-avatar-menu-for-header-menu";
 
-export function ShowAvatarElement({ username, userServiceBaseUrl }: { username: string; userServiceBaseUrl: string }) {
+export function ShowAvatarElement({
+    username,
+    userServiceBaseUrl,
+}: {
+    username: string;
+    userServiceBaseUrl: string;
+}) {
     const url = userServiceBaseUrl + "/v1/profile/avatar/view/" + username;
     return (
         <div className=" flex flex-col">
             <Avatar className="shadow-md">
-                <AvatarImage avatar={url} className="  m-2 h-48 w-48 object-cover " />
+                <AvatarImage
+                    avatar={url}
+                    className="  m-2 h-48 w-48 object-cover "
+                />
             </Avatar>
             <DropdownMenuForAvatar currUrl={`/user/${username}`} />
         </div>

@@ -1,5 +1,5 @@
 "use client";
-import { registerForm_S_A } from "#/actions/auth/register";
+import { registerNewUser_ServerAction } from "#/actions/auth/register";
 import {
     authentication_schemas,
     type dto,
@@ -14,8 +14,9 @@ import { useRouter } from "next/navigation";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import { SubmitButtonForAuthForms } from "../login/submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "../login/form-wrapper-for-inputs-for-auth-forms";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function Register_Component() {
-    const { error, info, push, success } = useToast();
+    const toaster = useToast();
     const router = useRouter();
     const {
         register,
@@ -33,14 +34,16 @@ export function Register_Component() {
     const onSubmit = handleSubmit(((data) => {
         startTransition(async () => {
             setServerErrors([]);
-            const result = await registerForm_S_A(data);
-            if (result.ok) {
-                success(result.msg);
-                router.push("/user/" + data.username);
-                return;
-            }
-            setServerErrors(result.errors);
-            return;
+            return serverActionsResponsesProcessorFromClientEnvironment({
+                res: await registerNewUser_ServerAction(data),
+                onFailFunction: (errors) => {
+                    setServerErrors(errors);
+                },
+                onSuccessFunction: () => {
+                    router.push("/user/" + data.username);
+                },
+                success: toaster.success,
+            });
         });
     }) as SubmitHandler<dto.registration>);
     return (

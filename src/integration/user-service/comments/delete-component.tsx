@@ -4,6 +4,7 @@ import { deleteCommentServerAction } from "./actions-for-comments/delete-comment
 import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function MainDeleteCommentComponent({
     comment_id,
@@ -16,7 +17,7 @@ export function MainDeleteCommentComponent({
     setShowOptionsMenu: Dispatch<SetStateAction<boolean>>;
     current_profile: AuthenticatorType;
 }) {
-    const { success, error } = useToast();
+    const toaster = useToast();
     const [pending, startTransition] = useTransition();
     async function deleteCommentFormHandler(
         event: React.FormEvent<HTMLFormElement>,
@@ -29,13 +30,10 @@ export function MainDeleteCommentComponent({
                 current_profile: current_profile,
                 animeId: animeId,
             });
-            if (!res.ok) {
-                for (const err of res.errors) {
-                    error(err);
-                }
-                return;
-            }
-            success(res.msg);
+            serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+            });
             return;
         });
     }

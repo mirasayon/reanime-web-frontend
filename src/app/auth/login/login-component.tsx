@@ -15,7 +15,7 @@ import { SubmitButtonForAuthForms } from "./submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "./form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function MainLoginComponent() {
-    const { error, info, push, success } = useToast();
+    const toaster = useToast();
     const router = useRouter();
     const {
         register,
@@ -35,7 +35,7 @@ export function MainLoginComponent() {
             setServerErrors([]);
             const res = await loginAction(data);
             serverActionsResponsesProcessorFromClientEnvironment({
-                success,
+                success: toaster.success,
                 res,
                 onFailFunction: (errors) => {
                     setServerErrors(errors);

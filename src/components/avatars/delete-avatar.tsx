@@ -1,30 +1,33 @@
 "use client";
-import { DeleteAvatar } from "#/actions/media/avatar-delete";
+import { DeleteAvatar_ServerAction } from "#/actions/media/avatar-delete";
 import { useRouter } from "next/navigation";
 import { useToast } from "../layout/atoms-toasts-components/useToast";
-import { useTransition } from "react";
+import { useTransition, type FormEvent } from "react";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function DeleteAvatarForm() {
-    const { error, success } = useToast();
+    const toaster = useToast();
     const _router = useRouter();
     const [pending, startTransition] = useTransition();
-    async function deleteAvatarHandle() {
+    function deleteAvatarHandle(e: FormEvent<HTMLFormElement>) {
         startTransition(async () => {
-            const res = await DeleteAvatar();
-            if (res.errors.length) {
-                for (const err of res.errors) {
-                    error(err);
-                }
-                return;
-            }
-            if (res.ok) {
-                success("Аватарка успешно удалена");
-                _router.refresh();
-            }
+            e.preventDefault();
+            const res = await DeleteAvatar_ServerAction();
+            return serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+                onSuccessFunction: () => {
+                    _router.refresh();
+                },
+            });
         });
     }
     return (
-        <form action={deleteAvatarHandle} className="flex flex-col">
-            <button type="submit" disabled={pending} className="p-1 rounded cursor-pointer bg-red-600  active:bg-red-300">
+        <form onSubmit={deleteAvatarHandle} className="flex flex-col">
+            <button
+                type="submit"
+                disabled={pending}
+                className="p-1 rounded cursor-pointer bg-red-600  active:bg-red-300"
+            >
                 {pending ? "Загрузка..." : "Удалить аватар"}
             </button>
         </form>

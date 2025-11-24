@@ -21,8 +21,8 @@ export function serverActionsResponsesProcessorFromClientEnvironment({
         return;
     }
     for (const err of res.errors) {
-        onFailFunction && onFailFunction(res.errors);
         error && error(err);
     }
+    onFailFunction && onFailFunction(res.errors);
     return;
 }

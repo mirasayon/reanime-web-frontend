@@ -9,9 +9,10 @@ import type { Profile_ResponseTypes } from "#user-service/shared/response-patter
 import { cookies } from "next/headers";
 import { cookieOptionsForDELETEToken } from "../auth/cookie-option";
 import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 
 /** `Server Action` for Deleting account */
-export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPermanently_ServerActionRT {
+export async function DeleteAccountPermanently_ServerAction(): ServerActionResponseWithPromise {
     const auth: AuthenticatorType | null = await sessionAuthenticator_S_A();
     if (!auth) {
         return { ok: false, errors: [notLoggedErrorTxt] };
@@ -37,17 +38,7 @@ export async function DeleteAccountPermanently_ServerAction(): DeleteAccountPerm
     }
     if (res.data) {
         _cookies.delete(cookieOptionsForDELETEToken.name);
-        return { ok: true, message: res.message };
+        return { ok: true, msg: res.message };
     }
     return { ok: false, errors: [internalErrTxt] };
 }
-type DeleteAccountPermanently_ServerActionRT = Promise<
-    | {
-          ok: true;
-          message: string;
-      }
-    | {
-          errors: string[];
-          ok: false;
-      }
->;

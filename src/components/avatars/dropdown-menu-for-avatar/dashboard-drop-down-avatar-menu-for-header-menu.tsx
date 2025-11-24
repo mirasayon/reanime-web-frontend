@@ -1,9 +1,19 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "#/shadcn-ui/dropdown-menu";
-import { UpdateAvatarForm } from "../update-avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "#/shadcn-ui/dropdown-menu";
+import { UpdateAvatarForm } from "../update-avatar-component";
 import { DeleteAvatarForm } from "../delete-avatar";
 import { IoMenuSharp } from "react-icons/io5";
 import type { JSX } from "react";
-export function DropdownMenuForAvatar({ currUrl }: { currUrl: string }): JSX.Element {
+export function DropdownMenuForAvatar({
+    currUrl,
+}: {
+    currUrl: string;
+}): JSX.Element {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="bg-blue-950 ">

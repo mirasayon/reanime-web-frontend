@@ -10,6 +10,7 @@
         "build:prod": "rimraf ./.next && node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
         "build:test": "rimraf ./.next && node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
+        "start:dev": "dotenv -e .env.development -- next start --port 3641 --hostname 192.168.0.105",
         "inspector": "tsc --watch --noEmit --project ./tsconfig.json",
         "inspect": "tsc --noEmit --project ./tsconfig.json",
         "start:production": "dotenv -e .env.production -- next start --port 4641 --hostname 192.168.0.105"
@@ -50,14 +51,14 @@
         "sharp": "^0.34.5",
         "shikimoript": "^0.1.2",
         "tailwind-merge": "^3.4.0",
-        "zod": "^4.1.12"
+        "zod": "^4.1.13"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.17",
         "@types/mime-types": "^3.0.1",
         "@types/ms": "^2.1.0",
         "@types/node": "^24.10.1",
-        "@types/react": "19.2.6",
+        "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
         "rimraf": "^6.1.2",
         "tailwindcss": "^4.1.17",
@@ -72,7 +73,7 @@
         "#user-service/*": "./src/shared/generated-shared-export/*"
     },
     "overrides": {
-        "@types/react": "19.2.6",
+        "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3"
     }
 }

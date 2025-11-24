@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Avatar_Dashboard } from "./for-logged-users";
-import { Avatar_Login } from "./for-guests";
+import { AvatarDashboardForLoggedInUser } from "./for-logged-users";
+import { LoginAndRegisterLinksAtAvatarPlace } from "./for-guests";
 import { DropdownMenuInHeaderEntryPoint } from "./entry-point";
 import type {
     Profile,
@@ -50,7 +50,7 @@ export function MainDropdownMenuInHeader({
                         >
                             <div className={"m-1 p-2"}>
                                 {profile && account ? (
-                                    <Avatar_Dashboard
+                                    <AvatarDashboardForLoggedInUser
                                         setOpenFunction={setIsOpenDropdownMenu}
                                         username={account.username}
                                     />
@@ -60,7 +60,7 @@ export function MainDropdownMenuInHeader({
                                             setIsOpenDropdownMenu(false);
                                         }}
                                     >
-                                        <Avatar_Login />
+                                        <LoginAndRegisterLinksAtAvatarPlace />
                                     </div>
                                 )}
                             </div>

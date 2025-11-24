@@ -7,10 +7,10 @@ import {
     type Dispatch,
     type SetStateAction,
 } from "react";
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 import { UpdateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
 import type React from "react";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function MainEditFormCommentComponent({
     current_user,
     comment,
@@ -20,38 +20,28 @@ export function MainEditFormCommentComponent({
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
     comment: Comment_ResponseTypes.get_all_for_anime[number];
 }): React.JSX.Element {
-    const { success, error, info } = useToast();
+    const toaster = useToast();
     const [pending, startTransition] = useTransition();
 
-    async function SaveCommentON(event: FormEvent<HTMLFormElement>) {
+    function SaveCommentON(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
             event.preventDefault();
-            try {
-                const comment_content = event.currentTarget.comment_content
-                    .value as string;
-                if (comment_content?.length < 5) {
-                    error("Минимальная длина комментария - 5 символов");
-                    return;
-                }
-                const res = await UpdateComment_ServerAction({
-                    current_user: current_user,
-                    comment: comment,
-                    new_comment_content: comment_content,
-                });
-                if (!res.ok) {
-                    for (const _error of res.errors) {
-                        error(_error);
-                    }
-                    return;
-                }
-                success(res.msg);
+            const newText = event.currentTarget.comment_content.value as string;
+            if (newText?.length < 5) {
+                toaster.error("Минимальная длина комментария - 5 символов");
                 return;
-            } catch (err) {
-                error(internalErrTxt);
-                return;
-            } finally {
-                setIsEditing(false);
             }
+            const res = await UpdateComment_ServerAction({
+                current_user: current_user,
+                comment: comment,
+                new_comment_content: newText,
+            });
+            serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+            });
+            setIsEditing(false);
+            return;
         });
         event.currentTarget.reset();
     }

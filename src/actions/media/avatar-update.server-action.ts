@@ -5,31 +5,24 @@ import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
+import { internalErrTxt } from "#/integration/constants/messages-from-services";
 /** Server Action */
 export async function AvatarUpdate_ServerAction(
     imageFile: File,
-    currUrl: string,
-): Promise<{
-    res?: UserServiceResponseBodyPattern<string>;
-    internalError?: true;
-    middleErrors?: string[];
-}> {
+): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
     if (!auth || auth === 500) {
-        return { internalError: true };
+        return { ok: false, errors: [internalErrTxt] };
     }
     if (!auth) {
-        return {
-            middleErrors: [notLoggedErrorTxt],
-        };
+        return { ok: false, errors: [notLoggedErrorTxt] };
     }
     if (!imageFile?.size) {
-        return {
-            middleErrors: ["Изображение не добавлено"],
-        };
+        return { ok: false, errors: ["Файл для загрузки не найден"] };
     }
     if (!supported_pfp_format.includes(imageFile.type)) {
-        return { middleErrors: ["Недодерживаемый формат"] };
+        return { ok: false, errors: ["Недодерживаемый формат"] };
     }
     const arrayBuffer = await imageFile.arrayBuffer();
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
@@ -49,14 +42,11 @@ export async function AvatarUpdate_ServerAction(
             session_token: auth.data.session.token,
         });
     if (!res || res === 500) {
-        return { internalError: true };
+        return { ok: false, errors: [internalErrTxt] };
     }
 
-    if (res.errors.length) {
-        return { res };
-    }
     if (res.data) {
-        return { res };
+        return { ok: true, msg: res.message };
     }
-    return { internalError: true };
+    return { ok: false, errors: res.errors || ["default"] };
 }

@@ -19,7 +19,11 @@ export async function nextLoadEnvSSR() {
         user_service = {
             api_key: _env.REANIME_USER_SERVICE_API_KEY,
             /** Current Url */
-            url: this.is_prod ? "https://user-service.reanime.art" : this.is_test ? "http://192.168.0.105:2642" : "http://192.168.0.105:3642",
+            url: this.is_prod
+                ? "https://user-service.reanime.art"
+                : this.is_test
+                ? "http://192.168.0.105:2642"
+                : "http://192.168.0.105:3642",
         };
         kodikApiToken = _env.KODIK_API_TOKEN;
     })();

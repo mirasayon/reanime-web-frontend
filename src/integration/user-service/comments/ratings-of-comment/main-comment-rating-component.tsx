@@ -27,9 +27,12 @@ export function ShowCommentRatingComponent({
     let likes = 0;
     let dislikes = 0;
     for (const r of comment.ratings ?? []) {
-        if (r?.vote) {
+        if (r.vote === null) {
+            continue;
+        }
+        if (r.vote === true) {
             likes++;
-        } else {
+        } else if (r.vote === false) {
             dislikes++;
         }
     }
@@ -141,7 +144,6 @@ export function ShowCommentRatingComponent({
                 className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
             >
                 <ThumbsDown
-                    // fill="blue"
                     className={`w-4 h-4 ${
                         isDisliked
                             ? "dark:text-blue-600 text-blue-700 "

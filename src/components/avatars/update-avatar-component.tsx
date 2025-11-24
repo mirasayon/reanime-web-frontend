@@ -4,11 +4,11 @@ import { UserServiceMediaConfigs } from "#/actions/media/config";
 import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useToast } from "../layout/atoms-toasts-components/useToast";
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { useRouter } from "next/navigation";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
-    const { success, error, info } = useToast();
+    const toaster = useToast();
     const router = useRouter();
     const [pending, startTransition] = useTransition();
     const [previewSrc, setPreviewSrc] = useState<string>();
@@ -20,50 +20,49 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
         }
     }
 
-    async function UploadAvatarHandle(fd: FormData) {
+    function onSubmitUploadAvatarHandler(fd: FormData) {
+        // Я хочу сделать как (e: FormEvent<HTMLFormElement>). То есть как onSubmit а не для action для form
         startTransition(async () => {
-            const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+            const imageFile = fd.get(
+                UserServiceMediaConfigs.avatar_file_HTML_INPUT_name,
+            ) as File | null;
             if (!imageFile?.size) {
+                toaster.error("Нет файла для загрузки. Попробуйте другой файл");
                 return;
             }
-            const res = await AvatarUpdate_ServerAction(imageFile, currUrl);
-            if (res.middleErrors) {
-                error(res.middleErrors.toString());
-                return;
-            }
-            if (res?.res?.errors?.length) {
-                error(res?.res?.errors.toString());
-                return;
-            }
-            if (res?.res?.message) {
-                success(res.res.message);
-                window.location.reload();
-                return;
-            }
-            if (res.internalError) {
-                error(internalErrTxt);
-                return;
-            }
+            const res = await AvatarUpdate_ServerAction(imageFile);
+            return serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+                onSuccessFunction: () => {
+                    router.refresh();
+                },
+            });
         });
     }
     return (
         <div>
             <div className="flex flex-col p-1">
-                {/* <h1 className="text-xl font-bold mb-4">Upload an Image</h1> */}
-
                 {!previewSrc && (
                     <label
-                        htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                        htmlFor={
+                            UserServiceMediaConfigs.avatar_file_HTML_INPUT_name
+                        }
                         className="p-1  flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
                     >
                         {/* <div>Обновить аватарку</div> */}
                         <IoIosCloudUpload size={30} color="violet" />
                     </label>
                 )}
-                <form action={UploadAvatarHandle} className=" flex flex-col gap-2">
+                <form
+                    action={onSubmitUploadAvatarHandler}
+                    className=" flex flex-col gap-2"
+                >
                     <input
                         type="file"
-                        name={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                        name={
+                            UserServiceMediaConfigs.avatar_file_HTML_INPUT_name
+                        }
                         id={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                         accept="image/png, image/jpeg, image/jpg"
                         onChange={handleFileChange}
@@ -71,7 +70,13 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
                         hidden
                         className="block mb-4"
                     />
-                    {previewSrc && <img src={previewSrc} alt="preview" className="h-48 w-48 object-cover" />}
+                    {previewSrc && (
+                        <img
+                            src={previewSrc}
+                            alt="preview"
+                            className="h-48 w-48 object-cover"
+                        />
+                    )}
                     {previewSrc && (
                         <button
                             type="submit"
