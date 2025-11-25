@@ -2,11 +2,11 @@
 import { redirect } from "next/navigation";
 import { MainLoginComponent } from "./login-component";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
 import { ComingSoon } from "#/components/info/coming-soon";
+import { isUserServiceAliveNow } from "#/settings/resource-service";
 
 export default async function __Login() {
-    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+    if (!(await isUserServiceAliveNow())) {
         return <ComingSoon />;
     }
     const is_logged = await sessionAuthenticator_S_A();

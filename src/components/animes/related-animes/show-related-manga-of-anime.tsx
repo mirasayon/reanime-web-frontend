@@ -19,6 +19,9 @@ function GetKindManga({
     if (kind === "light_novel") {
         return <span>Новелла</span>;
     }
+    if (kind === "manhwa") {
+        return <span>Манхва</span>;
+    }
     if (kind === "one_shot") {
         return <span>Ваншот</span>;
     }

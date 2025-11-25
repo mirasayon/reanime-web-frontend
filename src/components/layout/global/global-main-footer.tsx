@@ -6,7 +6,11 @@ import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Con
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 import { TestModeBanner } from "../messages/test-mode-banner";
-export function Layout_Footer() {
+export function Layout_Footer({
+    isUserServiceAlive,
+}: {
+    isUserServiceAlive: boolean;
+}) {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col ${rea_wrapper_border} `}>
@@ -35,7 +39,7 @@ export function Layout_Footer() {
                     >
                         О разработчике
                     </Linker>
-                    <TestModeBanner />
+                    {isUserServiceAlive && <TestModeBanner />}
                 </div>
                 <div className="m-1 grid">
                     <div className=" bg-slate-500/30 h-px m-1" />

@@ -3,6 +3,7 @@ import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { isUserServiceAliveNow } from "#/settings/resource-service";
 import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import consola from "consola";
+import { mainUserServiceFetcher } from "./user-service-fetcher.integrator-util";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url:
@@ -22,7 +23,10 @@ type Props<B> = {
     raw_body?: BodyInit | null | undefined;
     agent: string | undefined;
 };
-export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
+export async function mainUserServiceFetcherForPingingOnly<
+    T,
+    B = { [key: string]: string },
+>({
     url,
     agent,
     method,
@@ -32,9 +36,6 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
     ip,
 }: Props<B>): Promise<UserServiceResponseBodyPattern<T> | 500> {
     try {
-        if (!(await isUserServiceAliveNow())) {
-            return 500;
-        }
         if (raw_body && json_body) {
             throw new Error(
                 "`raw_body` and `json_body` must not exist at the same time",

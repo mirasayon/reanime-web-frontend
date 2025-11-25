@@ -9,7 +9,7 @@ import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { notFound } from "next/navigation";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
+import { isUserServiceAliveNow } from "#/settings/resource-service";
 import { ComingSoon } from "#/components/info/coming-soon";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 
@@ -22,7 +22,7 @@ export default async function __User__Page({
     params: Promise<{ username: string }>;
     searchParams: SearchParams;
 }): Promise<React.JSX.Element> {
-    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+    if (!(await isUserServiceAliveNow())) {
         return <ComingSoon />;
     }
     const _params = await params;

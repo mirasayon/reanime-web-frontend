@@ -5,7 +5,10 @@ import { YandexMetrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { inter } from "#/fonts/main-font.provider";
 import type { LayoutProps } from "#T/nextjs";
 import layoutStyles from "#/styles/global/layout.module.css";
-import { Google_Analytics, Google_TagManager } from "#/components/analytics/google-analytics";
+import {
+    Google_Analytics,
+    Google_TagManager,
+} from "#/components/analytics/google-analytics";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { GlobalMainHeader } from "#/components/layout/global/global-main-header";
@@ -13,16 +16,26 @@ import { root_layout_Metadata } from "#/meta/root-layout.metadata";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import {
+    sessionAuthenticator_S_A,
+    type AuthenticatorType,
+} from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
 import { ComponentGlobalError } from "./global-error";
+import { isUserServiceAliveNow } from "#/settings/resource-service";
 
 type ReturnTypes = Promise<JSX.Element>;
 type __Root_layoutProps = LayoutProps;
 
-export default async function __Root_layout({ children }: __Root_layoutProps): ReturnTypes {
+export default async function __Root_layout({
+    children,
+}: __Root_layoutProps): ReturnTypes {
+    let auth: AuthenticatorType = null;
+    const isUserServiceAlive = await isUserServiceAliveNow();
+    if (isUserServiceAlive) {
+        auth = await sessionAuthenticator_S_A();
+    }
     const _env = await nextLoadEnvSSR();
-    const auth = await sessionAuthenticator_S_A();
     if (auth === 500) {
         return <ComponentGlobalError />;
     }
@@ -31,7 +44,9 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {_env.is_prod && _env.gtm_id && <Google_TagManager gtm_id={_env.gtm_id} />}
+            {_env.is_prod && _env.gtm_id && (
+                <Google_TagManager gtm_id={_env.gtm_id} />
+            )}
             <body className={`${inter.className} ${layoutStyles.rootweb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
@@ -42,7 +57,9 @@ export default async function __Root_layout({ children }: __Root_layoutProps): R
                             userServiceBaseUrl={_env.user_service.url}
                         />
                         {children}
-                        <Layout_Footer />
+                        <Layout_Footer
+                            isUserServiceAlive={isUserServiceAlive}
+                        />
                         <Cookie_consent_banner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>

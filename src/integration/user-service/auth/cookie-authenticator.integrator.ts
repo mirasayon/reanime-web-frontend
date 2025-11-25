@@ -1,11 +1,11 @@
 "use server";
 import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/resource-service";
+import { isUserServiceAliveNow } from "#/settings/resource-service";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
 import { cookies, headers } from "next/headers";
 export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
-    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
+    if (!(await isUserServiceAliveNow())) {
         return null;
     }
     const _headers = await headers();
@@ -16,13 +16,16 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (!session_token || session_token.length < 20) {
         return null;
     }
-    const res = await mainUserServiceFetcher<Authentication_ResponseTypes.check_session>({
-        method: "POST",
-        url: "/v1/authentication/check_session",
-        agent: agent,
-        ip: ip,
-        session_token: session_token,
-    });
+    const res =
+        await mainUserServiceFetcher<Authentication_ResponseTypes.check_session>(
+            {
+                method: "POST",
+                url: "/v1/authentication/check_session",
+                agent: agent,
+                ip: ip,
+                session_token: session_token,
+            },
+        );
 
     if (res === 500) {
         return 500;
