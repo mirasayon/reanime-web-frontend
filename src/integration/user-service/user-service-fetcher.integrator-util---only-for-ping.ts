@@ -1,10 +1,9 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
 import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import consola from "consola";
 import { mainUserServiceFetcher } from "./user-service-fetcher.integrator-util";
-type Props<B> = {
+type Props = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url:
         | `/v1/${
@@ -17,34 +16,20 @@ type Props<B> = {
               | "favorite_animes"
               | "marked_collection"}${string & {}}`;
 
-    json_body?: B;
     session_token?: string;
     ip: string | undefined;
-    raw_body?: BodyInit | null | undefined;
     agent: string | undefined;
 };
-export async function mainUserServiceFetcherForPingingOnly<
-    T,
-    B = { [key: string]: string },
->({
+export async function mainUserServiceFetcherForPingingOnly<T>({
     url,
     agent,
     method,
     session_token,
-    json_body,
-    raw_body,
     ip,
-}: Props<B>): Promise<UserServiceResponseBodyPattern<T> | 500> {
+}: Props): Promise<UserServiceResponseBodyPattern<T> | 500> {
     try {
-        if (raw_body && json_body) {
-            throw new Error(
-                "`raw_body` and `json_body` must not exist at the same time",
-            );
-        }
         const full_url = (await nextLoadEnvSSR()).user_service.url + url;
-        const headers: HeadersInit = {
-            ...(json_body ? { "Content-Type": "application/json" } : {}),
-        };
+        const headers: HeadersInit = {};
         if (agent) {
             headers["user-agent"] = agent;
         }
@@ -60,24 +45,13 @@ export async function mainUserServiceFetcherForPingingOnly<
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
-            ...(json_body ? { body: JSON.stringify(json_body) } : {}),
-            ...(raw_body ? { body: raw_body } : {}),
             cache: "no-cache",
         });
         const jsoned =
             (await response.json()) as UserServiceResponseBodyPattern<T>;
         return jsoned;
     } catch (error) {
-        if (error instanceof TypeError) {
-            consola.fail(mainUserServiceFetcher.name, ":", error.message);
-        } else {
-            consola.warn(
-                "[The error is not with the network]: ",
-                mainUserServiceFetcher.name,
-                ": ",
-                error,
-            );
-        }
+        consola.fail(mainUserServiceFetcher.name, ":", error);
         return 500;
     }
 }

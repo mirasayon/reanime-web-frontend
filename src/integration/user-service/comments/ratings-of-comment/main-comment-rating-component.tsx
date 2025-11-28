@@ -9,7 +9,7 @@ import {
     deleteLikeToCommentForm_ServerAction,
 } from "../actions-for-comments/add-like-to-comment-server-action";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
-import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
+import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function ShowCommentRatingComponent({
     comment,
@@ -22,21 +22,20 @@ export function ShowCommentRatingComponent({
     currPath: string;
     notProcessedAuthData: AuthenticatorType;
 }): React.JSX.Element {
-    const { error, info } = useToast();
+    const toaster = useGToaster();
     const [pending, startTransition] = useTransition();
     let likes = 0;
     let dislikes = 0;
-    for (const r of comment.ratings ?? []) {
-        if (r.vote === null) {
+    for (const _rate of comment.ratings ?? []) {
+        if (_rate.vote === null) {
             continue;
         }
-        if (r.vote === true) {
+        if (_rate.vote === true) {
             likes++;
-        } else if (r.vote === false) {
+        } else if (_rate.vote === false) {
             dislikes++;
         }
     }
-
     const score = likes - dislikes;
 
     const isLiked = userVote === true;
@@ -60,25 +59,26 @@ export function ShowCommentRatingComponent({
                     notProcessedAuthData: notProcessedAuthData,
                 });
                 serverActionsResponsesProcessorFromClientEnvironment({
-                    error,
+                    error: toaster.error,
+                    res,
+                });
+            });
+            return;
+        } else {
+            startTransition(async () => {
+                e.preventDefault();
+                const res = await addLikeToCommentForm_ServerAction({
+                    comment_id: comment.id,
+                    currPath: currPath,
+                    notProcessedAuthData: notProcessedAuthData,
+                });
+                serverActionsResponsesProcessorFromClientEnvironment({
+                    error: toaster.error,
                     res,
                 });
             });
             return;
         }
-        startTransition(async () => {
-            e.preventDefault();
-            const res = await addLikeToCommentForm_ServerAction({
-                comment_id: comment.id,
-                currPath: currPath,
-                notProcessedAuthData: notProcessedAuthData,
-            });
-            serverActionsResponsesProcessorFromClientEnvironment({
-                error,
-                res,
-            });
-        });
-        return;
     }
 
     function handleDislike(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -91,29 +91,26 @@ export function ShowCommentRatingComponent({
                     notProcessedAuthData: notProcessedAuthData,
                 });
                 serverActionsResponsesProcessorFromClientEnvironment({
-                    error,
-                    info,
+                    error: toaster.error,
+                    res,
+                });
+            });
+            return;
+        } else {
+            startTransition(async () => {
+                e.preventDefault();
+                const res = await addDislikeToCommentForm_ServerAction({
+                    comment_id: comment.id,
+                    currPath: currPath,
+                    notProcessedAuthData: notProcessedAuthData,
+                });
+                serverActionsResponsesProcessorFromClientEnvironment({
+                    error: toaster.error,
                     res,
                 });
             });
             return;
         }
-
-        startTransition(async () => {
-            e.preventDefault();
-            const res = await addDislikeToCommentForm_ServerAction({
-                comment_id: comment.id,
-                currPath: currPath,
-                notProcessedAuthData: notProcessedAuthData,
-            });
-            serverActionsResponsesProcessorFromClientEnvironment({
-                error,
-                info,
-                res,
-            });
-        });
-
-        return;
     }
 
     return (
@@ -126,15 +123,14 @@ export function ShowCommentRatingComponent({
                 className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
             >
                 <ThumbsUp
-                    className={`w-4 h-4 ${
-                        isLiked
-                            ? "dark:text-blue-600 text-blue-700 "
-                            : "text-gray-500"
+                    fill={isLiked ? "white" : "transparent"}
+                    className={`w-4 h-4 dark:text-gray-500 text-gray-500
                     }`}
                 />
             </button>
             <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">
                 {score}
+                {pending && "..."}
             </div>
             <button
                 disabled={pending}
@@ -144,11 +140,8 @@ export function ShowCommentRatingComponent({
                 className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
             >
                 <ThumbsDown
-                    className={`w-4 h-4 ${
-                        isDisliked
-                            ? "dark:text-blue-600 text-blue-700 "
-                            : "text-gray-500"
-                    }`}
+                    fill={isDisliked ? "white" : "transparent"}
+                    className={`w-4 h-4 dark:text-gray-500 text-gray-500`}
                 />
             </button>
         </div>

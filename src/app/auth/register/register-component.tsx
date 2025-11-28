@@ -11,23 +11,21 @@ import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-in
 import { UserNicknameInputForAuthForm } from "../components-jsx-for-auth-forms/nickname-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
-import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
+import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { SubmitButtonForAuthForms } from "../login/submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "../login/form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function Register_Component() {
-    const toaster = useToast();
+    const toaster = useGToaster();
     const router = useRouter();
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors: clientErrors },
     } = useForm<dto.registration>({
         resolver: zodResolver(authentication_schemas.registration),
         mode: "onSubmit",
     });
-
     const [pending, startTransition] = useTransition();
     const [serverErrors, setServerErrors] = useState<string[]>();
 

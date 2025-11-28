@@ -17,7 +17,7 @@ export function ShowAvatarElement({
                     className="  m-2 h-48 w-48 object-cover "
                 />
             </Avatar>
-            <DropdownMenuForAvatar currUrl={`/user/${username}`} />
+            <DropdownMenuForAvatar />
         </div>
     );
 }

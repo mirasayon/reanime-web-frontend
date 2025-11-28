@@ -1,4 +1,4 @@
-.rootweb {
+.rootWeb {
     margin: 5% 10% 15% 10%;
     color: black;
     background: rgb(223, 247, 253);
@@ -9,19 +9,19 @@
     }
 }
 @media (max-width: 400px) {
-    .rootweb {
+    .rootWeb {
         font-size: xx-small;
         margin: 0px;
     }
 }
 @media (max-width: 600px) {
-    .rootweb {
+    .rootWeb {
         font-size: small;
         margin: 0px;
     }
 }
 @media (max-width: 1000px) {
-    .rootweb {
+    .rootWeb {
         font-size: smaller;
         margin: 0px;
     }

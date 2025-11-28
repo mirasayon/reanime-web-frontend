@@ -6,26 +6,51 @@ import { WrapperForInputFromAuthForms } from "./input-wrapper-for-form-for-auth-
 export function UserNicknameInputForAuthForm<R extends string>({
     props,
     inputId,
+    removeLabel = false,
+    previousName,
     fieldError,
+    removeWrapper = false,
 }: {
     fieldError: FieldError | undefined;
     inputId: string;
+    removeWrapper?: boolean;
+    removeLabel?: boolean;
+    previousName?: string;
     props: UseFormRegisterReturn<R>;
 }): JSX.Element {
     return (
         <>
-            <LabelComponentForAuthForms labelText={"Ваш никнейм"} />
-            <WrapperForInputFromAuthForms>
+            {!removeLabel && (
+                <LabelComponentForAuthForms labelText={"Ваш никнейм"} />
+            )}
+            {removeWrapper && (
                 <input
                     className={"p-1  w-full outline-none"}
                     type={"text"}
                     id={inputId}
+                    defaultValue={previousName ?? ""}
                     minLength={4}
                     {...props}
                     maxLength={20}
                     required={true}
                 />
-            </WrapperForInputFromAuthForms>
+            )}
+            {!removeWrapper && (
+                <WrapperForInputFromAuthForms
+                    children={
+                        <input
+                            className={"p-1  w-full outline-none"}
+                            type={"text"}
+                            id={inputId}
+                            defaultValue={previousName ?? ""}
+                            minLength={4}
+                            {...props}
+                            maxLength={20}
+                            required={true}
+                        />
+                    }
+                />
+            )}
             {fieldError && (
                 <p className=" dark:text-red-500 text-red-800">
                     {fieldError.message}

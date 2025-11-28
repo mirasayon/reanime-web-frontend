@@ -1,8 +1,11 @@
 "use client";
-import React, { type JSX, type ReactNode } from "react";
+import React, { useState, type JSX, type ReactNode } from "react";
 import { User as UserIcon, Mail, UserCircle } from "lucide-react";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { Logout_userForDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
+import { UpdateProfileNickname } from "./forms-for-user-page-for-editing-profile/update-profile-name";
+import { FaEdit } from "react-icons/fa";
+import { MdOutlineCancel } from "react-icons/md";
 type ProfileDashboardProps = {
     user: Profile_ResponseTypes.view_my_profile;
 };
@@ -10,8 +13,12 @@ type ProfileDashboardProps = {
 export function MainProfileDashboard({
     user,
 }: ProfileDashboardProps): JSX.Element {
+    const [isEditingBio, setIsEditingBio] = useState(false);
+    const [isEditingNickname, setIsEditingNickname] = useState(false);
+    const [isEditingUsername, setIsEditingUsername] = useState(false);
+    const [isEditingPassword, setIsEditingPassword] = useState(false);
     return (
-        <div className="p-6  transition-colors ">
+        <div className="p-3  transition-colors ">
             <div className="p-4 rounded-2xl shadow">
                 <h2 className="text-lg font-medium mb-2">О себе</h2>
                 <p className="text-sm text-muted-foreground">
@@ -19,11 +26,36 @@ export function MainProfileDashboard({
                 </p>
 
                 <div className="mt-4 space-y-2">
-                    <QuickItem
-                        icon={<UserCircle size={16} />}
-                        title="Имя"
-                        desc={user.profile.nickname || "Имя не добавлена"}
-                    />
+                    <div className=" flex flex-row gap-2">
+                        {isEditingNickname ? (
+                            <UpdateProfileNickname
+                                setOpenEditorFunction={setIsEditingNickname}
+                                previousName={user.profile.nickname}
+                            />
+                        ) : (
+                            <QuickItem
+                                icon={<UserCircle size={16} />}
+                                title="Имя"
+                                desc={
+                                    user.profile.nickname || "Имя не добавлена"
+                                }
+                            />
+                        )}
+                        <button
+                            className="p-2 cursor-pointer"
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsEditingNickname((pv) => !pv);
+                            }}
+                        >
+                            {isEditingNickname ? (
+                                <MdOutlineCancel />
+                            ) : (
+                                <FaEdit />
+                            )}
+                        </button>
+                    </div>
                     <QuickItem
                         icon={<UserIcon size={16} />}
                         title="Юзернейм"

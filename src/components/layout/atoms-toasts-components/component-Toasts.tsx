@@ -1,12 +1,12 @@
 "use client";
 import { useAtomValue } from "jotai";
 import { uiToastsAtom } from "./main-user-service-messanger";
-import { useToast } from "./useToast";
+import { useGToaster } from "./useToast";
 import { useEffect, useRef } from "react";
 
 export function Toasts() {
     const toasts = useAtomValue(uiToastsAtom);
-    const { remove } = useToast();
+    const { remove } = useGToaster();
     const liveRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (!liveRef.current) return;

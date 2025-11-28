@@ -1,8 +1,8 @@
 "use client";
 import { type JSX, useState } from "react";
-import { Switch_themes_button } from "../themes/switch_themes";
-import { FiMenu } from "react-icons/fi";
+import { SwitchThemesButtonComponent } from "../themes/switch_themes";
 import { MdCancelPresentation } from "react-icons/md";
+import { Palette } from "lucide-react";
 export function UI_Menu(): JSX.Element {
     const [isOpen, setOpen] = useState(false);
     return (
@@ -15,7 +15,11 @@ export function UI_Menu(): JSX.Element {
                     setOpen((p) => !p);
                 }}
             >
-                {isOpen ? <MdCancelPresentation size={30} /> : <FiMenu size={30} />}
+                {isOpen ? (
+                    <MdCancelPresentation size={25} />
+                ) : (
+                    <Palette size={25} />
+                )}
             </button>
 
             <div
@@ -25,7 +29,7 @@ export function UI_Menu(): JSX.Element {
                     setOpen((p) => !p);
                 }}
             >
-                <Switch_themes_button />
+                <SwitchThemesButtonComponent />
             </div>
         </div>
     );

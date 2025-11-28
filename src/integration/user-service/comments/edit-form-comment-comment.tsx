@@ -1,6 +1,6 @@
 "use client";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import { useToast } from "#/components/layout/atoms-toasts-components/useToast";
+import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import {
     useTransition,
     type FormEvent,
@@ -20,7 +20,7 @@ export function MainEditFormCommentComponent({
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
     comment: Comment_ResponseTypes.get_all_for_anime[number];
 }): React.JSX.Element {
-    const toaster = useToast();
+    const toaster = useGToaster();
     const [pending, startTransition] = useTransition();
 
     function SaveCommentON(event: FormEvent<HTMLFormElement>) {

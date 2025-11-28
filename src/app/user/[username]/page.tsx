@@ -1,10 +1,8 @@
 "use server";
-import { cookies } from "next/headers";
 import { ShowOthersProfile } from "./show-others-profile";
 import { MainShowMyProfileDashboard } from "./show-my-profile";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import type { SearchParams } from "#T/nextjs";
-import { UserService } from "#/configs/user-service.app-config";
+// import type { SearchParams } from "#T/nextjs";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { notFound } from "next/navigation";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
@@ -17,19 +15,17 @@ import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 import { MyAccountDashboard } from "#/components/profile-dashboard";
 export default async function __User__Page({
     params,
-    searchParams,
-}: {
+}: // searchParams,
+{
     params: Promise<{ username: string }>;
-    searchParams: SearchParams;
+    // searchParams: SearchParams;
 }): Promise<React.JSX.Element> {
     if (!(await isUserServiceAliveNow())) {
         return <ComingSoon />;
     }
     const _params = await params;
     const _username = _params.username;
-    const _cookies = await cookies();
     const auth = await sessionAuthenticator_S_A();
-    const session_token = _cookies.get(UserService.session_token_name)?.value;
     const _env = await nextLoadEnvSSR();
     const base_profile_data =
         await mainUserServiceFetcher<Profile_ResponseTypes.view_other_profiles>(
@@ -74,7 +70,7 @@ export default async function __User__Page({
             agent: agent,
             ip: ip,
             url: `/v1/profile/view_my_profile`,
-            session_token: session_token,
+            session_token: auth.data.session.token,
         });
     if (!my_profile_data || my_profile_data === 500) {
         return notFound();

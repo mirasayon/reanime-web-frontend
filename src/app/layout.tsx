@@ -21,7 +21,6 @@ import {
     type AuthenticatorType,
 } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
-import { ComponentGlobalError } from "./global-error";
 import { isUserServiceAliveNow } from "#/settings/resource-service";
 
 type ReturnTypes = Promise<JSX.Element>;
@@ -37,7 +36,7 @@ export default async function __Root_layout({
     }
     const _env = await nextLoadEnvSSR();
     if (auth === 500) {
-        return <ComponentGlobalError />;
+        auth = null;
     }
     return (
         <html lang="ru" suppressHydrationWarning>
@@ -47,7 +46,7 @@ export default async function __Root_layout({
             {_env.is_prod && _env.gtm_id && (
                 <Google_TagManager gtm_id={_env.gtm_id} />
             )}
-            <body className={`${inter.className} ${layoutStyles.rootweb}   `}>
+            <body className={`${inter.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
                         <GlobalMainHeader
@@ -57,9 +56,7 @@ export default async function __Root_layout({
                             userServiceBaseUrl={_env.user_service.url}
                         />
                         {children}
-                        <Layout_Footer
-                            isUserServiceAlive={isUserServiceAlive}
-                        />
+                        <Layout_Footer />
                         <Cookie_consent_banner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>

@@ -3,12 +3,12 @@ import { AvatarUpdate_ServerAction } from "#/actions/media/avatar-update.server-
 import { UserServiceMediaConfigs } from "#/actions/media/config";
 import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
-import { useToast } from "../layout/atoms-toasts-components/useToast";
+import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { useRouter } from "next/navigation";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
-export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
-    const toaster = useToast();
+export function UpdateAvatarForm() {
+    const toaster = useGToaster();
     const router = useRouter();
     const [pending, startTransition] = useTransition();
     const [previewSrc, setPreviewSrc] = useState<string>();
@@ -17,11 +17,12 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
         if (file) {
             const url = URL.createObjectURL(file);
             setPreviewSrc(url);
+        } else {
+            window?.location?.reload?.();
         }
     }
 
     function onSubmitUploadAvatarHandler(fd: FormData) {
-        // Я хочу сделать как (e: FormEvent<HTMLFormElement>). То есть как onSubmit а не для action для form
         startTransition(async () => {
             const imageFile = fd.get(
                 UserServiceMediaConfigs.avatar_file_HTML_INPUT_name,
@@ -35,6 +36,7 @@ export function UpdateAvatarForm({ currUrl }: { currUrl: string }) {
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {
+                    window?.location?.reload?.();
                     router.refresh();
                 },
             });

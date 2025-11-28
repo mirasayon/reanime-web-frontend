@@ -5,16 +5,7 @@ import type { UserServiceResponseBodyPattern } from "#user-service/shared/respon
 import consola from "consola";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    url:
-        | `/v1/${
-              | "profile"
-              | "authentication"
-              | "ping"
-              | "account"
-              | "comment"
-              | "reply"
-              | "favorite_animes"
-              | "marked_collection"}${string & {}}`;
+    url: string;
 
     json_body?: B;
     session_token?: string;

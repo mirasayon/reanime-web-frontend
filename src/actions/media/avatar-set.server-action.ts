@@ -5,13 +5,11 @@ import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
-type AvatarSet_ServerActionRT = Promise<{
-    errors: string[];
-    ok: boolean;
-}>;
-export async function AvatarSet_ServerAction(
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
+
+export async function setProfileAvatar_ServerAction(
     formData: FormData,
-): AvatarSet_ServerActionRT {
+): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
     if (!auth || auth === 500) {
         return { ok: false, errors: [internalErrTxt] };
@@ -59,8 +57,8 @@ export async function AvatarSet_ServerAction(
     if (res.errors.length) {
         return { errors: res.errors, ok: false };
     }
-    if (res.data) {
-        return { ok: res.data, errors: [] };
+    if (res.data && res.ok) {
+        return { msg: res.message, ok: true };
     }
     return {
         errors: ["Что-то пошло не так"],

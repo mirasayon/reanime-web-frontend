@@ -5,12 +5,7 @@ import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
-import { TestModeBanner } from "../messages/test-mode-banner";
-export function Layout_Footer({
-    isUserServiceAlive,
-}: {
-    isUserServiceAlive: boolean;
-}) {
+export function Layout_Footer() {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col ${rea_wrapper_border} `}>
@@ -39,7 +34,6 @@ export function Layout_Footer({
                     >
                         О разработчике
                     </Linker>
-                    {isUserServiceAlive && <TestModeBanner />}
                 </div>
                 <div className="m-1 grid">
                     <div className=" bg-slate-500/30 h-px m-1" />
@@ -54,7 +48,7 @@ export function Layout_Footer({
                         предназначены только для ознакомления, носят
                         исключительно ознакомительный и развлекательный
                         характер. Все материалы взяты из свободных источников.
-                        Приятного просмотра аниме&#41;
+                        Приятного просмотра аниме:3
                     </span>
                 </div>
                 <AbuseIpDbContributorInfoBadge />

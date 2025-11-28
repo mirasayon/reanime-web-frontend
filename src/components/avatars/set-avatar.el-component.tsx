@@ -1,17 +1,16 @@
 "use client";
-import { AvatarSet_ServerAction } from "#/actions/media/avatar-set.server-action";
+import { setProfileAvatar_ServerAction } from "#/actions/media/avatar-set.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
-import { useToast } from "../layout/atoms-toasts-components/useToast";
+import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function SetAvatarForm({}: {}) {
     const [previewSrc, setPreviewSrc] = useState<string>();
-    const { error, info, success } = useToast();
+    const toaster = useGToaster();
 
     const [pending, startTransition] = useTransition();
-    const _router = useRouter();
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
         if (file) {
@@ -20,35 +19,43 @@ export function SetAvatarForm({}: {}) {
         }
     }
 
-    async function UploadAvatarHandle(fd: FormData) {
-        const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+    function UploadAvatarHandle(fd: FormData) {
+        startTransition(async () => {
+            const imageFile = fd.get(
+                UserServiceMediaConfigs.avatar_file_HTML_INPUT_name,
+            ) as File | null;
 
-        if (!imageFile?.size) {
-            error("Файл не найден");
-            return;
-        }
-        const res = await AvatarSet_ServerAction(fd);
-        if (res.errors.length) {
-            for (const err of res.errors) {
-                error(err);
+            if (!imageFile?.size) {
+                toaster.error("Файл не найден");
+                return;
             }
-        }
-        if (res.ok) {
-            success("Успешно добавлен");
-            _router.refresh();
-        }
+            const res = await setProfileAvatar_ServerAction(fd);
+            serverActionsResponsesProcessorFromClientEnvironment({
+                res,
+                error: toaster.error,
+                onSuccessFunction: () => {
+                    window?.location?.reload?.();
+                },
+            });
+        });
     }
     return (
         <div className=" border-r-2 border-blue-500">
             {!previewSrc && (
                 <div>
-                    <img src="/_assets/default-avatars/m.jpg" className="w-48 h-48 object-cover p-1" alt="Аватарка по умолчанию" />
+                    <img
+                        src="/_assets/default-avatars/m.jpg"
+                        className="w-48 h-48 object-cover p-1"
+                        alt="Аватарка по умолчанию"
+                    />
                 </div>
             )}
             <form action={UploadAvatarHandle} className="flex flex-col ">
                 <label
                     hidden={!!previewSrc}
-                    htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                    htmlFor={
+                        UserServiceMediaConfigs.avatar_file_HTML_INPUT_name
+                    }
                     className="flex flex-col dark:bg-blue-950 bg-blue-100 cursor-pointer"
                 >
                     <div className=" flex flex-col justify-center items-center rounded">
@@ -71,7 +78,11 @@ export function SetAvatarForm({}: {}) {
                 {previewSrc && (
                     <>
                         <div className="">
-                            <img src={previewSrc} alt="preview avatar image" className="m-2 h-48 w-48 object-cover" />
+                            <img
+                                src={previewSrc}
+                                alt="preview avatar image"
+                                className="m-2 h-48 w-48 object-cover"
+                            />
                         </div>
                         <button
                             type="submit"

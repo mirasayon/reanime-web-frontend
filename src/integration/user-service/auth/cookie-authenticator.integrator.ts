@@ -30,7 +30,7 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (res === 500) {
         return 500;
     }
-    if (!res?.data) {
+    if (!res?.data || !res?.ok) {
         return null;
     }
     return { data: res.data, ip, agent };

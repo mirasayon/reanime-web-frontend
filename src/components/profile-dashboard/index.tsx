@@ -5,10 +5,14 @@ import { DeleteAccountPermanentlyComponent } from "./delete-account";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { useState } from "react";
 
-export function MyAccountDashboard({ auth }: { auth: Profile_ResponseTypes.view_my_profile }) {
+export function MyAccountDashboard({
+    auth,
+}: {
+    auth: Profile_ResponseTypes.view_my_profile;
+}) {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className=" flex flex-col w-max">
+        <div className=" flex flex-col w-max p-2 m-2">
             <button
                 type="button"
                 className="cursor-pointer flex gap-2 p-2 rounded-lg border border-gray-200 dark:border-gray-700"

@@ -11,9 +11,12 @@ export function MainShowMyProfileDashboard({
 }) {
     return (
         <>
-            <div>Ваш профиль</div>
-            <div className=" flex  border-2 m-2 border-blue-400 w-full">
-                <Upload_avatar_or_show profile={data.profile} userServiceBaseUrl={userServiceBaseUrl} />
+            <h1 className=" py-2 text-center">Ваш профиль</h1>
+            <div className=" flex  border-2 m-2 border-blue-400 ">
+                <Upload_avatar_or_show
+                    profile={data.profile}
+                    userServiceBaseUrl={userServiceBaseUrl}
+                />
                 <MainProfileDashboard user={data} />
             </div>
         </>

@@ -13,12 +13,12 @@ import {
 } from "#/shadcn-ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { useToast } from "../layout/atoms-toasts-components/useToast";
+import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function DeleteAccountPermanentlyComponent() {
     const [pending, startTransition] = useTransition();
-    const toaster = useToast();
+    const toaster = useGToaster();
     const _router = useRouter();
     async function deleteAvatarHandle() {
         startTransition(async () => {

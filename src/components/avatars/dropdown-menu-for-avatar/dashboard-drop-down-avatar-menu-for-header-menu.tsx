@@ -9,14 +9,10 @@ import { UpdateAvatarForm } from "../update-avatar-component";
 import { DeleteAvatarForm } from "../delete-avatar";
 import { IoMenuSharp } from "react-icons/io5";
 import type { JSX } from "react";
-export function DropdownMenuForAvatar({
-    currUrl,
-}: {
-    currUrl: string;
-}): JSX.Element {
+export function DropdownMenuForAvatar(): JSX.Element {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="bg-blue-950 ">
+            <DropdownMenuTrigger className="dark:bg-blue-950 bg-blue-300 rounded">
                 <div className="p-1 cursor-pointer flex flex-row justify-center items-center gap-3">
                     <IoMenuSharp />
                     Меню аватара
@@ -38,7 +34,7 @@ export function DropdownMenuForAvatar({
                     <span>Обновить аватар</span>
                 </DropdownMenuLabel>
 
-                <UpdateAvatarForm currUrl={currUrl} />
+                <UpdateAvatarForm />
                 {/* </DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 {/* <DropdownMenuItem

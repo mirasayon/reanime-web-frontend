@@ -1,7 +1,7 @@
 "use server";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies, headers } from "next/headers";
-import { UserService } from "#/configs/user-service.app-config";
+import { userServiceConfig } from "#/configs/user-service.app-config";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import {
     authentication_schemas,
@@ -34,7 +34,7 @@ export async function registerNewUser_ServerAction(
     const _cookies = await cookies();
     const _headers = await headers();
     const r6f_session_token = _cookies.get(
-        UserService.session_token_name,
+        userServiceConfig.session_token_name,
     )?.value;
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
