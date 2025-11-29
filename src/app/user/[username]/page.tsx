@@ -13,6 +13,7 @@ import type { Comment_ResponseTypes } from "#user-service/shared/response-patter
 
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
+import { rea_wrapper_border } from "#/styles/provider";
 export default async function __User__Page({
     params,
 }: // searchParams,
@@ -88,16 +89,17 @@ export default async function __User__Page({
                 data={loggedUser}
                 userServiceBaseUrl={_env.user_service.url}
             />
-            <h1>Настройки</h1>
-            <SecuritySettingsDashboardComponent />
-            {all_comments_from_this_user !== 500 &&
-            all_comments_from_this_user ? (
-                <CommentsFromUserList
-                    comments={all_comments_from_this_user?.data || []}
-                />
-            ) : (
-                <div className=" p-2">Ошибка при загрузке комментариев</div>
-            )}
+            <div className={rea_wrapper_border}>
+                <SecuritySettingsDashboardComponent />
+                {all_comments_from_this_user !== 500 &&
+                all_comments_from_this_user ? (
+                    <CommentsFromUserList
+                        comments={all_comments_from_this_user?.data || []}
+                    />
+                ) : (
+                    <div className=" p-2">Ошибка при загрузке комментариев</div>
+                )}
+            </div>
         </>
     );
 }

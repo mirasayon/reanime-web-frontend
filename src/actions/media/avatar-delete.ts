@@ -5,6 +5,7 @@ import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
+import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 
 /** `Server Action`
  *
@@ -29,11 +30,5 @@ export async function DeleteAvatar_ServerAction(): ServerActionResponseWithPromi
             ip: auth.ip,
             session_token: auth.data.session.token,
         });
-    if (!res || res === 500) {
-        return { ok: false, errors: [internalErrTxt] };
-    }
-    if (res.data ?? res.ok) {
-        return { ok: true, msg: res.message };
-    }
-    return { errors: res?.errors || [internalErrTxt], ok: false };
+    return await userServiceRawResponsePreHandler(res, {});
 }

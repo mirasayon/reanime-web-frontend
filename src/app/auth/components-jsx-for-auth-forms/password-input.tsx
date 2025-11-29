@@ -11,12 +11,12 @@ export function InputPasswordForAuthForm<R extends string>({
     propLabel = "Введите пароль",
     fieldError,
 }: {
-    fieldError: FieldError | undefined;
+    fieldError?: FieldError | undefined;
     propLabel?: string;
     props: UseFormRegisterReturn<R>;
     inputId: string;
 }): JSX.Element {
-    const [is_password_type, set_is_password_type] = useState<boolean>(false);
+    const [is_password_type, set_is_password_type] = useState<boolean>(true);
     return (
         <>
             <LabelComponentForAuthForms labelText={propLabel} />
@@ -42,7 +42,7 @@ export function InputPasswordForAuthForm<R extends string>({
                 >
                     {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
                 </button>
-            </WrapperForInputFromAuthForms>{" "}
+            </WrapperForInputFromAuthForms>
             {fieldError && (
                 <div className="text-wrap dark:text-red-500 text-red-800">
                     {fieldError.message}

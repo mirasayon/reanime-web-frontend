@@ -33,43 +33,38 @@ export function DeleteAccountPermanentlyComponent() {
         });
     }
     return (
-        <div className=" p-4 ">
-            <AlertDialog>
-                <div className="p-2 bg-red-600 rounded cursor-pointer">
-                    <AlertDialogTrigger className="cursor-pointer">
-                        Удалить аккаунт
-                    </AlertDialogTrigger>
-                </div>
-                <AlertDialogContent className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
-                    <form
-                        action={deleteAvatarHandle}
-                        className=" grid p-2 m-2 "
-                    >
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>
-                                Вы абсолютно уверены?
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Это действие невозможно отменить. Это приведёт к
-                                безвозвратному удалению вашей учётной записи и
-                                ваших данных с наших серверов.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel className="cursor-pointer dark:bg-slate-800 bg-blue-200">
-                                Отмена
-                            </AlertDialogCancel>
+        <AlertDialog>
+            <div className="p-2 bg-red-600 rounded cursor-pointer">
+                <AlertDialogTrigger className="cursor-pointer">
+                    Удалить аккаунт
+                </AlertDialogTrigger>
+            </div>
+            <AlertDialogContent className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
+                <form action={deleteAvatarHandle} className=" grid p-2 m-2 ">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Вы абсолютно уверены?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Это действие невозможно отменить. Это приведёт к
+                            безвозвратному удалению вашей учётной записи и ваших
+                            данных с наших серверов.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="cursor-pointer dark:bg-slate-800 bg-blue-200">
+                            Отмена
+                        </AlertDialogCancel>
 
-                            <AlertDialogAction
-                                type="submit"
-                                className="cursor-pointer dark:bg-red-800 border  border-red-200 bg-blue-200"
-                            >
-                                {pending ? "Удаляю..." : "Подтвердить"}
-                            </AlertDialogAction>
-                        </AlertDialogFooter>{" "}
-                    </form>
-                </AlertDialogContent>
-            </AlertDialog>
-        </div>
+                        <AlertDialogAction
+                            type="submit"
+                            className="cursor-pointer dark:bg-red-800 border  border-red-200 bg-blue-200"
+                        >
+                            {pending ? "Удаляю..." : "Подтвердить"}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>{" "}
+                </form>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 }

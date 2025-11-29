@@ -11,6 +11,7 @@ import type { Authentication_ResponseTypes } from "#user-service/shared/response
 import { cookieOptionsForSetToken } from "./cookie-option";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
+import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 export async function registerNewUser_ServerAction(
     data: dto.registration,
 ): ServerActionResponseWithPromise {
@@ -51,12 +52,9 @@ export async function registerNewUser_ServerAction(
                 ip,
             },
         );
-    if (!res || res === 500) {
-        return { ok: false, errors: [internalErrTxt] };
-    }
-    if (res.ok && res.data) {
-        _cookies.set(cookieOptionsForSetToken(res.data.session.token));
-        return { ok: true, msg: res.message };
-    }
-    return { errors: res.errors, ok: false };
+    return await userServiceRawResponsePreHandler(res, {
+        async onSuccessFunction(res) {
+            _cookies.set(cookieOptionsForSetToken(res.data.session.token));
+        },
+    });
 }

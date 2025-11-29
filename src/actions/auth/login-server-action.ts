@@ -11,6 +11,7 @@ import {
 import { cookieOptionsForSetToken } from "./cookie-option";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 export async function loginAction(data: {
     username: string;
     password: string;
@@ -52,12 +53,9 @@ export async function loginAction(data: {
                 ip,
             },
         );
-    if (!res || res === 500) {
-        return { ok: false, errors: [internalErrTxt] };
-    }
-    if (res.errors.length || !res.data) {
-        return { ok: false, errors: res.errors };
-    }
-    _cookies.set(cookieOptionsForSetToken(res.data.session.token));
-    return { ok: true, msg: res.message };
+    return await userServiceRawResponsePreHandler(res, {
+        onSuccessFunction: (res) => {
+            _cookies.set(cookieOptionsForSetToken(res.data.session.token));
+        },
+    });
 }

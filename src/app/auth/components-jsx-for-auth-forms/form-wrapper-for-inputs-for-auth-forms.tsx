@@ -5,9 +5,11 @@ export function FormWrapperForFormInputsForAuthForms({
     children,
     onSubmit,
     register,
+    removeFormLabel = false,
     login,
 }: {
     login?: boolean;
+    removeFormLabel?: boolean;
     register?: boolean;
     onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
     children: React.ReactNode[];
@@ -36,11 +38,13 @@ export function FormWrapperForFormInputsForAuthForms({
                 className="dark:bg-slate-900/70 bg-slate-300 rounded p-4 flex gap-4 flex-col m-4 "
                 noValidate
             >
-                <div
-                    className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}
-                >
-                    Добро пожаловать!
-                </div>
+                {!removeFormLabel && (
+                    <div
+                        className={`w-full dark:text-slate-300 text-slate-800 font-mono font-bold flex-col flex items-center`}
+                    >
+                        Добро пожаловать!
+                    </div>
+                )}
                 {...children}
             </form>
         </div>

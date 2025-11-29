@@ -3,7 +3,7 @@ import { RxDropdownMenu } from "react-icons/rx";
 import { Settings } from "lucide-react";
 import { DeleteAccountPermanentlyComponent } from "./delete-account-button-component";
 import { useState } from "react";
-import { UpdatePasswordFormComponent } from "./update-password-component";
+import { Linker } from "../utilities/common/linker-utility-component";
 
 export function SecuritySettingsDashboardComponent() {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +20,19 @@ export function SecuritySettingsDashboardComponent() {
                 {isOpen ? <RxDropdownMenu size={25} /> : <Settings />}
                 Настройки безопасности
             </button>
-            <div className={` ${!isOpen && "hidden"}`}>
+            <div
+                className={` ${
+                    !isOpen && "hidden"
+                } gap-2 flex flex-col w-60 py-2`}
+            >
                 <DeleteAccountPermanentlyComponent />
-                <UpdatePasswordFormComponent />
+                <Linker
+                    href="/user/settings/update-password"
+                    clearTheDefaultStylings
+                    className=" border-2 p-2 rounded "
+                >
+                    Обновить пароль🔗
+                </Linker>
             </div>
         </div>
     );

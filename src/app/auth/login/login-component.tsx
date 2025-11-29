@@ -1,5 +1,5 @@
 "use client";
-import { loginAction } from "#/actions/auth/login";
+import { loginAction } from "#/actions/auth/login-server-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition, type FormEvent } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -11,8 +11,8 @@ import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-in
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { SubmitButtonForAuthForms } from "./submit-button-for-auth-forms";
-import { FormWrapperForFormInputsForAuthForms } from "./form-wrapper-for-inputs-for-auth-forms";
+import { SubmitButtonForAuthForms } from "../components-jsx-for-auth-forms/submit-button-for-auth-forms";
+import { FormWrapperForFormInputsForAuthForms } from "../components-jsx-for-auth-forms/form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function MainLoginComponent() {
     const toaster = useGToaster();
@@ -20,7 +20,6 @@ export function MainLoginComponent() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors: clientErrors },
     } = useForm<dto.login_via_username>({
         resolver: zodResolver(authentication_schemas.login_via_username),

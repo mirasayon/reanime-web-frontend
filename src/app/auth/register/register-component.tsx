@@ -12,8 +12,8 @@ import { UserNicknameInputForAuthForm } from "../components-jsx-for-auth-forms/n
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { SubmitButtonForAuthForms } from "../login/submit-button-for-auth-forms";
-import { FormWrapperForFormInputsForAuthForms } from "../login/form-wrapper-for-inputs-for-auth-forms";
+import { SubmitButtonForAuthForms } from "../components-jsx-for-auth-forms/submit-button-for-auth-forms";
+import { FormWrapperForFormInputsForAuthForms } from "../components-jsx-for-auth-forms/form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function Register_Component() {
     const toaster = useGToaster();
