@@ -24,7 +24,7 @@ export function useGToaster(options: useGToasterParams = { duration: 3500 }) {
                 set((prev) => prev.filter((x) => x.id !== id));
             }, toast.duration);
         }
-        return id;
+        return;
     };
 
     function remove(id: string) {

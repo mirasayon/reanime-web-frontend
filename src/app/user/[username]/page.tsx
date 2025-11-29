@@ -12,7 +12,7 @@ import { ComingSoon } from "#/components/info/coming-soon";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
-import { MyAccountDashboard } from "#/components/profile-dashboard";
+import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
 export default async function __User__Page({
     params,
 }: // searchParams,
@@ -89,7 +89,7 @@ export default async function __User__Page({
                 userServiceBaseUrl={_env.user_service.url}
             />
             <h1>Настройки</h1>
-            <MyAccountDashboard auth={loggedUser} />
+            <SecuritySettingsDashboardComponent />
             {all_comments_from_this_user !== 500 &&
             all_comments_from_this_user ? (
                 <CommentsFromUserList

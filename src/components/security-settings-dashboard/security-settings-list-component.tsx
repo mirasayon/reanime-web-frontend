@@ -1,15 +1,11 @@
 "use client";
 import { RxDropdownMenu } from "react-icons/rx";
 import { Settings } from "lucide-react";
-import { DeleteAccountPermanentlyComponent } from "./delete-account";
-import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
+import { DeleteAccountPermanentlyComponent } from "./delete-account-button-component";
 import { useState } from "react";
+import { UpdatePasswordFormComponent } from "./update-password-component";
 
-export function MyAccountDashboard({
-    auth,
-}: {
-    auth: Profile_ResponseTypes.view_my_profile;
-}) {
+export function SecuritySettingsDashboardComponent() {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className=" flex flex-col w-max p-2 m-2">
@@ -22,10 +18,11 @@ export function MyAccountDashboard({
                 }}
             >
                 {isOpen ? <RxDropdownMenu size={25} /> : <Settings />}
-                Настройки профиля
+                Настройки безопасности
             </button>
             <div className={` ${!isOpen && "hidden"}`}>
                 <DeleteAccountPermanentlyComponent />
+                <UpdatePasswordFormComponent />
             </div>
         </div>
     );

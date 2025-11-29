@@ -8,10 +8,13 @@ import type { Administrator_ResponseTypes } from "#user-service/shared/response-
 import { MainUserListShower } from "./admin-all-users-ui-component";
 import type { JSX } from "react";
 import type { Metadata } from "next";
+import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 export default async function __Admin_All_Users_Page(): Promise<JSX.Element> {
     if (!(await isUserServiceAliveNow())) {
         return <ComingSoon />;
     }
+    const _env = await nextLoadEnvSSR();
+    const userServiceUrl = _env.user_service.url;
     const auth = await sessionAuthenticator_S_A();
     if (auth === 500 || !auth) {
         return notFound();
@@ -39,8 +42,11 @@ export default async function __Admin_All_Users_Page(): Promise<JSX.Element> {
     }
     return (
         <>
-            <div className="p-4 m-4">
-                <MainUserListShower users={allUsersData.data} />
+            <div className="">
+                <MainUserListShower
+                    initialUsers={allUsersData.data}
+                    userServiceUrl={_env.user_service.url}
+                />
             </div>
         </>
     );

@@ -4,7 +4,7 @@ import type {
     AvatarPicture,
     Profile,
 } from "#user-service/databases/orm/client.js";
-export function Upload_avatar_or_show({
+export function UploadAvatarOrShowForLoggedAccountComponent({
     profile,
     userServiceBaseUrl,
 }: {

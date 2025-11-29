@@ -1,138 +1,163 @@
 "use client";
+import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { JustAvatarCircleComponent } from "#/components/users/dashboard/common";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
+import type { Account } from "#user-service/databases/orm/client.js";
 import type { Administrator_ResponseTypes } from "#user-service/shared/response-patterns/administrator.routes.js";
-import type { Metadata } from "next";
-import { useMemo, useState } from "react";
-
-export type UserProfile = {
-    id: string;
-    created_at: Date | string;
-    updated_at: Date | string;
-    by_account_id: string;
-    bio: string | null;
-    nickname: string | null;
-} | null;
-
-export type User = {
-    id: string;
-    created_at: Date | string;
-    updated_at: Date | string;
-    type: "USER" | "ADMIN" | "DEVELOPER" | "TESTER";
-    email: string | null;
-    username: string;
-    password_hash: string;
-    is_activated: boolean;
-    activation_link: string | null;
-    profile: UserProfile;
-};
-
 export type MainUserListShowerProps = {
     users: Administrator_ResponseTypes.get_all_users;
     pageSizeOptions?: number[];
 };
+import { useCopyToClipboard } from "react-use";
+import { useState, type ReactNode } from "react";
+type UserType = Administrator_ResponseTypes.get_all_users[number];
 
-// Utility helpers
+const __styles = {
+    wrapper: "p-2 dark:bg-slate-800 bg-slate-100 flex flex-col",
+    headerRow: "flex flex-col flex-wrap gap-2",
+    title: "font-bold",
+    controls: "flex flex-row  flex-wrap gap-2 items-center",
+    input: "py-2 px-1 min-w-100 border outline-none rounded-md bg-slate-300 dark:bg-slate-700",
+    select: "p-2 border rounded-md cursor-pointer bg-slate-300 dark:bg-slate-800",
+    smallBtn:
+        "p-1 border rounded text-sm cursor-pointer bg-slate-300 dark:bg-slate-700",
+    tableWrapper: "bg-transparent rounded-lg shadow-xl flex",
+    table: "min-w-full text-xs my-3",
+    badgeBase: "px-2 py-1 rounded-full text-xs font-semibold",
+    nextPrevStyles:
+        " cursor-pointer px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed",
+    modalBackdrop:
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/40",
+    modalSheet:
+        "bg-slate-200 dark:bg-slate-900 rounded-lg w-11/12 md:w-1/2 p-4 shadow-lg",
+};
+
 const shortId = (id: string) => `${id.slice(0, 8)}...${id.slice(-4)}`;
-const parseDate = (d: Date | string) =>
-    typeof d === "string" ? new Date(d) : d;
+const parseDate = (d: Date | string) => {
+    return typeof d === "string" ? new Date(d) : d;
+};
 const formatDate = (d?: Date | string) => {
-    if (!d) return "—";
+    if (!d) {
+        return "—";
+    }
     const dt = parseDate(d);
     return dt.toLocaleString();
 };
-
-const typeBadge = (t: User["type"]) => {
-    switch (t) {
-        case "ADMIN":
-            return "bg-red-100 text-red-800";
-        case "DEVELOPER":
-            return "bg-blue-100 text-blue-800";
-        case "TESTER":
-            return "bg-yellow-100 text-yellow-800";
-        default:
-            return "bg-gray-100 text-gray-800";
-    }
+const map = {
+    ADMIN: "bg-red-100 dark:bg-red-950 dark:text-slate-300 text-red-800",
+    DEVELOPER: "bg-blue-100 dark:bg-blue-950 dark:text-slate-300 text-blue-800",
+    TESTER: "bg-yellow-100 dark:bg-yellow-950 dark:text-slate-300 text-yellow-800",
+    USER: "bg-gray-100 dark:bg-gray-950 dark:text-slate-300 text-gray-800",
+} as const;
+const typeBadgeClass = (t: Account["type"]) => {
+    return `${__styles.badgeBase} ${map[t] ?? map.USER}`;
 };
-const selectStyles = "   cursor-pointer";
-const selectWrapperStyles =
-    "px-3 py-2 border rounded-md  cursor-pointer bg-slate-300 dark:bg-slate-800 cursor-pointer";
-// Main component (default export)
+
+function getFilteredSorted(
+    users: UserType[],
+    opts: {
+        query: string;
+        filterType: "ALL" | Account["type"];
+        sortBy: "created_at" | "username";
+        sortDir: "asc" | "desc";
+    },
+) {
+    const { query, filterType, sortBy, sortDir } = opts;
+    const q = query.trim().toLowerCase();
+    let list = users.slice();
+
+    if (filterType !== "ALL") list = list.filter((u) => u.type === filterType);
+
+    if (q) {
+        list = list.filter((u) => {
+            const nickname = u.profile?.nickname ?? "";
+            return (
+                u.username.toLowerCase().includes(q) ||
+                (u.email ?? "").toLowerCase().includes(q) ||
+                nickname.toLowerCase().includes(q) ||
+                shortId(u.id).toLowerCase().includes(q)
+            );
+        });
+    }
+
+    list.sort((a, b) => {
+        if (sortBy === "username") {
+            return sortDir === "asc"
+                ? a.username.localeCompare(b.username)
+                : b.username.localeCompare(a.username);
+        }
+        const tA = parseDate(a.created_at).getTime();
+        const tB = parseDate(b.created_at).getTime();
+        return sortDir === "asc" ? tA - tB : tB - tA;
+    });
+
+    return list;
+}
+const arrSomeOptions = [
+    "ID",
+    "User",
+    "Email",
+    "Type",
+    "Activated",
+    "Created",
+    "Actions",
+] as const;
 export function MainUserListShower({
-    users,
-    pageSizeOptions = [10, 25, 50],
-}: MainUserListShowerProps) {
+    initialUsers,
+    userServiceUrl,
+    pageSizeOptions = [10, 25, 50, 100, 1000],
+}: {
+    initialUsers: Administrator_ResponseTypes.get_all_users;
+    pageSizeOptions?: number[];
+    userServiceUrl: string;
+}) {
+    const toaster = useGToaster();
+    const [users] = useState<UserType[]>(initialUsers);
     const [query, setQuery] = useState("");
-    const [filterType, setFilterType] = useState<"ALL" | User["type"]>("ALL");
+    const [filterType, setFilterType] = useState<"ALL" | Account["type"]>(
+        "ALL",
+    );
     const [sortBy, setSortBy] = useState<"created_at" | "username">(
         "created_at",
     );
     const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState<number>(pageSizeOptions[0]);
-    const [modalUser, setModalUser] = useState<User | null>(null);
-
-    // Filtered + sorted list
-    const filtered = useMemo(() => {
-        const q = query.trim().toLowerCase();
-        let list = users.slice();
-        if (filterType !== "ALL") {
-            list = list.filter((u) => u.type === filterType);
-        }
-        if (q) {
-            list = list.filter((u) => {
-                const nickname = u.profile?.nickname ?? "";
-                return (
-                    u.username.toLowerCase().includes(q) ||
-                    (u.email ?? "").toLowerCase().includes(q) ||
-                    nickname.toLowerCase().includes(q) ||
-                    shortId(u.id).toLowerCase().includes(q)
-                );
-            });
-        }
-        list.sort((a, b) => {
-            if (sortBy === "username") {
-                return sortDir === "asc"
-                    ? a.username.localeCompare(b.username)
-                    : b.username.localeCompare(a.username);
-            }
-            const tA = parseDate(a.created_at).getTime();
-            const tB = parseDate(b.created_at).getTime();
-            return sortDir === "asc" ? tA - tB : tB - tA;
-        });
-        return list;
-    }, [users, query, filterType, sortBy, sortDir]);
-
-    // Pagination
+    const filtered = getFilteredSorted(users, {
+        query,
+        filterType,
+        sortBy,
+        sortDir,
+    });
     const total = filtered.length;
     const pages = Math.max(1, Math.ceil(total / pageSize));
     const pageSlice = filtered.slice((page - 1) * pageSize, page * pageSize);
 
-    // Actions (these are UI-only — wire them to your API calls)
-    const toggleActivation = (u: User) => {
-        // Placeholder: call API to toggle activation. Here we just log.
-        console.log("toggle activation for", u.id, "->", !u.is_activated);
-        // Optional: optimistic UI update — but since users are passed as prop,
-        // you should ideally lift state up or refetch after success.
-        alert(`(UI demo) Would toggle activation for ${u.username}`);
-    };
-
-    const copyId = (id: string) => {
-        navigator.clipboard?.writeText(id).then(() => alert("ID copied"));
-    };
+    const [, copyToClipboard] = useCopyToClipboard();
+    function copyId(id: string) {
+        try {
+            copyToClipboard(id);
+            return toaster.info("ID copied");
+        } catch {
+            return toaster.error("Error while copying");
+        }
+    }
 
     return (
-        <div className="p-4 bg-slate-100  dark:bg-slate-800">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                <h2 className="text-2xl font-semibold">Users ({total})</h2>
+        <div className={__styles.wrapper}>
+            <div className={__styles.headerRow}>
+                <h2 className={__styles.title}>Users ({total})</h2>
 
-                <div className="flex gap-2 items-center">
+                <div className={__styles.controls}>
                     <input
                         value={query}
                         onChange={(e) => {
+                            e.preventDefault();
                             setQuery(e.target.value);
-                            setPage(1);
+                            return setPage(1);
                         }}
                         placeholder="Search by username / email / nickname / id"
-                        className="px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                        className={__styles.input}
                     />
 
                     <select
@@ -141,38 +166,29 @@ export function MainUserListShower({
                             setFilterType(e.target.value as any);
                             setPage(1);
                         }}
-                        className={selectWrapperStyles}
+                        className={__styles.select}
                     >
-                        <option className={selectStyles} value="ALL">
-                            All types
-                        </option>
-                        <option className={selectStyles} value="USER">
-                            USER
-                        </option>
-                        <option className={selectStyles} value="ADMIN">
-                            ADMIN
-                        </option>
-                        <option className={selectStyles} value="DEVELOPER">
-                            DEVELOPER
-                        </option>
-                        <option className={selectStyles} value="TESTER">
-                            TESTER
-                        </option>
+                        <option value="ALL">All types</option>
+                        <option value="USER">USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="DEVELOPER">DEVELOPER</option>
+                        <option value="TESTER">TESTER</option>
                     </select>
 
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as any)}
-                        className={selectWrapperStyles}
+                        className={__styles.select}
                     >
                         <option value="created_at">Sort by created</option>
                         <option value="username">Sort by username</option>
                     </select>
+
                     <button
                         onClick={() =>
                             setSortDir((s) => (s === "asc" ? "desc" : "asc"))
                         }
-                        className="px-3 py-2 border rounded-md  cursor-pointer "
+                        className={__styles.smallBtn}
                         title="Toggle sort direction"
                     >
                         {sortDir === "asc" ? "↑" : "↓"}
@@ -184,7 +200,7 @@ export function MainUserListShower({
                             setPageSize(Number(e.target.value));
                             setPage(1);
                         }}
-                        className={selectWrapperStyles}
+                        className={__styles.select}
                     >
                         {pageSizeOptions.map((s) => (
                             <option key={s} value={s}>
@@ -195,91 +211,94 @@ export function MainUserListShower({
                 </div>
             </div>
 
-            <div className="overflow-x-auto bg-transparent rounded-lg shadow">
-                <table className="min-w-full text-sm">
-                    <thead className="bg-transparent">
+            <div className={__styles.tableWrapper}>
+                <table className={__styles.table}>
+                    <thead>
                         <tr>
-                            <th className="px-4 py-3 text-left">ID</th>
-                            <th className="px-4 py-3 text-left">User</th>
-                            <th className="px-4 py-3 text-left">Email</th>
-                            <th className="px-4 py-3 text-left">Type</th>
-                            <th className="px-4 py-3 text-left">Activated</th>
-                            <th className="px-4 py-3 text-left">Created</th>
-                            <th className="px-4 py-3 text-left">Actions</th>
+                            {arrSomeOptions.map((item) => {
+                                return (
+                                    <th
+                                        key={item}
+                                        className="px-4 py-3 text-left"
+                                    >
+                                        {item}
+                                    </th>
+                                );
+                            })}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="">
                         {pageSlice.map((u) => (
                             <tr
                                 key={u.id}
-                                className="border-t hover:bg-gray-50/80 dark:hover:bg-gray-50/10"
+                                className="border-y hover:bg-gray-50/80 dark:hover:bg-gray-50/10"
                             >
-                                <td className="px-4 py-3 align-middle">
+                                <TableDataWrapper>
                                     {shortId(u.id)}
-                                </td>
-                                <td className="px-4 py-3 align-middle">
+                                </TableDataWrapper>
+                                <TableDataWrapper>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-slate-800 flex items-center justify-center font-medium text-indigo-700 dark:text-indigo-500">
-                                            {u.profile?.nickname?.[0]?.toUpperCase() ??
-                                                u.username[0].toUpperCase()}
-                                        </div>
-                                        <div>
-                                            <div className="font-medium">
-                                                {u.username}
-                                            </div>
+                                        <JustAvatarCircleComponent
+                                            altTitle={u.username + " avatar"}
+                                            avatarUrl={
+                                                userServiceUrl +
+                                                "/v1/profile/avatar/view/" +
+                                                u.username
+                                            }
+                                        />
+                                        <div className="flex flex-col">
+                                            <Linker
+                                                clearTheDefaultStylings
+                                                className="hover:underline"
+                                                href={`/user/${u.username}`}
+                                            >
+                                                <div className="font-mono">
+                                                    {"@" + u.username}
+                                                </div>
+                                            </Linker>
                                             <div className="text-xs text-gray-500">
                                                 {u.profile?.nickname ?? "—"}
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                                <td className="px-4 py-3 align-middle">
+                                </TableDataWrapper>
+                                <TableDataWrapper>
                                     {u.email ?? "—"}
-                                </td>
-                                <td className="px-4 py-3 align-middle">
-                                    <span
-                                        className={`px-2 py-1 rounded-full text-xs font-semibold ${typeBadge(
-                                            u.type,
-                                        )}`}
-                                    >
+                                </TableDataWrapper>
+                                <TableDataWrapper>
+                                    <span className={typeBadgeClass(u.type)}>
                                         {u.type}
                                     </span>
-                                </td>
-                                <td className="px-4 py-3 align-middle">
+                                </TableDataWrapper>
+                                <TableDataWrapper>
                                     <label className="inline-flex items-center space-x-2">
                                         <input
                                             type="checkbox"
                                             checked={u.is_activated}
-                                            onChange={() => toggleActivation(u)}
+                                            readOnly
                                             className="form-checkbox h-4 w-4 text-indigo-600"
                                         />
                                         <span className="text-sm">
                                             {u.is_activated ? "Yes" : "No"}
                                         </span>
                                     </label>
-                                </td>
-                                <td className="px-4 py-3 align-middle">
+                                </TableDataWrapper>
+                                <TableDataWrapper>
                                     {formatDate(u.created_at)}
-                                </td>
-                                <td className="px-4 py-3 align-middle">
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => setModalUser(u)}
-                                            className="px-2 py-1 border rounded text-sm"
-                                        >
-                                            View
-                                        </button>
-                                        <button
-                                            onClick={() => copyId(u.id)}
-                                            className="px-2 py-1 border rounded text-sm"
-                                        >
-                                            Copy ID
-                                        </button>
-                                    </div>
-                                </td>
+                                </TableDataWrapper>
+                                <TableDataWrapper>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            copyId(u.id);
+                                        }}
+                                        className={__styles.smallBtn}
+                                    >
+                                        Copy ID
+                                    </button>
+                                </TableDataWrapper>
                             </tr>
                         ))}
-
                         {pageSlice.length === 0 && (
                             <tr>
                                 <td
@@ -293,10 +312,8 @@ export function MainUserListShower({
                     </tbody>
                 </table>
             </div>
-
-            {/* Pagination controls */}
             <div className="flex items-center justify-between mt-4">
-                <div className="text-sm text-gray-600">
+                <div className="text-xs text-gray-600 dark:text-gray-200">
                     Showing {Math.min((page - 1) * pageSize + 1, total)} -{" "}
                     {Math.min(page * pageSize, total)} of {total}
                 </div>
@@ -304,7 +321,7 @@ export function MainUserListShower({
                     <button
                         disabled={page <= 1}
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
-                        className=" cursor-pointer px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={__styles.nextPrevStyles}
                     >
                         Prev
                     </button>
@@ -314,28 +331,41 @@ export function MainUserListShower({
                     <button
                         disabled={page >= pages}
                         onClick={() => setPage((p) => Math.min(pages, p + 1))}
-                        className=" cursor-pointer px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={__styles.nextPrevStyles}
                     >
                         Next
                     </button>
                 </div>
             </div>
-
-            {/* Modal */}
-            {modalUser && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                    <div className="bg-slate-200 dark:bg-slate-900 rounded-lg w-11/12 md:w-1/2 p-4 shadow-lg">
+        </div>
+    );
+}
+function TableDataWrapper({ children }: { children: ReactNode }) {
+    return <td className="p-1">{children}</td>;
+}
+/**
+    const [modalUser, setModalUser] = useState<UserType | null>(null);
+ *     <button
+                                        onClick={() => setModalUser(u)}
+                                        className={__styles.smallBtn}
+                                    >
+                                        View
+                                    </button>
+ *    {modalUser && (
+                <div className={__styles.modalBackdrop}>
+                    <div className={__styles.modalSheet}>
                         <div className="flex justify-between items-center mb-2">
                             <h3 className="text-lg font-semibold">
                                 {modalUser.username} — profile
                             </h3>
                             <button
                                 onClick={() => setModalUser(null)}
-                                className="text-gray-500  cursor-pointer "
+                                className="text-gray-500 cursor-pointer"
                             >
                                 ✕
                             </button>
                         </div>
+
                         <div className="space-y-2 text-sm">
                             <div>
                                 <strong>ID:</strong> {modalUser.id}
@@ -363,9 +393,11 @@ export function MainUserListShower({
                                 {modalUser.profile?.bio ?? "—"}
                             </div>
                         </div>
+
                         <div className="mt-4 flex justify-end gap-2">
                             <button
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.preventDefault();
                                     copyId(modalUser.id);
                                 }}
                                 className="px-3 py-1 border rounded cursor-pointer"
@@ -382,6 +414,4 @@ export function MainUserListShower({
                     </div>
                 </div>
             )}
-        </div>
-    );
-}
+ */
