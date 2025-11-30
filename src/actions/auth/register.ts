@@ -3,21 +3,17 @@ import { mainUserServiceFetcher } from "#/integration/user-service/user-service-
 import { cookies, headers } from "next/headers";
 import { userServiceConfig } from "#/configs/user-service.app-config";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import {
-    authentication_schemas,
-    type dto,
-} from "#user-service/shared/validators/authentication.validator.routes.js";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
 import {
+    cookieOptionsForJustSettingIsLoggedData,
     cookieOptionsForJustSettingUsernameData,
     cookieOptionsForSetToken,
 } from "./cookie-option";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
-export async function registerNewUser_ServerAction(
-    data: dto.registration,
-): ServerActionResponseWithPromise {
+export async function registerNewUser_ServerAction(data: dto.registration): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
     if (auth) {
         return { ok: false, errors: ["Вы уже авторизованы"] };
@@ -25,9 +21,7 @@ export async function registerNewUser_ServerAction(
     if (auth === 500) {
         return { ok: false, errors: [internalErrTxt] };
     }
-    const parsed = await authentication_schemas.registration.safeParseAsync(
-        data,
-    );
+    const parsed = await authentication_schemas.registration.safeParseAsync(data);
     if (!parsed.success) {
         const errorList = parsed.error.issues.map(({ path, message }) => {
             return `${path.join(".")} -- ${message}` as const;
@@ -37,32 +31,24 @@ export async function registerNewUser_ServerAction(
     }
     const _cookies = await cookies();
     const _headers = await headers();
-    const r6f_session_token = _cookies.get(
-        userServiceConfig.session_token_name,
-    )?.value;
+    const r6f_session_token = _cookies.get(userServiceConfig.session_token_name)?.value;
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
 
     const { username, password, nickname, password_repeat } = parsed.data;
-    const res =
-        await mainUserServiceFetcher<Authentication_ResponseTypes.registration>(
-            {
-                url: "/v1/authentication/registration",
-                session_token: r6f_session_token,
-                method: "POST",
-                json_body: { username, password, nickname, password_repeat },
-                agent,
-                ip,
-            },
-        );
+    const res = await mainUserServiceFetcher<Authentication_ResponseTypes.registration>({
+        url: "/v1/authentication/registration",
+        session_token: r6f_session_token,
+        method: "POST",
+        json_body: { username, password, nickname, password_repeat },
+        agent,
+        ip,
+    });
     return await userServiceRawResponsePreHandler(res, {
         async onSuccessFunction(res) {
+            _cookies.set(cookieOptionsForJustSettingIsLoggedData("1"));
             _cookies.set(cookieOptionsForSetToken(res.data.session.token));
-            _cookies.set(
-                cookieOptionsForJustSettingUsernameData(
-                    res.data.account.username,
-                ),
-            );
+            _cookies.set(cookieOptionsForJustSettingUsernameData(res.data.account.username));
         },
     });
 }

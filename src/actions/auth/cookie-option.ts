@@ -31,3 +31,14 @@ export const cookieOptionsForJustSettingUsernameData = (username: string) => {
         maxAge: two_thousand_years,
     };
 };
+export const cookieOptionsForJustSettingIsLoggedData = (value: string) => {
+    return {
+        name: userServiceConfig.r6_is_logged_user,
+        value: value,
+        httpOnly: false,
+        secure: false,
+        priority: "medium" as const,
+        sameSite: "strict" as const,
+        maxAge: two_thousand_years,
+    };
+};

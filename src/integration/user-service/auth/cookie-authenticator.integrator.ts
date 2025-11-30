@@ -16,24 +16,24 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (!session_token || session_token.length < 20) {
         return null;
     }
-    const res =
-        await mainUserServiceFetcher<Authentication_ResponseTypes.check_session>(
-            {
-                method: "POST",
-                url: "/v1/authentication/check_session",
-                agent: agent,
-                ip: ip,
-                session_token: session_token,
-            },
-        );
+    const res = await mainUserServiceFetcher<Authentication_ResponseTypes.check_session>({
+        method: "POST",
+        url: "/v1/authentication/check_session",
+        agent: agent,
+        ip: ip,
+        session_token: session_token,
+    });
 
     if (res === 500) {
         return 500;
     }
-    if (!res?.data || !res?.ok) {
-        return null;
+    if (res.data && res.ok) {
+        // if (_cookies.get(userServiceConfig.r6_current_username)?.value !== res.data.account.username) {
+        //     _cookies.set(cookieOptionsForJustSettingUsernameData(res.data.account.username));
+        // }
+        return { data: res.data, ip, agent, session_token };
     }
-    return { data: res.data, ip, agent, session_token };
+    return null;
 }
 export type AuthenticatorType =
     | {

@@ -1,5 +1,5 @@
 "use client";
-import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account";
+import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-server-action";
 import { useTransition, type FormEvent } from "react";
 import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { LogOut } from "lucide-react";

@@ -1,12 +1,9 @@
 "use client";
-import { loginAction } from "#/actions/auth/login-server-action";
+import { login_ServerAction } from "#/actions/auth/login-server-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition, type FormEvent } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import {
-    authentication_schemas,
-    type dto,
-} from "#user-service/shared/validators/authentication.validator.routes.js";
+import { authentication_schemas, type dto } from "#user-service/shared/validators/authentication.validator.routes.js";
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
@@ -32,7 +29,7 @@ export function MainLoginComponent() {
         startTransition(async () => {
             e?.preventDefault();
             setServerErrors([]);
-            const res = await loginAction(data);
+            const res = await login_ServerAction(data);
             serverActionsResponsesProcessorFromClientEnvironment({
                 success: toaster.success,
                 res,
@@ -60,10 +57,7 @@ export function MainLoginComponent() {
                 props={register("password", { required: true })}
             />
             {serverErrors?.map((msg, i) => (
-                <div
-                    key={i}
-                    className="text-wrap dark:text-red-500 text-red-800"
-                >
+                <div key={i} className="text-wrap dark:text-red-500 text-red-800">
                     <span>{msg}</span>
                 </div>
             ))}

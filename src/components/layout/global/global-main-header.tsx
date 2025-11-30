@@ -8,34 +8,37 @@ import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-in
 import { getCookie } from "cookies-next/client";
 import { userServiceConfig } from "#/configs/user-service.app-config";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-export function GlobalMainHeader({
-    userServiceBaseUrl,
-}: {
-    userServiceBaseUrl: string;
-}) {
-    const [usernameClient, setUsernameClient] = useState<string | undefined>(
-        "",
-    );
+export function GlobalMainHeader({ userServiceBaseUrl }: { userServiceBaseUrl: string }) {
+    const router = useRouter();
+    const [usernameClient, setUsernameClient] = useState<string | undefined>("");
     const [paused, setPaused] = useState(true);
     useEffect(() => {
-        setUsernameClient(getCookie(userServiceConfig.r6_current_username));
+        console.log("HERE");
+        const hasCookieUsername = getCookie(userServiceConfig.r6_current_username);
+        const r6_is_logged_user = getCookie(userServiceConfig.r6_is_logged_user);
+        if (r6_is_logged_user === undefined) {
+            return router.push("/api/whoami");
+        }
+        if (!hasCookieUsername && r6_is_logged_user === "1") {
+            return router.push("/api/whoami");
+        }
+
+        if (hasCookieUsername && r6_is_logged_user === "0") {
+            return router.push("/api/whoami");
+        }
+        setUsernameClient(hasCookieUsername);
         setPaused(false);
-    }, []);
+    }, [paused]);
     if (paused) {
         return null;
     }
     return (
         <div className=" flex flex-col">
-            <header
-                className={`flex flex-wrap justify-between ${rea_wrapper_border} `}
-                id="home"
-            >
+            <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
                 <div className="flex flex-wrap justify-start">
-                    <Link
-                        href="/"
-                        className="p-1 flex items-center justify-center "
-                    >
+                    <Link href="/" className="p-1 flex items-center justify-center ">
                         <img
                             src={"/icon.png"}
                             className=" w-[30px] h-[30px] mx-3 object-cover"
@@ -46,10 +49,7 @@ export function GlobalMainHeader({
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <MainDropdownMenuInHeader
-                        username={usernameClient}
-                        userServiceBaseUrl={userServiceBaseUrl}
-                    />
+                    <MainDropdownMenuInHeader username={usernameClient} userServiceBaseUrl={userServiceBaseUrl} />
                 </div>
             </header>
         </div>
