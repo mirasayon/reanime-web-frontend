@@ -1,12 +1,21 @@
 "use client";
 import { setProfileAvatar_ServerAction } from "#/actions/media/avatar-set.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
-import { useState, useTransition } from "react";
+import {
+    useState,
+    useTransition,
+    type Dispatch,
+    type SetStateAction,
+} from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
-export function SetAvatarForm({}: {}) {
+export function SetAvatarForm({
+    setIsEditing,
+}: {
+    setIsEditing: Dispatch<SetStateAction<boolean>>;
+}) {
     const [previewSrc, setPreviewSrc] = useState<string>();
     const toaster = useGToaster();
 
@@ -15,6 +24,7 @@ export function SetAvatarForm({}: {}) {
         const file = e.target.files?.[0];
         if (file) {
             const url = URL.createObjectURL(file);
+            setIsEditing(true);
             setPreviewSrc(url);
         }
     }
@@ -40,16 +50,7 @@ export function SetAvatarForm({}: {}) {
         });
     }
     return (
-        <div className=" border-r-2 border-blue-500">
-            {!previewSrc && (
-                <div>
-                    <img
-                        src="/_assets/default-avatars/m.jpg"
-                        className="w-48 h-48 object-cover p-1"
-                        alt="Аватарка по умолчанию"
-                    />
-                </div>
-            )}
+        <div className="">
             <form action={UploadAvatarHandle} className="flex flex-col ">
                 <label
                     hidden={!!previewSrc}

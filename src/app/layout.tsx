@@ -15,55 +15,36 @@ import { GlobalMainHeader } from "#/components/layout/global/global-main-header"
 import { root_layout_Metadata } from "#/meta/root-layout.metadata";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import type { JSX } from "react";
-import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import {
-    sessionAuthenticator_S_A,
-    type AuthenticatorType,
-} from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
-
-type ReturnTypes = Promise<JSX.Element>;
+const isAnalyticsEnabled = process.env.NEXT_PUBLIC_ANALYTICS === "true";
+const gAIdPublic = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!;
+const gTMidPublic = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID!;
+const userServiceUrlPublic = process.env.NEXT_PUBLIC_USER_SERVICE_URL!;
 type __Root_layoutProps = LayoutProps;
-
-export default async function __Root_layout({
+export default function __Root_layout({
     children,
-}: __Root_layoutProps): ReturnTypes {
-    let auth: AuthenticatorType = null;
-    const isUserServiceAlive = await isUserServiceAliveNow();
-    if (isUserServiceAlive) {
-        auth = await sessionAuthenticator_S_A();
-    }
-    const _env = await nextLoadEnvSSR();
-    if (auth === 500) {
-        auth = null;
-    }
+}: __Root_layoutProps): JSX.Element {
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {_env.is_prod && _env.gtm_id && (
-                <Google_TagManager gtm_id={_env.gtm_id} />
-            )}
+            {isAnalyticsEnabled && <Google_TagManager gtm_id={gTMidPublic} />}
             <body className={`${inter.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
                         <GlobalMainHeader
-                            account={auth?.data.account || null}
-                            profile={auth?.data.profile || null}
-                            avatar={auth?.data.avatar || null}
-                            userServiceBaseUrl={_env.user_service.url}
+                            userServiceBaseUrl={userServiceUrlPublic}
                         />
                         {children}
                         <Layout_Footer />
                         <Cookie_consent_banner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>
-                {_env.is_prod && <YandexMetrikaAnalytics />}
+                {isAnalyticsEnabled && <YandexMetrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            {_env.is_prod && _env.gaid && <Google_Analytics gaid={_env.gaid} />}
+            {isAnalyticsEnabled && <Google_Analytics gaid={gAIdPublic} />}
         </html>
     );
 }

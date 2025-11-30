@@ -1,73 +1,43 @@
-"use client";
-import { useState } from "react";
 import { AvatarDashboardForLoggedInUser } from "./for-logged-users";
 import { LoginAndRegisterLinksAtAvatarPlace } from "./for-guests";
-import { DropdownMenuInHeaderEntryPoint } from "./entry-point";
-import type {
-    Profile,
-    Account,
-    AvatarPicture,
-} from "#user-service/databases/orm/client.js";
+import { AvatarOrLoginRegButtonForHeader } from "./avatar-or-login-reg-button-for-header";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from "#/shadcn-ui/dropdown-menu";
 export function MainDropdownMenuInHeader({
-    profile,
+    username,
     userServiceBaseUrl,
-    avatar,
-    account,
 }: {
-    profile: Profile | null;
-    account: Account | null;
-    avatar: AvatarPicture | null;
+    username?: string;
     userServiceBaseUrl: string;
 }) {
-    const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false);
-    const auth =
-        profile && account
-            ? {
-                  show_name: profile.nickname ?? account.username,
-                  avatar: avatar?.url || null,
-              }
-            : null;
     return (
-        <>
-            <div className={`relative z-50`}>
-                <DropdownMenuInHeaderEntryPoint
-                    setterIsOpen={setIsOpenDropdownMenu}
-                    isOpen={isOpenDropdownMenu}
-                    loggedUser={auth}
+        <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none p-1 cursor-pointer">
+                <AvatarOrLoginRegButtonForHeader
+                    username={username}
                     userServiceBaseUrl={userServiceBaseUrl}
                 />
-
-                <div className={!isOpenDropdownMenu ? "w-0 h-0" : ""}>
-                    <div
-                        className={`absolute right-0 top-[70px] dark:bg-slate-800 bg-blue-200 ${
-                            !isOpenDropdownMenu && "h-0 w-0"
-                        } `}
-                    >
-                        <div
-                            className={`${
-                                !isOpenDropdownMenu && "hidden"
-                            } flex flex-col `}
-                        >
-                            <div className={"m-1 p-2"}>
-                                {profile && account ? (
-                                    <AvatarDashboardForLoggedInUser
-                                        setOpenFunction={setIsOpenDropdownMenu}
-                                        username={account.username}
-                                    />
-                                ) : (
-                                    <div
-                                        onClick={(e) => {
-                                            setIsOpenDropdownMenu(false);
-                                        }}
-                                    >
-                                        <LoginAndRegisterLinksAtAvatarPlace />
-                                    </div>
-                                )}
-                            </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className=" dark:bg-slate-900 bg-blue-200 dark:text-blue-100 text-black">
+                <div
+                    className={`  right-0 top-[70px] dark:bg-slate-800 bg-blue-200 `}
+                >
+                    <div className={` flex flex-col `}>
+                        <div className={"m-1 p-2"}>
+                            {username ? (
+                                <AvatarDashboardForLoggedInUser
+                                    username={username}
+                                />
+                            ) : (
+                                <LoginAndRegisterLinksAtAvatarPlace />
+                            )}
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }

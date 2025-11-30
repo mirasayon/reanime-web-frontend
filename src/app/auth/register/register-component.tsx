@@ -38,6 +38,7 @@ export function Register_Component() {
                     setServerErrors(errors);
                 },
                 onSuccessFunction: () => {
+                    window?.location?.reload?.();
                     router.push("/user/" + data.username);
                 },
                 success: toaster.success,

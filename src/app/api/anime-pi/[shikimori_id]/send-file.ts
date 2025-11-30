@@ -1,10 +1,15 @@
 import { type Stats } from "node:fs";
 import { extname } from "node:path";
 import { readFile, stat } from "node:fs/promises";
-import ms from "ms";
 import { contentType } from "mime-types";
-const maxAgeSeconds = ms("10d");
-export const serveFile = async ({ fullPath, imgBuffer }: { fullPath?: string; imgBuffer?: Buffer<ArrayBufferLike> }) => {
+const maxAgeSeconds = 86_400_0000; //10 days
+export const serveFile = async ({
+    fullPath,
+    imgBuffer,
+}: {
+    fullPath?: string;
+    imgBuffer?: Buffer<ArrayBufferLike>;
+}) => {
     if (imgBuffer) {
         return new Response(Buffer.from(imgBuffer), {
             status: 200,
@@ -22,7 +27,9 @@ export const serveFile = async ({ fullPath, imgBuffer }: { fullPath?: string; im
         if (!mimet) {
             return new Response("Not found", { status: 404 });
         }
-        const etag = `W/"${_stat.size.toString(16)}-${_stat.mtimeMs.toString(16)}"`;
+        const etag = `W/"${_stat.size.toString(16)}-${_stat.mtimeMs.toString(
+            16,
+        )}"`;
 
         const bfr = await readFile(fullPath, {});
 
@@ -37,4 +44,3 @@ export const serveFile = async ({ fullPath, imgBuffer }: { fullPath?: string; im
         });
     }
 };
-

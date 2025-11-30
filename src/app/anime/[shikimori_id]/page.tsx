@@ -6,7 +6,6 @@ import { ShowAnimesScreenshotsComponent } from "#/components/animes/anime-screen
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
-import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
@@ -30,8 +29,7 @@ export default async function __AnimeSeriesPage({
     }
 
     const auth = await sessionAuthenticator_S_A();
-    const current_shikimori_id = Number(shikimori_id_web); //* * **
-    const env = await nextLoadEnvSSR();
+    const current_shikimori_id = Number(shikimori_id_web);
     const anime = await getAnyByShikimoriFromKodikApi(current_shikimori_id);
     if (!anime) {
         return notFound();
@@ -61,7 +59,7 @@ export default async function __AnimeSeriesPage({
             <MainCommentsSection
                 shikimori_id={current_shikimori_id}
                 current_user={auth}
-                userServerBaseUrl={env.user_service.url}
+                userServerBaseUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
             />
         </>
     );

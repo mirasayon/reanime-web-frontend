@@ -28,7 +28,7 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
     ip,
 }: Props): Promise<UserServiceResponseBodyPattern<T> | 500> {
     try {
-        const full_url = (await nextLoadEnvSSR()).user_service.url + url;
+        const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
         const headers: HeadersInit = {};
         if (agent) {
             headers["user-agent"] = agent;
@@ -41,7 +41,7 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
         }
         headers["x-reanime-user-service-key"] = (
             await nextLoadEnvSSR()
-        ).user_service.api_key;
+        ).user_service_api_key;
         const response = await fetch(full_url, {
             method: method,
             headers: headers,

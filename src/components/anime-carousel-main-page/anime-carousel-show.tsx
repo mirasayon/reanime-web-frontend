@@ -1,6 +1,12 @@
 "use client";
 import Link from "next/link";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "#/shadcn-ui/carousel";
+import {
+    CarouselShadCN,
+    CarouselContentShadCN,
+    CarouselItemShadCN,
+    CarouselNextShadCN,
+    CarouselPreviousShadCN,
+} from "#/shadcn-ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { set_top_chart_animes_image_urlByUrl } from "#/utils";
 import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
@@ -11,7 +17,7 @@ type AnimeMainPageCarouselProps = {
 export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
     return (
         <div className="lg:mx-45 mx-18">
-            <Carousel
+            <CarouselShadCN
                 opts={{
                     align: "start",
                     loop: true,
@@ -22,17 +28,25 @@ export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
                     }),
                 ]}
             >
-                <CarouselContent>
+                <CarouselContentShadCN>
                     {animes.map((one_slide) => {
                         return (
-                            <CarouselItem key={one_slide.shikimori_id} className="text-white dark:text-white ">
-                                <Link href={"/anime/" + one_slide.shikimori_id} className={"flex  flex-row"}>
+                            <CarouselItemShadCN
+                                key={one_slide.shikimori_id}
+                                className="text-white dark:text-white "
+                            >
+                                <Link
+                                    href={"/anime/" + one_slide.shikimori_id}
+                                    className={"flex  flex-row"}
+                                >
                                     <div
                                         className=" "
                                         style={{
                                             backgroundPosition: "top center",
                                             backgroundSize: "cover",
-                                            backgroundImage: `url("${set_top_chart_animes_image_urlByUrl(one_slide.cover)}")`,
+                                            backgroundImage: `url("${set_top_chart_animes_image_urlByUrl(
+                                                one_slide.cover,
+                                            )}")`,
                                         }}
                                     >
                                         <div
@@ -40,23 +54,30 @@ export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
                                                 "flex flex-col gap-44  p-2 overflow-y-scroll  dark:bg-zinc-950/50 bg-zinc-950/30 h-[350px] scrollbar "
                                             }
                                         >
-                                            <div className={"text-lg font-bold"}>{one_slide.title}</div>
+                                            <div
+                                                className={"text-lg font-bold"}
+                                            >
+                                                {one_slide.title}
+                                            </div>
                                             <div className="  ">
-                                                {one_slide.description.length > 300
-                                                    ? one_slide.description.slice(0, 300) + "..."
+                                                {one_slide.description.length >
+                                                300
+                                                    ? one_slide.description.slice(
+                                                          0,
+                                                          300,
+                                                      ) + "..."
                                                     : one_slide.description}
                                             </div>
                                         </div>
                                     </div>
                                 </Link>
-                            </CarouselItem>
+                            </CarouselItemShadCN>
                         );
                     })}
-                </CarouselContent>
-                <CarouselPrevious className="cursor-pointer" />
-                <CarouselNext className="cursor-pointer" />
-            </Carousel>
+                </CarouselContentShadCN>
+                <CarouselPreviousShadCN className="cursor-pointer" />
+                <CarouselNextShadCN className="cursor-pointer" />
+            </CarouselShadCN>
         </div>
     );
 }
-

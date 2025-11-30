@@ -2,14 +2,14 @@
 import { DeleteAccountPermanently_ServerAction } from "#/actions/account/delete-account";
 import {
     AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+    AlertDialogActionShadCN,
+    AlertDialogCancelShadCN,
+    AlertDialogContentShadCN,
+    AlertDialogDescriptionShadCN,
+    AlertDialogFooterShadCN,
+    AlertDialogHeaderShadCN,
+    AlertDialogTitleShadCN,
+    AlertDialogTriggerShadCN,
 } from "#/shadcn-ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -35,36 +35,36 @@ export function DeleteAccountPermanentlyComponent() {
     return (
         <AlertDialog>
             <div className="p-2 bg-red-600 rounded cursor-pointer">
-                <AlertDialogTrigger className="cursor-pointer">
+                <AlertDialogTriggerShadCN className="cursor-pointer">
                     Удалить аккаунт
-                </AlertDialogTrigger>
+                </AlertDialogTriggerShadCN>
             </div>
-            <AlertDialogContent className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
+            <AlertDialogContentShadCN className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
                 <form action={deleteAvatarHandle} className=" grid p-2 m-2 ">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>
+                    <AlertDialogHeaderShadCN>
+                        <AlertDialogTitleShadCN>
                             Вы абсолютно уверены?
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
+                        </AlertDialogTitleShadCN>
+                        <AlertDialogDescriptionShadCN>
                             Это действие невозможно отменить. Это приведёт к
                             безвозвратному удалению вашей учётной записи и ваших
                             данных с наших серверов.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="cursor-pointer dark:bg-slate-800 bg-blue-200">
+                        </AlertDialogDescriptionShadCN>
+                    </AlertDialogHeaderShadCN>
+                    <AlertDialogFooterShadCN>
+                        <AlertDialogCancelShadCN className="cursor-pointer dark:bg-slate-800 bg-blue-200">
                             Отмена
-                        </AlertDialogCancel>
+                        </AlertDialogCancelShadCN>
 
-                        <AlertDialogAction
+                        <AlertDialogActionShadCN
                             type="submit"
                             className="cursor-pointer dark:bg-red-800 border  border-red-200 bg-blue-200"
                         >
                             {pending ? "Удаляю..." : "Подтвердить"}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>{" "}
+                        </AlertDialogActionShadCN>
+                    </AlertDialogFooterShadCN>{" "}
                 </form>
-            </AlertDialogContent>
+            </AlertDialogContentShadCN>
         </AlertDialog>
     );
 }

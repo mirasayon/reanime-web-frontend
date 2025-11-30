@@ -15,7 +15,7 @@ export function ShowOthersProfile({
         <>
             <h1 className="p-3 text-center">Профиль пользователя</h1>
             <OnlyShowOthersAvatar
-                profile={data.profile}
+                username={data.account.username}
                 userServiceBaseUrl={userServiceBaseUrl}
             />
             <Others_Profile_Dashboard

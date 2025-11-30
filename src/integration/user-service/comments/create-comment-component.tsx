@@ -66,11 +66,9 @@ export function MainCreateCommentComponent({
             >
                 <img
                     src={
-                        profile.data.avatar
-                            ? userServerBaseUrl +
-                              "/v1/profile/avatar/view/" +
-                              profile.data.avatar.url
-                            : "/_assets/default-avatars/m.jpg"
+                        userServerBaseUrl +
+                        "/v1/profile/avatar/view/" +
+                        profile.data.account.username
                     }
                     alt="user avatar"
                     className="rounded-full object-cover w-[40px] h-[40px]"

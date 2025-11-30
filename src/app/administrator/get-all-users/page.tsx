@@ -3,18 +3,11 @@ import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie
 import { notFound } from "next/navigation";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { isUserServiceAliveNow } from "#/settings/resource-service";
-import { ComingSoon } from "#/components/info/coming-soon";
 import type { Administrator_ResponseTypes } from "#user-service/shared/response-patterns/administrator.routes.js";
 import { MainUserListShower } from "./admin-all-users-ui-component";
 import type { JSX } from "react";
 import type { Metadata } from "next";
-import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 export default async function __Admin_All_Users_Page(): Promise<JSX.Element> {
-    if (!(await isUserServiceAliveNow())) {
-        return <ComingSoon />;
-    }
-    const _env = await nextLoadEnvSSR();
-    const userServiceUrl = _env.user_service.url;
     const auth = await sessionAuthenticator_S_A();
     if (auth === 500 || !auth) {
         return notFound();
@@ -45,7 +38,7 @@ export default async function __Admin_All_Users_Page(): Promise<JSX.Element> {
             <div className="">
                 <MainUserListShower
                     initialUsers={allUsersData.data}
-                    userServiceUrl={_env.user_service.url}
+                    userServiceUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
                 />
             </div>
         </>

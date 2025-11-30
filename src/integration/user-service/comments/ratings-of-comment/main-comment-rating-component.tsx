@@ -124,8 +124,11 @@ export function ShowCommentRatingComponent({
             >
                 <ThumbsUp
                     fill={isLiked ? "white" : "transparent"}
-                    className={`w-4 h-4 dark:text-gray-500 text-gray-500
-                    }`}
+                    className={dislikeDark}
+                />{" "}
+                <ThumbsUp
+                    fill={isLiked ? "black" : "transparent"}
+                    className={dislikeLight}
                 />
             </button>
             <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">
@@ -141,9 +144,15 @@ export function ShowCommentRatingComponent({
             >
                 <ThumbsDown
                     fill={isDisliked ? "white" : "transparent"}
-                    className={`w-4 h-4 dark:text-gray-500 text-gray-500`}
+                    className={dislikeDark}
+                />
+                <ThumbsDown
+                    fill={isDisliked ? "black" : "transparent"}
+                    className={dislikeLight}
                 />
             </button>
         </div>
     );
 }
+const dislikeLight = `w-4 h-4 dark:hidden dark:text-gray-500 text-gray-500`;
+const dislikeDark = `w-4 h-4 hidden dark:block dark:text-gray-500 text-gray-500`;

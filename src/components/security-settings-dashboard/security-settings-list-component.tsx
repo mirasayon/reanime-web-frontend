@@ -33,6 +33,14 @@ export function SecuritySettingsDashboardComponent() {
                 >
                     Обновить пароль🔗
                 </Linker>
+
+                <Linker
+                    href="/user/settings/sessions"
+                    clearTheDefaultStylings
+                    className=" border-2 p-2 rounded "
+                >
+                    Активные сессии
+                </Linker>
             </div>
         </div>
     );

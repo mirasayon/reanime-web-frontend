@@ -2,24 +2,19 @@
 import { ShowOthersProfile } from "./show-others-profile";
 import { MainShowMyProfileDashboard } from "./show-my-profile";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-// import type { SearchParams } from "#T/nextjs";
-import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { notFound } from "next/navigation";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { isUserServiceAliveNow } from "#/settings/resource-service";
 import { ComingSoon } from "#/components/info/coming-soon";
 import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
 import { rea_wrapper_border } from "#/styles/provider";
 export default async function __User__Page({
     params,
-}: // searchParams,
-{
+}: {
     params: Promise<{ username: string }>;
-    // searchParams: SearchParams;
 }): Promise<React.JSX.Element> {
     if (!(await isUserServiceAliveNow())) {
         return <ComingSoon />;
@@ -27,7 +22,6 @@ export default async function __User__Page({
     const _params = await params;
     const _username = _params.username;
     const auth = await sessionAuthenticator_S_A();
-    const _env = await nextLoadEnvSSR();
     const base_profile_data =
         await mainUserServiceFetcher<Profile_ResponseTypes.view_other_profiles>(
             {
@@ -59,7 +53,7 @@ export default async function __User__Page({
         return (
             <ShowOthersProfile
                 data={base_profile_data.data}
-                userServiceBaseUrl={_env.user_service.url}
+                userServiceBaseUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
             />
         );
     }
@@ -85,10 +79,7 @@ export default async function __User__Page({
     const loggedUser = my_profile_data.data;
     return (
         <>
-            <MainShowMyProfileDashboard
-                data={loggedUser}
-                userServiceBaseUrl={_env.user_service.url}
-            />
+            <MainShowMyProfileDashboard data={loggedUser} />
             <div className={rea_wrapper_border}>
                 <SecuritySettingsDashboardComponent />
                 {all_comments_from_this_user !== 500 &&

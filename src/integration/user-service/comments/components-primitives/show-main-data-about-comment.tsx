@@ -21,11 +21,9 @@ export function JustShowMainDataAboutComment({
             >
                 <img
                     src={
-                        comment.by_profile.avatar?.url
-                            ? userServerBaseUrl +
-                              "/v1/profile/avatar/view/" +
-                              comment.by_profile.avatar?.url
-                            : "/_assets/default-avatars/m.jpg"
+                        userServerBaseUrl +
+                        "/v1/profile/avatar/view/" +
+                        comment.by_profile.by_account.username
                     }
                     alt="user avatar"
                     className="rounded-full object-cover w-[50px] h-[50px]"

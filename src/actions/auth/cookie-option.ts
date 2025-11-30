@@ -19,3 +19,15 @@ export const cookieOptionsForGETToken = {
 export const cookieOptionsForDELETEToken = {
     name: userServiceConfig.session_token_name,
 } as const;
+
+export const cookieOptionsForJustSettingUsernameData = (username: string) => {
+    return {
+        name: userServiceConfig.r6_current_username,
+        value: username,
+        httpOnly: false,
+        secure: false,
+        priority: "medium" as const,
+        sameSite: "strict" as const,
+        maxAge: two_thousand_years,
+    };
+};

@@ -27,6 +27,9 @@ export async function LogOutAccount_ServerAction(): ServerActionResponseWithProm
     return await userServiceRawResponsePreHandler(res, {
         onSuccessFunction: () => {
             _cookies.delete(userServiceConfig.session_token_name);
+            if (_cookies.has(userServiceConfig.r6_current_username)) {
+                _cookies.delete(userServiceConfig.r6_current_username);
+            }
         },
     });
 }

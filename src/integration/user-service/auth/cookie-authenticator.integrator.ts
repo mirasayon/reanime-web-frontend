@@ -33,10 +33,11 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (!res?.data || !res?.ok) {
         return null;
     }
-    return { data: res.data, ip, agent };
+    return { data: res.data, ip, agent, session_token };
 }
 export type AuthenticatorType =
     | {
+          session_token: string;
           data: Authentication_ResponseTypes.check_session;
           ip: string | undefined;
           agent: string | undefined;

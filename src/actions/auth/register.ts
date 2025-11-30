@@ -8,7 +8,10 @@ import {
     type dto,
 } from "#user-service/shared/validators/authentication.validator.routes.js";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
-import { cookieOptionsForSetToken } from "./cookie-option";
+import {
+    cookieOptionsForJustSettingUsernameData,
+    cookieOptionsForSetToken,
+} from "./cookie-option";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
@@ -55,6 +58,11 @@ export async function registerNewUser_ServerAction(
     return await userServiceRawResponsePreHandler(res, {
         async onSuccessFunction(res) {
             _cookies.set(cookieOptionsForSetToken(res.data.session.token));
+            _cookies.set(
+                cookieOptionsForJustSettingUsernameData(
+                    res.data.account.username,
+                ),
+            );
         },
     });
 }

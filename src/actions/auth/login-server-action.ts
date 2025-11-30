@@ -4,11 +4,11 @@ import { cookies, headers } from "next/headers";
 import { userServiceConfig } from "#/configs/user-service.app-config";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
+import { authentication_schemas } from "#user-service/shared/validators/authentication.validator.routes.js";
 import {
-    authentication_schemas,
-    type dto,
-} from "#user-service/shared/validators/authentication.validator.routes.js";
-import { cookieOptionsForSetToken } from "./cookie-option";
+    cookieOptionsForJustSettingUsernameData,
+    cookieOptionsForSetToken,
+} from "./cookie-option";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
@@ -56,6 +56,11 @@ export async function loginAction(data: {
     return await userServiceRawResponsePreHandler(res, {
         onSuccessFunction: (res) => {
             _cookies.set(cookieOptionsForSetToken(res.data.session.token));
+            _cookies.set(
+                cookieOptionsForJustSettingUsernameData(
+                    res.data.account.username,
+                ),
+            );
         },
     });
 }

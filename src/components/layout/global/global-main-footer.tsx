@@ -3,13 +3,14 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
+import { error_reporting_form_link } from "#/configs/test-mode-constants";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 export function Layout_Footer() {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col ${rea_wrapper_border} `}>
-                <div className="flex flex-wrap flex-row justify-between">
+                <div className="flex flex-wrap p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>
                             &copy; {birth_year} - {this_year}{" "}
@@ -33,6 +34,9 @@ export function Layout_Footer() {
                         href={WebsiteConfigs.developer_website}
                     >
                         О разработчике
+                    </Linker>
+                    <Linker href={error_reporting_form_link} className={style}>
+                        Сообщить о баге
                     </Linker>
                 </div>
                 <div className="m-1 grid">

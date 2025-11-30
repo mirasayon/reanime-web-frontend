@@ -40,6 +40,7 @@ export function MainLoginComponent() {
                     setServerErrors(errors);
                 },
                 onSuccessFunction: () => {
+                    window?.location?.reload?.();
                     router.push("/user/" + data.username);
                 },
             });

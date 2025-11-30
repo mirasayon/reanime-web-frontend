@@ -4,9 +4,7 @@ import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
 
 export function MainShowMyProfileDashboard({
     data,
-    userServiceBaseUrl,
 }: {
-    userServiceBaseUrl: string;
     data: Profile_ResponseTypes.view_my_profile;
 }) {
     return (
@@ -15,7 +13,7 @@ export function MainShowMyProfileDashboard({
             <div className=" flex  border-2 m-2 border-blue-400 ">
                 <UploadAvatarOrShowForLoggedAccountComponent
                     profile={data.profile}
-                    userServiceBaseUrl={userServiceBaseUrl}
+                    username={data.account.username}
                 />
                 <MainProfileDashboard user={data} />
             </div>

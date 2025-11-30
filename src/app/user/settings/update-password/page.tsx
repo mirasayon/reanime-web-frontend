@@ -3,6 +3,7 @@ import { UpdatePasswordFormComponent } from "#/components/security-settings-dash
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
+import { BackToUserPageButtonComponent } from "../sessions/back-button-component";
 
 export default async function __UpdatePasswordPage() {
     const auth = await sessionAuthenticator_S_A();
@@ -11,8 +12,11 @@ export default async function __UpdatePasswordPage() {
     }
     if (auth) {
         return (
-            <div className={` ${rea_wrapper_border} p-2 flex flex-col`}>
+            <div className={` ${rea_wrapper_border} p-2 flex flex-col gap-2`}>
                 <h1>Обновить пароль пользователя</h1>
+                <BackToUserPageButtonComponent
+                    username={auth.data.account.username}
+                />
                 <UpdatePasswordFormComponent
                     username={auth.data.account.username}
                 />

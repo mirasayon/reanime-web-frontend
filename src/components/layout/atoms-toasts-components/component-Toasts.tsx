@@ -9,14 +9,17 @@ export function Toasts() {
     const { remove } = useGToaster();
     const liveRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
-        if (!liveRef.current) return;
+        if (!liveRef.current) {
+            return;
+        }
         const last = toasts.at(-1);
-        if (last) liveRef.current.textContent = last.message;
+        if (last) {
+            liveRef.current.textContent = last.message;
+        }
     }, [toasts]);
 
     return (
         <>
-            {/* живой регион для доступности */}
             <div
                 ref={liveRef}
                 aria-live="polite"
@@ -29,7 +32,7 @@ export function Toasts() {
                         <div
                             key={t.id}
                             className={[
-                                "pointer-events-auto rounded-2xl p-4 shadow-lg ring-1 backdrop-blur",
+                                "pointer-events-auto rounded-md p-2 shadow-lg ring-1 backdrop-blur",
                                 "transition-all data-[state=open]:animate-in data-[state=closed]:animate-out",
                                 t.kind === "success" &&
                                     "bg-emerald-50/80 dark:bg-emerald-700/80 ring-emerald-200",
@@ -50,10 +53,10 @@ export function Toasts() {
                             <div className="text-sm text-slate-700 dark:text-slate-100">
                                 {t.message}
                             </div>
-                            <div className="mt-3 flex justify-end">
+                            <div className="mt-2 flex justify-end">
                                 <button
                                     onClick={() => remove(t.id)}
-                                    className="rounded-xl px-3 py-1 text-xs text-slate-800 dark:text-slate-100 ring-1 ring-slate-200 hover:bg-white/60 cursor-pointer"
+                                    className="rounded-md px-3 py-1 text-xs text-slate-800 dark:text-slate-100 ring-1 ring-slate-200 hover:bg-white/60 dark:hover:bg-slate-600/20  cursor-pointer"
                                 >
                                     Закрыть
                                 </button>

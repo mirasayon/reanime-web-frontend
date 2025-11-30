@@ -1,29 +1,17 @@
 "use client";
 import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account";
 import { useRouter } from "next/navigation";
-import {
-    useState,
-    useTransition,
-    type Dispatch,
-    type FormEvent,
-    type SetStateAction,
-} from "react";
+import { useState, useTransition, type FormEvent } from "react";
 import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { styles5465 } from "../dropdown-menu-in-head-corner/for-logged-users";
-export function LogoutUserAtHeaderComponent({
-    setOpenFunction,
-}: {
-    setOpenFunction: Dispatch<SetStateAction<boolean>>;
-}) {
+export function LogoutUserAtHeaderComponent() {
     const [confirm, set_confirm] = useState<boolean>(false);
-    const _router = useRouter();
     const toaster = useGToaster();
 
     const [pending, startTransition] = useTransition();
 
     function LogOutAccountHandle(e: FormEvent<HTMLFormElement>) {
-        setOpenFunction(false);
         startTransition(async () => {
             e.preventDefault();
             const res = await LogOutAccount_ServerAction();
@@ -31,7 +19,7 @@ export function LogoutUserAtHeaderComponent({
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {
-                    _router.refresh();
+                    window?.location?.reload?.();
                 },
             });
         });

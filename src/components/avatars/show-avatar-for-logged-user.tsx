@@ -1,14 +1,17 @@
 import { Avatar, AvatarImage } from "../users/dashboard/common";
-import { DropdownMenuForAvatar } from "./dropdown-menu-for-avatar/dashboard-drop-down-avatar-menu-for-header-menu";
+import { DropdownMenuForEditAvatar } from "./dropdown-menu-for-avatar/dashboard-drop-down-avatar-menu-for-header-menu";
 
 export function ShowAvatarElement({
     username,
-    userServiceBaseUrl,
+    hasCustomAvatar,
 }: {
     username: string;
-    userServiceBaseUrl: string;
+    hasCustomAvatar: boolean;
 }) {
-    const url = userServiceBaseUrl + "/v1/profile/avatar/view/" + username;
+    const url =
+        process.env.NEXT_PUBLIC_USER_SERVICE_URL +
+        "/v1/profile/avatar/view/" +
+        username;
     return (
         <div className=" flex flex-col">
             <Avatar className="shadow-md">
@@ -17,7 +20,7 @@ export function ShowAvatarElement({
                     className="  m-2 h-48 w-48 object-cover "
                 />
             </Avatar>
-            <DropdownMenuForAvatar />
+            {hasCustomAvatar && <DropdownMenuForEditAvatar />}
         </div>
     );
 }

@@ -1,25 +1,29 @@
-import { ShowAvatarElement } from "./show-avatar-for-logged-user";
+"use client";
 import { SetAvatarForm } from "./set-avatar.el-component";
 import type {
     AvatarPicture,
     Profile,
 } from "#user-service/databases/orm/client.js";
+import { ShowAvatarElement } from "./show-avatar-for-logged-user";
+import { useState } from "react";
 export function UploadAvatarOrShowForLoggedAccountComponent({
     profile,
-    userServiceBaseUrl,
+    username,
 }: {
     profile: Profile & { avatar: AvatarPicture | null };
-    userServiceBaseUrl: string;
+    username: string;
 }) {
+    const [isEditing, setIsEditing] = useState(false);
     return (
-        <div className=" flex">
-            {profile.avatar?.url ? (
+        <div className=" flex flex-col">
+            {!isEditing && (
                 <ShowAvatarElement
-                    username={profile.avatar.url}
-                    userServiceBaseUrl={userServiceBaseUrl}
+                    hasCustomAvatar={!!profile.avatar?.url}
+                    username={username}
                 />
-            ) : (
-                <SetAvatarForm />
+            )}
+            {!profile.avatar?.url && (
+                <SetAvatarForm setIsEditing={setIsEditing} />
             )}
         </div>
     );
