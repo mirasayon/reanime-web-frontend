@@ -31,9 +31,6 @@ export function GlobalMainHeader({ userServiceBaseUrl }: { userServiceBaseUrl: s
         setUsernameClient(hasCookieUsername);
         setPaused(false);
     }, [paused]);
-    if (paused) {
-        return null;
-    }
     return (
         <div className=" flex flex-col">
             <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
