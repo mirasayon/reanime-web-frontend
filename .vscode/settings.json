@@ -1,3 +1,8 @@
 {
-    "cSpell.words": ["autoplay", "messanger"]
+    "cSpell.words": ["autoplay", "messanger"],
+    "editor.codeActionsOnSave": {
+        // "source.fixAll": "explicit",
+        "source.organizeImports": "explicit",
+        "source.sortMembers": "explicit"
+    }
 }

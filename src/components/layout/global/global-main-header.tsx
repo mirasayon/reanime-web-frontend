@@ -1,14 +1,14 @@
 "use client";
-import { rea_wrapper_border } from "#/styles/provider";
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
-import Link from "next/link";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
-import { getCookie } from "cookies-next/client";
 import { userServiceConfig } from "#/configs/user-service.app-config";
-import { useEffect, useState } from "react";
+import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { rea_wrapper_border } from "#/styles/provider";
+import { getCookie } from "cookies-next/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function GlobalMainHeader({ userServiceBaseUrl }: { userServiceBaseUrl: string }) {
     const router = useRouter();

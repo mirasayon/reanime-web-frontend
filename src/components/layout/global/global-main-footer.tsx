@@ -1,9 +1,9 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
+import { Linker } from "#/components/utilities/common/linker-utility-component";
+import { error_reporting_form_link } from "#/configs/test-mode-constants";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { birth_year, this_year } from "#/constants/common.constants";
-import { Linker } from "#/components/utilities/common/linker-utility-component";
-import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
-import { error_reporting_form_link } from "#/configs/test-mode-constants";
+import { rea_wrapper_border } from "#/styles/provider";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 export function Layout_Footer() {
@@ -13,8 +13,7 @@ export function Layout_Footer() {
                 <div className="flex flex-wrap p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>
-                            &copy; {birth_year} - {this_year}{" "}
-                            {WebsiteConfigs.public_domain}
+                            &copy; {birth_year} - {this_year} {WebsiteConfigs.public_domain}
                         </span>
                     </span>
                     <Linker className={style} href={"/right/terms"}>
@@ -29,10 +28,7 @@ export function Layout_Footer() {
                     <Linker className={style} href={"/about/donate"}>
                         Поддержать проект
                     </Linker>
-                    <Linker
-                        className={style}
-                        href={WebsiteConfigs.developer_website}
-                    >
+                    <Linker className={style} href={WebsiteConfigs.developer_website}>
                         О разработчике
                     </Linker>
                     <Linker href={error_reporting_form_link} className={style}>
@@ -41,18 +37,11 @@ export function Layout_Footer() {
                 </div>
                 <div className="m-1 grid">
                     <div className=" bg-slate-500/30 h-px m-1" />
-                    <span
-                        className={
-                            "p-1 dark:text-violet-400/80 text-violet-900/80"
-                        }
-                    >
-                        Все представленные на данном сайте материалы являются
-                        собственностью их изготовителя (владельца прав),
-                        охраняются международными правовыми конвенциями и
-                        предназначены только для ознакомления, носят
-                        исключительно ознакомительный и развлекательный
-                        характер. Все материалы взяты из свободных источников.
-                        Приятного просмотра аниме:3
+                    <span className={"p-1 dark:text-violet-400/80 text-violet-900/80"}>
+                        Все представленные на данном сайте материалы являются собственностью их изготовителя (владельца
+                        прав), охраняются международными правовыми конвенциями и предназначены только для ознакомления,
+                        носят исключительно ознакомительный и развлекательный характер. Все материалы взяты из свободных
+                        источников. Приятного просмотра аниме:3
                     </span>
                 </div>
                 <AbuseIpDbContributorInfoBadge />
