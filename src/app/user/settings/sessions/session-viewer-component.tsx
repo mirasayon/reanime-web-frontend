@@ -2,12 +2,12 @@
 import { revokeSpecificSession_ServerAction } from "#/actions/auth/revoke-specific-session-server-action";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import type { Session } from "#user-service/databases/orm/client.js";
+import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.js";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useTransition } from "react";
 type SessionsViewerProps = {
-    session: Session;
+    session: ResponseTypesFor_Account_Section.get_sessions[number];
     isCurrentSession: boolean;
     address: string | null;
 };
@@ -74,18 +74,15 @@ export function SessionsViewerComponent({ isCurrentSession, address, session: s 
                 </div>
                 <div>
                     <div className="text-slate-500 dark:text-slate-400">User agent</div>
-                    {ua ? (
-                        <div className="text-xs font-mono wrap-break-word max-h-20 overflow-auto">
-                            {ua.browser}-v
-                            {ua.browserVersion}
-                            {", "}
-                            {ua.os}-v
-                            {ua.osVersion}-{ua.deviceType}
-                            {ua.deviceModel && ", " + ua.deviceModel}
-                        </div>
-                    ) : (
-                        "—"
-                    )}
+
+                    <div className="text-xs font-mono wrap-break-word max-h-20 overflow-auto">
+                        {s.browser}-v
+                        {s.browser_version}
+                        {", "}
+                        {s.os}-v
+                        {s.os_version}-{s.device_type}
+                        {s.device_model && ", " + s.device_model}
+                    </div>
                 </div>
             </div>
         </div>

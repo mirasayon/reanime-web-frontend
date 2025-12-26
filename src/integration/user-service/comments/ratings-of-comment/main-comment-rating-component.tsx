@@ -1,24 +1,24 @@
 "use client";
+import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import { ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useTransition } from "react";
-import { ThumbsUp, ThumbsDown } from "lucide-react";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
+import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import {
     addDislikeToCommentForm_ServerAction,
     addLikeToCommentForm_ServerAction,
     deleteDislikeToCommentForm_ServerAction,
     deleteLikeToCommentForm_ServerAction,
 } from "../actions-for-comments/add-like-to-comment-server-action";
-import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function ShowCommentRatingComponent({
     comment,
     userVote,
     currPath,
     notProcessedAuthData,
 }: {
-    comment: Comment_ResponseTypes.get_all_for_anime[number];
-    userVote: boolean | null;
+    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
+    userVote: number | null;
     currPath: string;
     notProcessedAuthData: AuthenticatorType;
 }): React.JSX.Element {
@@ -27,29 +27,25 @@ export function ShowCommentRatingComponent({
     let likes = 0;
     let dislikes = 0;
     for (const _rate of comment.ratings ?? []) {
-        if (_rate.vote === null) {
+        if (_rate === null) {
             continue;
         }
-        if (_rate.vote === true) {
+        if (_rate.value === 1) {
             likes++;
-        } else if (_rate.vote === false) {
+        } else if (_rate.value === -1) {
             dislikes++;
         }
     }
     const score = likes - dislikes;
 
-    const isLiked = userVote === true;
-    const isDisliked = userVote === false;
+    const isLiked = userVote === 1;
+    const isDisliked = userVote === -1;
 
     if (!notProcessedAuthData || notProcessedAuthData === 500) {
-        <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">
-            {score}
-        </div>;
+        <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">{score}</div>;
     }
 
-    function handleAddLikeButton(
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ) {
+    function handleAddLikeButton(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         if (isLiked) {
             startTransition(async () => {
                 e.preventDefault();
@@ -122,14 +118,8 @@ export function ShowCommentRatingComponent({
                 aria-label="Like comment"
                 className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
             >
-                <ThumbsUp
-                    fill={isLiked ? "white" : "transparent"}
-                    className={dislikeDark}
-                />{" "}
-                <ThumbsUp
-                    fill={isLiked ? "black" : "transparent"}
-                    className={dislikeLight}
-                />
+                <ThumbsUp fill={isLiked ? "white" : "transparent"} className={dislikeDark} />{" "}
+                <ThumbsUp fill={isLiked ? "black" : "transparent"} className={dislikeLight} />
             </button>
             <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">
                 {score}
@@ -142,14 +132,8 @@ export function ShowCommentRatingComponent({
                 aria-label="Dislike comment"
                 className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
             >
-                <ThumbsDown
-                    fill={isDisliked ? "white" : "transparent"}
-                    className={dislikeDark}
-                />
-                <ThumbsDown
-                    fill={isDisliked ? "black" : "transparent"}
-                    className={dislikeLight}
-                />
+                <ThumbsDown fill={isDisliked ? "white" : "transparent"} className={dislikeDark} />
+                <ThumbsDown fill={isDisliked ? "black" : "transparent"} className={dislikeLight} />
             </button>
         </div>
     );

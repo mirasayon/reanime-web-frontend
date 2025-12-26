@@ -1,28 +1,23 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { isUserServiceAliveNow } from "#/settings/user-service";
-import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
+import type { HTTPResponseBodyPattern } from "#user-service/response-codes-constants.shared.js";
 import consola from "consola";
+import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
 type Props<B> = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url: string;
-
     json_body?: B;
-    session_token?: string;
-    ip: string | undefined;
-    raw_body?: BodyInit | null | undefined;
-    agent: string | undefined;
+    raw_body?: BodyInit;
 };
 export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
     url,
-    agent,
     method,
-    session_token,
     json_body,
     raw_body,
-    ip,
-}: Props<B>): Promise<UserServiceResponseBodyPattern<T> | 500> {
+}: Props<B>): Promise<HTTPResponseBodyPattern<T> | 500> {
     try {
+        const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
         if (!(await isUserServiceAliveNow())) {
             return 500;
         }
@@ -50,7 +45,7 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
             ...(raw_body ? { body: raw_body } : {}),
             cache: "no-cache",
         });
-        const jsoned = (await response.json()) as UserServiceResponseBodyPattern<T>;
+        const jsoned = (await response.json()) as HTTPResponseBodyPattern<T>;
         return jsoned;
     } catch (error) {
         if (error instanceof TypeError) {

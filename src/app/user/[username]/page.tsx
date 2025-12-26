@@ -5,7 +5,6 @@ import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { isUserServiceAliveNow } from "#/settings/user-service";
 import { rea_wrapper_border } from "#/styles/provider";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
 import { notFound } from "next/navigation";
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
@@ -34,12 +33,13 @@ export default async function __User__Page({
     if (!base_profile_data.ok || !base_profile_data?.data) {
         return notFound();
     }
-    const all_comments_from_this_user = await mainUserServiceFetcher<Comment_ResponseTypes.all_for_public_profile>({
-        method: "GET",
-        url: `/v1/comment/get/all_for_public_profile/${base_profile_data.data.account.username}?page=1&limit=100`,
-        ip: undefined,
-        agent: undefined,
-    });
+    const all_comments_from_this_user =
+        await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.all_for_public_profile>({
+            method: "GET",
+            url: `/v1/comment/get/all_for_public_profile/${base_profile_data.data.account.username}?page=1&limit=100`,
+            ip: undefined,
+            agent: undefined,
+        });
     if (!auth || auth?.data.account.username !== base_profile_data.data.account.username) {
         return (
             <ShowOthersProfile

@@ -1,9 +1,9 @@
 import { rea_wrapper_border } from "#/styles/provider";
-import { MainCreateCommentComponent } from "./create-comment-component";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { JSX } from "react";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { mainUserServiceFetcher } from "../user-service-fetcher.integrator-util";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import type { JSX } from "react";
+import { MainCreateCommentComponent } from "./create-comment-component";
 import { LoggedProfileCommentShower } from "./logged-users-comment-shower";
 import { NotLoggedProfileCommentShower } from "./not-logged-users-comment-shower";
 export async function MainCommentsSection({
@@ -18,13 +18,10 @@ export async function MainCommentsSection({
     if (current_user === 500) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
-    const all_comments =
-        await mainUserServiceFetcher<Comment_ResponseTypes.get_all_for_anime>({
-            agent: current_user?.agent,
-            ip: current_user?.ip,
-            method: "GET",
-            url: `/v1/comment/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
-        });
+    const all_comments = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.get_all_for_anime>({
+        method: "GET",
+        url: `/v1/comment/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
+    });
     if (all_comments === 500 || !all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
@@ -68,9 +65,7 @@ export async function MainCommentsSection({
                         })
                     ) : (
                         <>
-                            <div className=" py-4 px-3">
-                                Пока нет комментариев...
-                            </div>
+                            <div className=" py-4 px-3">Пока нет комментариев...</div>
                         </>
                     )}
                 </div>

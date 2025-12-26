@@ -1,24 +1,16 @@
 "use client";
-import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import {
-    useTransition,
-    type FormEvent,
-    type Dispatch,
-    type SetStateAction,
-} from "react";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
-import { UpdateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
-import type React from "react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type React from "react";
+import { useTransition, type Dispatch, type FormEvent, type SetStateAction } from "react";
+import { UpdateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
 export function MainEditFormCommentComponent({
-    current_user,
     comment,
     setIsEditing,
 }: {
     setIsEditing: Dispatch<SetStateAction<boolean>>;
-    current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
-    comment: Comment_ResponseTypes.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
 }): React.JSX.Element {
     const toaster = useGToaster();
     const [pending, startTransition] = useTransition();
@@ -31,11 +23,7 @@ export function MainEditFormCommentComponent({
                 toaster.error("Минимальная длина комментария - 5 символов");
                 return;
             }
-            const res = await UpdateComment_ServerAction({
-                current_user: current_user,
-                comment: comment,
-                new_comment_content: newText,
-            });
+            const res = await UpdateComment_ServerAction(newText, comment.id, comment.external_anime_id);
             serverActionsResponsesProcessorFromClientEnvironment({
                 res,
                 error: toaster.error,

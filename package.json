@@ -61,6 +61,6 @@
         "node": ">=24.12.0"
     },
     "imports": {
-        "#user-service/*": "./src/shared/generated-shared-export/*"
+        "#user-service/*": "./user-service-shared-package/*"
     }
 }

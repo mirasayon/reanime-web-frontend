@@ -1,5 +1,5 @@
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
 import Link from "next/link";
 
 export function JustShowMainDataAboutComment({
@@ -7,36 +7,21 @@ export function JustShowMainDataAboutComment({
     comment,
 }: {
     userServerBaseUrl: string;
-    comment: Comment_ResponseTypes.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
 }) {
-    const isEdited =
-        new Date(comment.updated_at).getUTCMinutes() !==
-        new Date(comment.created_at).getUTCMinutes();
-    const linkToCommentFull = `/anime/${comment.anime_id}#comment-${comment.id}`;
+    const isEdited = new Date(comment.updated_at).getUTCMinutes() !== new Date(comment.created_at).getUTCMinutes();
+    const linkToCommentFull = `/anime/${comment.external_anime_id}#comment-${comment.id}`;
     return (
         <>
-            <Link
-                className="flex items-center"
-                href={`/user/${comment.by_profile.by_account.username}`}
-            >
+            <Link className="flex items-center" href={`/user/${comment.username}`}>
                 <img
-                    src={
-                        userServerBaseUrl +
-                        "/v1/profile/avatar/view/" +
-                        comment.by_profile.by_account.username
-                    }
+                    src={userServerBaseUrl + "/v1/media/avatar/view/" + comment.username}
                     alt="user avatar"
                     className="rounded-full object-cover w-[50px] h-[50px]"
                 />
             </Link>
-            <span className="p-2 font-semibold  ">
-                {" "}
-                {comment.by_profile.nickname ||
-                    comment.by_profile.by_account.username}
-            </span>
-            <span className="p-2 font-semibold text-slate-500  ">
-                @{comment.by_profile.by_account.username}
-            </span>{" "}
+            <span className="p-2 font-semibold  "> {comment.nickname || comment.username}</span>
+            <span className="p-2 font-semibold text-slate-500  ">@{comment.username}</span>{" "}
             <time className="text-xs p-2 text-center items-center dark:text-gray-400 text-gray-700">
                 {calculateAndShowTimeAgo(new Date(comment.created_at))}
             </time>
@@ -48,9 +33,7 @@ export function JustShowMainDataAboutComment({
             >
                 🔗
             </Link>
-            {isEdited && (
-                <span className="p-2 text-slate-500 text-xs">Изменено</span>
-            )}
+            {isEdited && <span className="p-2 text-slate-500 text-xs">Изменено</span>}
         </>
     );
 }

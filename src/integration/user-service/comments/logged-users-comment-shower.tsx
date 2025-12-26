@@ -1,11 +1,11 @@
 "use client";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
 import { useState, type JSX } from "react";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import type { Comment_ResponseTypes } from "#user-service/shared/response-patterns/comment.routes.js";
 import { MenuCommentComponent } from "./comment-menu-component";
-import { MainEditFormCommentComponent } from "./edit-form-comment-comment";
-import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";
 import { JustShowCommentContent } from "./components-primitives/just-show-comment-contents";
+import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";
+import { MainEditFormCommentComponent } from "./edit-form-comment-comment";
 
 export function LoggedProfileCommentShower({
     userServerBaseUrl,
@@ -14,22 +14,16 @@ export function LoggedProfileCommentShower({
 }: {
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
     userServerBaseUrl: string;
-    comment: Comment_ResponseTypes.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
 }): JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
     const linkToComment = `comment-${comment.id}`;
     const isThereLogged_and_HisCommentSeeing_UserNow =
         current_user && current_user.data.profile.id === comment.by_profile_id;
     return (
-        <div
-            className="m-2 grid p-2 items-center"
-            key={comment.id}
-            id={linkToComment}
-        >
+        <div className="m-2 grid p-2 items-center" key={comment.id} id={linkToComment}>
             <div className=" flex items-center">
-                <JustShowMainDataAboutComment
-                    {...{ comment, userServerBaseUrl }}
-                />
+                <JustShowMainDataAboutComment {...{ comment, userServerBaseUrl }} />
                 {isThereLogged_and_HisCommentSeeing_UserNow && (
                     <div className="relative">
                         <MenuCommentComponent
@@ -37,7 +31,7 @@ export function LoggedProfileCommentShower({
                             setFunction={setIsEditing}
                             comment_id={comment.id}
                             current_profile={current_user}
-                            animeId={comment.anime_id}
+                            animeId={comment.external_anime_id}
                         />
                     </div>
                 )}
@@ -47,15 +41,11 @@ export function LoggedProfileCommentShower({
                 <MainEditFormCommentComponent
                     {...{
                         comment,
-                        current_user,
                         setIsEditing,
                     }}
                 />
             ) : (
-                <JustShowCommentContent
-                    comment={comment}
-                    current_user={current_user}
-                />
+                <JustShowCommentContent comment={comment} current_user={current_user} />
             )}
         </div>
     );
