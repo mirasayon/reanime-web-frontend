@@ -1,7 +1,7 @@
 "use server";
 import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
+import { isUserServiceAliveNow } from "#/settings/user-service";
 import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
 import { cookies, headers } from "next/headers";
 export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {

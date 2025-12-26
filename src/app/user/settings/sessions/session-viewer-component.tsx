@@ -3,26 +3,18 @@ import { revokeSpecificSession_ServerAction } from "#/actions/auth/revoke-specif
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { Session } from "#user-service/databases/orm/client.js";
-import { useTransition } from "react";
-import { parseUA } from "./user-agent-string-parser";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import { useTransition } from "react";
 type SessionsViewerProps = {
     session: Session;
     isCurrentSession: boolean;
     address: string | null;
 };
-export function SessionsViewerComponent({
-    isCurrentSession,
-    address,
-    session: s,
-}: SessionsViewerProps) {
+export function SessionsViewerComponent({ isCurrentSession, address, session: s }: SessionsViewerProps) {
     const [pending, startTransition] = useTransition();
     const toaster = useGToaster();
-    function buttonRevokeHandler(
-        id: string,
-        e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-    ) {
+    function buttonRevokeHandler(id: string, e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
         return startTransition(async () => {
             e.preventDefault();
             if (confirm) {
@@ -40,7 +32,6 @@ export function SessionsViewerComponent({
             });
         });
     }
-    const ua = s.user_agent ? parseUA(s.user_agent) : null;
 
     return (
         <div
@@ -57,9 +48,7 @@ export function SessionsViewerComponent({
                     {pending ? "Загрузка..." : "Удалить"}
                 </button>{" "}
                 {isCurrentSession && (
-                    <div className="text-xs w-full p-2 text-blue-900 font-bold dark:text-cyan-400">
-                        Текущая сессия
-                    </div>
+                    <div className="text-xs w-full p-2 text-blue-900 font-bold dark:text-cyan-400">Текущая сессия</div>
                 )}
             </div>
 
@@ -67,46 +56,24 @@ export function SessionsViewerComponent({
 
             <div className="text-xs grid gap-2">
                 <div className="flex items-center justify-between">
-                    <div className="text-slate-500 dark:text-slate-400  cursor-pointer">
-                        Создано
-                    </div>
+                    <div className="text-slate-500 dark:text-slate-400  cursor-pointer">Создано</div>
                     <div>{formatDate(s.created_at)}</div>
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="text-slate-500 dark:text-slate-400">
-                        Активен до
-                    </div>
-                    {s.expires_at ? (
-                        <div>{formatDate(s.expires_at)}</div>
-                    ) : (
-                        <span>∞Бесконечен</span>
-                    )}
+                    <div className="text-slate-500 dark:text-slate-400">Активен до</div>
+                    {s.expires_at ? <div>{formatDate(s.expires_at)}</div> : <span>∞Бесконечен</span>}
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="text-slate-500 dark:text-slate-400">
-                        IP-адрес
-                    </div>
-                    <div>
-                        {address ? (
-                            address
-                        ) : (
-                            <div>
-                                {s.ip_address ? s.ip_address : "неизвестно"}
-                            </div>
-                        )}
-                    </div>
+                    <div className="text-slate-500 dark:text-slate-400">IP-адрес</div>
+                    <div>{address ? address : <div>{s.ip_address ? s.ip_address : "неизвестно"}</div>}</div>
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <div className="text-slate-500 dark:text-slate-400">
-                        Локация
-                    </div>
+                    <div className="text-slate-500 dark:text-slate-400">Локация</div>
                     <div>{address ? address : "неизвестно"}</div>
                 </div>
                 <div>
-                    <div className="text-slate-500 dark:text-slate-400">
-                        User agent
-                    </div>
+                    <div className="text-slate-500 dark:text-slate-400">User agent</div>
                     {ua ? (
                         <div className="text-xs font-mono wrap-break-word max-h-20 overflow-auto">
                             {ua.browser}-v

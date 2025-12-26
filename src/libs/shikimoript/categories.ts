@@ -1,7 +1,7 @@
-import type { AwaitedNextSQ } from "#T/nextjs";
-import { UserServiceConfig } from "#/settings/resource-service";
-import { shikimoriApi } from "#/providers/shikimori-api";
 import { this_year } from "#/constants/common.constants";
+import { shikimoriApi } from "#/providers/shikimori-api";
+import { UserServiceConfig } from "#/settings/user-service";
+import type { AwaitedNextSQ } from "#T/nextjs";
 import type { AnimeBasicData } from "shikimoript/types/animes.js";
 type paginated = AnimeBasicData[];
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
@@ -79,4 +79,3 @@ export function ValidateSearchQuery(searchParams: AwaitedNextSQ): ReturnTypes {
 
     return { page_size, current_page };
 }
-

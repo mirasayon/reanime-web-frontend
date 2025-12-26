@@ -1,9 +1,9 @@
 "use server";
-import { Register_Component } from "./register-component";
-import { redirect } from "next/navigation";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { ComingSoon } from "#/components/info/coming-soon";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
+import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { isUserServiceAliveNow } from "#/settings/user-service";
+import { redirect } from "next/navigation";
+import { Register_Component } from "./register-component";
 
 export default async function __Registration() {
     if (!(await isUserServiceAliveNow())) {

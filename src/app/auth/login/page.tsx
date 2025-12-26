@@ -1,9 +1,9 @@
 "use server";
+import { ComingSoon } from "#/components/info/coming-soon";
+import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { isUserServiceAliveNow } from "#/settings/user-service";
 import { redirect } from "next/navigation";
 import { MainLoginComponent } from "./login-component";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { ComingSoon } from "#/components/info/coming-soon";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
 
 export default async function __Login() {
     if (!(await isUserServiceAliveNow())) {

@@ -1,7 +1,7 @@
 "use server";
 import { mainUserServiceFetcherForPingingOnly } from "#/integration/user-service/user-service-fetcher.integrator-util---only-for-ping";
 import consola from "consola";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "./resource-service-static";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "./user-service-static";
 
 export async function isUserServiceAliveNow(): Promise<boolean> {
     try {
@@ -23,10 +23,7 @@ export async function isUserServiceAliveNow(): Promise<boolean> {
         }
         return false;
     } catch (error) {
-        consola.warn(
-            `Error while pinging the User Service. ${isUserServiceAliveNow.name}(): `,
-            error,
-        );
+        consola.warn(`Error while pinging the User Service. ${isUserServiceAliveNow.name}(): `, error);
         return false;
     }
 }

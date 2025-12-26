@@ -1,6 +1,6 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { isUserServiceAliveNow } from "#/settings/resource-service";
+import { isUserServiceAliveNow } from "#/settings/user-service";
 import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import consola from "consola";
 type Props<B> = {
@@ -27,9 +27,7 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
             return 500;
         }
         if (raw_body && json_body) {
-            throw new Error(
-                "`raw_body` and `json_body` must not exist at the same time",
-            );
+            throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
         const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
         const headers: HeadersInit = {
@@ -44,9 +42,7 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
         if (ip) {
             headers["x-forwarded-for"] = ip;
         }
-        headers["x-reanime-user-service-key"] = (
-            await nextLoadEnvSSR()
-        ).user_service_api_key;
+        headers["x-reanime-user-service-key"] = (await nextLoadEnvSSR()).user_service_api_key;
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
@@ -54,19 +50,13 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
             ...(raw_body ? { body: raw_body } : {}),
             cache: "no-cache",
         });
-        const jsoned =
-            (await response.json()) as UserServiceResponseBodyPattern<T>;
+        const jsoned = (await response.json()) as UserServiceResponseBodyPattern<T>;
         return jsoned;
     } catch (error) {
         if (error instanceof TypeError) {
             consola.fail(mainUserServiceFetcher.name, ":", error.message);
         } else {
-            consola.warn(
-                "[The error is not with the network]: ",
-                mainUserServiceFetcher.name,
-                ": ",
-                error,
-            );
+            consola.warn("[The error is not with the network]: ", mainUserServiceFetcher.name, ": ", error);
         }
         return 500;
     }
