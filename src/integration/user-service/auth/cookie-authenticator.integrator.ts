@@ -20,9 +20,6 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     const res = await mainUserServiceFetcher<ResponseTypesForAuthentication.check_session>({
         method: "POST",
         url: "/v1/authentication/check_session",
-        agent: agent,
-        ip: ip,
-        session_token: session_token,
     });
 
     if (res === 500) {

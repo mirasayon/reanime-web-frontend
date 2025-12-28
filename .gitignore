@@ -7,5 +7,5 @@
 /drafts.md
 /credentials.yaml
 /.build.tsbuildinfo
-/uploads
 /certificates
+/tsconfig.tsbuildinfo.json

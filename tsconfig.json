@@ -10,9 +10,8 @@
         "esModuleInterop": true,
         "module": "esnext",
         "moduleResolution": "bundler",
-        "tsBuildInfoFile": "./.next/.tsbuild.tsbuildinfo",
+        "tsBuildInfoFile": "./tsconfig.tsbuildinfo.json",
         "resolveJsonModule": true,
-        "isolatedModules": true,
         "jsx": "react-jsx",
         "verbatimModuleSyntax": true,
         "incremental": true,
@@ -22,12 +21,16 @@
             }
         ],
         "paths": {
-            "#app/*": ["./src/app/*"],
             "#T/*": ["./src/types/*"],
-            "&us/*": ["./src/shared/shared-user-service/*"],
             "#/*": ["./src/*"]
         }
     },
-    "include": ["./next-env.d.ts", "./src", ".next\\dev/types/**/*.ts", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+    "include": [
+        "./next-env.d.ts",
+        "./src",
+        ".next\\dev/types/**/*.ts",
+        ".next/types/**/*.ts",
+        ".next/dev/types/**/*.ts"
+    ],
     "exclude": ["node_modules", "./src/scripts"]
 }

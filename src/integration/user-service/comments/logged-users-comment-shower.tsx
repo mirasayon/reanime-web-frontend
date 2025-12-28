@@ -19,7 +19,7 @@ export function LoggedProfileCommentShower({
     const [isEditing, setIsEditing] = useState(false);
     const linkToComment = `comment-${comment.id}`;
     const isThereLogged_and_HisCommentSeeing_UserNow =
-        current_user && current_user.data.profile.id === comment.by_profile_id;
+        current_user && current_user.data.profile_id === comment.by_profile_id;
     return (
         <div className="m-2 grid p-2 items-center" key={comment.id} id={linkToComment}>
             <div className=" flex items-center">

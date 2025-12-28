@@ -49,11 +49,7 @@ export function ShowCommentRatingComponent({
         if (isLiked) {
             startTransition(async () => {
                 e.preventDefault();
-                const res = await deleteLikeToCommentForm_ServerAction({
-                    comment_id: comment.id,
-                    currPath: currPath,
-                    notProcessedAuthData: notProcessedAuthData,
-                });
+                const res = await deleteLikeToCommentForm_ServerAction(comment.id, currPath);
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error: toaster.error,
                     res,
@@ -63,11 +59,7 @@ export function ShowCommentRatingComponent({
         } else {
             startTransition(async () => {
                 e.preventDefault();
-                const res = await addLikeToCommentForm_ServerAction({
-                    comment_id: comment.id,
-                    currPath: currPath,
-                    notProcessedAuthData: notProcessedAuthData,
-                });
+                const res = await addLikeToCommentForm_ServerAction(comment.id, currPath);
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error: toaster.error,
                     res,
@@ -81,11 +73,7 @@ export function ShowCommentRatingComponent({
         if (isDisliked) {
             startTransition(async () => {
                 e.preventDefault();
-                const res = await deleteDislikeToCommentForm_ServerAction({
-                    comment_id: comment.id,
-                    currPath: currPath,
-                    notProcessedAuthData: notProcessedAuthData,
-                });
+                const res = await deleteDislikeToCommentForm_ServerAction(comment.id, currPath);
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error: toaster.error,
                     res,
@@ -95,11 +83,7 @@ export function ShowCommentRatingComponent({
         } else {
             startTransition(async () => {
                 e.preventDefault();
-                const res = await addDislikeToCommentForm_ServerAction({
-                    comment_id: comment.id,
-                    currPath: currPath,
-                    notProcessedAuthData: notProcessedAuthData,
-                });
+                const res = await addDislikeToCommentForm_ServerAction(comment.id, currPath);
                 serverActionsResponsesProcessorFromClientEnvironment({
                     error: toaster.error,
                     res,

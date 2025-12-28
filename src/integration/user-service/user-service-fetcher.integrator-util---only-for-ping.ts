@@ -1,8 +1,8 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import type { UserServiceResponseBodyPattern } from "#user-service/shared/response-patterns/response-json-body-shape.js";
 import consola from "consola";
 import { mainUserServiceFetcher } from "./user-service-fetcher.integrator-util";
+import type { HTTPResponseBodyPattern } from "#user-service/response-codes-constants.shared.js";
 type Props = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url:
@@ -26,7 +26,7 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
     method,
     session_token,
     ip,
-}: Props): Promise<UserServiceResponseBodyPattern<T> | 500> {
+}: Props): Promise<HTTPResponseBodyPattern<T> | 500> {
     try {
         const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
         const headers: HeadersInit = {};
@@ -39,16 +39,13 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
         if (ip) {
             headers["x-forwarded-for"] = ip;
         }
-        headers["x-reanime-user-service-key"] = (
-            await nextLoadEnvSSR()
-        ).user_service_api_key;
+        headers["x-reanime-user-service-key"] = (await nextLoadEnvSSR()).user_service_api_key;
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
             cache: "no-cache",
         });
-        const jsoned =
-            (await response.json()) as UserServiceResponseBodyPattern<T>;
+        const jsoned = (await response.json()) as HTTPResponseBodyPattern<T>;
         return jsoned;
     } catch (error) {
         consola.fail(mainUserServiceFetcher.name, ":", error);

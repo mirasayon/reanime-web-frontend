@@ -1,11 +1,5 @@
 "use client";
-import {
-    useTransition,
-    type Dispatch,
-    type FormEvent,
-    type JSX,
-    type SetStateAction,
-} from "react";
+import { useTransition, type Dispatch, type FormEvent, type JSX, type SetStateAction } from "react";
 import { updateNickname_ServerAction } from "./actions-profile-for-edits/update-nickname";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { profile_schemas } from "#user-service/shared/validators/profile.validator.routes.js";
@@ -13,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { UserNicknameInputForAuthForm } from "#app/auth/components-jsx-for-auth-forms/nickname-input";
+import { UserNicknameInputForAuthForm } from "#/app/auth/components-jsx-for-auth-forms/nickname-input";
 const schema = z.strictObject({ nickname: profile_schemas.update_name });
 type update_name = z.infer<typeof schema>;
 export function UpdateProfileNickname({

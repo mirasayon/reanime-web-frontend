@@ -1,12 +1,6 @@
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import type {
-    ServerActionResponse,
-    ServerActionResponseWithPromise,
-} from "#T/integrator-main-types";
-import type {
-    I_UserServiceResponseStatusCodes,
-    ResponseCode,
-} from "#user-service/shared/constants/response.constants.js";
+import type { ServerActionResponse, ServerActionResponseWithPromise } from "#T/integrator-main-types";
+import type { responseHTTPCodes } from "#user-service/response-codes-constants.shared.js";
 
 export async function userServiceRawResponsePreHandler<
     T extends
@@ -27,9 +21,7 @@ export async function userServiceRawResponsePreHandler<
         onSuccessFunction = undefined,
         onFailFunction = undefined,
     }: {
-        onSuccessFunction?: (
-            res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> },
-        ) => Promise<void> | void;
+        onSuccessFunction?: (res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> }) => Promise<void> | void;
         onFailFunction?: (data: T) => void;
     },
 ): ServerActionResponseWithPromise {
@@ -44,9 +36,7 @@ export async function userServiceRawResponsePreHandler<
     }
     if (res.data && res.ok) {
         if (onSuccessFunction) {
-            await onSuccessFunction(
-                res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> },
-            );
+            await onSuccessFunction(res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> });
         }
         return { ok: true, msg: res.message };
     }

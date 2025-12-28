@@ -27,13 +27,10 @@ export async function addLikeToCommentForm_ServerAction(
     }
     return { errors: res.errors, ok: false };
 }
-export async function addDislikeToCommentForm_ServerAction({
-    currPath,
-    comment_id,
-}: {
-    comment_id: string;
-    currPath: string;
-}): ServerActionResponseWithPromise {
+export async function addDislikeToCommentForm_ServerAction(
+    comment_id: string,
+    currPath: string,
+): ServerActionResponseWithPromise {
     const url = `/v1/comment/add/dislike/${comment_id}` as const;
     const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.add_dislike>({
         method: "POST",
