@@ -6,7 +6,7 @@ export function OnlyShowOthersAvatar({
     username: string;
     userServiceBaseUrl: string;
 }) {
-    const _url = userServiceBaseUrl + "/v1/profile/avatar/view/" + username;
+    const _url = userServiceBaseUrl + "/v1/media/avatar/view/" + username;
     return (
         <div className=" flex ">
             <div className=" border-2 m-2 border-blue-400 w-full">

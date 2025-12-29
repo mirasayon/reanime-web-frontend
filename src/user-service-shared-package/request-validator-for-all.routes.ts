@@ -78,13 +78,14 @@ class ZodRequiredSchemaBase {
         .string({
             error: `Требуется никнейм`,
         })
-        .trim()
         .min(1, {
-            error: `Требуется никнейм`,
+            error: "Никнейм должен содержать более 1 символа",
         })
+
         .max(30, {
             error: `Слишком длинный никнейм (максимум 30 символов)`,
         })
+        .trim()
         .refine((val) => val === val.normalize("NFC"), {
             error: "Никнейм содержит недопустимые символы",
         })
@@ -308,7 +309,11 @@ export interface AdministratorSectionValidationSchemaType {
 export const authenticationSectionSchemas = {
     logout: zodRequiredSchemaBase.void,
     registration: strictObject({
-        nickname: zodRequiredSchemaBase.profileNickname.optional(),
+        nickname: z.optional(
+            z.preprocess((val: string): string | undefined => {
+                return typeof val === "string" && val.trim() === "" ? undefined : val;
+            }, zodRequiredSchemaBase.profileNickname.optional()),
+        ),
         username: zodRequiredSchemaBase.accountUsernameValidatorSchema,
         email: zodRequiredSchemaBase.email.optional(),
         password: zodRequiredSchemaBase.account_password,

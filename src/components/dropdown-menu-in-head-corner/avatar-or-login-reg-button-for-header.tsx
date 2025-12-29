@@ -5,7 +5,7 @@ type Props = {
 };
 export function AvatarOrLoginRegButtonForHeader({ username, userServiceUrl }: Props) {
     return username ? (
-        <img className="  w-10 h-10 rounded-full" src={userServiceUrl + "/v1/profile/avatar/view/" + username} />
+        <img className="  w-10 h-10 rounded-full" src={userServiceUrl + "/v1/media/avatar/view/" + username} />
     ) : (
         <CgProfile size={40} />
     );

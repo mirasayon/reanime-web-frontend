@@ -214,7 +214,7 @@ export function MainUserListShower({
                                     <div className="flex items-center gap-3">
                                         <JustAvatarCircleComponent
                                             altTitle={u.username + " avatar"}
-                                            avatarUrl={userServiceUrl + "/v1/profile/avatar/view/" + u.username}
+                                            avatarUrl={userServiceUrl + "/v1/user-profile/avatar/view/" + u.username}
                                         />
                                         <div className="flex flex-col">
                                             <Linker

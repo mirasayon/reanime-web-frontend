@@ -50,7 +50,9 @@ export function Register_Component() {
             <UserNicknameInputForAuthForm
                 inputId="nickname"
                 fieldError={clientErrors.nickname}
-                props={register("nickname", { required: true })}
+                props={register("nickname", {
+                    required: false,
+                })}
             />
             <InputLoginForAuthForm
                 inputId="username"

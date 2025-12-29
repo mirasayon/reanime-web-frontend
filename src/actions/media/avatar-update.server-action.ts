@@ -25,7 +25,7 @@ export async function AvatarUpdate_ServerAction(imageFile: File): ServerActionRe
     const forwardData = new FormData();
     forwardData.append(UserServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
     const res = await mainUserServiceFetcher<ResponseTypesFor_Media_Section["update_avatar"]>(
-        `/v1/profile/avatar/update`,
+        `/v1/media/avatar/update`,
         "PATCH",
         { rawBody: forwardData },
     );

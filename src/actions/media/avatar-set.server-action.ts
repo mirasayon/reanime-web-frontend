@@ -35,7 +35,7 @@ export async function setProfileAvatar_ServerAction(formData: FormData): ServerA
     const forwardData = new FormData();
     forwardData.append(UserServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
     const res = await mainUserServiceFetcher<ResponseTypesFor_Media_Section["set_avatar"]>(
-        `/v1/profile/avatar/set`,
+        `/v1/media/avatar/set`,
         "POST",
         { rawBody: forwardData },
     );

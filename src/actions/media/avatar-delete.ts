@@ -23,7 +23,7 @@ export async function DeleteAvatar_ServerAction(): ServerActionResponseWithPromi
         };
     }
     const res = await mainUserServiceFetcher<ResponseTypesFor_Media_Section["delete_avatar"]>(
-        `/v1/profile/avatar/delete`,
+        `/v1/media/avatar/delete`,
         "DELETE",
     );
     return await userServiceRawResponsePreHandler(res, {});

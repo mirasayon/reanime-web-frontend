@@ -51,7 +51,7 @@ export function MainCreateCommentComponent({
         >
             <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.data.username}
+                    src={userServerBaseUrl + "/v1/media/avatar/view/" + profile.data.username}
                     alt="user avatar"
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />

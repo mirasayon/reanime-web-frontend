@@ -9,7 +9,7 @@ export async function updateNickname_ServerAction({
 }: {
     newNickname: string;
 }): ServerActionResponseWithPromise {
-    const url = `/v1/profile/update/nickname/to/${newNickname}`;
+    const url = `/v1/user-profile/update/nickname/to/${newNickname}`;
     const res = await mainUserServiceFetcher<ResponseTypesFor_UserProfile_Section["update_nickname"]>(url, "PATCH");
     if (!res || res === 500) {
         return { errors: [internalErrTxt], ok: false };

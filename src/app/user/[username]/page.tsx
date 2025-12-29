@@ -25,7 +25,7 @@ export default async function __User__Page({
     const _username = _params.username;
     const auth = await sessionAuthenticator_S_A();
     const base_profile_data = await mainUserServiceFetcher<ResponseTypesFor_UserProfile_Section["view_other_profiles"]>(
-        `/v1/profile/explore_others_profile/${_username}`,
+        `/v1/user-profile/explore_others_profile/${_username}`,
         "GET",
     );
     if (!base_profile_data || base_profile_data === 500 || auth === 500) {
@@ -46,7 +46,7 @@ export default async function __User__Page({
         );
     }
     const my_profile_data = await mainUserServiceFetcher<ResponseTypesFor_UserProfile_Section["view_my_profile"]>(
-        `/v1/profile/view_my_profile`,
+        `/v1/user-profile/view_my_profile`,
         "GET",
     );
     if (!my_profile_data || my_profile_data === 500) {
