@@ -6,7 +6,7 @@ import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "./user-service-static";
 export async function isUserServiceAliveNow(): Promise<boolean> {
     try {
         if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
-            return false; //not alive
+            return false;
         }
         const pingUrl = "/v1/ping";
         const res = await mainUserServiceFetcherForPingingOnly<"pong">({
@@ -26,9 +26,4 @@ export async function isUserServiceAliveNow(): Promise<boolean> {
         consola.warn(`Error while pinging the User Service. ${isUserServiceAliveNow.name}(): `, error);
         return false;
     }
-}
-
-export enum UserServiceConfig {
-    default_page_size = 40,
-    maxLimitPageSize = 100,
 }

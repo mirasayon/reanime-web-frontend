@@ -1,6 +1,6 @@
 import { OnlyShowOthersAvatar } from "#/components/avatars/only-show-avatar";
 import { Others_Profile_Dashboard } from "#/components/users/others-profile";
-import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 
 type Props = {
     data: ResponseTypesFor_UserProfile_Section["view_other_profiles"];

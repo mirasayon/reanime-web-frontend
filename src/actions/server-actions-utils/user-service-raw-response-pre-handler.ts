@@ -3,7 +3,7 @@ import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import type {
     UserServiceHttpResponseConventionalCodeType,
     UserServiceHttpResponseStatusCodeType,
-} from "#user-service/user-service-response-types-for-all.routes.js";
+} from "#user-service/user-service-response-types-for-all.routes.ts";
 
 export async function userServiceRawResponsePreHandler<
     T extends
@@ -23,14 +23,10 @@ export async function userServiceRawResponsePreHandler<
     {
         onSuccessFunction = undefined,
         onFailFunction = undefined,
-    }:
-        | {
-              onSuccessFunction?: (
-                  res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> },
-              ) => Promise<void> | void;
-              onFailFunction?: (data: T) => void;
-          }
-        | undefined = {},
+    }: {
+        onSuccessFunction?: (res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> }) => Promise<void> | void;
+        onFailFunction?: (data: T) => void;
+    },
 ): ServerActionResponseWithPromise {
     if (!res || res === 500) {
         return { ok: false, errors: [internalErrTxt] };
@@ -41,7 +37,7 @@ export async function userServiceRawResponsePreHandler<
         }
         return { ok: false, errors: res.errors };
     }
-    if (res.data && res.ok) {
+    if (res.ok) {
         if (onSuccessFunction) {
             await onSuccessFunction(res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> });
         }

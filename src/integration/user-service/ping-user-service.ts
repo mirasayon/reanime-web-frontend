@@ -2,7 +2,7 @@
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import consola from "consola";
 import { mainUserServiceFetcher } from "./user-service-fetcher.integrator-util";
-import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
 type Props = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url:

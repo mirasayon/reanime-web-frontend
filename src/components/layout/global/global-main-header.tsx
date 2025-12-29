@@ -2,35 +2,11 @@
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
-import { userServiceConfig } from "#/configs/user-service.app-config";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { rea_wrapper_border } from "#/styles/provider";
-import { getCookie } from "cookies-next/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
-export function GlobalMainHeader({ userServiceBaseUrl }: { userServiceBaseUrl: string }) {
-    const router = useRouter();
-    const [usernameClient, setUsernameClient] = useState<string | undefined>("");
-    const [paused, setPaused] = useState(true);
-    useEffect(() => {
-        console.log("HERE");
-        const hasCookieUsername = getCookie(userServiceConfig.r6_current_username);
-        const r6_is_logged_user = getCookie(userServiceConfig.r6_is_logged_user);
-        if (r6_is_logged_user === undefined) {
-            return router.push("/api/whoami");
-        }
-        if (!hasCookieUsername && r6_is_logged_user === "1") {
-            return router.push("/api/whoami");
-        }
-
-        if (hasCookieUsername && r6_is_logged_user === "0") {
-            return router.push("/api/whoami");
-        }
-        setUsernameClient(hasCookieUsername);
-        setPaused(false);
-    }, [paused]);
+export function GlobalMainHeader({ username, userServiceUrl }: { username?: string; userServiceUrl: string }) {
     return (
         <div className=" flex flex-col">
             <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
@@ -46,7 +22,7 @@ export function GlobalMainHeader({ userServiceBaseUrl }: { userServiceBaseUrl: s
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <MainDropdownMenuInHeader username={usernameClient} userServiceBaseUrl={userServiceBaseUrl} />
+                    <MainDropdownMenuInHeader username={username} userServiceUrl={userServiceUrl} />
                 </div>
             </header>
         </div>

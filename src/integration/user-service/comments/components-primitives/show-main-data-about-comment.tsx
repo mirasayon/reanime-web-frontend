@@ -1,5 +1,5 @@
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
-import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import Link from "next/link";
 
 export function JustShowMainDataAboutComment({

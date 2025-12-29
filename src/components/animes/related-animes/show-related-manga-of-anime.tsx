@@ -1,7 +1,6 @@
 import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-import type { JSX } from "react";
-import type { AnimeRelationData } from "shikimoript/types/animes.js";
+import type { AnimeRelationData } from "shikimoript/types/animes.d.ts";
 import {
     ShowImageForRelatedAnimeSection,
     ShowRelationTypeForBothMangaAndAnime,

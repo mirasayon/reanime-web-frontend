@@ -14,7 +14,7 @@ import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integrat
 import {
     authenticationSectionSchemas,
     type AuthenticationSectionValidatorSchemaType,
-} from "#user-service/request-validator-for-all.routes.js";
+} from "#user-service/request-validator-for-all.routes.ts";
 export function Register_Component() {
     const toaster = useGToaster();
     const router = useRouter();

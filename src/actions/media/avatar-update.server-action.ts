@@ -5,7 +5,7 @@ import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import type { ResponseTypesFor_Media_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_Media_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 export async function AvatarUpdate_ServerAction(imageFile: File): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
     if (!auth || auth === 500) {

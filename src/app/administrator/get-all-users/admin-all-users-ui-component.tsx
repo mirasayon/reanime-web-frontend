@@ -8,7 +8,7 @@ export type MainUserListShowerProps = {
 };
 import { useCopyToClipboard } from "react-use";
 import { useState, type ReactNode } from "react";
-import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
 const __styles = {

@@ -5,7 +5,7 @@ import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
 import { SessionsViewerComponent } from "./session-viewer-component";
 import { BackToUserPageButtonComponent } from "./back-button-component";
-import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 
 export default async function __SettingSlashSessionsPage() {
     const auth = await sessionAuthenticator_S_A();

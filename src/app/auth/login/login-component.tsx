@@ -1,5 +1,5 @@
 "use client";
-import { login_ServerAction } from "#/actions/auth/login-server-action";
+import { loginTheUserServerAction } from "#/actions/auth/login-server-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -13,7 +13,7 @@ import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integrat
 import {
     authenticationSectionSchemas,
     type AuthenticationSectionValidatorSchemaType,
-} from "#user-service/request-validator-for-all.routes.js";
+} from "#user-service/request-validator-for-all.routes.ts";
 export function MainLoginComponent() {
     const toaster = useGToaster();
     const router = useRouter();
@@ -32,7 +32,8 @@ export function MainLoginComponent() {
         startTransition(async () => {
             e?.preventDefault();
             setServerErrors([]);
-            const res = await login_ServerAction(data);
+            const res = await loginTheUserServerAction(data);
+            console.log(res);
             serverActionsResponsesProcessorFromClientEnvironment({
                 success: toaster.success,
                 res,
@@ -44,7 +45,6 @@ export function MainLoginComponent() {
                     router.push("/user/" + data.username);
                 },
             });
-            return;
         });
     }) as SubmitHandler<AuthenticationSectionValidatorSchemaType["login_by_username"]>);
     return (

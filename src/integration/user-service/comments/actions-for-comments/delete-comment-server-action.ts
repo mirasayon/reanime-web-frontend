@@ -1,7 +1,7 @@
 "use server";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponse } from "#T/integrator-main-types";
-import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { revalidatePath } from "next/cache";
 import { mainUserServiceFetcher } from "../../user-service-fetcher.integrator-util";
 /** Server action */

@@ -14,7 +14,7 @@ export default async function __Login() {
     if (is_logged === 500) {
         return <div>Ошибка</div>;
     }
-    if (is_logged) {
+    if (is_logged?.data.username) {
         return redirect(`/user/${is_logged.data.username}`);
     }
     return <MainLoginComponent />;

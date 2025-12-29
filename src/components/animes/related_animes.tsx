@@ -1,8 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import { RelatedCardForManga } from "./related-animes/show-related-manga-of-anime";
 import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anime";
-import type { JSX } from "react";
-import type { AnimeRelationData } from "shikimoript/types/animes.js";
+import type { AnimeRelationData } from "shikimoript/types/animes.d.ts";
 
 export function MainRelatedAnimesSection({ related }: { related: AnimeRelationData[] }): React.JSX.Element | null {
     const pass = related && related.length > 0;

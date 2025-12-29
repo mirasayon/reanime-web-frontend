@@ -1,7 +1,7 @@
 "use client";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useTransition } from "react";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";

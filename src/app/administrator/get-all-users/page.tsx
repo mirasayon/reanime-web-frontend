@@ -4,7 +4,7 @@ import { isUserServiceAliveNow } from "#/settings/user-service";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MainUserListShower } from "./admin-all-users-ui-component";
-import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 export default async function __Admin_All_Users_Page(): Promise<React.JSX.Element> {
     const allUsersData = await mainUserServiceFetcher<ResponseTypesForAdministratorSection["get_all_users"]>(
         `/v1/administrator/get_all_users`,

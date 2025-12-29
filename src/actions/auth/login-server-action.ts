@@ -7,9 +7,12 @@ import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 import { cookieOptionsForSetToken } from "./cookie-option";
-import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.js";
-import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.js";
-export async function login_ServerAction(data: { username: string; password: string }): Promise<ServerActionResponse> {
+import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.ts";
+import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
+export async function loginTheUserServerAction(data: {
+    username: string;
+    password: string;
+}): Promise<ServerActionResponse> {
     const auth = await sessionAuthenticator_S_A();
     if (auth === 500) {
         return { ok: false, errors: [internalErrTxt] };
@@ -24,20 +27,13 @@ export async function login_ServerAction(data: { username: string; password: str
         });
         return { ok: false, errors: errorList };
     }
-    const { username, password } = parsed.data;
+    // const _headers = await headers();
     const _cookies = await cookies();
-    const _headers = await headers();
-    const r6f_session_token = _cookies.get(userServiceConfig.session_token_name)?.value;
-    const agent = _headers.get("user-agent") ?? undefined;
-    const ip = _headers.get("x-forwarded-for") ?? undefined;
     const res = await mainUserServiceFetcher<ResponseTypesForAuthentication["login_via_username"]>(
-        "/v1/authentication/login/via/username",
+        "/v1/authentication/login/by/username",
         "POST",
         {
-            jsonBody: {
-                username,
-                password,
-            },
+            jsonBody: parsed.data,
         },
     );
     return await userServiceRawResponsePreHandler(res, {

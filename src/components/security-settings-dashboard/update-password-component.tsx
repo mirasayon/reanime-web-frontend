@@ -12,7 +12,7 @@ import { updatePassword_ServerAction } from "#/actions/user-settings/update-pass
 import {
     accountSectionSchemas,
     type AccountSectionValidationSchemaType,
-} from "#user-service/request-validator-for-all.routes.js";
+} from "#user-service/request-validator-for-all.routes.ts";
 
 export function UpdatePasswordFormComponent({ username }: { username: string }) {
     const [pending, startTransition] = useTransition();

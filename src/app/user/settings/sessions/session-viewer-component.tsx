@@ -2,7 +2,7 @@
 import { revokeSpecificSession_ServerAction } from "#/actions/auth/revoke-specific-session-server-action";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useTransition } from "react";

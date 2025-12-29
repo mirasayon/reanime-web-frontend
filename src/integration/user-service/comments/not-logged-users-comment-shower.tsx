@@ -1,4 +1,4 @@
-import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { type JSX } from "react";
 import { JustShowCommentContent } from "./components-primitives/just-show-comment-contents";
 import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";

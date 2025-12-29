@@ -12,7 +12,7 @@ import { ShowOthersProfile } from "./show-others-profile";
 import type {
     ResponseTypesFor_CommentForAnime_Section,
     ResponseTypesFor_UserProfile_Section,
-} from "#user-service/user-service-response-types-for-all.routes.js";
+} from "#user-service/user-service-response-types-for-all.routes.ts";
 export default async function __User__Page({
     params,
 }: {

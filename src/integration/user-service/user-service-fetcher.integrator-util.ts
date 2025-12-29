@@ -1,7 +1,7 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { isUserServiceAliveNow } from "#/settings/user-service";
-import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
 import consola from "consola";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
 type Props<B> =

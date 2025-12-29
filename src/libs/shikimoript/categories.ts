@@ -1,8 +1,8 @@
 import { this_year } from "#/constants/common.constants";
 import { shikimoriApi } from "#/providers/shikimori-api";
-import { UserServiceConfig } from "#/settings/user-service";
+import { userServiceConfig } from "#/settings/constants-user-service";
 import type { AwaitedNextSQ } from "#T/nextjs";
-import type { AnimeBasicData } from "shikimoript/types/animes.js";
+import type { AnimeBasicData } from "shikimoript/types/animes.d.ts";
 type paginated = AnimeBasicData[];
 type ResCateReturnTypes = Promise<{ input: ReturnType<typeof ValidateSearchQuery>; data: paginated } | null>;
 /** `res service`/categories */
@@ -71,9 +71,9 @@ export const kodikCategories = new (class ResService_Categories {
 type ReturnTypes = { page_size: number; current_page: number };
 
 export function ValidateSearchQuery(searchParams: AwaitedNextSQ): ReturnTypes {
-    const page_size = Number(searchParams.pagesize) || UserServiceConfig.default_page_size;
+    const page_size = Number(searchParams.pagesize) || userServiceConfig.defaultPageSize;
     const current_page = Number(searchParams.page) || 1;
-    if (page_size > UserServiceConfig.maxLimitPageSize || page_size < 1) {
+    if (page_size > userServiceConfig.maxLimitPageSize || page_size < 1) {
         throw new Error("Max page size exceed");
     }
 

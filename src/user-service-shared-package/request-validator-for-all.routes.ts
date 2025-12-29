@@ -15,10 +15,10 @@ class ZodRequiredSchemaBase {
      *
      *	An example of a string that matches the expression is `user_name123`, and an incorrect example is `user_name_`.
      */
-    private _username_regex = /^(?=.{4,24}$)(?!.*(?:\.\.|__))(?![_.])[a-zA-Z0-9]+(?:[._][a-zA-Z0-9]+)*$/;
+    private usernameRegex = /^(?=.{4,24}$)(?!.*(?:\.\.|__))(?![_.])[a-zA-Z0-9]+(?:[._][a-zA-Z0-9]+)*$/;
 
     // export const _username_regex = /^[a-z][a-z0-9_]*[a-z0-9]$/;
-    private username_regex_error =
+    private usernameRegexError =
         "Неверный формат имени пользователя. Допустимые символы: A-Z, 0-9, _, . Имя не может начинаться/заканчиваться на _ или ., не должно быть последовательных __ или .." as const;
 
     private usernameSchemaConfig = {
@@ -42,7 +42,7 @@ class ZodRequiredSchemaBase {
         .max(this.usernameSchemaConfig.max, {
             error: `Имя пользователя должно содержать меньше либо ровно ${this.usernameSchemaConfig.max} символов`,
         })
-        .regex(this._username_regex, { error: this.username_regex_error })
+        .regex(this.usernameRegex, { error: this.usernameRegexError })
         .transform((val) => val.toLowerCase())
         .refine((val) => !this.reservedWordsForUsernames.includes(val), {
             error: "Это имя пользователя зарезервировано",
@@ -76,11 +76,11 @@ class ZodRequiredSchemaBase {
     /**  UserProfile nickname validator. Min 1 chars. Max 30 chars */
     profileNickname = z
         .string({
-            error: `Требуется Никнейм`,
+            error: `Требуется никнейм`,
         })
         .trim()
         .min(1, {
-            error: `Требуется Никнейм`,
+            error: `Требуется никнейм`,
         })
         .max(30, {
             error: `Слишком длинный никнейм (максимум 30 символов)`,
@@ -305,15 +305,12 @@ export interface AdministratorSectionValidationSchemaType {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 export const authenticationSectionSchemas = {
     logout: zodRequiredSchemaBase.void,
     registration: strictObject({
-        nickname: zodRequiredSchemaBase.profileNickname,
+        nickname: zodRequiredSchemaBase.profileNickname.optional(),
         username: zodRequiredSchemaBase.accountUsernameValidatorSchema,
-        ip: zodRequiredSchemaBase.ipAddress,
         email: zodRequiredSchemaBase.email.optional(),
-        agent: zodRequiredSchemaBase.userAgent,
         password: zodRequiredSchemaBase.account_password,
         password_repeat: zodRequiredSchemaBase.account_password,
     }),
@@ -322,8 +319,6 @@ export const authenticationSectionSchemas = {
     check_session: zodRequiredSchemaBase.void,
     login_by_username: strictObject({
         username: zodRequiredSchemaBase.accountUsernameValidatorSchema,
-        ip: zodRequiredSchemaBase.ipAddress,
-        agent: zodRequiredSchemaBase.userAgent,
         password: zodRequiredSchemaBase.account_password,
     }),
     /** For checking username for availability */
@@ -331,8 +326,6 @@ export const authenticationSectionSchemas = {
 
     login_by_email: strictObject({
         email: zodRequiredSchemaBase.email,
-        ip: zodRequiredSchemaBase.ipAddress,
-        agent: zodRequiredSchemaBase.userAgent,
         password: zodRequiredSchemaBase.account_password,
     }),
 };

@@ -5,7 +5,7 @@ import { Logout_userForDashboard } from "#/components/auth/log-out.user-interfac
 import { UpdateProfileNickname } from "./forms-for-user-page-for-editing-profile/update-profile-name";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
-import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 type ProfileDashboardProps = {
     user: ResponseTypesFor_UserProfile_Section["view_my_profile"];
 };

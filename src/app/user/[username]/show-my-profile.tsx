@@ -1,5 +1,5 @@
 import { UploadAvatarOrShowForLoggedAccountComponent } from "#/components/avatars/upload_avatar_or_show";
-import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.js";
+import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
 
 export function MainShowMyProfileDashboard({
