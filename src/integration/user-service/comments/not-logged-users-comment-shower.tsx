@@ -8,8 +8,8 @@ export function NotLoggedProfileCommentShower({
     comment,
 }: {
     userServerBaseUrl: string;
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
-}): JSX.Element {
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
+}): React.JSX.Element {
     const linkToComment = `comment-${comment.id}`;
     return (
         <div className="m-2 grid p-2 items-center" key={comment.id} id={linkToComment}>

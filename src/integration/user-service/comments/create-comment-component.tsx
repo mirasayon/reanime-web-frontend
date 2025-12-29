@@ -14,17 +14,13 @@ export function MainCreateCommentComponent({
     userServerBaseUrl: string;
     profile: AuthenticatorType;
     animeId: number;
-}): JSX.Element {
+}): React.JSX.Element {
     const toaster = useGToaster();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
 
     if (!profile || profile === 500) {
-        return (
-            <Linker href="/auth/login">
-                Войдите в свой аккаунт чтобы оставлять комментарии
-            </Linker>
-        );
+        return <Linker href="/auth/login">Войдите в свой аккаунт чтобы оставлять комментарии</Linker>;
     }
     function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
@@ -32,19 +28,12 @@ export function MainCreateCommentComponent({
             if (!profile || profile === 500) {
                 return;
             }
-            const comment_content = event.currentTarget.comment_content
-                .value as string;
+            const comment_content = event.currentTarget.comment_content.value as string;
             if (comment_content?.length < 5) {
                 toaster.error("Минимальная длина комментария - 5 символов");
                 return;
             }
-            const res = await CreateOneCommentToAnime({
-                anime_id: animeId,
-                profile_id: profile.data.profile.id,
-                currPath: `/anime/${animeId}`,
-                authNotEnsured: profile,
-                comment_content: comment_content,
-            });
+            const res = await CreateOneCommentToAnime(comment_content, `/anime/${animeId}`, animeId);
             serverActionsResponsesProcessorFromClientEnvironment({
                 res,
                 error: toaster.error,
@@ -60,16 +49,9 @@ export function MainCreateCommentComponent({
             id="comment_form"
             className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}
         >
-            <Link
-                href={`/user/${profile.data.account.username}`}
-                className="flex p-2 flex-row items-center justify-between"
-            >
+            <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={
-                        userServerBaseUrl +
-                        "/v1/profile/avatar/view/" +
-                        profile.data.account.username
-                    }
+                    src={userServerBaseUrl + "/v1/profile/avatar/view/" + profile.data.username}
                     alt="user avatar"
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />

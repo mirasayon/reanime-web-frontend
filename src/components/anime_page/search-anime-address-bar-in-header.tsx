@@ -5,7 +5,7 @@ import { type JSX } from "react";
 type Props = {
     query: string | null;
 };
-export function SearchAnimeAddressBarInHeader({ query }: Props): JSX.Element {
+export function SearchAnimeAddressBarInHeader({ query }: Props): React.JSX.Element {
     const router = useRouter();
     return (
         <form
@@ -36,4 +36,3 @@ export function SearchAnimeAddressBarInHeader({ query }: Props): JSX.Element {
         </form>
     );
 }
-

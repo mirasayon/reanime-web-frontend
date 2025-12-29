@@ -1,6 +1,12 @@
 import { type JSX } from "react";
 
-export function Normalize_age_rating({ rating, minimal_age }: { rating?: string & {}; minimal_age: number | null }): JSX.Element {
+export function Normalize_age_rating({
+    rating,
+    minimal_age,
+}: {
+    rating?: string & {};
+    minimal_age: number | null;
+}): React.JSX.Element {
     let age_rating_number = minimal_age || rating || undefined;
     let normal_age_rating = rating || undefined;
     let rating_description = "";
@@ -15,7 +21,8 @@ export function Normalize_age_rating({ rating, minimal_age }: { rating?: string 
         case "r":
         case "R":
             age_rating_number = "16+";
-            rating_description = "Подростки, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении взрослых.";
+            rating_description =
+                "Подростки, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении взрослых.";
             normal_age_rating = "R";
             break;
         case "R+":
@@ -38,4 +45,3 @@ export function Normalize_age_rating({ rating, minimal_age }: { rating?: string 
         </div>
     );
 }
-

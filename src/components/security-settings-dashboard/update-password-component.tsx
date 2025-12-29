@@ -5,14 +5,14 @@ import { SubmitButtonForAuthForms } from "#/app/auth/components-jsx-for-auth-for
 import { useTransition } from "react";
 import { useGToaster } from "../layout/atoms-toasts-components/useToast";
 import { useRouter } from "next/navigation";
-import {
-    type accountSectionReqDtos,
-    accountSectionSchemas,
-} from "#user-service/validators/request-validator-for-all.routes.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { updatePassword_ServerAction } from "#/actions/user-settings/update-password-server-action";
+import {
+    accountSectionSchemas,
+    type AccountSectionValidationSchemaType,
+} from "#user-service/request-validator-for-all.routes.js";
 
 export function UpdatePasswordFormComponent({ username }: { username: string }) {
     const [pending, startTransition] = useTransition();
@@ -22,7 +22,7 @@ export function UpdatePasswordFormComponent({ username }: { username: string }) 
         register,
         handleSubmit,
         formState: { errors: clientErrors },
-    } = useForm<accountSectionReqDtos.update_password>({
+    } = useForm<AccountSectionValidationSchemaType["update_password"]>({
         resolver: zodResolver(accountSectionSchemas.update_password),
         mode: "onSubmit",
     });
@@ -30,7 +30,6 @@ export function UpdatePasswordFormComponent({ username }: { username: string }) 
     const onSubmit = handleSubmit(((data, e) => {
         startTransition(async () => {
             e?.preventDefault();
-            // setServerErrors([]);
             const res = await updatePassword_ServerAction(data);
             serverActionsResponsesProcessorFromClientEnvironment({
                 success: toaster.success,
@@ -42,7 +41,7 @@ export function UpdatePasswordFormComponent({ username }: { username: string }) 
             });
             return;
         });
-    }) as SubmitHandler<accountSectionReqDtos.update_password>);
+    }) as SubmitHandler<AccountSectionValidationSchemaType["update_password"]>);
     return (
         <div>
             <FormWrapperForFormInputsForAuthForms onSubmit={onSubmit} removeFormLabel>

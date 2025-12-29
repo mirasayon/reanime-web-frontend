@@ -10,9 +10,7 @@ type RT =
           auth: null;
           errors: ServerActionResponse;
       };
-export function authenticator_ServerActionResponsePreHandler(
-    auth: AuthenticatorType,
-): RT {
+export function authenticator_ServerActionResponsePreHandler(auth: AuthenticatorType): RT {
     if (auth === 500) {
         return { errors: { ok: false, errors: [internalErrTxt] }, auth: null };
     }
@@ -22,7 +20,7 @@ export function authenticator_ServerActionResponsePreHandler(
             auth: null,
         };
     }
-    if (auth?.data?.account) {
+    if (auth?.data.selector) {
         return { auth: auth, errors: null };
     }
 

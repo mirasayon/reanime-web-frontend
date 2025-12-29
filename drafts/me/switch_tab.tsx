@@ -17,7 +17,7 @@ export function Switch_tab_component({
     watching_animes_kodiks: (finals.ftype | null)[];
     inplan_animes_kodiks: (finals.ftype | null)[];
     viewed_animes_kodiks: (finals.ftype | null)[];
-}): JSX.Element {
+}): React.JSX.Element {
     const style = `border-b-4 ${"bg-slate-100"} border-blue-600 border-spacing-14`;
     return (
         <div className={`p-2 ${rea_wrapper_border} min-h-[30vh]`}>
@@ -59,23 +59,19 @@ export function Switch_tab_component({
             <div className="flex flex-wrap">
                 {tab_value === "liked" &&
                     liked_animes_kodiks.map(
-                        (item) =>
-                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
+                        (item) => item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "watching" &&
                     watching_animes_kodiks.map(
-                        (item) =>
-                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
+                        (item) => item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "inplan" &&
                     inplan_animes_kodiks.map(
-                        (item) =>
-                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
+                        (item) => item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
                 {tab_value === "viewed" &&
                     viewed_animes_kodiks.map(
-                        (item) =>
-                            item && <Anime_card_for_profile_page key={item.sid} data={item} />,
+                        (item) => item && <Anime_card_for_profile_page key={item.sid} data={item} />,
                     )}
             </div>
         </div>

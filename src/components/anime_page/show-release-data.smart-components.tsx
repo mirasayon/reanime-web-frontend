@@ -5,7 +5,7 @@ type ShowRatingShikimoriDataSmartXProps = {
 };
 export function ShowRatingShikimoriDataSmartX({
     rating,
-}: ShowRatingShikimoriDataSmartXProps): JSX.Element | null {
+}: ShowRatingShikimoriDataSmartXProps): React.JSX.Element | null {
     if (rating === null) {
         return null;
     }

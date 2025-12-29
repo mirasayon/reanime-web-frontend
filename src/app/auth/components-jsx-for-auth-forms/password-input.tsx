@@ -15,7 +15,7 @@ export function InputPasswordForAuthForm<R extends string>({
     propLabel?: string;
     props: UseFormRegisterReturn<R>;
     inputId: string;
-}): JSX.Element {
+}): React.JSX.Element {
     const [is_password_type, set_is_password_type] = useState<boolean>(true);
     return (
         <>
@@ -33,9 +33,7 @@ export function InputPasswordForAuthForm<R extends string>({
                 <button
                     type="button"
                     className="p-1 pr- cursor-pointer"
-                    onClick={(
-                        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-                    ) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                         e.preventDefault();
                         return set_is_password_type((pre_v) => !pre_v);
                     }}
@@ -43,11 +41,7 @@ export function InputPasswordForAuthForm<R extends string>({
                     {is_password_type ? <FaEyeSlash /> : <FaRegEye />}
                 </button>
             </WrapperForInputFromAuthForms>
-            {fieldError && (
-                <div className="text-wrap dark:text-red-500 text-red-800">
-                    {fieldError.message}
-                </div>
-            )}
+            {fieldError && <div className="text-wrap dark:text-red-500 text-red-800">{fieldError.message}</div>}
         </>
     );
 }

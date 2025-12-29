@@ -2,7 +2,7 @@ import Script from "next/script";
 import type { JSX } from "react";
 
 /** Yandex Metrika Analytics */
-export const YandexMetrikaAnalytics = (): JSX.Element => {
+export const YandexMetrikaAnalytics = (): React.JSX.Element => {
     return (
         <>
             <Script strategy="afterInteractive" id="yandex_metrika">
@@ -32,7 +32,11 @@ export const YandexMetrikaAnalytics = (): JSX.Element => {
             </Script>
             <noscript>
                 <div>
-                    <img src="https://mc.yandex.ru/watch/97527122" style={{ position: "absolute", left: "-9999px;" }} alt="" />
+                    <img
+                        src="https://mc.yandex.ru/watch/97527122"
+                        style={{ position: "absolute", left: "-9999px;" }}
+                        alt=""
+                    />
                 </div>
             </noscript>
         </>

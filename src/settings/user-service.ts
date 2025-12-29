@@ -1,5 +1,5 @@
 "use server";
-import { mainUserServiceFetcherForPingingOnly } from "#/integration/user-service/user-service-fetcher.integrator-util---only-for-ping";
+import { mainUserServiceFetcherForPingingOnly } from "#/integration/user-service/ping-user-service";
 import consola from "consola";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "./user-service-static";
 

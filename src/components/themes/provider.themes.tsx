@@ -7,7 +7,7 @@ type Props = {
     children: ReactNode;
 };
 
-export function ThemeProviderCustom({ children }: Props): JSX.Element | null {
+export function ThemeProviderCustom({ children }: Props): React.JSX.Element | null {
     // const [mounted, setMounted] = useState<boolean>(false);
     // useEffect(() => setMounted(true), []);
 
@@ -25,4 +25,3 @@ export function ThemeProviderCustom({ children }: Props): JSX.Element | null {
         </ThemeProvider>
     );
 }
-

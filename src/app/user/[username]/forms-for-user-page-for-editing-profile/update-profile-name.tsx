@@ -2,13 +2,13 @@
 import { useTransition, type Dispatch, type FormEvent, type JSX, type SetStateAction } from "react";
 import { updateNickname_ServerAction } from "./actions-profile-for-edits/update-nickname";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { profile_schemas } from "#user-service/shared/validators/profile.validator.routes.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { UserNicknameInputForAuthForm } from "#/app/auth/components-jsx-for-auth-forms/nickname-input";
-const schema = z.strictObject({ nickname: profile_schemas.update_name });
+import { profileRouteValidatorSchemas } from "#user-service/request-validator-for-all.routes.js";
+const schema = z.strictObject({ nickname: profileRouteValidatorSchemas.update_name });
 type update_name = z.infer<typeof schema>;
 export function UpdateProfileNickname({
     previousName,
@@ -16,7 +16,7 @@ export function UpdateProfileNickname({
 }: {
     previousName: string | null;
     setOpenEditorFunction: Dispatch<SetStateAction<boolean>>;
-}): JSX.Element {
+}): React.JSX.Element {
     const toaster = useGToaster();
     const [pending, startTransition] = useTransition();
     const {

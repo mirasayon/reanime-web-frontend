@@ -9,7 +9,7 @@ import { UpdateAvatarForm } from "../update-avatar-component";
 import { DeleteAvatarForm } from "../delete-avatar-component";
 import { IoMenuSharp } from "react-icons/io5";
 import type { JSX } from "react";
-export function DropdownMenuForEditAvatar(): JSX.Element {
+export function DropdownMenuForEditAvatar(): React.JSX.Element {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="dark:bg-blue-950 bg-blue-300 rounded">

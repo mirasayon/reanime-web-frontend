@@ -18,10 +18,10 @@ export async function MainCommentsSection({
     if (current_user === 500) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
-    const all_comments = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.get_all_for_anime>({
-        method: "GET",
-        url: `/v1/comment/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
-    });
+    const all_comments = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"]>(
+        `/v1/comment-to-anime/get/all_comments_for_anime/${shikimori_id}?page=1&limit=20`,
+        "GET",
+    );
     if (all_comments === 500 || !all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }

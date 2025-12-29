@@ -1,9 +1,5 @@
 "use client";
 import { registerNewUser_ServerAction } from "#/actions/auth/register";
-import {
-    authentication_schemas,
-    type dto,
-} from "#user-service/shared/validators/authentication.validator.routes.js";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -15,6 +11,10 @@ import { useGToaster } from "#/components/layout/atoms-toasts-components/useToas
 import { SubmitButtonForAuthForms } from "../components-jsx-for-auth-forms/submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "../components-jsx-for-auth-forms/form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import {
+    authenticationSectionSchemas,
+    type AuthenticationSectionValidatorSchemaType,
+} from "#user-service/request-validator-for-all.routes.js";
 export function Register_Component() {
     const toaster = useGToaster();
     const router = useRouter();
@@ -22,8 +22,8 @@ export function Register_Component() {
         register,
         handleSubmit,
         formState: { errors: clientErrors },
-    } = useForm<dto.registration>({
-        resolver: zodResolver(authentication_schemas.registration),
+    } = useForm<AuthenticationSectionValidatorSchemaType["registration"]>({
+        resolver: zodResolver(authenticationSectionSchemas.registration),
         mode: "onSubmit",
     });
     const [pending, startTransition] = useTransition();
@@ -44,7 +44,7 @@ export function Register_Component() {
                 success: toaster.success,
             });
         });
-    }) as SubmitHandler<dto.registration>);
+    }) as SubmitHandler<AuthenticationSectionValidatorSchemaType["registration"]>);
     return (
         <FormWrapperForFormInputsForAuthForms register onSubmit={onSubmit}>
             <UserNicknameInputForAuthForm
@@ -74,10 +74,7 @@ export function Register_Component() {
                 </p>
             ))}
 
-            <SubmitButtonForAuthForms
-                pending={pending}
-                text={"Зарегистрироваться"}
-            />
+            <SubmitButtonForAuthForms pending={pending} text={"Зарегистрироваться"} />
         </FormWrapperForFormInputsForAuthForms>
     );
 }

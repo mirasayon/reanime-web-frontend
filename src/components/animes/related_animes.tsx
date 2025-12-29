@@ -4,7 +4,7 @@ import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anim
 import type { JSX } from "react";
 import type { AnimeRelationData } from "shikimoript/types/animes.js";
 
-export function MainRelatedAnimesSection({ related }: { related: AnimeRelationData[] }): JSX.Element | null {
+export function MainRelatedAnimesSection({ related }: { related: AnimeRelationData[] }): React.JSX.Element | null {
     const pass = related && related.length > 0;
     if (!pass) {
         return null;
@@ -21,8 +21,12 @@ export function MainRelatedAnimesSection({ related }: { related: AnimeRelationDa
                     const _index: number = item.manga?.id || item.anime?.id || ind;
                     return (
                         <div key={_index}>
-                            {valid && item.anime && <RelatedCardForAnime relation={item.relation_russian} shikimori_id={item.anime.id} />}
-                            {item?.manga?.id && <RelatedCardForManga relation={item.relation_russian} data={item.manga} />}
+                            {valid && item.anime && (
+                                <RelatedCardForAnime relation={item.relation_russian} shikimori_id={item.anime.id} />
+                            )}
+                            {item?.manga?.id && (
+                                <RelatedCardForManga relation={item.relation_russian} data={item.manga} />
+                            )}
                         </div>
                     );
                 })}

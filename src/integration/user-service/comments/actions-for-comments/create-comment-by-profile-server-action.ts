@@ -17,12 +17,10 @@ export async function CreateOneCommentToAnime(
 ): Promise<ServerActionResponse> {
     const url = `/v1/comment/create/${anime_id}` as const;
 
-    const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.create_comment>({
-        method: "POST",
-        json_body: {
+    const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section["create_comment"]>(url, "POST", {
+        jsonBody: {
             content: comment_content,
         },
-        url: url,
     });
     if (res === 500) {
         return { errors: [internalErrTxt], ok: false };

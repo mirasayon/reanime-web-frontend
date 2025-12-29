@@ -18,7 +18,7 @@ const gAIdPublic = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!;
 const gTMidPublic = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID!;
 const userServiceUrlPublic = process.env.NEXT_PUBLIC_USER_SERVICE_URL!;
 type __Root_layoutProps = LayoutProps;
-export default function __Root_layout({ children }: __Root_layoutProps): JSX.Element {
+export default function __Root_layout({ children }: __Root_layoutProps): React.JSX.Element {
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>

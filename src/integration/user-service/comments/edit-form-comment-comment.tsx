@@ -10,7 +10,7 @@ export function MainEditFormCommentComponent({
     setIsEditing,
 }: {
     setIsEditing: Dispatch<SetStateAction<boolean>>;
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
 }): React.JSX.Element {
     const toaster = useGToaster();
     const [pending, startTransition] = useTransition();

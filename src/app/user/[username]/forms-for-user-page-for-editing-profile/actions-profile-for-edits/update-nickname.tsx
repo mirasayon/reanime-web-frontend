@@ -1,10 +1,8 @@
 "use server";
-import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
-import type { Profile_ResponseTypes } from "#user-service/shared/response-patterns/profile.routes.js";
+import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.js";
 
 export async function updateNickname_ServerAction({
     newNickname,
@@ -12,23 +10,7 @@ export async function updateNickname_ServerAction({
     newNickname: string;
 }): ServerActionResponseWithPromise {
     const url = `/v1/profile/update/nickname/to/${newNickname}`;
-    const auth = await sessionAuthenticator_S_A();
-    if (!auth) {
-        return { errors: [notLoggedErrorTxt], ok: false };
-    }
-    if (auth === 500) {
-        return { errors: [internalErrTxt], ok: false };
-    }
-
-    const res =
-        await mainUserServiceFetcher<Profile_ResponseTypes.update_nickname>({
-            url: url,
-            method: "PATCH",
-            ip: auth.ip,
-            agent: auth.agent,
-            session_token: auth.data.session.token,
-        });
-
+    const res = await mainUserServiceFetcher<ResponseTypesFor_UserProfile_Section["update_nickname"]>(url, "PATCH");
     if (!res || res === 500) {
         return { errors: [internalErrTxt], ok: false };
     }

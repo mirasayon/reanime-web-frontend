@@ -1,5 +1,4 @@
 "use client";
-import type React from "react";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
@@ -10,28 +9,31 @@ export function timeAgoRU(date: Date | string) {
         locale: ru,
     });
 }
-import type { Comment } from "#user-service/databases/orm/client.js";
 import Link from "next/link";
-import type { JSX } from "react";
-/**
- * Компонент: список комментариев для дашборда пользователя
- */
 type CommentsFromUserListProps = {
-    comments: Omit<Comment, "by_profile_id">[];
+    comments: {
+        content: string;
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+        external_anime_id: number;
+    }[];
 };
-export function CommentsFromUserList({ comments }: CommentsFromUserListProps): JSX.Element {
+export function CommentsFromUserList({ comments }: CommentsFromUserListProps): React.JSX.Element {
     return (
         <div className="w-full max-w-4xl mx-auto p-6">
             <h1 className="text-2xl font-semibold leading-tight">Мои комментарии</h1>
             <div className="space-y-4">
                 {comments.length === 0 && (
-                    <div className="rounded-2xl border border-dashed border-blue-200 p-6 text-center text-gray-600">У вас пока нет комментариев.</div>
+                    <div className="rounded-2xl border border-dashed border-blue-200 p-6 text-center text-gray-600">
+                        У вас пока нет комментариев.
+                    </div>
                 )}
                 {comments.map((c) => {
                     // const created = format(new Date(c.created_at), "d MMM yyyy, HH:mm", { locale: ru });
                     const updated = format(new Date(c.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
 
-                    const linkToComment = `/anime/${c.anime_id}#comment-${c.id}`;
+                    const linkToComment = `/anime/${c.external_anime_id}#comment-${c.id}`;
                     return (
                         <article
                             key={c.id}
@@ -53,7 +55,9 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): J
                                         <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
                                             Обновлён/создано: {updated}
                                         </time>
-                                        <time className="text-sm text-gray-500">{timeAgoRU(new Date(c.updated_at))}</time>
+                                        <time className="text-sm text-gray-500">
+                                            {timeAgoRU(new Date(c.updated_at))}
+                                        </time>
 
                                         {/* <span
                                             className="ml-2 text-xs px-2 py-1 rounded-full font-medium"

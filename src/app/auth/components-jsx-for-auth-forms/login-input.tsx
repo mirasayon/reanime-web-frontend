@@ -11,14 +11,12 @@ export function InputLoginForAuthForm<R extends string>({
     fieldError: FieldError | undefined;
     inputId: string;
     props: UseFormRegisterReturn<R>;
-}): JSX.Element {
+}): React.JSX.Element {
     return (
         <>
             <LabelComponentForAuthForms labelText={"Ваш логин"} />
             <WrapperForInputFromAuthForms>
-                <span className="p-1 dark:text-slate-400 text-slate-800">
-                    @
-                </span>
+                <span className="p-1 dark:text-slate-400 text-slate-800">@</span>
                 <input
                     className={"p-1 w-full outline-none"}
                     type={"text"}
@@ -29,11 +27,7 @@ export function InputLoginForAuthForm<R extends string>({
                     required={true}
                 />
             </WrapperForInputFromAuthForms>
-            {fieldError && (
-                <p className="text-wrap dark:text-red-500 text-red-800">
-                    {fieldError.message}
-                </p>
-            )}
+            {fieldError && <p className="text-wrap dark:text-red-500 text-red-800">{fieldError.message}</p>}
         </>
     );
 }

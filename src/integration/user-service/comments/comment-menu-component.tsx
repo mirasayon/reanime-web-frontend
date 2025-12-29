@@ -16,7 +16,7 @@ export function MenuCommentComponent({
     userServerBaseUrl: string;
     comment_id: string;
     current_profile: AuthenticatorType;
-}): JSX.Element {
+}): React.JSX.Element {
     const [show_options, setShowOptionsMenu] = useState<boolean>(false);
 
     return (
@@ -39,9 +39,7 @@ export function MenuCommentComponent({
                             setShowOptionsMenu,
                         }}
                     />
-                    <EditTheComment_Button_Component
-                        {...{ setFunction, setShowOptionsMenu }}
-                    />
+                    <EditTheComment_Button_Component {...{ setFunction, setShowOptionsMenu }} />
                 </div>
             )}
         </div>

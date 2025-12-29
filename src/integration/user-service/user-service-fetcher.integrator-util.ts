@@ -1,32 +1,32 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import { isUserServiceAliveNow } from "#/settings/user-service";
-import type { HTTPResponseBodyPattern } from "#user-service/response-codes-constants.shared.js";
+import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.js";
 import consola from "consola";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
-type Props<B> = {
-    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    url: string;
-    json_body?: B;
-    raw_body?: BodyInit;
-};
-export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
-    url,
-    method,
-    json_body,
-    raw_body,
-}: Props<B>): Promise<HTTPResponseBodyPattern<T> | 500> {
+type Props<B> =
+    | {
+          jsonBody?: B | undefined;
+          rawBody?: BodyInit | undefined;
+      }
+    | undefined;
+export async function mainUserServiceFetcher<T, B = { [key: string]: string }>(
+    url: string,
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+    body?: Props<B>,
+): Promise<UserServiceHttpResponseBodyPatternType<T> | 500> {
     try {
+        const { jsonBody, rawBody } = body || {};
         const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
         if (!(await isUserServiceAliveNow())) {
             return 500;
         }
-        if (raw_body && json_body) {
+        if (rawBody && jsonBody) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
         const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
         const headers: HeadersInit = {
-            ...(json_body ? { "Content-Type": "application/json" } : {}),
+            ...(jsonBody ? { "Content-Type": "application/json" } : {}),
         };
         if (agent) {
             headers["user-agent"] = agent;
@@ -41,11 +41,11 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>({
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
-            ...(json_body ? { body: JSON.stringify(json_body) } : {}),
-            ...(raw_body ? { body: raw_body } : {}),
+            ...(jsonBody ? { body: JSON.stringify(jsonBody) } : {}),
+            ...(rawBody ? { body: rawBody } : {}),
             cache: "no-cache",
         });
-        const jsoned = (await response.json()) as HTTPResponseBodyPattern<T>;
+        const jsoned = (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
         return jsoned;
     } catch (error) {
         if (error instanceof TypeError) {

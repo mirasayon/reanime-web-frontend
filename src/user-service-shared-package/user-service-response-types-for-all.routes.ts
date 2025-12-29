@@ -129,6 +129,8 @@ export interface ResponseTypesFor_CommentForAnime_Section {
         content: string;
         is_visible: boolean;
         external_anime_id: number;
+        created_at: Date;
+        updated_at: Date;
     }[];
     all_my_comments: {
         id: string;
@@ -199,6 +201,10 @@ export interface ResponseTypesFor_UserProfile_Section {
     view_my_profile: {
         account_type: "COMMON" | "BANNED" | "ADMIN" | "DEVELOPER" | "TESTER";
         email: string | null;
+        avatar: null | {
+            path_dirname: string;
+            path_filename: string;
+        };
         username: string;
         bio: string | null;
         nickname: string | null;
@@ -267,7 +273,8 @@ export const userServiceHttpResponseStatusCodes = {
     I_AM_A_TEAPOT: 418,
 } as const;
 
-export type UserServiceHttpResponseStatusCodeType = (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
+export type UserServiceHttpResponseStatusCodeType =
+    (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
 
 /** Тип, представляющий стандартную структуру JSON-ответа.
  * @typeParam Data - Тип данных, включённые в поле `{data}` */
@@ -283,4 +290,7 @@ export interface UserServiceHttpResponseBodyPatternType<Data> {
 
 export type UserServiceHttpResponseBodyOptionalMessage = { message?: string | undefined };
 export type UserServiceHttpResponseBodyOptionalMessageAndErrors = { errors: string[]; message?: string | undefined };
-export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = { data?: D | undefined; message?: string | undefined };
+export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = {
+    data?: D | undefined;
+    message?: string | undefined;
+};

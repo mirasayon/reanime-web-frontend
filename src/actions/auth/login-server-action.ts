@@ -3,16 +3,12 @@ import { mainUserServiceFetcher } from "#/integration/user-service/user-service-
 import { cookies, headers } from "next/headers";
 import { userServiceConfig } from "#/configs/user-service.app-config";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import type { Authentication_ResponseTypes } from "#user-service/shared/response-patterns/authentication.routes.js";
-import { authentication_schemas } from "#user-service/shared/validators/authentication.validator.routes.js";
-import {
-    cookieOptionsForJustSettingIsLoggedData,
-    cookieOptionsForJustSettingUsernameData,
-    cookieOptionsForSetToken,
-} from "./cookie-option";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
+import { cookieOptionsForSetToken } from "./cookie-option";
+import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.js";
+import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.js";
 export async function login_ServerAction(data: { username: string; password: string }): Promise<ServerActionResponse> {
     const auth = await sessionAuthenticator_S_A();
     if (auth === 500) {
@@ -21,7 +17,7 @@ export async function login_ServerAction(data: { username: string; password: str
     if (auth) {
         return { ok: false, errors: ["Вы уже авторизованы"] };
     }
-    const parsed = await authentication_schemas.login_via_username.safeParseAsync(data);
+    const parsed = await authenticationSectionSchemas.login_by_username.safeParseAsync(data);
     if (!parsed.success) {
         const errorList = parsed.error.issues.map(({ path, message }) => {
             return `${path.join(".")} -- ${message}` as const;
@@ -34,23 +30,19 @@ export async function login_ServerAction(data: { username: string; password: str
     const r6f_session_token = _cookies.get(userServiceConfig.session_token_name)?.value;
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
-    const res = await mainUserServiceFetcher<Authentication_ResponseTypes.login_via_username>({
-        url: "/v1/authentication/login/via/username",
-        session_token: r6f_session_token,
-        method: "POST",
-        json_body: {
-            username,
-            password,
+    const res = await mainUserServiceFetcher<ResponseTypesForAuthentication["login_via_username"]>(
+        "/v1/authentication/login/via/username",
+        "POST",
+        {
+            jsonBody: {
+                username,
+                password,
+            },
         },
-        agent,
-        ip,
-    });
+    );
     return await userServiceRawResponsePreHandler(res, {
         onSuccessFunction: (res) => {
-            _cookies.set(cookieOptionsForSetToken(res.data.session.token));
-            _cookies.set(cookieOptionsForJustSettingUsernameData(res.data.account.username));
-
-            _cookies.set(cookieOptionsForJustSettingIsLoggedData("1"));
+            _cookies.set(cookieOptionsForSetToken(res.data));
         },
     });
 }

@@ -17,7 +17,7 @@ export function ShowCommentRatingComponent({
     currPath,
     notProcessedAuthData,
 }: {
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
     userVote: number | null;
     currPath: string;
     notProcessedAuthData: AuthenticatorType;

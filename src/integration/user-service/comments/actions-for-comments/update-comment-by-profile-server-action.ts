@@ -16,12 +16,10 @@ export async function UpdateComment_ServerAction(
     animeId: number,
 ): Promise<ServerActionResponse> {
     const url = `/v1/comment/update/${commentId}` as const;
-    const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section.create_comment>({
-        method: "PATCH",
-        json_body: {
+    const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section["create_comment"]>(url, "PATCH", {
+        jsonBody: {
             new_content: new_comment_content,
         },
-        url: url,
     });
     if (res === 500) {
         return { errors: [internalErrTxt], ok: false };

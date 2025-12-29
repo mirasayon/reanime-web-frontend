@@ -14,6 +14,6 @@ const json_ld = {
 
 const JsonLDStr = JSON.stringify(json_ld);
 /** HTML Meta Element  */
-export function HtmlElementForJsonLD(): JSX.Element {
+export function HtmlElementForJsonLD(): React.JSX.Element {
     return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JsonLDStr }} />;
 }

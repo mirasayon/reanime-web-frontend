@@ -2,7 +2,7 @@
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
 import consola from "consola";
 import { mainUserServiceFetcher } from "./user-service-fetcher.integrator-util";
-import type { HTTPResponseBodyPattern } from "#user-service/response-codes-constants.shared.js";
+import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.js";
 type Props = {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     url:
@@ -26,7 +26,7 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
     method,
     session_token,
     ip,
-}: Props): Promise<HTTPResponseBodyPattern<T> | 500> {
+}: Props): Promise<UserServiceHttpResponseBodyPatternType<T> | 500> {
     try {
         const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
         const headers: HeadersInit = {};
@@ -45,7 +45,7 @@ export async function mainUserServiceFetcherForPingingOnly<T>({
             headers: headers,
             cache: "no-cache",
         });
-        const jsoned = (await response.json()) as HTTPResponseBodyPattern<T>;
+        const jsoned = (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
         return jsoned;
     } catch (error) {
         consola.fail(mainUserServiceFetcher.name, ":", error);

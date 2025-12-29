@@ -7,7 +7,7 @@ export function JustShowMainDataAboutComment({
     comment,
 }: {
     userServerBaseUrl: string;
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
 }) {
     const isEdited = new Date(comment.updated_at).getUTCMinutes() !== new Date(comment.created_at).getUTCMinutes();
     const linkToCommentFull = `/anime/${comment.external_anime_id}#comment-${comment.id}`;

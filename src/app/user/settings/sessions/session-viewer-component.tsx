@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useTransition } from "react";
 type SessionsViewerProps = {
-    session: ResponseTypesFor_Account_Section.get_sessions[number];
+    session: ResponseTypesFor_Account_Section["get_sessions"][number];
     isCurrentSession: boolean;
     address: string | null;
 };

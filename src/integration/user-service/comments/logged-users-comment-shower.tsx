@@ -14,8 +14,8 @@ export function LoggedProfileCommentShower({
 }: {
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
     userServerBaseUrl: string;
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
-}): JSX.Element {
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
+}): React.JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
     const linkToComment = `comment-${comment.id}`;
     const isThereLogged_and_HisCommentSeeing_UserNow =

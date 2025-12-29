@@ -1,5 +1,5 @@
 "use server";
-import { cookieOptionsForGETToken } from "#/actions/auth/cookie-option";
+import { userServiceConfig } from "#/configs/user-service.app-config";
 import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { isUserServiceAliveNow } from "#/settings/user-service";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.js";
@@ -13,14 +13,14 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     const _cookies = await cookies();
     const agent = _headers.get("user-agent") ?? undefined;
     const ip = _headers.get("x-forwarded-for") ?? undefined;
-    const session_token = _cookies.get(cookieOptionsForGETToken.name)?.value;
+    const session_token = _cookies.get(userServiceConfig.session_token_name)?.value;
     if (!session_token || session_token.length < 20) {
         return null;
     }
-    const res = await mainUserServiceFetcher<ResponseTypesForAuthentication.check_session>({
-        method: "POST",
-        url: "/v1/authentication/check_session",
-    });
+    const res = await mainUserServiceFetcher<ResponseTypesForAuthentication["check_session"]>(
+        "/v1/authentication/check_session",
+        "POST",
+    );
 
     if (res === 500) {
         return 500;
@@ -36,7 +36,7 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
 export type AuthenticatorType =
     | {
           session_token: string;
-          data: ResponseTypesForAuthentication.check_session;
+          data: ResponseTypesForAuthentication["check_session"];
           ip: string | undefined;
           agent: string | undefined;
       }

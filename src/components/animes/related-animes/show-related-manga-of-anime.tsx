@@ -8,11 +8,7 @@ import {
 } from "./utils-for-related-anime-or-manga-show-component";
 import { SiShikimori } from "react-icons/si";
 import { relatedCardStyles } from "./show-related-anime-of-anime";
-function GetKindManga({
-    kind,
-}: {
-    kind: (string & {}) | ("light_novel" | "novel" | "manga");
-}) {
+function GetKindManga({ kind }: { kind: (string & {}) | ("light_novel" | "novel" | "manga") }) {
     if (kind === "manga") {
         return <span>Манга</span>;
     }
@@ -37,17 +33,14 @@ export function RelatedCardForManga({
 }: {
     data: AnimeRelationData["manga"];
     relation: string;
-}): JSX.Element | null {
+}): React.JSX.Element | null {
     if (!manga) {
         return null;
     }
     const __url = shikimori_base_url + manga.image.original;
     return (
         <div className={relatedCardStyles}>
-            <ShowImageForRelatedAnimeSection
-                title={`Обложка от манги ${manga.russian || ""}`}
-                url={__url}
-            />
+            <ShowImageForRelatedAnimeSection title={`Обложка от манги ${manga.russian || ""}`} url={__url} />
             <div className="m-1 flex flex-col">
                 <ShowRelationTypeForBothMangaAndAnime relation={relation} />
                 <span>{manga?.russian}</span>
@@ -55,11 +48,7 @@ export function RelatedCardForManga({
                     <BoldX>Тип: </BoldX>
                     <GetKindManga kind={manga.kind} />
                 </span>
-                <Linker
-                    href={shikimori_base_url + manga.url}
-                    className=" hover:underline "
-                    linkType="raw"
-                >
+                <Linker href={shikimori_base_url + manga.url} className=" hover:underline " linkType="raw">
                     Страница в Шикимори
                     <SiShikimori size={20} />
                 </Linker>

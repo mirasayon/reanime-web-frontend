@@ -17,12 +17,10 @@ export function UserNicknameInputForAuthForm<R extends string>({
     removeLabel?: boolean;
     previousName?: string;
     props: UseFormRegisterReturn<R>;
-}): JSX.Element {
+}): React.JSX.Element {
     return (
         <>
-            {!removeLabel && (
-                <LabelComponentForAuthForms labelText={"Ваш никнейм"} />
-            )}
+            {!removeLabel && <LabelComponentForAuthForms labelText={"Ваш никнейм"} />}
             {removeWrapper && (
                 <input
                     className={"p-1  w-full outline-none"}
@@ -51,11 +49,7 @@ export function UserNicknameInputForAuthForm<R extends string>({
                     }
                 />
             )}
-            {fieldError && (
-                <p className=" dark:text-red-500 text-red-800">
-                    {fieldError.message}
-                </p>
-            )}
+            {fieldError && <p className=" dark:text-red-500 text-red-800">{fieldError.message}</p>}
         </>
     );
 }

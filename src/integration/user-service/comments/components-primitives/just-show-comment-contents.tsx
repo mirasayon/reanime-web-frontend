@@ -5,7 +5,7 @@ export function JustShowCommentContent({
     comment,
     current_user,
 }: {
-    comment: ResponseTypesFor_CommentForAnime_Section.get_all_for_anime[number];
+    comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
     current_user: Exclude<AuthenticatorType, 500>;
 }) {
     if (current_user) {
