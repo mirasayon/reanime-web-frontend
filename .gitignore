@@ -10,3 +10,4 @@
 /.build.tsbuildinfo
 /certificates
 /tsconfig.tsbuildinfo.json
+/.vscode
