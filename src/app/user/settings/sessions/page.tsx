@@ -1,11 +1,12 @@
 "use server";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound, redirect } from "next/navigation";
 import { SessionsViewerComponent } from "./session-viewer-component";
 import { BackToUserPageButtonComponent } from "./back-button-component";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 export default async function __SettingSlashSessionsPage() {
     const auth = await sessionAuthenticator_S_A();
@@ -14,8 +15,8 @@ export default async function __SettingSlashSessionsPage() {
     }
 
     if (auth) {
-        const all_sessions = await mainUserServiceFetcher<ResponseTypesFor_Account_Section["get_sessions"]>(
-            "/v1/account/all/sessions",
+        const all_sessions = await fetchTheUserService<ResponseTypesFor_Account_Section["get_sessions"]>(
+            endpointsConfig.userAccount.baseUrl + endpointsConfig.userAccount.allSessions,
             "GET",
         );
         if (all_sessions === 500) {

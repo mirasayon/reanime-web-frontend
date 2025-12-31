@@ -15,33 +15,29 @@ export function ShowCommentRatingComponent({
     comment,
     userVote,
     currPath,
-    notProcessedAuthData,
+    authCurrent,
 }: {
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
     userVote: number | null;
     currPath: string;
-    notProcessedAuthData: AuthenticatorType;
+    authCurrent: AuthenticatorType;
 }): React.JSX.Element {
     const toaster = useGToaster();
     const [pending, startTransition] = useTransition();
     let likes = 0;
     let dislikes = 0;
-    for (const _rate of comment.ratings ?? []) {
-        if (_rate === null) {
-            continue;
-        }
-        if (_rate.value === 1) {
+    for (const rate of comment.ratings) {
+        if (rate.value === 1) {
             likes++;
-        } else if (_rate.value === -1) {
+        } else if (rate.value === -1) {
             dislikes++;
         }
     }
     const score = likes - dislikes;
-
     const isLiked = userVote === 1;
     const isDisliked = userVote === -1;
 
-    if (!notProcessedAuthData || notProcessedAuthData === 500) {
+    if (!authCurrent || authCurrent === 500) {
         <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">{score}</div>;
     }
 
@@ -95,32 +91,42 @@ export function ShowCommentRatingComponent({
 
     return (
         <div className="inline-flex items-center gap-2 text-sm select-none">
-            <button
-                disabled={pending}
-                onClick={handleAddLikeButton}
-                aria-pressed={isLiked}
-                aria-label="Like comment"
-                className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
-            >
-                <ThumbsUp fill={isLiked ? "white" : "transparent"} className={dislikeDark} />{" "}
-                <ThumbsUp fill={isLiked ? "black" : "transparent"} className={dislikeLight} />
-            </button>
+            {authCurrent && !isDisliked ? (
+                <button
+                    disabled={pending}
+                    onClick={handleAddLikeButton}
+                    aria-pressed={isLiked}
+                    aria-label="Like comment"
+                    className={btnLikeOrDislike}
+                >
+                    <ThumbsUp fill={isLiked ? "white" : "transparent"} className={dislikeDark} />{" "}
+                    <ThumbsUp fill={isLiked ? "black" : "transparent"} className={dislikeLight} />
+                </button>
+            ) : (
+                <div className=" p-2 w-4 h-4"></div>
+            )}
             <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">
                 {score}
                 {pending && "..."}
             </div>
-            <button
-                disabled={pending}
-                onClick={handleDislike}
-                aria-pressed={isDisliked}
-                aria-label="Dislike comment"
-                className={`flex items-center gap-1 px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 ${"cursor-pointer"}`}
-            >
-                <ThumbsDown fill={isDisliked ? "white" : "transparent"} className={dislikeDark} />
-                <ThumbsDown fill={isDisliked ? "black" : "transparent"} className={dislikeLight} />
-            </button>
+            {authCurrent && !isLiked ? (
+                <button
+                    disabled={pending}
+                    onClick={handleDislike}
+                    aria-pressed={isDisliked}
+                    aria-label="Dislike comment"
+                    className={btnLikeOrDislike}
+                >
+                    <ThumbsDown fill={isDisliked ? "white" : "transparent"} className={dislikeDark} />
+                    <ThumbsDown fill={isDisliked ? "black" : "transparent"} className={dislikeLight} />
+                </button>
+            ) : (
+                <div className=" p-2 w-4 h-4"></div>
+            )}
         </div>
     );
 }
 const dislikeLight = `w-4 h-4 dark:hidden dark:text-gray-500 text-gray-500`;
 const dislikeDark = `w-4 h-4 hidden dark:block dark:text-gray-500 text-gray-500`;
+const btnLikeOrDislike =
+    "flex items-center px-2 py-1 rounded-md transition-all duration-150 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-200 cursor-pointer";

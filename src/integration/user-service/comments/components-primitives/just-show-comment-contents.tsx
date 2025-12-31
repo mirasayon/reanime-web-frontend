@@ -1,7 +1,7 @@
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
 import { ShowCommentRatingComponent } from "../ratings-of-comment/main-comment-rating-component";
-export function JustShowCommentContent({
+export function CommentTextAndRating({
     comment,
     current_user,
 }: {
@@ -9,7 +9,7 @@ export function JustShowCommentContent({
     current_user: Exclude<AuthenticatorType, 500>;
 }) {
     if (current_user) {
-        const foundUserVote = comment.ratings.find((c) => c.by_profile_id === current_user.data.id);
+        const foundUserVote = comment.ratings.find((c) => c.by_profile_id === current_user.data.profile_id);
         return (
             <div className="grid items-center">
                 <span
@@ -20,7 +20,7 @@ export function JustShowCommentContent({
                 <ShowCommentRatingComponent
                     comment={comment}
                     userVote={foundUserVote ? foundUserVote.value : null}
-                    notProcessedAuthData={current_user}
+                    authCurrent={current_user}
                     currPath={"/anime/" + comment.external_anime_id}
                 />
             </div>
@@ -35,7 +35,7 @@ export function JustShowCommentContent({
             </span>{" "}
             <ShowCommentRatingComponent
                 comment={comment}
-                notProcessedAuthData={null}
+                authCurrent={null}
                 userVote={null}
                 currPath={"/anime/" + comment.external_anime_id}
             />

@@ -1,3 +1,4 @@
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import { Avatar, AvatarImage } from "../users/dashboard/common";
 export function OnlyShowOthersAvatar({
     username,
@@ -6,7 +7,11 @@ export function OnlyShowOthersAvatar({
     username: string;
     userServiceBaseUrl: string;
 }) {
-    const _url = userServiceBaseUrl + "/v1/media/avatar/view/" + username;
+    const _url =
+        userServiceBaseUrl +
+        "/v1" +
+        endpointsConfig.media.baseUrl +
+        endpointsConfig.media.avatarViewByUsername(username);
     return (
         <div className=" flex ">
             <div className=" border-2 m-2 border-blue-400 w-full">

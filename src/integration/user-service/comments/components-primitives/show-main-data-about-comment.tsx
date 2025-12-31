@@ -1,4 +1,5 @@
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import Link from "next/link";
 
@@ -15,7 +16,12 @@ export function JustShowMainDataAboutComment({
         <>
             <Link className="flex items-center" href={`/user/${comment.username}`}>
                 <img
-                    src={userServerBaseUrl + "/v1/media/avatar/view/" + comment.username}
+                    src={
+                        userServerBaseUrl +
+                        "/v1" +
+                        endpointsConfig.media.baseUrl +
+                        endpointsConfig.media.avatarViewByUsername(comment.username)
+                    }
                     alt="user avatar"
                     className="rounded-full object-cover w-[50px] h-[50px]"
                 />

@@ -6,6 +6,7 @@ import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-b
 import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type JSX, type FormEvent, useState } from "react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export function MainCreateCommentComponent({
     profile,
     animeId,
@@ -51,8 +52,13 @@ export function MainCreateCommentComponent({
         >
             <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={userServerBaseUrl + "/v1/media/avatar/view/" + profile.data.username}
-                    alt="user avatar"
+                    src={
+                        userServerBaseUrl +
+                        "/v1" +
+                        endpointsConfig.media.baseUrl +
+                        endpointsConfig.media.avatarViewByUsername(profile.data.username)
+                    }
+                    alt={profile.data.username + " avatar"}
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />
             </Link>

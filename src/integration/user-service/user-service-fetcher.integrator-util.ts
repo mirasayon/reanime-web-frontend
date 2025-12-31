@@ -1,30 +1,31 @@
 "use server";
 import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
-import { isUserServiceAliveNow } from "#/settings/user-service";
 import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
 import consola from "consola";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
 type Props<B> =
     | {
           jsonBody?: B | undefined;
           rawBody?: BodyInit | undefined;
       }
     | undefined;
-export async function mainUserServiceFetcher<T, B = { [key: string]: string }>(
+export async function fetchTheUserService<T, B = { [key: string]: string }>(
     url: string,
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     body?: Props<B>,
 ): Promise<UserServiceHttpResponseBodyPatternType<T> | 500> {
     try {
-        const { jsonBody, rawBody } = body || {};
-        const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
-        if (!(await isUserServiceAliveNow())) {
+        if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
             return 500;
         }
+        const { jsonBody, rawBody } = body || {};
+        const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
+
         if (rawBody && jsonBody) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
-        const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + url;
+        const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + "/v1" + url;
         const headers: HeadersInit = {
             ...(jsonBody ? { "Content-Type": "application/json" } : {}),
         };
@@ -37,7 +38,7 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>(
         if (ip) {
             headers["x-forwarded-for"] = ip;
         }
-        headers["x-reanime-user-service-key"] = (await nextLoadEnvSSR()).user_service_api_key;
+        headers["x-api-key"] = (await nextLoadEnvSSR()).user_service_api_key;
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
@@ -45,13 +46,12 @@ export async function mainUserServiceFetcher<T, B = { [key: string]: string }>(
             ...(rawBody ? { body: rawBody } : {}),
             cache: "no-cache",
         });
-        const jsoned = (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
-        return jsoned;
+        return (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
     } catch (error) {
         if (error instanceof TypeError) {
-            consola.fail(mainUserServiceFetcher.name, ":", error.message);
+            consola.fail(fetchTheUserService.name, ":", error.message);
         } else {
-            consola.warn("[The error is not with the network]: ", mainUserServiceFetcher.name, ": ", error);
+            consola.warn("[The error is not with the network]: ", fetchTheUserService.name, ": ", error);
         }
         return 500;
     }

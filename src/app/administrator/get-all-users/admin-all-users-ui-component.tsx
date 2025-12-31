@@ -9,6 +9,7 @@ export type MainUserListShowerProps = {
 import { useCopyToClipboard } from "react-use";
 import { useState, type ReactNode } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
 const __styles = {
@@ -214,7 +215,12 @@ export function MainUserListShower({
                                     <div className="flex items-center gap-3">
                                         <JustAvatarCircleComponent
                                             altTitle={u.username + " avatar"}
-                                            avatarUrl={userServiceUrl + "/v1/user-profile/avatar/view/" + u.username}
+                                            avatarUrl={
+                                                userServiceUrl +
+                                                "/v1" +
+                                                endpointsConfig.media.baseUrl +
+                                                endpointsConfig.media.avatarViewByUsername(u.username)
+                                            }
                                         />
                                         <div className="flex flex-col">
                                             <Linker

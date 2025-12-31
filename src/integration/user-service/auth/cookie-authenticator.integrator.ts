@@ -1,11 +1,12 @@
 "use server";
 import { userServiceConfig } from "#/configs/user-service.app-config";
-import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { isUserServiceAliveNow } from "#/settings/user-service";
+import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { cookies } from "next/headers";
 export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
-    if (!(await isUserServiceAliveNow())) {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
         return null;
     }
     const nextCookie = await cookies();
@@ -13,8 +14,8 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
     if (!session_token || session_token.length < 20) {
         return null;
     }
-    const res = await mainUserServiceFetcher<ResponseTypesForAuthentication["check_session"]>(
-        "/v1/authentication/check_session",
+    const res = await fetchTheUserService<ResponseTypesForAuthentication["check_session"]>(
+        endpointsConfig.authentication.baseUrl + endpointsConfig.authentication.checkSession,
         "POST",
     );
 
@@ -22,9 +23,6 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
         return 500;
     }
     if (res.data && res.ok) {
-        // if (_cookies.get(userServiceConfig.r6_current_username)?.value !== res.data.account.username) {
-        //     _cookies.set(cookieOptionsForJustSettingUsernameData(res.data.account.username));
-        // }
         return { data: res.data, session_token };
     }
     return null;
@@ -33,8 +31,6 @@ export type AuthenticatorType =
     | {
           session_token: string;
           data: ResponseTypesForAuthentication["check_session"];
-          //   ip: string | undefined;
-          //   agent: string | undefined;
       }
     | 500
     | null;

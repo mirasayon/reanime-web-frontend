@@ -1,3 +1,4 @@
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import { CgProfile } from "react-icons/cg";
 type Props = {
     username?: string;
@@ -5,7 +6,15 @@ type Props = {
 };
 export function AvatarOrLoginRegButtonForHeader({ username, userServiceUrl }: Props) {
     return username ? (
-        <img className="  w-10 h-10 rounded-full" src={userServiceUrl + "/v1/media/avatar/view/" + username} />
+        <img
+            className="  w-10 h-10 rounded-full"
+            src={
+                userServiceUrl +
+                "/v1" +
+                endpointsConfig.media.baseUrl +
+                endpointsConfig.media.avatarViewByUsername(username)
+            }
+        />
     ) : (
         <CgProfile size={40} />
     );

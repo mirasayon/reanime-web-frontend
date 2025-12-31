@@ -6,7 +6,6 @@ import { ShowAnimesScreenshotsComponent } from "#/components/animes/anime-screen
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
-import type { JSX } from "react";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
 import { MainRelatedAnimesSection } from "#/components/animes/related_animes";
@@ -17,14 +16,9 @@ import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
-export default async function __AnimeSeriesPage({
-    params,
-}: __AnimeSeriesPageProps): Promise<JSX.Element> {
+export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<React.JSX.Element> {
     const shikimori_id_web = (await params).shikimori_id;
-    if (
-        Number.isNaN(shikimori_id_web) ||
-        !hasOnlyNumericString(shikimori_id_web)
-    ) {
+    if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
     }
 
@@ -36,26 +30,11 @@ export default async function __AnimeSeriesPage({
     }
     return (
         <>
-            <AnimeDescription
-                cover_image_src={getAnimePosterUrlByShikimoriId(
-                    anime.shikimori_id,
-                )}
-                anime={anime}
-            />
+            <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
-            <AnimePlayer
-                vid_src={anime.link}
-                nextEpisodeAt={nextEpisodeSimple(
-                    anime.material_data?.next_episode_at,
-                )}
-            />
-            <ShowAnimesScreenshotsComponent
-                screenshots={anime.screenshots}
-                title_of_anime={anime.title}
-            />
-            <MainRelatedAnimesSection
-                related={await GetRelatedAnimes(current_shikimori_id)}
-            />
+            <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
+            <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
+            <MainRelatedAnimesSection related={await GetRelatedAnimes(current_shikimori_id)} />
             <MainCommentsSection
                 shikimori_id={current_shikimori_id}
                 current_user={auth}
@@ -65,11 +44,7 @@ export default async function __AnimeSeriesPage({
     );
 }
 
-export async function generateMetadata({
-    params,
-}: {
-    params: Promise<{ shikimori_id: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ shikimori_id: string }> }): Promise<Metadata> {
     return await setMetadataForWatchAnimePage((await params).shikimori_id);
 }
 function nextEpisodeSimple(_nextEpisodeAt?: string) {

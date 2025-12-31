@@ -273,8 +273,7 @@ export const userServiceHttpResponseStatusCodes = {
     I_AM_A_TEAPOT: 418,
 } as const;
 
-export type UserServiceHttpResponseStatusCodeType =
-    (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
+export type UserServiceHttpResponseStatusCodeType = (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
 
 /** Тип, представляющий стандартную структуру JSON-ответа.
  * @typeParam Data - Тип данных, включённые в поле `{data}` */
@@ -290,7 +289,4 @@ export interface UserServiceHttpResponseBodyPatternType<Data> {
 
 export type UserServiceHttpResponseBodyOptionalMessage = { message?: string | undefined };
 export type UserServiceHttpResponseBodyOptionalMessageAndErrors = { errors: string[]; message?: string | undefined };
-export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = {
-    data?: D | undefined;
-    message?: string | undefined;
-};
+export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = { data?: D | undefined; message?: string | undefined };

@@ -1,12 +1,12 @@
 "use server";
 import { ComingSoon } from "#/components/info/coming-soon";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { isUserServiceAliveNow } from "#/settings/user-service";
 import { redirect } from "next/navigation";
 import { Register_Component } from "./register-component";
+import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
 
 export default async function __Registration() {
-    if (!(await isUserServiceAliveNow())) {
+    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
         return <ComingSoon />;
     }
     const is_logged = await sessionAuthenticator_S_A();

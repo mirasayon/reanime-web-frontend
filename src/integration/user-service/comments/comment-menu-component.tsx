@@ -1,5 +1,5 @@
 "use client";
-import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import { PiDotsThreeOutline } from "react-icons/pi";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { MainDeleteCommentComponent } from "./delete-component";

@@ -3,7 +3,8 @@ import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { revalidatePath } from "next/cache";
-import { mainUserServiceFetcher } from "../../user-service-fetcher.integrator-util";
+import { fetchTheUserService } from "../../user-service-fetcher.integrator-util";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 /**
  * Server Action
@@ -15,9 +16,10 @@ export async function CreateOneCommentToAnime(
     currPath: string,
     anime_id: number,
 ): Promise<ServerActionResponse> {
-    const url = `/v1/comment/create/${anime_id}` as const;
+    const url =
+        endpointsConfig.commentAboutAnime.baseUrl + endpointsConfig.commentAboutAnime.createComment(String(anime_id));
 
-    const res = await mainUserServiceFetcher<ResponseTypesFor_CommentForAnime_Section["create_comment"]>(url, "POST", {
+    const res = await fetchTheUserService<ResponseTypesFor_CommentForAnime_Section["create_comment"]>(url, "POST", {
         jsonBody: {
             content: comment_content,
         },

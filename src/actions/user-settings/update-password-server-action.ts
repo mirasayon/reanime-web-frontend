@@ -1,5 +1,5 @@
 "use server";
-import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 import {
@@ -7,6 +7,7 @@ import {
     accountSectionSchemas,
 } from "#user-service/request-validator-for-all.routes.ts";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 export async function updatePassword_ServerAction(
     data: AccountSectionValidationSchemaType["update_password"],
@@ -18,8 +19,8 @@ export async function updatePassword_ServerAction(
         });
         return { ok: false, errors: errorList };
     }
-    const res = await mainUserServiceFetcher<ResponseTypesFor_Account_Section["update_password"]>(
-        "/v1/account/update/password",
+    const res = await fetchTheUserService<ResponseTypesFor_Account_Section["update_password"]>(
+        endpointsConfig.userAccount.baseUrl + endpointsConfig.userAccount.updatePassword,
         "PATCH",
         { jsonBody: parsed.data },
     );

@@ -7,8 +7,6 @@ export const this_year = new Date().getFullYear();
 export const birth_year = 2024;
 export const page_index_interval = 30;
 export const valid_extensions = ["jpeg", "png", "jpg"];
-/** @name path for getting avatar images */
-export const internal_avatar_storage_path_url = "/api/v1/storage/avatars/" as const;
 export const __default_user_avatar = "/_assets/default_avatar.png" as const;
 export const error_image_for_light_theme = "/_assets/on_error_image_for_light_theme.png" as const;
 export const error_image_for_night_theme = "/_assets/on_error_image_for_night_theme.png" as const;
@@ -29,4 +27,3 @@ export const list_anime_ru = {
     this_year: "Этот сезон",
 } as const;
 export const filters_uids = Object.keys(list_anime_ru) as filter_search_params[];
-

@@ -1,7 +1,8 @@
 "use server";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 
 export async function updateNickname_ServerAction({
@@ -9,8 +10,8 @@ export async function updateNickname_ServerAction({
 }: {
     newNickname: string;
 }): ServerActionResponseWithPromise {
-    const url = `/v1/user-profile/update/nickname/to/${newNickname}`;
-    const res = await mainUserServiceFetcher<ResponseTypesFor_UserProfile_Section["update_nickname"]>(url, "PATCH");
+    const url = endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.updateNickname(newNickname);
+    const res = await fetchTheUserService<ResponseTypesFor_UserProfile_Section["update_nickname"]>(url, "PATCH");
     if (!res || res === 500) {
         return { errors: [internalErrTxt], ok: false };
     }

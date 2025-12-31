@@ -1,7 +1,6 @@
 "use server";
-import { mainUserServiceFetcher } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { cookies, headers } from "next/headers";
-import { userServiceConfig } from "#/configs/user-service.app-config";
+import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { cookies } from "next/headers";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
@@ -9,6 +8,7 @@ import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-s
 import { cookieOptionsForSetToken } from "./cookie-option";
 import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.ts";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
+import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export async function loginTheUserServerAction(data: {
     username: string;
     password: string;
@@ -27,10 +27,9 @@ export async function loginTheUserServerAction(data: {
         });
         return { ok: false, errors: errorList };
     }
-    // const _headers = await headers();
     const _cookies = await cookies();
-    const res = await mainUserServiceFetcher<ResponseTypesForAuthentication["login_via_username"]>(
-        "/v1/authentication/login/by/username",
+    const res = await fetchTheUserService<ResponseTypesForAuthentication["login_via_username"]>(
+        endpointsConfig.authentication.baseUrl + endpointsConfig.authentication.loginByUsername,
         "POST",
         {
             jsonBody: parsed.data,
