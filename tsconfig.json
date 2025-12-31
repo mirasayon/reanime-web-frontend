@@ -23,7 +23,8 @@
         ],
         "paths": {
             "#T/*": ["./src/types/*"],
-            "#/*": ["./src/*"]
+            "#/*": ["./src/*"],
+            "#user-service/*": ["./src/user-service-shared-package/*"]
         }
     },
     "include": [
