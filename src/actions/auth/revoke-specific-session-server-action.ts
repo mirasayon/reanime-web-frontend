@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
-export async function revokeSpecificSession_ServerAction(session_id: string): ServerActionResponseWithPromise {
+export async function terminateSpecificSessionSA(session_id: string): ServerActionResponseWithPromise {
     const res = await fetchTheUserService<ResponseTypesFor_Account_Section["terminate_specific_session"]>(
         endpointsConfig.userAccount.baseUrl + endpointsConfig.userAccount.terminateSpecificSession(session_id),
         "DELETE",

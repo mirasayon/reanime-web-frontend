@@ -13,6 +13,7 @@ export interface ResponseTypesFor_Account_Section {
     get_sessions: {
         id: string;
         created_at: Date;
+        selector: string;
         expires_at: Date;
         last_used_at: Date;
         ip_address: string;
@@ -273,7 +274,8 @@ export const userServiceHttpResponseStatusCodes = {
     I_AM_A_TEAPOT: 418,
 } as const;
 
-export type UserServiceHttpResponseStatusCodeType = (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
+export type UserServiceHttpResponseStatusCodeType =
+    (typeof userServiceHttpResponseStatusCodes)[keyof typeof userServiceHttpResponseStatusCodes];
 
 /** Тип, представляющий стандартную структуру JSON-ответа.
  * @typeParam Data - Тип данных, включённые в поле `{data}` */
@@ -289,4 +291,7 @@ export interface UserServiceHttpResponseBodyPatternType<Data> {
 
 export type UserServiceHttpResponseBodyOptionalMessage = { message?: string | undefined };
 export type UserServiceHttpResponseBodyOptionalMessageAndErrors = { errors: string[]; message?: string | undefined };
-export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = { data?: D | undefined; message?: string | undefined };
+export type UserServiceHttpResponseBodyOptionalMessageAndData<D> = {
+    data?: D | undefined;
+    message?: string | undefined;
+};

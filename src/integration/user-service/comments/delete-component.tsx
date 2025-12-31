@@ -2,7 +2,7 @@
 import { MdDeleteForever } from "react-icons/md";
 import { deleteCommentServerAction } from "./actions-for-comments/delete-comment-server-action";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function MainDeleteCommentComponent({
@@ -14,7 +14,7 @@ export function MainDeleteCommentComponent({
     comment_id: string;
     setShowOptionsMenu: Dispatch<SetStateAction<boolean>>;
 }) {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
     async function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();

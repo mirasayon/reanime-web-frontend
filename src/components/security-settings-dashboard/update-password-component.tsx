@@ -3,7 +3,7 @@ import { FormWrapperForFormInputsForAuthForms } from "#/app/auth/components-jsx-
 import { InputPasswordForAuthForm } from "#/app/auth/components-jsx-for-auth-forms/password-input";
 import { SubmitButtonForAuthForms } from "#/app/auth/components-jsx-for-auth-forms/submit-button-for-auth-forms";
 import { useTransition } from "react";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -16,7 +16,7 @@ import {
 
 export function UpdatePasswordFormComponent({ username }: { username: string }) {
     const [pending, startTransition] = useTransition();
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const router = useRouter();
     const {
         register,

@@ -1,23 +1,14 @@
 "use client";
 import { setProfileAvatar_ServerAction } from "#/actions/media/avatar-set.server-action";
 import { UserServiceMediaConfigs } from "#/actions/media/config";
-import {
-    useState,
-    useTransition,
-    type Dispatch,
-    type SetStateAction,
-} from "react";
+import { useState, useTransition, type Dispatch, type SetStateAction } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
-export function SetAvatarForm({
-    setIsEditing,
-}: {
-    setIsEditing: Dispatch<SetStateAction<boolean>>;
-}) {
+export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStateAction<boolean>> }) {
     const [previewSrc, setPreviewSrc] = useState<string>();
-    const toaster = useGToaster();
+    const toaster = useToaster();
 
     const [pending, startTransition] = useTransition();
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -31,9 +22,7 @@ export function SetAvatarForm({
 
     function UploadAvatarHandle(fd: FormData) {
         startTransition(async () => {
-            const imageFile = fd.get(
-                UserServiceMediaConfigs.avatar_file_HTML_INPUT_name,
-            ) as File | null;
+            const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
 
             if (!imageFile?.size) {
                 toaster.error("Файл не найден");
@@ -54,9 +43,7 @@ export function SetAvatarForm({
             <form action={UploadAvatarHandle} className="flex flex-col ">
                 <label
                     hidden={!!previewSrc}
-                    htmlFor={
-                        UserServiceMediaConfigs.avatar_file_HTML_INPUT_name
-                    }
+                    htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                     className="flex flex-col dark:bg-blue-950 bg-blue-100 cursor-pointer"
                 >
                     <div className=" flex flex-col justify-center items-center rounded">
@@ -79,11 +66,7 @@ export function SetAvatarForm({
                 {previewSrc && (
                     <>
                         <div className="">
-                            <img
-                                src={previewSrc}
-                                alt="preview avatar image"
-                                className="m-2 h-48 w-48 object-cover"
-                            />
+                            <img src={previewSrc} alt="preview avatar image" className="m-2 h-48 w-48 object-cover" />
                         </div>
                         <button
                             type="submit"

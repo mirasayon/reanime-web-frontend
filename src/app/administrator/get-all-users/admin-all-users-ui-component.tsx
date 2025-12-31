@@ -1,5 +1,5 @@
 "use client";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { JustAvatarCircleComponent } from "#/components/users/dashboard/common";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 export type MainUserListShowerProps = {
@@ -98,7 +98,7 @@ export function MainUserListShower({
     pageSizeOptions?: number[];
     userServiceUrl: string;
 }) {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [users] = useState<UserType[]>(initialUsers);
     const [query, setQuery] = useState("");
     const [filterType, setFilterType] = useState<

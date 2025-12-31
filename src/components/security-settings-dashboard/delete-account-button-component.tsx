@@ -13,12 +13,12 @@ import {
 } from "#/shadcn-ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function DeleteAccountPermanentlyComponent() {
     const [pending, startTransition] = useTransition();
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const _router = useRouter();
     async function deleteAvatarHandle() {
         startTransition(async () => {
@@ -35,20 +35,15 @@ export function DeleteAccountPermanentlyComponent() {
     return (
         <AlertDialog>
             <div className="p-2 bg-red-600 rounded cursor-pointer">
-                <AlertDialogTriggerShadCN className="cursor-pointer">
-                    Удалить аккаунт
-                </AlertDialogTriggerShadCN>
+                <AlertDialogTriggerShadCN className="cursor-pointer">Удалить аккаунт</AlertDialogTriggerShadCN>
             </div>
             <AlertDialogContentShadCN className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
                 <form action={deleteAvatarHandle} className=" grid p-2 m-2 ">
                     <AlertDialogHeaderShadCN>
-                        <AlertDialogTitleShadCN>
-                            Вы абсолютно уверены?
-                        </AlertDialogTitleShadCN>
+                        <AlertDialogTitleShadCN>Вы абсолютно уверены?</AlertDialogTitleShadCN>
                         <AlertDialogDescriptionShadCN>
-                            Это действие невозможно отменить. Это приведёт к
-                            безвозвратному удалению вашей учётной записи и ваших
-                            данных с наших серверов.
+                            Это действие невозможно отменить. Это приведёт к безвозвратному удалению вашей учётной
+                            записи и ваших данных с наших серверов.
                         </AlertDialogDescriptionShadCN>
                     </AlertDialogHeaderShadCN>
                     <AlertDialogFooterShadCN>

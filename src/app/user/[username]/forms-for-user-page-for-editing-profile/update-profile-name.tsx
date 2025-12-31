@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { UserNicknameInputForAuthForm } from "#/app/auth/components-jsx-for-auth-forms/nickname-input";
 import { profileRouteValidatorSchemas } from "#user-service/request-validator-for-all.routes.ts";
 const schema = z.strictObject({ nickname: profileRouteValidatorSchemas.update_name });
@@ -17,7 +17,7 @@ export function UpdateProfileNickname({
     previousName: string | null;
     setOpenEditorFunction: Dispatch<SetStateAction<boolean>>;
 }): React.JSX.Element {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
     const {
         register,

@@ -42,14 +42,9 @@ export default async function __SettingSlashSessionsPage() {
 
                     <div className="flex flex-row flex-wrap gap-4">
                         {sessions.map((s) => {
-                            const isCurrentSession = s.id === currentSession.id;
+                            const isCurrentSession = s.selector === currentSession.selector;
                             return (
-                                <SessionsViewerComponent
-                                    key={s.id}
-                                    address={"address"}
-                                    session={s}
-                                    isCurrentSession={isCurrentSession}
-                                />
+                                <SessionsViewerComponent key={s.id} session={s} isCurrentSession={isCurrentSession} />
                             );
                         })}
                     </div>

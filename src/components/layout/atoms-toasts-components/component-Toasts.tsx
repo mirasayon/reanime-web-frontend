@@ -1,12 +1,12 @@
 "use client";
 import { useAtomValue } from "jotai";
 import { uiToastsAtom } from "./main-user-service-messanger";
-import { useGToaster } from "./useToast";
+import { useToaster } from "./useToast";
 import { useEffect, useRef } from "react";
 
 export function Toasts() {
     const toasts = useAtomValue(uiToastsAtom);
-    const { remove } = useGToaster();
+    const { remove } = useToaster();
     const liveRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (!liveRef.current) {
@@ -20,12 +20,7 @@ export function Toasts() {
 
     return (
         <>
-            <div
-                ref={liveRef}
-                aria-live="polite"
-                aria-atomic="true"
-                className="sr-only"
-            />
+            <div ref={liveRef} aria-live="polite" aria-atomic="true" className="sr-only" />
             <div className="pointer-events-none fixed inset-0 z-1000 flex flex-col items-end gap-2 p-4">
                 <div className="ml-auto flex w-full max-w-sm flex-col gap-2">
                     {toasts.map((t) => (
@@ -34,12 +29,9 @@ export function Toasts() {
                             className={[
                                 "pointer-events-auto rounded-md p-2 shadow-lg ring-1 backdrop-blur",
                                 "transition-all data-[state=open]:animate-in data-[state=closed]:animate-out",
-                                t.kind === "success" &&
-                                    "bg-emerald-50/80 dark:bg-emerald-700/80 ring-emerald-200",
-                                t.kind === "error" &&
-                                    "bg-rose-50/80 dark:bg-rose-700/80 ring-rose-200",
-                                t.kind === "info" &&
-                                    "bg-slate-50/80 dark:bg-slate-700/80 ring-slate-200",
+                                t.kind === "success" && "bg-emerald-50/80 dark:bg-emerald-700/80 ring-emerald-200",
+                                t.kind === "error" && "bg-rose-50/80 dark:bg-rose-700/80 ring-rose-200",
+                                t.kind === "info" && "bg-slate-50/80 dark:bg-slate-700/80 ring-slate-200",
                             ]
                                 .filter(Boolean)
                                 .join(" ")}
@@ -50,9 +42,7 @@ export function Toasts() {
                                     {t.title}
                                 </div>
                             )}
-                            <div className="text-sm text-slate-700 dark:text-slate-100">
-                                {t.message}
-                            </div>
+                            <div className="text-sm text-slate-700 dark:text-slate-100">{t.message}</div>
                             <div className="mt-2 flex justify-end">
                                 <button
                                     onClick={() => remove(t.id)}

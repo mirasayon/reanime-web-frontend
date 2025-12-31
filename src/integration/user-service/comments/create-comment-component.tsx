@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type JSX, type FormEvent, useState } from "react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
@@ -16,7 +16,7 @@ export function MainCreateCommentComponent({
     profile: AuthenticatorType;
     animeId: number;
 }): React.JSX.Element {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
 

@@ -1,12 +1,12 @@
 "use client";
 import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-server-action";
 import { useTransition, type FormEvent } from "react";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { LogOut } from "lucide-react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function Logout_userForDashboard() {
     const [pending, startTransition] = useTransition();
-    const toaster = useGToaster();
+    const toaster = useToaster();
     function LogOutAccountHandle(e: FormEvent<HTMLFormElement>) {
         startTransition(async () => {
             e.preventDefault();

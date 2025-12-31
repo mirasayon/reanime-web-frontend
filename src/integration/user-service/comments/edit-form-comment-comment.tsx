@@ -1,5 +1,5 @@
 "use client";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { useTransition, type Dispatch, type FormEvent, type SetStateAction } from "react";
@@ -11,7 +11,7 @@ export function MainEditFormCommentComponent({
     setIsEditing: Dispatch<SetStateAction<boolean>>;
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
 }): React.JSX.Element {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
 
     function SaveCommentON(event: FormEvent<HTMLFormElement>) {

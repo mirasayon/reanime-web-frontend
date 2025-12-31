@@ -1,15 +1,12 @@
 "use client";
 import { useSetAtom } from "jotai";
-import {
-    uiToastsAtom,
-    type ToastMessageType,
-} from "./main-user-service-messanger";
+import { uiToastsAtom, type ToastMessageType } from "./main-user-service-messanger";
 
 const genRandId = () => Math.random().toString(36).slice(2);
 type useGToasterParams = {
     duration?: number;
 };
-export function useGToaster(options: useGToasterParams = { duration: 3500 }) {
+export function useToaster(options: useGToasterParams = { duration: 3500 }) {
     const set = useSetAtom(uiToastsAtom);
     const push = (t: Omit<ToastMessageType, "id">) => {
         const id = genRandId();
@@ -43,4 +40,4 @@ export function useGToaster(options: useGToasterParams = { duration: 3500 }) {
     return { push, remove, success, error, info };
 }
 
-export type UseGToasterType = ReturnType<typeof useGToaster>;
+export type UseGToasterType = ReturnType<typeof useToaster>;

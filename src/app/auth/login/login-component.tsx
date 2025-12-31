@@ -6,7 +6,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { InputLoginForAuthForm } from "../components-jsx-for-auth-forms/login-input";
 import { InputPasswordForAuthForm } from "../components-jsx-for-auth-forms/password-input";
 import { useRouter } from "next/navigation";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { SubmitButtonForAuthForms } from "../components-jsx-for-auth-forms/submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "../components-jsx-for-auth-forms/form-wrapper-for-inputs-for-auth-forms";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
@@ -15,7 +15,7 @@ import {
     type AuthenticationSectionValidatorSchemaType,
 } from "#user-service/request-validator-for-all.routes.ts";
 export function MainLoginComponent() {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const router = useRouter();
     const {
         register,

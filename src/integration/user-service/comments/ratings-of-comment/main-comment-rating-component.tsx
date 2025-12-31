@@ -1,5 +1,5 @@
 "use client";
-import { useGToaster } from "#/components/layout/atoms-toasts-components/useToast";
+import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
@@ -22,7 +22,7 @@ export function ShowCommentRatingComponent({
     currPath: string;
     authCurrent: AuthenticatorType;
 }): React.JSX.Element {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
     let likes = 0;
     let dislikes = 0;

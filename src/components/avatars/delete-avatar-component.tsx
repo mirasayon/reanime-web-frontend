@@ -1,10 +1,10 @@
 "use client";
 import { DeleteAvatar_ServerAction } from "#/actions/media/avatar-delete";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent } from "react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 export function DeleteAvatarForm() {
-    const toaster = useGToaster();
+    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
     function deleteAvatarHandle(e: FormEvent<HTMLFormElement>) {
         startTransition(async () => {

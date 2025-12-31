@@ -2,12 +2,12 @@
 import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-server-action";
 import { useRouter } from "next/navigation";
 import { useState, useTransition, type FormEvent } from "react";
-import { useGToaster } from "../layout/atoms-toasts-components/useToast";
+import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { styles5465 } from "../dropdown-menu-in-head-corner/for-logged-users";
 export function LogoutUserAtHeaderComponent() {
     const [confirm, set_confirm] = useState<boolean>(false);
-    const toaster = useGToaster();
+    const toaster = useToaster();
 
     const [pending, startTransition] = useTransition();
 
