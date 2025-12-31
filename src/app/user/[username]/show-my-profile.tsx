@@ -1,4 +1,6 @@
 import { UploadAvatarOrShowForLoggedAccountComponent } from "#/components/avatars/upload_avatar_or_show";
+import { envClient } from "#/env/env-client";
+import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
 
@@ -14,10 +16,11 @@ export function MainShowMyProfileDashboard({
                 <UploadAvatarOrShowForLoggedAccountComponent
                     avatarUrl={
                         data.avatar
-                            ? `${process.env.NEXT_PUBLIC_USER_SERVICE_URL}/${data.avatar.path_dirname}/${data.avatar.path_filename}`
+                            ? `${envClient.userServiceUrl}/v1${
+                                  endpointsConfig.media.baseUrl + endpointsConfig.media.viewAvatarByFs
+                              }/${data.avatar.path_dirname}/${data.avatar.path_filename}.webp`
                             : null
                     }
-                    username={data.username}
                 />
                 <MainProfileDashboard user={data} />
             </div>

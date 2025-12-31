@@ -9,12 +9,10 @@ import { NotLoggedProfileCommentShower } from "./not-logged-users-comment-shower
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export async function MainCommentsSection({
     shikimori_id,
-    userServerBaseUrl,
     current_user,
 }: {
     current_user: AuthenticatorType;
     shikimori_id: number;
-    userServerBaseUrl: string;
 }): Promise<JSX.Element> {
     if (current_user === 500) {
         return <div>Ошибка при загрузке комментариев</div>;
@@ -32,11 +30,7 @@ export async function MainCommentsSection({
         <section className={rea_wrapper_border}>
             <div className="m-2">
                 <h3 className="p-1 font-medium">Комментарии</h3>
-                <MainCreateCommentComponent
-                    profile={current_user}
-                    animeId={shikimori_id}
-                    userServerBaseUrl={userServerBaseUrl}
-                />
+                <MainCreateCommentComponent profile={current_user} animeId={shikimori_id} />
                 <div className="flex flex-col">
                     {all_comments.data.length ? (
                         all_comments.data.map((comment) => {
@@ -51,7 +45,6 @@ export async function MainCommentsSection({
                                         {...{
                                             comment,
                                             current_user,
-                                            userServerBaseUrl,
                                         }}
                                     />
                                 );
@@ -61,7 +54,6 @@ export async function MainCommentsSection({
                                     key={comment.id}
                                     {...{
                                         comment,
-                                        userServerBaseUrl,
                                     }}
                                 />
                             );

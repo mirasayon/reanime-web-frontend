@@ -23,10 +23,7 @@ export default async function __Admin_All_Users_Page(): Promise<React.JSX.Elemen
     return (
         <>
             <div className="">
-                <MainUserListShower
-                    initialUsers={allUsersData.data}
-                    userServiceUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
-                />
+                <MainUserListShower initialUsers={allUsersData.data} />
             </div>
         </>
     );

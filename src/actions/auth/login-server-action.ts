@@ -5,7 +5,7 @@ import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
-import { cookieOptionsForSetToken } from "./cookie-option";
+import { setTokenToClientConfig } from "./cookie-option";
 import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.ts";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
@@ -37,7 +37,7 @@ export async function loginTheUserServerAction(data: {
     );
     return await userServiceRawResponsePreHandler(res, {
         onSuccessFunction: (res) => {
-            _cookies.set(cookieOptionsForSetToken(res.data));
+            _cookies.set(setTokenToClientConfig(res.data));
         },
     });
 }

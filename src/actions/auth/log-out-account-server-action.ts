@@ -1,5 +1,5 @@
 "use server";
-import { userServiceConfig } from "#/configs/user-service.app-config";
+import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { cookies } from "next/headers";
@@ -15,7 +15,7 @@ export async function LogOutAccount_ServerAction(): ServerActionResponseWithProm
     );
     return await userServiceRawResponsePreHandler(res, {
         onSuccessFunction: () => {
-            _cookies.delete(userServiceConfig.session_token_name);
+            _cookies.delete(SESSION_TOKEN_NAME);
         },
     });
 }

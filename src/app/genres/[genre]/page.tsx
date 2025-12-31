@@ -39,7 +39,7 @@ export default async function GenresPage({ params }: GenresPageProps): Promise<J
                 </div>
             )}
             {is404 && <Found_no_animes />}
-            {results && <Anime_List_Component kodiks={results} />}
+            {results && <Anime_List_Component data={results} />}
         </>
     );
 }

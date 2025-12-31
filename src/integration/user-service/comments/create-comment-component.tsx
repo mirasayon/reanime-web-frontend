@@ -7,12 +7,11 @@ import { useToaster } from "#/components/layout/atoms-toasts-components/useToast
 import { useTransition, type JSX, type FormEvent, useState } from "react";
 import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 export function MainCreateCommentComponent({
     profile,
     animeId,
-    userServerBaseUrl,
 }: {
-    userServerBaseUrl: string;
     profile: AuthenticatorType;
     animeId: number;
 }): React.JSX.Element {
@@ -52,12 +51,7 @@ export function MainCreateCommentComponent({
         >
             <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={
-                        userServerBaseUrl +
-                        "/v1" +
-                        endpointsConfig.media.baseUrl +
-                        endpointsConfig.media.avatarViewByUsername(profile.data.username)
-                    }
+                    src={viewAvatarByUsernameUrl(profile.data.username)}
                     alt={profile.data.username + " avatar"}
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />

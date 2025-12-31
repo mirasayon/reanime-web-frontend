@@ -1,10 +1,8 @@
 "use server";
-import { getKodikApi } from "#/providers/kodik-api";
+import { kodikClient } from "#/providers/kodik-api";
 export async function getAnyByShikimoriFromKodikApi(id: number) {
     try {
-        const res = await (
-            await getKodikApi()
-        ).search({
+        const res = await kodikClient.search({
             shikimori_id: id,
             has_field: "shikimori_id",
             with_material_data: true,
@@ -17,4 +15,3 @@ export async function getAnyByShikimoriFromKodikApi(id: number) {
         return null;
     }
 }
-

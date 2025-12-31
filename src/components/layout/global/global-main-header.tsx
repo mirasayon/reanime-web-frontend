@@ -6,7 +6,7 @@ import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 
-export function GlobalMainHeader({ username, userServiceUrl }: { username?: string; userServiceUrl: string }) {
+export function GlobalMainHeader({ username }: { username?: string }) {
     return (
         <div className=" flex flex-col">
             <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
@@ -22,7 +22,7 @@ export function GlobalMainHeader({ username, userServiceUrl }: { username?: stri
                     <UI_Menu />
                 </div>
                 <div className=" flex flex-wrap justify-end">
-                    <MainDropdownMenuInHeader username={username} userServiceUrl={userServiceUrl} />
+                    <MainDropdownMenuInHeader username={username} />
                 </div>
             </header>
         </div>

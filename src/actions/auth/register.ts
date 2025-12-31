@@ -7,7 +7,7 @@ import {
     authenticationSectionSchemas,
     type AuthenticationSectionValidatorSchemaType,
 } from "#user-service/request-validator-for-all.routes.ts";
-import { cookieOptionsForSetToken } from "./cookie-option";
+import { setTokenToClientConfig } from "./cookie-option";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export async function registerNewUser_ServerAction(
@@ -28,7 +28,7 @@ export async function registerNewUser_ServerAction(
     );
     return await userServiceRawResponsePreHandler(res, {
         async onSuccessFunction(res) {
-            _cookies.set(cookieOptionsForSetToken(res.data));
+            _cookies.set(setTokenToClientConfig(res.data));
         },
     });
 }

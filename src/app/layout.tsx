@@ -2,7 +2,7 @@ import { Google_Analytics, Google_TagManager } from "#/components/analytics/goog
 import { YandexMetrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { ComingSoon } from "#/components/info/coming-soon";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
-import { Cookie_consent_banner } from "#/components/layout/cookie_consent-button";
+import { CookieConsentBanner } from "#/components/layout/cookie_consent-button";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { GlobalMainHeader } from "#/components/layout/global/global-main-header";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
@@ -14,10 +14,8 @@ import layoutStyles from "#/styles/global/layout.module.css";
 import "#/styles/global/main.tailwind.css";
 import type { LayoutProps } from "#T/nextjs";
 import type { Metadata } from "next";
-const isAnalyticsEnabled = process.env.NEXT_PUBLIC_ANALYTICS === "true";
-const gAIdPublic = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!;
-const gTMidPublic = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID!;
-const userServiceUrlPublic = process.env.NEXT_PUBLIC_USER_SERVICE_URL!;
+const gAIdPublic = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+const gTMidPublic = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
 type __Root_layoutProps = LayoutProps;
 export default async function __Root_layout({ children }: __Root_layoutProps): Promise<React.JSX.Element> {
     const auth = await sessionAuthenticator_S_A();
@@ -30,20 +28,20 @@ export default async function __Root_layout({ children }: __Root_layoutProps): P
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {isAnalyticsEnabled && <Google_TagManager gtm_id={gTMidPublic} />}
+            {gTMidPublic && <Google_TagManager gtm_id={gTMidPublic} />}
             <body className={`${inter.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
-                        <GlobalMainHeader userServiceUrl={userServiceUrlPublic} username={auth?.data.username} />
+                        <GlobalMainHeader username={auth?.data.username} />
                         {children}
                         <Layout_Footer />
-                        <Cookie_consent_banner />
+                        <CookieConsentBanner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>
-                {isAnalyticsEnabled && <YandexMetrikaAnalytics />}
+                {gTMidPublic && <YandexMetrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            {isAnalyticsEnabled && <Google_Analytics gaid={gAIdPublic} />}
+            {gAIdPublic && <Google_Analytics gaid={gAIdPublic} />}
         </html>
     );
 }

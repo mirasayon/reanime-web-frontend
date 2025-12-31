@@ -35,11 +35,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
             <MainRelatedAnimesSection related={await GetRelatedAnimes(current_shikimori_id)} />
-            <MainCommentsSection
-                shikimori_id={current_shikimori_id}
-                current_user={auth}
-                userServerBaseUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
-            />
+            <MainCommentsSection shikimori_id={current_shikimori_id} current_user={auth} />
         </>
     );
 }

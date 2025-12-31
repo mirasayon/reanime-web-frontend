@@ -4,13 +4,12 @@ import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-se
 
 type Props = {
     data: ResponseTypesFor_UserProfile_Section["view_other_profiles"];
-    userServiceBaseUrl: string;
 };
-export function ShowOthersProfile({ data, userServiceBaseUrl }: Props): React.JSX.Element {
+export function ShowOthersProfile({ data }: Props): React.JSX.Element {
     return (
         <>
             <h1 className="p-3 text-center">Профиль пользователя</h1>
-            <OnlyShowOthersAvatar username={data.username} userServiceBaseUrl={userServiceBaseUrl} />
+            <OnlyShowOthersAvatar username={data.username} />
             <Others_Profile_Dashboard data={data} />
         </>
     );

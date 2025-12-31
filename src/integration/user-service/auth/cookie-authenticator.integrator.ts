@@ -1,5 +1,5 @@
 "use server";
-import { userServiceConfig } from "#/configs/user-service.app-config";
+import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
@@ -10,7 +10,7 @@ export async function sessionAuthenticator_S_A(): Promise<AuthenticatorType> {
         return null;
     }
     const nextCookie = await cookies();
-    const session_token = nextCookie.get(userServiceConfig.session_token_name)?.value;
+    const session_token = nextCookie.get(SESSION_TOKEN_NAME)?.value;
     if (!session_token || session_token.length < 20) {
         return null;
     }

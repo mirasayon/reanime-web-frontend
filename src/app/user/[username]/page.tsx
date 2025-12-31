@@ -44,12 +44,7 @@ export default async function __User__Page({
         "GET",
     );
     if (!auth || auth?.data.username !== base_profile_data.data.username) {
-        return (
-            <ShowOthersProfile
-                data={base_profile_data.data}
-                userServiceBaseUrl={process.env.NEXT_PUBLIC_USER_SERVICE_URL!}
-            />
-        );
+        return <ShowOthersProfile data={base_profile_data.data} />;
     }
     const my_profile_data = await fetchTheUserService<ResponseTypesFor_UserProfile_Section["view_my_profile"]>(
         endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.viewMyProfile,

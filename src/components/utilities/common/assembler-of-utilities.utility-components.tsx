@@ -16,9 +16,9 @@ export function AnimeListsIsNotPermitted() {
     );
 }
 type Anime_List_ComponentProps = {
-    kodiks: EntityDataObject[];
+    data: EntityDataObject[];
 };
-export function Anime_List_Component({ kodiks }: Anime_List_ComponentProps): React.JSX.Element {
+export function Anime_List_Component({ data: kodiks }: Anime_List_ComponentProps): React.JSX.Element {
     return (
         <div className=" flex flex-wrap justify-around ">
             {kodiks.map((kodik) => (

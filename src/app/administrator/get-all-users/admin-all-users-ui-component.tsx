@@ -10,6 +10,7 @@ import { useCopyToClipboard } from "react-use";
 import { useState, type ReactNode } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
 const __styles = {
@@ -91,12 +92,10 @@ function getFilteredSorted(
 const arrSomeOptions = ["ID", "User", "Email", "Type", "Activated", "Created", "Actions"] as const;
 export function MainUserListShower({
     initialUsers,
-    userServiceUrl,
     pageSizeOptions = [10, 25, 50, 100, 1000],
 }: {
     initialUsers: ResponseTypesForAdministratorSection["get_all_users"];
     pageSizeOptions?: number[];
-    userServiceUrl: string;
 }) {
     const toaster = useToaster();
     const [users] = useState<UserType[]>(initialUsers);
@@ -215,12 +214,7 @@ export function MainUserListShower({
                                     <div className="flex items-center gap-3">
                                         <JustAvatarCircleComponent
                                             altTitle={u.username + " avatar"}
-                                            avatarUrl={
-                                                userServiceUrl +
-                                                "/v1" +
-                                                endpointsConfig.media.baseUrl +
-                                                endpointsConfig.media.avatarViewByUsername(u.username)
-                                            }
+                                            avatarUrl={viewAvatarByUsernameUrl(u.username)}
                                         />
                                         <div className="flex flex-col">
                                             <Linker

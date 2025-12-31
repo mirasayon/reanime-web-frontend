@@ -3,16 +3,14 @@ import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { notFound } from "next/navigation";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { metadata404 } from "#/constants/common.constants";
-import { getKodikApi } from "#/providers/kodik-api";
+import { kodikClient } from "#/providers/kodik-api";
 import type { Metadata } from "next/types";
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
     if (Number.isNaN(shikimori_id) || !hasOnlyNumericString(shikimori_id)) {
         return notFound();
     }
     const shikimori_id_web = Number(shikimori_id);
-    const res = await (
-        await getKodikApi()
-    ).search({
+    const res = await kodikClient.search({
         shikimori_id: shikimori_id_web,
         has_field: "shikimori_id",
         with_material_data: true,
@@ -54,4 +52,3 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
         },
     };
 }
-

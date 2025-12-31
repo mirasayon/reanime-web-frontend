@@ -8,12 +8,10 @@ import { JustShowMainDataAboutComment } from "./components-primitives/show-main-
 import { MainEditFormCommentComponent } from "./edit-form-comment-comment";
 
 export function LoggedProfileCommentShower({
-    userServerBaseUrl,
     comment,
     current_user,
 }: {
     current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
-    userServerBaseUrl: string;
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
 }): React.JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
@@ -22,11 +20,10 @@ export function LoggedProfileCommentShower({
     return (
         <div className="m-2 grid p-2 items-center" key={comment.id} id={linkToComment}>
             <div className=" flex items-center">
-                <JustShowMainDataAboutComment {...{ comment, userServerBaseUrl }} />
+                <JustShowMainDataAboutComment {...{ comment }} />
                 {isOwner && (
                     <div className="relative">
                         <MenuCommentComponent
-                            userServerBaseUrl={userServerBaseUrl}
                             setFunction={setIsEditing}
                             comment_id={comment.id}
                             current_profile={current_user}

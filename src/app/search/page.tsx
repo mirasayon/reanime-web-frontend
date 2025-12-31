@@ -4,14 +4,14 @@ import type { Metadata } from "next";
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
-import { getKodikApi } from "#/providers/kodik-api";
+import { kodikClient } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 import { redirect } from "next/navigation";
 type SearchPageParams = { searchParams: SearchParams };
 function getSearchQuery(searchParams: Awaited<SearchParams>): string | null {
     return searchParams.search_query ? decodeURI(String(searchParams.search_query)) : null;
 }
-export default async function Root_search_page({ searchParams }: SearchPageParams) {
+export default async function __SearchPage({ searchParams }: SearchPageParams) {
     let search_query = null;
     try {
         search_query = getSearchQuery(await searchParams);
@@ -23,9 +23,7 @@ export default async function Root_search_page({ searchParams }: SearchPageParam
         _inputted = false;
     }
     const res = search_query
-        ? await (
-              await getKodikApi()
-          ).search({
+        ? await kodikClient.search({
               limit: 100,
               title: search_query,
               has_field: "shikimori_id",
@@ -38,7 +36,7 @@ export default async function Root_search_page({ searchParams }: SearchPageParam
         <div>
             <SearchAnimeAddressBarInHeader query={search_query} />
             {res?.results?.length ? (
-                <Anime_List_Component kodiks={dedupeAnimes(res.results)} />
+                <Anime_List_Component data={dedupeAnimes(res.results)} />
             ) : _inputted ? (
                 <Found_no_animes />
             ) : (

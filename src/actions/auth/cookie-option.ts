@@ -1,15 +1,14 @@
-import { userServiceConfig } from "#/configs/user-service.app-config";
-import { two_thousand_years } from "#/constants/common.constants";
+import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
+import { THIRTY_DAYS } from "#/constants/common.constants";
 
-export const cookieOptionsForSetToken = (value: string) => {
+export function setTokenToClientConfig(value: string) {
     return {
-        name: userServiceConfig.session_token_name,
-        value: value,
+        name: SESSION_TOKEN_NAME,
+        value,
         httpOnly: true,
-        // path: "/auth" as const,
-        secure: false,
-        priority: "high" as const,
-        sameSite: "strict" as const,
-        maxAge: two_thousand_years,
-    };
-};
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        maxAge: THIRTY_DAYS,
+    } as const;
+}

@@ -1,10 +1,9 @@
 "use client";
 import { rea_wrapper_border } from "#/styles/provider";
-import { type JSX, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next/client";
-import { two_thousand_years } from "#/constants/common.constants";
 import { cookiesConfig } from "./enum-user-service-config";
-export function Cookie_consent_banner(): React.JSX.Element | null {
+export function CookieConsentBanner(): React.JSX.Element | null {
     const [render, set_render] = useState<boolean>(false);
     const r6_cookies_consent = getCookie(cookiesConfig.cookies_consent_value_name) as undefined | string | boolean;
     useEffect(() => {
@@ -26,7 +25,7 @@ export function Cookie_consent_banner(): React.JSX.Element | null {
                         event.preventDefault();
                         set_render((pr) => false);
                         setCookie(cookiesConfig.cookies_consent_value_name, "TRUE", {
-                            maxAge: two_thousand_years,
+                            maxAge: 31_536_000_000,
                             path: "/",
                             httpOnly: false,
                             secure: false,

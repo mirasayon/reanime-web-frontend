@@ -13,7 +13,6 @@ export function MenuCommentComponent({
 }: {
     animeId: number;
     setFunction: Dispatch<SetStateAction<boolean>>;
-    userServerBaseUrl: string;
     comment_id: string;
     current_profile: AuthenticatorType;
 }): React.JSX.Element {

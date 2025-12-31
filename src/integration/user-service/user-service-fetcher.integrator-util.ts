@@ -1,9 +1,10 @@
 "use server";
-import { nextLoadEnvSSR } from "#/configs/environment-variables.main-config";
+import { envServer } from "#/env/env-server";
 import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
 import consola from "consola";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
+import { envClient } from "#/env/env-client";
 type Props<B> =
     | {
           jsonBody?: B | undefined;
@@ -25,7 +26,7 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
         if (rawBody && jsonBody) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
-        const full_url = process.env.NEXT_PUBLIC_USER_SERVICE_URL! + "/v1" + url;
+        const full_url = envClient.userServiceUrl + "/v1" + url;
         const headers: HeadersInit = {
             ...(jsonBody ? { "Content-Type": "application/json" } : {}),
         };
@@ -38,7 +39,7 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
         if (ip) {
             headers["x-forwarded-for"] = ip;
         }
-        headers["x-api-key"] = (await nextLoadEnvSSR()).user_service_api_key;
+        headers["x-api-key"] = envServer.userServiceApiKey;
         const response = await fetch(full_url, {
             method: method,
             headers: headers,
