@@ -30,7 +30,6 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): R
                     </div>
                 )}
                 {comments.map((c) => {
-                    // const created = format(new Date(c.created_at), "d MMM yyyy, HH:mm", { locale: ru });
                     const updated = format(new Date(c.updated_at), "d MMM yyyy, HH:mm", { locale: ru });
 
                     const linkToComment = `/anime/${c.external_anime_id}#comment-${c.id}`;
@@ -43,51 +42,22 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): R
                             <div className="flex items-start justify-between gap-4 ">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
-                                        {/* <time className="text-xs" dateTime={new Date(c.created_at).toISOString()}>
-                                            Создано: {created}
-                                        </time> */}
-
                                         <span className="text-xs">•</span>
-
-                                        {/* <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
-                                            Обновлён: {updated}
-                                        </time> */}
                                         <time className="text-xs " dateTime={new Date(c.updated_at).toISOString()}>
                                             Обновлён/создано: {updated}
                                         </time>
                                         <time className="text-sm text-gray-500">
                                             {timeAgoRU(new Date(c.updated_at))}
                                         </time>
-
-                                        {/* <span
-                                            className="ml-2 text-xs px-2 py-1 rounded-full font-medium"
-                                            aria-hidden
-                                            style={{
-                                                background: c.is_visible ? undefined : undefined,
-                                            }}
-                                        >
-                                            <span
-                                                className={
-                                                    "text-xs px-2 py-1 rounded-full font-medium " +
-                                                    (c.is_visible ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")
-                                                }
-                                            >
-                                                {c.is_visible ? "Виден" : "Скрыт"}
-                                            </span>
-                                        </span> */}
                                     </div>
 
                                     <p className="text-sm whitespace-pre-line">{c.content}</p>
-
-                                    {/* <div className="mt-3 text-xs text-gray-500 flex flex-wrap gap-3">
-                                        <span>Аниме ID: {c.anime_id}</span>
-                                    </div> */}
                                 </div>
 
                                 <div className="flex flex-col items-end gap-2 ml-4">
                                     <Link
+                                        prefetch={false}
                                         href={linkToComment}
-                                        scroll={false}
                                         className="inline-flex items-center gap-2 rounded-lg  border-blue-200 dark:border-blue-500 border-2 px-3 py-1 text-sm hover:bg-slate-100 dark:hover:bg-violet-700/50"
                                         aria-label={`Перейти к комментарию ${c.id}`}
                                     >

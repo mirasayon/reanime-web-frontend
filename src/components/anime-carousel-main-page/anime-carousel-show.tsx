@@ -31,11 +31,9 @@ export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
                 <CarouselContentShadCN>
                     {animes.map((one_slide) => {
                         return (
-                            <CarouselItemShadCN
-                                key={one_slide.shikimori_id}
-                                className="text-white dark:text-white "
-                            >
+                            <CarouselItemShadCN key={one_slide.shikimori_id} className="text-white dark:text-white ">
                                 <Link
+                                    prefetch={false}
                                     href={"/anime/" + one_slide.shikimori_id}
                                     className={"flex  flex-row"}
                                 >
@@ -54,18 +52,10 @@ export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
                                                 "flex flex-col gap-44  p-2 overflow-y-scroll  dark:bg-zinc-950/50 bg-zinc-950/30 h-[350px] scrollbar "
                                             }
                                         >
-                                            <div
-                                                className={"text-lg font-bold"}
-                                            >
-                                                {one_slide.title}
-                                            </div>
+                                            <div className={"text-lg font-bold"}>{one_slide.title}</div>
                                             <div className="  ">
-                                                {one_slide.description.length >
-                                                300
-                                                    ? one_slide.description.slice(
-                                                          0,
-                                                          300,
-                                                      ) + "..."
+                                                {one_slide.description.length > 300
+                                                    ? one_slide.description.slice(0, 300) + "..."
                                                     : one_slide.description}
                                             </div>
                                         </div>

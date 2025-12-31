@@ -64,7 +64,9 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
                         <span className="flex">
                             <BoldX>Рейтинг (от шикимори): </BoldX> <SiShikimori className="p-1" size={25} />{" "}
                             {anime.material_data?.shikimori_rating ? (
-                                `${anime.material_data.shikimori_rating}/10 (${anime.material_data.shikimori_votes ?? "0"})`
+                                `${anime.material_data.shikimori_rating}/10 (${
+                                    anime.material_data.shikimori_votes ?? "0"
+                                })`
                             ) : (
                                 <GhostedUnknown />
                             )}
@@ -73,12 +75,19 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
 
                     <div>
                         <BoldX>Статус: </BoldX>
-                        {anime.material_data?.anime_status ? <Normalize_anime_status str={anime.material_data.anime_status} /> : <GhostedUnknown />}
+                        {anime.material_data?.anime_status ? (
+                            <Normalize_anime_status str={anime.material_data.anime_status} />
+                        ) : (
+                            <GhostedUnknown />
+                        )}
                     </div>
                     <div>
                         <BoldX>Возрастной рейтинг: </BoldX>
                         {anime.material_data?.minimal_age ? (
-                            <Normalize_age_rating minimal_age={anime.material_data.minimal_age} rating={anime.material_data?.rating_mpaa} />
+                            <Normalize_age_rating
+                                minimal_age={anime.material_data.minimal_age}
+                                rating={anime.material_data?.rating_mpaa}
+                            />
                         ) : (
                             <GhostedUnknown />
                         )}
@@ -153,9 +162,13 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
                         <BoldX>Жанры: </BoldX>
                         {anime.material_data?.anime_genres && anime.material_data.anime_genres.length !== 0 ? (
                             anime.material_data.anime_genres.map((genre, ind) => (
-                                <Link href={`/genres/${genre}`} key={genre}>
+                                <Link prefetch={false} href={`/genres/${genre}`} key={genre}>
                                     {ind !== 0 && ","}{" "}
-                                    <span className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}>{genre}</span>
+                                    <span
+                                        className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}
+                                    >
+                                        {genre}
+                                    </span>
                                 </Link>
                             ))
                         ) : (

@@ -12,7 +12,7 @@ export function JustShowMainDataAboutComment({
     const linkToCommentFull = `/anime/${comment.external_anime_id}#comment-${comment.id}`;
     return (
         <>
-            <Link className="flex items-center" href={`/user/${comment.username}`}>
+            <Link prefetch={false} className="flex items-center" href={`/user/${comment.username}`}>
                 <img
                     src={viewAvatarByUsernameUrl(comment.username)}
                     alt="user avatar"
@@ -25,7 +25,7 @@ export function JustShowMainDataAboutComment({
                 {calculateAndShowTimeAgo(new Date(comment.created_at))}
             </time>
             <Link
-                scroll={false}
+                prefetch={false}
                 href={linkToCommentFull}
                 className="p-2 text-sm  dark:hover:bg-violet-500/50 hover:bg-violet-300/50"
                 aria-label={`Взять ссылку на этот комментарий ${comment.id}`}

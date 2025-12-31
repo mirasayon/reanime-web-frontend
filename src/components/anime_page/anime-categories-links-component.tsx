@@ -7,7 +7,7 @@ export function AnimeCategoriesComponent() {
     const is_open_search = usePathname().includes("search");
     return (
         <nav className=" flex items-center gap-3 text-sm">
-            {/* <Link
+            {/* <Link prefetch={false}
                 href={"/list/released"}
                  
                 className={`cursor-pointer  p-1 border-4 border-transparent ${
@@ -17,6 +17,7 @@ export function AnimeCategoriesComponent() {
                 По категориям
             </Link> */}
             <Link
+                prefetch={false}
                 href={"/genres/Повседневность"}
                 className={`cursor-pointer  p-1 border-4 border-transparent ${
                     is_open_genres && " border-b-violet-500 "
@@ -26,6 +27,7 @@ export function AnimeCategoriesComponent() {
             </Link>
 
             <Link
+                prefetch={false}
                 href={"/search"}
                 className={`cursor-pointer  p-1 border-4 border-transparent ${
                     is_open_search && " border-b-violet-500 "
@@ -36,4 +38,3 @@ export function AnimeCategoriesComponent() {
         </nav>
     );
 }
-

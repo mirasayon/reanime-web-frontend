@@ -15,16 +15,26 @@ export default function __SupportPage() {
                 <div className="flex flex-col justify-center gap-4">
                     <h2 className="text-lg font-medium">Поддержать проект</h2>
                     <p className="text-md dark:text-slate-300 text-slate-700">
-                        Я делаю этот проект один и бесплатно. На сайте нет рекламы (кроме плеера Kodik, который от меня не зависит). Любая финансовая
-                        поддержка помогает оплатить хостинг, домен и моё время.
+                        Я делаю этот проект один и бесплатно. На сайте нет рекламы (кроме плеера Kodik, который от меня
+                        не зависит). Любая финансовая поддержка помогает оплатить хостинг, домен и моё время.
                     </p>
                     <div>
                         <h2 className="text-lg font-medium">Через GitHub Sponsors</h2>
-                        <Linker href={constantDonationLinks.github} target="_blank" rel="noopener noreferrer" className={linksStyles}>
+                        <Linker
+                            href={constantDonationLinks.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={linksStyles}
+                        >
                             Ссылка на мой GitHub профиль
                         </Linker>
                         <h2 className="text-lg font-medium">Через криптовалюты</h2>
-                        <Linker href={constantDonationLinks.crypto} target="_blank" rel="noopener noreferrer" className={linksStyles}>
+                        <Linker
+                            href={constantDonationLinks.crypto}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={linksStyles}
+                        >
                             Ссылка на мои кошельки
                         </Linker>
                     </div>

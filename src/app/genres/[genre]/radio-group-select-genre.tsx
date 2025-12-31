@@ -10,9 +10,12 @@ export function RadioGroupSelectGenre({ current }: Props) {
                 const active = current === cate.russian_name;
                 return (
                     <Link
+                        prefetch={false}
                         href={cate.link_url}
                         key={cate.link_url}
-                        className={`cursor-pointer items-center border-2 p-2 border-blue-500 ${active && "dark:bg-blue-900 bg-blue-400"}`}
+                        className={`cursor-pointer items-center border-2 p-2 border-blue-500 ${
+                            active && "dark:bg-blue-900 bg-blue-400"
+                        }`}
                     >
                         {cate.russian_name}
                     </Link>
@@ -21,4 +24,3 @@ export function RadioGroupSelectGenre({ current }: Props) {
         </div>
     );
 }
-

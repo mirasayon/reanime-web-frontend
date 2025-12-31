@@ -22,6 +22,7 @@ export function Linker({
     const email: boolean = linkType === "email";
     return (
         <Link
+            prefetch={false}
             target={target}
             rel={rel}
             className={
