@@ -4,7 +4,7 @@ import { UserServiceMediaConfigs } from "#/actions/media/config";
 import { useState, useTransition, type Dispatch, type SetStateAction } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStateAction<boolean>> }) {
     const [previewSrc, setPreviewSrc] = useState<string>();
@@ -29,7 +29,7 @@ export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStat
                 return;
             }
             const res = await setProfileAvatar_ServerAction(fd);
-            serverActionsResponsesProcessorFromClientEnvironment({
+            handleSaResponseForClient({
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {

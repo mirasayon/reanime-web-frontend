@@ -6,7 +6,7 @@ import { fetchTheUserService } from "#/integration/user-service/user-service-fet
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
-import { MainShowMyProfileDashboard } from "./show-my-profile";
+import { MyProfileDashboard } from "./show-my-profile";
 import { ShowOthersProfile } from "./show-others-profile";
 import type {
     ResponseTypesFor_CommentForAnime_Section,
@@ -62,7 +62,7 @@ export default async function __User__Page({
     const loggedUser = my_profile_data.data;
     return (
         <>
-            <MainShowMyProfileDashboard data={loggedUser} />
+            <MyProfileDashboard data={loggedUser} />
             <div className={rea_wrapper_border}>
                 <SecuritySettingsDashboardComponent />
                 {all_comments_from_this_user !== 500 && all_comments_from_this_user ? (

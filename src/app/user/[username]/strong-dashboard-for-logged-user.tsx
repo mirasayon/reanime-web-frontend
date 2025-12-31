@@ -1,11 +1,12 @@
 "use client";
 import React, { useState, type ReactNode } from "react";
 import { User as UserIcon, Mail, UserCircle } from "lucide-react";
-import { Logout_userForDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
+import { LogoutBtnForProfileDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
 import { UpdateProfileNickname } from "./forms-for-user-page-for-editing-profile/update-profile-name";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
+import { UpdateBioComponent } from "./update-bio-component";
 type ProfileDashboardProps = {
     user: ResponseTypesFor_UserProfile_Section["view_my_profile"];
 };
@@ -14,12 +15,31 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [isEditingNickname, setIsEditingNickname] = useState(false);
     const [isEditingUsername, setIsEditingUsername] = useState(false);
-    const [isEditingPassword, setIsEditingPassword] = useState(false);
     return (
         <div className="p-3  transition-colors ">
             <div className="p-4 rounded-2xl shadow">
                 <h2 className="text-lg font-medium mb-2">О себе</h2>
-                <p className="text-sm text-muted-foreground">{user.bio || "О себе не написано"}</p>
+                <div>
+                    {isEditingBio ? (
+                        <UpdateBioComponent
+                            setEditingFunction={setIsEditingBio}
+                            username={user.username}
+                            existingBio={user.bio}
+                        />
+                    ) : (
+                        <div className="text-sm">{user.bio || "О себе не написано"}</div>
+                    )}
+                    <button
+                        className="p-2 cursor-pointer"
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsEditingBio((pv) => !pv);
+                        }}
+                    >
+                        {!isEditingBio && <FaEdit />}
+                    </button>
+                </div>
 
                 <div className="mt-4 space-y-2">
                     <div className=" flex flex-row gap-2">
@@ -52,7 +72,7 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX
 
                 <div className="mt-2 flex gap-2">
                     <div>
-                        <Logout_userForDashboard />
+                        <LogoutBtnForProfileDashboard />
                     </div>
                 </div>
             </div>

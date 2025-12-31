@@ -3,7 +3,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { deleteCommentServerAction } from "./actions-for-comments/delete-comment-server-action";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function MainDeleteCommentComponent({
     comment_id,
@@ -21,7 +21,7 @@ export function MainDeleteCommentComponent({
         startTransition(async () => {
             setShowOptionsMenu(false);
             const res = await deleteCommentServerAction(comment_id, animeId);
-            serverActionsResponsesProcessorFromClientEnvironment({
+            handleSaResponseForClient({
                 res,
                 error: toaster.error,
             });

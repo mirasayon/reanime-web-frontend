@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { useRouter } from "next/navigation";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function UpdateAvatarForm() {
     const toaster = useToaster();
@@ -30,7 +30,7 @@ export function UpdateAvatarForm() {
                 return;
             }
             const res = await AvatarUpdate_ServerAction(imageFile);
-            return serverActionsResponsesProcessorFromClientEnvironment({
+            return handleSaResponseForClient({
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {

@@ -1,7 +1,7 @@
 "use client";
 import { terminateSpecificSessionSA } from "#/actions/auth/revoke-specific-session-server-action";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -25,7 +25,7 @@ export function SessionsViewerComponent({ isCurrentSession, session: s }: Sessio
                 return toaster.error("Ошибка, ваш браузер устарел");
             }
             const res = await terminateSpecificSessionSA(id);
-            return serverActionsResponsesProcessorFromClientEnvironment({
+            return handleSaResponseForClient({
                 res,
                 error: toaster.error,
                 success: toaster.success,

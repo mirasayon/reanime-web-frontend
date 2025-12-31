@@ -4,11 +4,7 @@ import { endpointsConfig } from "#/user-service-shared-package/endpoints-config"
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
 
-export function MainShowMyProfileDashboard({
-    data,
-}: {
-    data: ResponseTypesFor_UserProfile_Section["view_my_profile"];
-}) {
+export function MyProfileDashboard({ data }: { data: ResponseTypesFor_UserProfile_Section["view_my_profile"] }) {
     return (
         <>
             <h1 className=" py-2 text-center">Ваш профиль</h1>

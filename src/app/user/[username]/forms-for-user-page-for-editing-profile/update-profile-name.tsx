@@ -4,7 +4,7 @@ import { updateNickname_ServerAction } from "./actions-profile-for-edits/update-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { UserNicknameInputForAuthForm } from "#/app/auth/components-jsx-for-auth-forms/nickname-input";
 import { profileRouteValidatorSchemas } from "#user-service/request-validator-for-all.routes.ts";
@@ -34,7 +34,7 @@ export function UpdateProfileNickname({
             const res = await updateNickname_ServerAction({
                 newNickname: data.nickname,
             });
-            serverActionsResponsesProcessorFromClientEnvironment({
+            handleSaResponseForClient({
                 res: res,
                 success: toaster.success,
                 error: toaster.error,

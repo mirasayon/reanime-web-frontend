@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
 export function DeleteAccountPermanentlyComponent() {
     const [pending, startTransition] = useTransition();
@@ -22,7 +22,7 @@ export function DeleteAccountPermanentlyComponent() {
     const _router = useRouter();
     async function deleteAvatarHandle() {
         startTransition(async () => {
-            return serverActionsResponsesProcessorFromClientEnvironment({
+            return handleSaResponseForClient({
                 success: toaster.success,
                 res: await DeleteAccountPermanently_ServerAction(),
                 error: toaster.error,

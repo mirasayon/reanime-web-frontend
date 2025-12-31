@@ -4,9 +4,8 @@ import { Linker } from "#/components/utilities/common/linker-utility-component";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { useTransition, type JSX, type FormEvent, useState } from "react";
-import { serverActionsResponsesProcessorFromClientEnvironment } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import { useTransition, type FormEvent, useState } from "react";
+import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 export function MainCreateCommentComponent({
     profile,
@@ -34,7 +33,7 @@ export function MainCreateCommentComponent({
                 return;
             }
             const res = await CreateOneCommentToAnime(comment_content, `/anime/${animeId}`, animeId);
-            serverActionsResponsesProcessorFromClientEnvironment({
+            handleSaResponseForClient({
                 res,
                 error: toaster.error,
             });
