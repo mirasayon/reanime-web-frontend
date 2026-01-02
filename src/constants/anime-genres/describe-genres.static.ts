@@ -1,4 +1,4 @@
-import type { IStaticDescribeGenres } from "#/static-but-it-is-typescript/internal-statics";
+import type { IStaticDescribeGenres } from "#/constants/anime-genres/internal-statics";
 export type genresType = {
     russian_name: string;
     link_url: `/genres/${string}`;
@@ -27,7 +27,8 @@ export const DescribeGenresStaticData: IStaticDescribeGenres[] = [
     {
         //     english_name: "Mystery",
         russian_name: "Детектив",
-        description: "жанр, описывающий исследование и раскрытие загадочного происшествия (обычно преступления) или серии происшествий.",
+        description:
+            "жанр, описывающий исследование и раскрытие загадочного происшествия (обычно преступления) или серии происшествий.",
     },
     {
         // english_name: "Action",
@@ -44,7 +45,8 @@ export const DescribeGenresStaticData: IStaticDescribeGenres[] = [
     {
         // english_name: "Hentai",
         russian_name: "Хентай",
-        description: "жанр аниме, в котором содержатся эротические или порнографические сцены. Имеет возрастное ограничение 18+.",
+        description:
+            "жанр аниме, в котором содержатся эротические или порнографические сцены. Имеет возрастное ограничение 18+.",
     },
     {
         // english_name: "Yaoi",
@@ -192,7 +194,8 @@ export const DescribeGenresStaticData: IStaticDescribeGenres[] = [
     {
         // english_name: "Shoujo Ai",
         russian_name: "Сёдзё-ай",
-        description: "жанр аниме, описывающий любовь девушки к девушке. Отличается от юри отсутствием откровенных сцен.",
+        description:
+            "жанр аниме, описывающий любовь девушки к девушке. Отличается от юри отсутствием откровенных сцен.",
     },
     {
         // english_name: "Sports",
@@ -302,4 +305,3 @@ export const uiNeededGenreLinks: genresType[] = uiNeededGenres.map((gen) => {
         link_url: `/genres/${gen.russian_name}`,
     };
 });
-

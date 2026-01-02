@@ -1,4 +1,4 @@
-import { uiNeededGenreLinks } from "#/static-but-it-is-typescript/describe-genres.static";
+import { uiNeededGenreLinks } from "#/constants/anime-genres/describe-genres.static";
 import Link from "next/link";
 type Props = {
     current: string;

@@ -6,7 +6,7 @@ import { _categories } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { kodikByGenre } from "#/libs/kodik/get-animes-list-for-inputted-genre.integrator";
-import { DescribeGenresStaticData, uiNeededGenres } from "#/static-but-it-is-typescript/describe-genres.static";
+import { DescribeGenresStaticData, uiNeededGenres } from "#/constants/anime-genres/describe-genres.static";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 type GenresPageProps = {

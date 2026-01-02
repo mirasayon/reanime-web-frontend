@@ -9,7 +9,7 @@ import {
 } from "#/shadcn-ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { set_top_chart_animes_image_urlByUrl } from "#/utils";
-import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
+import type { IStaticTopChartAnimes } from "#/constants/anime-genres/internal-statics";
 type AnimeMainPageCarouselProps = {
     animes: IStaticTopChartAnimes[];
 };

@@ -3,7 +3,7 @@ import type { SearchParams } from "#T/nextjs";
 import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { kodikClient } from "#/providers/kodik-api";
-import { topChartAnimesStaticData } from "#/static-but-it-is-typescript/top-chart-animes.static";
+import { topChartAnimesStaticData } from "#/constants/anime-genres/top-chart-animes.static";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 
 export default async function __Home_RootPage({ searchParams }: { searchParams: SearchParams }) {

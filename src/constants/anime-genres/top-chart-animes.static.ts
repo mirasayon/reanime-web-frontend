@@ -1,4 +1,4 @@
-import type { IStaticTopChartAnimes } from "#/static-but-it-is-typescript/internal-statics";
+import type { IStaticTopChartAnimes } from "#/constants/anime-genres/internal-statics";
 
 export const topChartAnimesStaticData: IStaticTopChartAnimes[] = [
     {
