@@ -8,7 +8,6 @@ export function UIAnimeCardMain({ data }: Props) {
     const imgUrl = getAnimePosterUrlByShikimoriId(data.shikimori_id);
     return (
         <Link
-            prefetch={false}
             href={`/anime/${data.shikimori_id}`}
             className={
                 "flex text-wrap m-3 flex-row w-70 h-60  bg-blue-100 dark:bg-slate-800 hover:bg-blue-200/80 hover:dark:bg-slate-700/80 rounded"

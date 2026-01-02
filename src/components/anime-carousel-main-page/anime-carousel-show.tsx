@@ -32,11 +32,7 @@ export function AnimeMainPageCarousel({ animes }: AnimeMainPageCarouselProps) {
                     {animes.map((one_slide) => {
                         return (
                             <CarouselItemShadCN key={one_slide.shikimori_id} className="text-white dark:text-white ">
-                                <Link
-                                    prefetch={false}
-                                    href={"/anime/" + one_slide.shikimori_id}
-                                    className={"flex  flex-row"}
-                                >
+                                <Link href={"/anime/" + one_slide.shikimori_id} className={"flex  flex-row"}>
                                     <div
                                         className=" "
                                         style={{

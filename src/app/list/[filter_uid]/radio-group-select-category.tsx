@@ -10,7 +10,6 @@ export function RadioGroupSelectCategory({ current }: Props) {
         <div className="p-5 flex flex-2/5 flex-wrap gap-2">
             {filterAnimeCommands.map((cate) => (
                 <Link
-                    prefetch={false}
                     href={`/list/${cate}`}
                     key={cate}
                     className={`  cursor-pointer w-44  items-center border-2 p-2 border-blue-500 ${

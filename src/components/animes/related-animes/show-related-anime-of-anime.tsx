@@ -20,7 +20,7 @@ export async function RelatedCardForAnime({
     }
     const type = getTypeOfAnime(data.type);
     return (
-        <Link prefetch={false} href={"/anime/" + data.shikimori_id} className={relatedCardStyles}>
+        <Link href={"/anime/" + data.shikimori_id} className={relatedCardStyles}>
             <ShowImageForRelatedAnimeSection
                 title={`Обложка от аниме ${data.title}`}
                 url={getAnimePosterUrlByShikimoriId(data.shikimori_id)}

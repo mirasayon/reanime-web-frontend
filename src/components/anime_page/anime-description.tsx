@@ -162,7 +162,7 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
                         <BoldX>Жанры: </BoldX>
                         {anime.material_data?.anime_genres && anime.material_data.anime_genres.length !== 0 ? (
                             anime.material_data.anime_genres.map((genre, ind) => (
-                                <Link prefetch={false} href={`/genres/${genre}`} key={genre}>
+                                <Link href={`/genres/${genre}`} key={genre}>
                                     {ind !== 0 && ","}{" "}
                                     <span
                                         className={`dark:hover:text-cyan-300 dark:text-violet-400 text-indigo-800 font-bold`}

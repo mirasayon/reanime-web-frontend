@@ -11,7 +11,7 @@
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
         "start:dev": "dotenv -e .env.development -- next start --port 3641 --hostname 192.168.0.105",
         "type:watch": "tsc --watch --noEmit --project ./tsconfig.json",
-        "type": "tsc --noEmit --project ./tsconfig.json",
+        "type:check": "tsc --noEmit --project ./tsconfig.json",
         "start:production": "dotenv -e .env.production -- next start --port 4641 --hostname 192.168.0.105"
     },
     "dependencies": {
@@ -45,7 +45,7 @@
         "safest-env": "^0.0.1",
         "shikimoript": "^0.1.2",
         "tailwind-merge": "^3.4.0",
-        "zod": "^4.3.2"
+        "zod": "^4.3.4"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.1.18",

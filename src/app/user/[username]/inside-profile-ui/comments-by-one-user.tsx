@@ -56,7 +56,6 @@ export function CommentsFromUserList({ comments }: CommentsFromUserListProps): R
 
                                 <div className="flex flex-col items-end gap-2 ml-4">
                                     <Link
-                                        prefetch={false}
                                         href={linkToComment}
                                         className="inline-flex items-center gap-2 rounded-lg  border-blue-200 dark:border-blue-500 border-2 px-3 py-1 text-sm hover:bg-slate-100 dark:hover:bg-violet-700/50"
                                         aria-label={`Перейти к комментарию ${c.id}`}

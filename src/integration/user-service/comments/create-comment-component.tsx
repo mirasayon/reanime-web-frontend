@@ -48,11 +48,7 @@ export function MainCreateCommentComponent({
             id="comment_form"
             className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}
         >
-            <Link
-                prefetch={false}
-                href={`/user/${profile.data.username}`}
-                className="flex p-2 flex-row items-center justify-between"
-            >
+            <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
                     src={viewAvatarByUsernameUrl(profile.data.username)}
                     alt={profile.data.username + " avatar"}

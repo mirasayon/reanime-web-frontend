@@ -6,11 +6,11 @@ import { styles5465 } from "./for-logged-users";
 export function LoginAndRegisterLinksAtAvatarPlace() {
     return (
         <div className="text-sm flex flex-col justify-between gap-2">
-            <Link prefetch={false} className={styles5465} href="/auth/login">
+            <Link className={styles5465} href="/auth/login">
                 <MdOutlineLogin size={25} fill={"white"} />
                 <span className="p-1 text-center">Войти</span>
             </Link>
-            <Link prefetch={false} className={styles5465} href="/auth/register">
+            <Link className={styles5465} href="/auth/register">
                 <FaRegRegistered size={25} fill={"white"} />
 
                 <span className="p-1 text-center">Зарегистрироваться</span>

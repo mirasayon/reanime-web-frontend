@@ -11,7 +11,7 @@ export function GlobalMainHeader({ username }: { username?: string }) {
         <div className=" flex flex-col">
             <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
                 <div className="flex flex-wrap justify-start">
-                    <Link prefetch={false} href="/" className="p-1 flex items-center justify-center ">
+                    <Link href="/" className="p-1 flex items-center justify-center ">
                         <img
                             src={"/icon.png"}
                             className=" w-[30px] h-[30px] mx-3 object-cover"
