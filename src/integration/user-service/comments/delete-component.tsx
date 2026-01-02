@@ -2,10 +2,8 @@
 import { MdDeleteForever } from "react-icons/md";
 import { deleteCommentServerAction } from "./actions-for-comments/delete-comment-server-action";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
-import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 
-export function MainDeleteCommentComponent({
+export function DeleteCommentBtnComponent({
     comment_id,
     animeId,
     setShowOptionsMenu,
@@ -14,18 +12,13 @@ export function MainDeleteCommentComponent({
     comment_id: string;
     setShowOptionsMenu: Dispatch<SetStateAction<boolean>>;
 }) {
-    const toaster = useToaster();
     const [pending, startTransition] = useTransition();
-    async function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
+    function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         startTransition(async () => {
+            await deleteCommentServerAction(comment_id, animeId);
+
             setShowOptionsMenu(false);
-            const res = await deleteCommentServerAction(comment_id, animeId);
-            handleSaResponseForClient({
-                res,
-                error: toaster.error,
-            });
-            return;
         });
     }
     return (

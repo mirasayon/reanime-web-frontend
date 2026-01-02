@@ -1,20 +1,12 @@
 "use server";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
-import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
 import type { ResponseTypesFor_Media_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 export async function AvatarUpdate_ServerAction(imageFile: File): ServerActionResponseWithPromise {
-    const auth = await sessionAuthenticator_S_A();
-    if (!auth || auth === 500) {
-        return { ok: false, errors: [internalErrTxt] };
-    }
-    if (!auth) {
-        return { ok: false, errors: [notLoggedErrorTxt] };
-    }
     if (!imageFile?.size) {
         return { ok: false, errors: ["Файл для загрузки не найден"] };
     }
@@ -30,12 +22,5 @@ export async function AvatarUpdate_ServerAction(imageFile: File): ServerActionRe
         "PATCH",
         { rawBody: forwardData },
     );
-    if (!res || res === 500) {
-        return { ok: false, errors: [internalErrTxt] };
-    }
-
-    if (res.data) {
-        return { ok: true, msg: res.message };
-    }
-    return { ok: false, errors: res.errors || ["default"] };
+    return userServiceResponseHandler(res);
 }

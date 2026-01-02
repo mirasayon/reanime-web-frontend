@@ -2,7 +2,7 @@
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies } from "next/headers";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
-import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
+import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 import {
     authenticationSectionSchemas,
     type AuthenticationSectionValidatorSchemaType,
@@ -26,8 +26,8 @@ export async function registerNewUser_ServerAction(
         "POST",
         { jsonBody: parsed.data },
     );
-    return await userServiceRawResponsePreHandler(res, {
-        async onSuccessFunction(res) {
+    return userServiceResponseHandler(res, {
+        onSuccessFunction: (res) => {
             _cookies.set(setTokenToClientConfig(res.data));
         },
     });

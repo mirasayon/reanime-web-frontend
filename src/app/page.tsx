@@ -17,7 +17,7 @@ export default async function __Home_RootPage({ searchParams }: { searchParams: 
         sort: "shikimori_rating",
         types: ["anime", "anime-serial"],
     });
-    const { results: data, prev_page, next_page, total } = kodikResponse;
+    const { results: data } = kodikResponse;
     return (
         <>
             {/* <Welcome_for_home_page logged={!!auth} /> */}

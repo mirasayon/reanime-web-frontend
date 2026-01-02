@@ -1,7 +1,7 @@
 "use server";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
-import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
+import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 import {
     type AccountSectionValidationSchemaType,
     accountSectionSchemas,
@@ -25,5 +25,5 @@ export async function updatePassword_ServerAction(
         { jsonBody: parsed.data },
     );
 
-    return userServiceRawResponsePreHandler(res, {});
+    return userServiceResponseHandler(res);
 }

@@ -1,11 +1,11 @@
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
+import type { ServerActionResponse } from "#T/integrator-main-types";
 import type {
     UserServiceHttpResponseConventionalCodeType,
     UserServiceHttpResponseStatusCodeType,
 } from "#user-service/user-service-response-types-for-all.routes.ts";
 
-export async function userServiceRawResponsePreHandler<
+export function userServiceResponseHandler<
     T extends
         | {
               message: string;
@@ -20,26 +20,23 @@ export async function userServiceRawResponsePreHandler<
     Y,
 >(
     res: T,
-    {
-        onSuccessFunction = undefined,
-        onFailFunction = undefined,
-    }: {
+    after: {
         onSuccessFunction?: (res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> }) => Promise<void> | void;
         onFailFunction?: (data: T) => void;
-    },
-): ServerActionResponseWithPromise {
+    } = {},
+): ServerActionResponse {
     if (!res || res === 500) {
         return { ok: false, errors: [internalErrTxt] };
     }
     if (res.errors.length || !res.data) {
-        if (onFailFunction) {
-            onFailFunction(res);
+        if (after.onFailFunction) {
+            after.onFailFunction(res);
         }
         return { ok: false, errors: res.errors };
     }
     if (res.ok) {
-        if (onSuccessFunction) {
-            await onSuccessFunction(res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> });
+        if (after.onSuccessFunction) {
+            after.onSuccessFunction(res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> });
         }
         return { ok: true, msg: res.message };
     }

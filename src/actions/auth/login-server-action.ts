@@ -2,9 +2,9 @@
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies } from "next/headers";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import type { ServerActionResponse } from "#T/integrator-main-types";
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import { userServiceRawResponsePreHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
+import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 import { setTokenToClientConfig } from "./cookie-option";
 import { authenticationSectionSchemas } from "#user-service/request-validator-for-all.routes.ts";
 import type { ResponseTypesForAuthentication } from "#user-service/user-service-response-types-for-all.routes.ts";
@@ -12,7 +12,7 @@ import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export async function loginTheUserServerAction(data: {
     username: string;
     password: string;
-}): Promise<ServerActionResponse> {
+}): ServerActionResponseWithPromise {
     const auth = await sessionAuthenticator_S_A();
     if (auth === 500) {
         return { ok: false, errors: [internalErrTxt] };
@@ -35,7 +35,7 @@ export async function loginTheUserServerAction(data: {
             jsonBody: parsed.data,
         },
     );
-    return await userServiceRawResponsePreHandler(res, {
+    return userServiceResponseHandler(res, {
         onSuccessFunction: (res) => {
             _cookies.set(setTokenToClientConfig(res.data));
         },

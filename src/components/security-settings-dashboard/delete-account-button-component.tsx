@@ -1,5 +1,5 @@
 "use client";
-import { DeleteAccountPermanently_ServerAction } from "#/actions/account/delete-account";
+import { deleteAccount_ServerAction } from "#/actions/account/delete-account";
 import {
     AlertDialog,
     AlertDialogActionShadCN,
@@ -24,7 +24,7 @@ export function DeleteAccountPermanentlyComponent() {
         startTransition(async () => {
             return handleSaResponseForClient({
                 success: toaster.success,
-                res: await DeleteAccountPermanently_ServerAction(),
+                res: await deleteAccount_ServerAction(),
                 error: toaster.error,
                 onSuccessFunction: () => {
                     _router.push("/auth/login");

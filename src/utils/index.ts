@@ -1,3 +1,5 @@
+import { envClient } from "#/env/env-client";
+
 export function getTypeOfAnime(data: "anime-serial" | "anime" | (string & {})) {
     return data === "anime" ? "Фильм" : "Сериал";
 }
@@ -18,10 +20,7 @@ export function hasOnlyNumericString(input: string): boolean {
 }
 
 export function getAnimePosterUrlByShikimoriId(shikimori_id: number) {
-    if (!process.env.NEXT_PUBLIC_RESOURCE_SERVICE_URL) {
-        throw new Error("No url for resource service");
-    }
-    return process.env.NEXT_PUBLIC_RESOURCE_SERVICE_URL + `/get-anime-poster/${shikimori_id}`;
+    return envClient.resourceServiceUrl + `/get-anime-poster/${shikimori_id}`;
 }
 
 export function set_top_chart_animes_image_urlByUrl(segment: string) {

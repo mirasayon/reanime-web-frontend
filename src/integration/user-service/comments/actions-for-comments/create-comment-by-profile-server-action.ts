@@ -1,10 +1,10 @@
 "use server";
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
-import type { ServerActionResponse } from "#T/integrator-main-types";
+import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { revalidatePath } from "next/cache";
 import { fetchTheUserService } from "../../user-service-fetcher.integrator-util";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import { userServiceResponseHandler } from "#/actions/server-actions-utils/user-service-raw-response-pre-handler";
 
 /**
  * Server Action
@@ -15,7 +15,7 @@ export async function CreateOneCommentToAnime(
     comment_content: string,
     currPath: string,
     anime_id: number,
-): Promise<ServerActionResponse> {
+): ServerActionResponseWithPromise {
     const url =
         endpointsConfig.commentAboutAnime.baseUrl + endpointsConfig.commentAboutAnime.createComment(String(anime_id));
 
@@ -24,12 +24,10 @@ export async function CreateOneCommentToAnime(
             content: comment_content,
         },
     });
-    if (res === 500) {
-        return { errors: [internalErrTxt], ok: false };
-    }
-    if (res.ok && res.data) {
-        revalidatePath(currPath, "page");
-        return { msg: res.message, ok: true };
-    }
-    return { errors: res.errors, ok: false };
+
+    return userServiceResponseHandler(res, {
+        onSuccessFunction: () => {
+            revalidatePath(currPath, "page");
+        },
+    });
 }

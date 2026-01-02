@@ -3,7 +3,7 @@ import { useToaster } from "#/components/layout/atoms-toasts-components/useToast
 import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { useTransition, type Dispatch, type FormEvent, type SetStateAction } from "react";
-import { UpdateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
+import { updateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
 export function MainEditFormCommentComponent({
     comment,
     setIsEditing,
@@ -22,7 +22,7 @@ export function MainEditFormCommentComponent({
                 toaster.error("Минимальная длина комментария - 5 символов");
                 return;
             }
-            const res = await UpdateComment_ServerAction(newText, comment.id, comment.external_anime_id);
+            const res = await updateComment_ServerAction(newText, comment.id, comment.external_anime_id);
             handleSaResponseForClient({
                 res,
                 error: toaster.error,
