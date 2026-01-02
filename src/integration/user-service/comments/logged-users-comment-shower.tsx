@@ -24,9 +24,8 @@ export function LoggedProfileCommentShower({
                 {isOwner && (
                     <div className="relative">
                         <MenuCommentComponent
-                            setFunction={setIsEditing}
+                            setIsEditing={setIsEditing}
                             comment_id={comment.id}
-                            current_profile={current_user}
                             animeId={comment.external_anime_id}
                         />
                     </div>
@@ -34,12 +33,7 @@ export function LoggedProfileCommentShower({
             </div>
 
             {isEditing ? (
-                <MainEditFormCommentComponent
-                    {...{
-                        comment,
-                        setIsEditing,
-                    }}
-                />
+                <MainEditFormCommentComponent setIsEditing={setIsEditing} comment={comment} />
             ) : (
                 <CommentTextAndRating comment={comment} current_user={current_user} />
             )}

@@ -1,10 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /administrator/
 
 Clean-param: /anime/*
 
-Disallow: /administrator/
-
 Host: reanime.art
-
 Sitemap: https://reanime.art/sitemap.xml

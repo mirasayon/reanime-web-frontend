@@ -6,11 +6,11 @@ import { useTransition, type Dispatch, type SetStateAction } from "react";
 export function DeleteCommentBtnComponent({
     comment_id,
     animeId,
-    setShowOptionsMenu,
+    setShowMenuOptions,
 }: {
     animeId: number;
     comment_id: string;
-    setShowOptionsMenu: Dispatch<SetStateAction<boolean>>;
+    setShowMenuOptions: Dispatch<SetStateAction<boolean>>;
 }) {
     const [pending, startTransition] = useTransition();
     function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
@@ -18,7 +18,7 @@ export function DeleteCommentBtnComponent({
         startTransition(async () => {
             await deleteCommentServerAction(comment_id, animeId);
 
-            setShowOptionsMenu(false);
+            setShowMenuOptions(false);
         });
     }
     return (

@@ -2,18 +2,18 @@
 import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { FaEdit } from "react-icons/fa";
 export function EditTheComment_Button_Component({
-    setFunction,
-    setShowOptionsMenu,
+    setIsEditing,
+    setShowMenuOptions,
 }: {
-    setFunction: Dispatch<SetStateAction<boolean>>;
-    setShowOptionsMenu: Dispatch<SetStateAction<boolean>>;
+    setIsEditing: Dispatch<SetStateAction<boolean>>;
+    setShowMenuOptions: Dispatch<SetStateAction<boolean>>;
 }) {
     const [pending, startTransition] = useTransition();
     function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
         startTransition(async () => {
             event.preventDefault();
-            setFunction(true);
-            setShowOptionsMenu(false);
+            setIsEditing(true);
+            setShowMenuOptions(false);
             return;
         });
     }
