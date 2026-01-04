@@ -21,7 +21,7 @@ export function ShowAnimesScreenshotsComponent({ title_of_anime, screenshots }: 
                 </button>
             </div>
             <div
-                className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-[0px]"}`}
+                className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-0"}`}
             >
                 {screenshots.map((img_url, ind) => {
                     const alt_string: string = `кадры от ${title_of_anime}, N-${ind + 1}`;

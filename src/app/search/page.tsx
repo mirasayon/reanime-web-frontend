@@ -1,5 +1,5 @@
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
-import type { SearchParams } from "#T/nextjs";
+import type { SearchParams, SearchPageParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { websiteConstants } from "#/configs/website-constants";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
@@ -7,7 +7,6 @@ import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-an
 import { kodikClient } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
 import { redirect } from "next/navigation";
-type SearchPageParams = { searchParams: SearchParams };
 function getSearchQuery(searchParams: Awaited<SearchParams>): string | null {
     return searchParams.search_query ? decodeURI(String(searchParams.search_query)) : null;
 }

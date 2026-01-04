@@ -1,11 +1,11 @@
 "use client";
 import { BORDER } from "#/styles/style-constants";
 import { useRouter } from "next/navigation";
-import { type JSX } from "react";
 type Props = {
-    query: string | null;
+    query?: string | null;
+    redirect?: boolean;
 };
-export function SearchAnimeAddressBarInHeader({ query }: Props): React.JSX.Element {
+export function SearchAnimeAddressBarInHeader({ query = null, redirect = false }: Props): React.JSX.Element {
     const router = useRouter();
     return (
         <form
@@ -15,6 +15,9 @@ export function SearchAnimeAddressBarInHeader({ query }: Props): React.JSX.Eleme
                 const sq = event.currentTarget["search_query"].value as string | undefined;
                 if (!sq || !/\S/.test(sq)) {
                     return;
+                }
+                if (redirect) {
+                    return router.push(`/search?search_query=${encodeURI(sq)}`);
                 }
                 return router.push(`?search_query=${encodeURI(sq)}`);
             }}
