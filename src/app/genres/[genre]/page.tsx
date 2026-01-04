@@ -1,4 +1,4 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import type { JSX } from "react";
 import type { Metadata } from "next";
 import { websiteConstants } from "#/configs/website-constants";
@@ -32,7 +32,7 @@ export default async function GenresPage({ params }: GenresPageProps): Promise<J
             </h1>
             <RadioGroupSelectGenre current={genre} />
             {desc && (
-                <div className={` ${rea_wrapper_border} `}>
+                <div className={` ${BORDER} `}>
                     <div className={" m-4"}>
                         {desc.russian_name} - {desc.description}
                     </div>

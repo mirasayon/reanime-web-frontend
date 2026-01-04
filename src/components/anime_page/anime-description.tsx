@@ -1,7 +1,7 @@
 import { Normalize_age_rating } from "#/components/utilities/common/normalize-age-rating.utilx";
 import { SiShikimori } from "react-icons/si";
 import { AnimePosterImage } from "#/components/animes/anime-poster-image";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilities.utility-components";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
@@ -16,7 +16,7 @@ export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: 
     }
     const dedupedNames = [...dedupedNamesSet.values()];
     return (
-        <div className={rea_wrapper_border}>
+        <div className={BORDER}>
             <div className={`p-3 text-center`}>{anime.title}</div>
             <div className={` p-4 flex-row flex max-md:grid`}>
                 <div className="min-w-max flex flex-col">

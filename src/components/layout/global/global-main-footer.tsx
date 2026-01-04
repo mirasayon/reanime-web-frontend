@@ -2,13 +2,13 @@ import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Con
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
 import { REANIME_BIRTH_YEAR, THIS_YEAR } from "#/constants/common.constants";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 export function Layout_Footer() {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
-            <div className={`flex flex-col ${rea_wrapper_border} `}>
+            <div className={`flex flex-col ${BORDER} `}>
                 <div className="flex flex-wrap p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>

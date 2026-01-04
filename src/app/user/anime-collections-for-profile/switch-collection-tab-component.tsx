@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { AnimeCardMainComponent } from "#/components/anime_page/main-anime-card-shower";
 import type { EntityDataObject } from "kodik/types";
 
@@ -18,7 +18,7 @@ export function AnimeBookmarkCollectionSwitchTabComponent({
     completedList: EntityDataObject[];
 }): React.JSX.Element {
     return (
-        <div className={`p-2 ${rea_wrapper_border} min-h-[30vh]`}>
+        <div className={`p-2 ${BORDER} min-h-[30vh]`}>
             <div className="flex gap-2" id="list">
                 <Link
                     href="?animeStatusTab=abandoned"

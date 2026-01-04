@@ -1,7 +1,7 @@
 "use server";
 import type { AuthenticatorType } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";
 import type { ResponseTypesFor_AnimeBookmark_Section } from "#/user-service-shared-package/user-service-response-types-for-all.routes";
 import { Linker } from "../utilities/common/linker-utility-component";
@@ -15,7 +15,7 @@ import {
 export async function AnimeCollectionBtnsWrapper({ animeId, auth }: { animeId: number; auth: AuthenticatorType }) {
     if (!auth) {
         return (
-            <div className={rea_wrapper_border + " p-2"}>
+            <div className={BORDER + " p-2"}>
                 <Linker href="/auth/login">Войти в аккаунт, чтобы добавлять аниме в закладки</Linker>
             </div>
         );
@@ -27,7 +27,7 @@ export async function AnimeCollectionBtnsWrapper({ animeId, auth }: { animeId: n
     const animeStatus = collectionData.data?.status || null;
 
     return (
-        <div className={rea_wrapper_border + " p-2  flex-wrap gap-2 flex  "}>
+        <div className={BORDER + " p-2  flex-wrap gap-2 flex  "}>
             {!animeStatus && (
                 <>
                     <AddAnimeToPlannedForm animeId={animeId} state={"create"} />

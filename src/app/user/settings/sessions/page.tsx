@@ -1,7 +1,7 @@
 "use server";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { redirect } from "next/navigation";
 import { SessionsViewerComponent } from "./session-viewer-component";
 import { BackToUserPageButtonComponent } from "./back-button-component";
@@ -21,7 +21,7 @@ export default async function __SettingSlashSessionsPage() {
         const sessions = all_sessions.data;
         const currentSession = auth.data;
         return (
-            <div className={rea_wrapper_border + " p-2 flex flex-col gap-2"}>
+            <div className={BORDER + " p-2 flex flex-col gap-2"}>
                 <h1>Редактирование и просмотр сессий пользователя</h1>
                 <BackToUserPageButtonComponent username={auth.data.username} />
                 <div className="space-y-4">

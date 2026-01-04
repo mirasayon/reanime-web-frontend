@@ -1,5 +1,5 @@
 "use client";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { useRouter } from "next/navigation";
 import { type JSX } from "react";
 type Props = {
@@ -9,7 +9,7 @@ export function SearchAnimeAddressBarInHeader({ query }: Props): React.JSX.Eleme
     const router = useRouter();
     return (
         <form
-            className={` ${rea_wrapper_border} flex justify-between`}
+            className={` ${BORDER} flex justify-between`}
             onSubmit={(event) => {
                 event.preventDefault();
                 const sq = event.currentTarget["search_query"].value as string | undefined;

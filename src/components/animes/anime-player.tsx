@@ -1,9 +1,9 @@
 import { AdsInKodikIsNotOurs } from "#/components/info/show-ads-in-kodik-are-not-mine-text";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 export function AnimePlayer({ vid_src, nextEpisodeAt }: { vid_src: string; nextEpisodeAt?: string | null }) {
     const url = "https:" + vid_src;
     return (
-        <section className={`flex flex-col p-2 ${rea_wrapper_border}`} id="play">
+        <section className={`flex flex-col p-2 ${BORDER}`} id="play">
             <section className="m-2 flex flex-col justify-center items-center flex-wrap " id="play">
                 <AdsInKodikIsNotOurs />
                 <iframe

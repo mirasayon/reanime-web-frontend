@@ -1,4 +1,4 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { RelatedCardForManga } from "./related-animes/show-related-manga-of-anime";
 import { RelatedCardForAnime } from "./related-animes/show-related-anime-of-anime";
 import type { AnimeRelationData } from "shikimoript/types/animes.d.ts";
@@ -9,7 +9,7 @@ export function MainRelatedAnimesSection({ related }: { related: AnimeRelationDa
         return null;
     }
     return (
-        <div className={rea_wrapper_border}>
+        <div className={BORDER}>
             <div className="p-2 font-medium">Связанные:</div>
             <div className="flex flex-wrap">
                 {related.map((item, ind) => {

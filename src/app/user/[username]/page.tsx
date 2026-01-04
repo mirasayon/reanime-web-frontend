@@ -2,7 +2,7 @@
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { notFound } from "next/navigation";
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 import { MyProfileDashboard } from "./show-my-profile";
@@ -69,7 +69,7 @@ export default async function __User__Page({
     return (
         <>
             <MyProfileDashboard data={loggedUser} />
-            <div className={rea_wrapper_border}>
+            <div className={BORDER}>
                 <SecuritySettingsDashboardComponent />
                 {all_comments_from_this_user ? (
                     <CommentsFromUserList comments={all_comments_from_this_user?.data || []} />

@@ -1,5 +1,5 @@
 "use client";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "cookies-next/client";
 import { cookiesConfig } from "./enum-user-service-config";
@@ -15,7 +15,7 @@ export function CookieConsentBanner(): React.JSX.Element | null {
     return render ? (
         <div className="sticky flex text-wrap bottom-2">
             <div
-                className={`${rea_wrapper_border} flex z-10 w-max  
+                className={`${BORDER} flex z-10 w-max  
                        dark:bg-zinc-900 bg-blue-100/90 
                    `}
             >

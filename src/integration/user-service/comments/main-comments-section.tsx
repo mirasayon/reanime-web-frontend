@@ -1,4 +1,4 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import type { JSX } from "react";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
@@ -24,7 +24,7 @@ export async function MainCommentsSection({
         return <div>Ошибка при загрузке комментариев</div>;
     }
     return (
-        <section className={rea_wrapper_border}>
+        <section className={BORDER}>
             <div className="m-2">
                 <h3 className="p-1 font-medium">Комментарии</h3>
                 <MainCreateCommentComponent profile={current_user} animeId={shikimori_id} />

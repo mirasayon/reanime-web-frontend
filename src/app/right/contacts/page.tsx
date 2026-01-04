@@ -1,11 +1,11 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { websiteConstants } from "#/configs/website-constants";
 import type { Metadata } from "next";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 
 export default function __Contacts_page() {
     return (
-        <div className={`${rea_wrapper_border} h-80`}>
+        <div className={`${BORDER} h-80`}>
             <div className="p-5 flex  flex-col gap-2">
                 <h1 className="text-xl">Контакты:</h1>
                 <span>

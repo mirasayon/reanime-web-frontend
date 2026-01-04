@@ -1,5 +1,5 @@
 "use client";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import { useState } from "react";
 type ShowAnimesScreenshotsComponentProps = { screenshots: string[]; title_of_anime: string };
 export function ShowAnimesScreenshotsComponent({ title_of_anime, screenshots }: ShowAnimesScreenshotsComponentProps) {
@@ -7,7 +7,7 @@ export function ShowAnimesScreenshotsComponent({ title_of_anime, screenshots }: 
     const img_height = 360 / 1.5; //240 // 720 / 2;
     const img_width = 640 / 1.5; // 1280 / 2;
     return (
-        <div className={`p-2 ${rea_wrapper_border} flex flex-col justify-center items-center`}>
+        <div className={`p-2 ${BORDER} flex flex-col justify-center items-center`}>
             <div>
                 <span className="text-lg px-3">Скриншоты</span>
                 <button

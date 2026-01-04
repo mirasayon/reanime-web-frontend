@@ -1,4 +1,4 @@
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 export function Found_no_animes() {
     return (
@@ -11,7 +11,7 @@ export function Found_no_animes() {
                 <br />
                 <Link
                     className={`no-underline dark:text-white hover:dark:bg-slate-700 text-black hover:bg-white
-                    text-xl p-2.5  ${rea_wrapper_border}  `}
+                    text-xl p-2.5  ${BORDER}  `}
                     href="/"
                 >
                     Вернуться на главную страницу

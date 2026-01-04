@@ -3,13 +3,13 @@ import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categori
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
 import { websiteConstants } from "#/configs/website-constants";
-import { rea_wrapper_border } from "#/styles/provider";
+import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 
 export function GlobalMainHeader({ username }: { username?: string }) {
     return (
         <div className=" flex flex-col">
-            <header className={`flex flex-wrap justify-between ${rea_wrapper_border} `} id="home">
+            <header className={`flex flex-wrap justify-between ${BORDER} `} id="home">
                 <div className="flex flex-wrap justify-start">
                     <Link href="/" className="p-1 flex items-center justify-center ">
                         <img
