@@ -1,13 +1,10 @@
 /node_modules
 /.next
+.env
 /.env.development
 /.env.test
 /.env.production
 /.env.local
 /next-env.d.ts
-/drafts.md
-/credentials.yaml
-/.build.tsbuildinfo
-/certificates
 /tsconfig.tsbuildinfo.json
 /.vscode
