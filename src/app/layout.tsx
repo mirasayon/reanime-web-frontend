@@ -5,16 +5,15 @@ import { CookieConsentBanner } from "#/components/layout/cookie_consent-button";
 import { Layout_Footer } from "#/components/layout/global/global-main-footer";
 import { GlobalMainHeader } from "#/components/layout/global/global-main-header";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
-import { inter } from "#/fonts/main-font.provider";
+import { envClient } from "#/env/env-client";
+import { interFont } from "#/fonts/main-font.provider";
 import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
-import { root_layout_Metadata } from "#/meta/root-layout.metadata";
+import { rootLayoutMetadata } from "#/meta/root-layout.metadata";
 import layoutStyles from "#/styles/global/layout.module.css";
 import "#/styles/global/main.tailwind.css";
 import type { LayoutProps } from "#T/nextjs";
 import type { Metadata } from "next";
-const gAIdPublic = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
-const gTMidPublic = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
 type __Root_layoutProps = LayoutProps;
 export default async function __Root_layout({ children }: __Root_layoutProps): Promise<React.JSX.Element> {
     const auth = await sessionAuthenticator();
@@ -23,8 +22,8 @@ export default async function __Root_layout({ children }: __Root_layoutProps): P
             <head>
                 <link rel="manifest" href="/manifest.webmanifest" />
             </head>
-            {gTMidPublic && <Google_TagManager gtm_id={gTMidPublic} />}
-            <body className={`${inter.className} ${layoutStyles.rootWeb}   `}>
+            {envClient.googleTagManagerId && <Google_TagManager gtm_id={envClient.googleTagManagerId} />}
+            <body className={`${interFont.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
                         <GlobalMainHeader username={auth?.data.username} />
@@ -33,12 +32,12 @@ export default async function __Root_layout({ children }: __Root_layoutProps): P
                         <CookieConsentBanner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>
-                {gTMidPublic && <YandexMetrikaAnalytics />}
+                {envClient.googleTagManagerId && <YandexMetrikaAnalytics />}
                 <HtmlElementForJsonLD />
             </body>
-            {gAIdPublic && <Google_Analytics gaid={gAIdPublic} />}
+            {envClient.googleAnalyticsId && <Google_Analytics gaid={envClient.googleAnalyticsId} />}
         </html>
     );
 }
 
-export const metadata: Metadata = root_layout_Metadata;
+export const metadata: Metadata = rootLayoutMetadata;

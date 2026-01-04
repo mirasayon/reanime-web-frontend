@@ -1,7 +1,7 @@
 import { WebsiteConfigs } from "#/configs/website-settings.app-config";
 import type { Metadata } from "next/types";
 
-export const root_layout_Metadata: Metadata = {
+export const rootLayoutMetadata: Metadata = {
     title: `Смотреть аниме онлайн бесплатно на сайте ${WebsiteConfigs.public_domain}`,
     description: `${WebsiteConfigs.normalized_name} — смотреть аниме онлайн бесплатно. Вот уже много лет японская анимация  пользуется огромным 
     успехом по всему миру,  включая Россию. Эти ленты  любят за яркий сюжет,   оригинальную рисовку и неизменный накал эмоций.
