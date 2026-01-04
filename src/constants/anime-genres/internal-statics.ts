@@ -8,4 +8,3 @@ export interface IStaticTopChartAnimes {
     cover: string;
     description: string;
 }
-

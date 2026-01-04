@@ -20,13 +20,23 @@ export function ShowAnimesScreenshotsComponent({ title_of_anime, screenshots }: 
                     {!is_extended ? "Раскрыть" : "Скрыть"}
                 </button>
             </div>
-            <div className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-[0px]"}`}>
+            <div
+                className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-[0px]"}`}
+            >
                 {screenshots.map((img_url, ind) => {
                     const alt_string: string = `кадры от ${title_of_anime}, N-${ind + 1}`;
-                    return <img className="p-2 object-contain" height={img_height} key={img_url} width={img_width} src={img_url} alt={alt_string} />;
+                    return (
+                        <img
+                            className="p-2 object-contain"
+                            height={img_height}
+                            key={img_url}
+                            width={img_width}
+                            src={img_url}
+                            alt={alt_string}
+                        />
+                    );
                 })}
             </div>
         </div>
     );
 }
-

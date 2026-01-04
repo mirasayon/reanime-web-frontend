@@ -6,23 +6,11 @@ import { CircleIcon } from "lucide-react";
 
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
 
-export function RadioGroup({
-    className,
-    ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
-    return (
-        <RadioGroupPrimitive.Root
-            data-slot="radio-group"
-            className={cnUtil("grid gap-3", className)}
-            {...props}
-        />
-    );
+export function RadioGroup({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+    return <RadioGroupPrimitive.Root data-slot="radio-group" className={cnUtil("grid gap-3", className)} {...props} />;
 }
 
-export function RadioGroupItemShadCN({
-    className,
-    ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+export function RadioGroupItemShadCN({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
     return (
         <RadioGroupPrimitive.Item
             data-slot="radio-group-item"

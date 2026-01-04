@@ -18,10 +18,7 @@ export function FormWrapperForFormInputsForAuthForms({
         <div className="justify-center items-center ">
             <div className=" p-2 items-center flex w-full justify-center">
                 {login && (
-                    <Linker
-                        href="/auth/register"
-                        className=" items-center text-center  flex"
-                    >
+                    <Linker href="/auth/register" className=" items-center text-center  flex">
                         или Зарегистрироваться
                     </Linker>
                 )}

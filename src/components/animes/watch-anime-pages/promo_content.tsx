@@ -18,4 +18,3 @@ export function AnimeWatchPagePromoVideos({ trailer }: { trailer: { hosting: str
         </div>
     );
 }
-

@@ -7,4 +7,3 @@ export type SearchParams = Promise<AwaitedNextSQ>;
 export type LayoutProps = Readonly<{
     children: ReactNode;
 }>;
-

@@ -2,7 +2,9 @@ import type { EntityDataObject } from "kodik/types";
 
 export function dedupeAnimes(data: EntityDataObject[]) {
     const reduced = data.reduce((accumulator, curr_item) => {
-        const existing_index: number = accumulator.findIndex((one_item) => one_item.shikimori_id === curr_item.shikimori_id);
+        const existing_index: number = accumulator.findIndex(
+            (one_item) => one_item.shikimori_id === curr_item.shikimori_id,
+        );
         const is_not_found = existing_index === -1;
         if (!is_not_found) {
             const one_new: IFetchedKodikMainReduced["translation"][number] = {

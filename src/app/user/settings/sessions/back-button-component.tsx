@@ -1,10 +1,6 @@
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 
-export function BackToUserPageButtonComponent({
-    username,
-}: {
-    username: string;
-}) {
+export function BackToUserPageButtonComponent({ username }: { username: string }) {
     return (
         <Linker
             href={"/user/" + username}

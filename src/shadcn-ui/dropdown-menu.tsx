@@ -24,23 +24,15 @@ export function DropdownMenu({ ...props }: ComponentProps<typeof Root>) {
     return <Root data-slot="dropdown-menu" {...props} />;
 }
 
-export function DropdownMenuPortal({
-    ...props
-}: ComponentProps<typeof Portal>) {
+export function DropdownMenuPortal({ ...props }: ComponentProps<typeof Portal>) {
     return <Portal data-slot="dropdown-menu-portal" {...props} />;
 }
 
-export function DropdownMenuTrigger({
-    ...props
-}: ComponentProps<typeof Trigger>) {
+export function DropdownMenuTrigger({ ...props }: ComponentProps<typeof Trigger>) {
     return <Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
 
-export function DropdownMenuContent({
-    className,
-    sideOffset = 4,
-    ...props
-}: ComponentProps<typeof Content>) {
+export function DropdownMenuContent({ className, sideOffset = 4, ...props }: ComponentProps<typeof Content>) {
     return (
         <Portal>
             <Content
@@ -56,9 +48,7 @@ export function DropdownMenuContent({
     );
 }
 
-export function DropdownMenuGroup({
-    ...props
-}: React.ComponentProps<typeof Group>) {
+export function DropdownMenuGroup({ ...props }: React.ComponentProps<typeof Group>) {
     return <Group data-slot="dropdown-menu-group" {...props} />;
 }
 
@@ -111,17 +101,11 @@ export function DropdownMenuCheckboxItem({
     );
 }
 
-export function DropdownMenuRadioGroup({
-    ...props
-}: React.ComponentProps<typeof RadioGroup>) {
+export function DropdownMenuRadioGroup({ ...props }: React.ComponentProps<typeof RadioGroup>) {
     return <RadioGroup data-slot="dropdown-menu-radio-group" {...props} />;
 }
 
-export function DropdownMenuRadioItem({
-    className,
-    children,
-    ...props
-}: React.ComponentProps<typeof RadioItem>) {
+export function DropdownMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof RadioItem>) {
     return (
         <RadioItem
             data-slot="dropdown-menu-radio-item"
@@ -152,19 +136,13 @@ export function DropdownMenuLabel({
         <Label
             data-slot="dropdown-menu-label"
             data-inset={inset}
-            className={cnUtil(
-                "px-2 py-1.5 text-sm font-medium data-inset:pl-8",
-                className,
-            )}
+            className={cnUtil("px-2 py-1.5 text-sm font-medium data-inset:pl-8", className)}
             {...props}
         />
     );
 }
 
-export function DropdownMenuSeparator({
-    className,
-    ...props
-}: React.ComponentProps<typeof Separator>) {
+export function DropdownMenuSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
     return (
         <Separator
             data-slot="dropdown-menu-separator"
@@ -174,25 +152,17 @@ export function DropdownMenuSeparator({
     );
 }
 
-export function DropdownMenuShortcut({
-    className,
-    ...props
-}: React.ComponentProps<"span">) {
+export function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<"span">) {
     return (
         <span
             data-slot="dropdown-menu-shortcut"
-            className={cnUtil(
-                "text-muted-foreground ml-auto text-xs tracking-widest",
-                className,
-            )}
+            className={cnUtil("text-muted-foreground ml-auto text-xs tracking-widest", className)}
             {...props}
         />
     );
 }
 
-export function DropdownMenuSub({
-    ...props
-}: React.ComponentProps<typeof Sub>) {
+export function DropdownMenuSub({ ...props }: React.ComponentProps<typeof Sub>) {
     return <Sub data-slot="dropdown-menu-sub" {...props} />;
 }
 
@@ -220,10 +190,7 @@ export function DropdownMenuSubTrigger({
     );
 }
 
-export function DropdownMenuSubContent({
-    className,
-    ...props
-}: React.ComponentProps<typeof SubContent>) {
+export function DropdownMenuSubContent({ className, ...props }: React.ComponentProps<typeof SubContent>) {
     return (
         <SubContent
             data-slot="dropdown-menu-sub-content"

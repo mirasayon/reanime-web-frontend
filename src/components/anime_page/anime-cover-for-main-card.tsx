@@ -9,13 +9,7 @@ const variants = [
     },
 ];
 
-export function AnimePosterImageForMainCard({
-    anime_title,
-    imgSrc,
-}: {
-    anime_title: string;
-    imgSrc: string;
-}) {
+export function AnimePosterImageForMainCard({ anime_title, imgSrc }: { anime_title: string; imgSrc: string }) {
     return (
         <>
             {variants.map(({ className, bg }) => (

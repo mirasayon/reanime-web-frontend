@@ -21,9 +21,7 @@ export function SwitchThemesButtonComponent() {
     const is_dark = current === "dark" && !is_system;
     const is_light = current === "light" && !is_system;
     const styles = (active: boolean) =>
-        `flex text-center hover:bg-blue-800/40 rounded cursor-pointer ${
-            active ? " bg-violet-800/50" : " "
-        } ` as const;
+        `flex text-center hover:bg-blue-800/40 rounded cursor-pointer ${active ? " bg-violet-800/50" : " "} ` as const;
     return (
         <div className=" flex  flex-wrap items-center">
             <button
@@ -34,16 +32,7 @@ export function SwitchThemesButtonComponent() {
                     return setTheme("system");
                 }}
             >
-                <RiComputerLine
-                    size={30}
-                    fill={
-                        is_system
-                            ? current === "light"
-                                ? "black"
-                                : "white"
-                            : "gray"
-                    }
-                />
+                <RiComputerLine size={30} fill={is_system ? (current === "light" ? "black" : "white") : "gray"} />
                 <span className="text-center">Системная</span>
             </button>
 
@@ -67,10 +56,7 @@ export function SwitchThemesButtonComponent() {
                     setTheme("dark");
                 }}
             >
-                <MdOutlineDarkMode
-                    size={30}
-                    fill={is_dark ? "white" : "gray"}
-                />
+                <MdOutlineDarkMode size={30} fill={is_dark ? "white" : "gray"} />
 
                 <span className="text-center">Тёмный</span>
             </button>

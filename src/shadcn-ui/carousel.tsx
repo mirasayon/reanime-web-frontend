@@ -1,20 +1,12 @@
 "use client";
 
 import type React from "react";
-import useEmblaCarousel, {
-    type UseEmblaCarouselType,
-} from "embla-carousel-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
 import { ButtonShadCN } from "#/shadcn-ui/button";
-import {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 export type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -117,9 +109,7 @@ export function CarouselShadCN({
                 carouselRef,
                 api: api,
                 opts,
-                orientation:
-                    orientation ||
-                    (opts?.axis === "y" ? "vertical" : "horizontal"),
+                orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
                 scrollPrev,
                 scrollNext,
                 canScrollPrev,
@@ -140,34 +130,20 @@ export function CarouselShadCN({
     );
 }
 
-export function CarouselContentShadCN({
-    className,
-    ...props
-}: React.ComponentProps<"div">) {
+export function CarouselContentShadCN({ className, ...props }: React.ComponentProps<"div">) {
     const { carouselRef, orientation } = useCarousel();
 
     return (
-        <div
-            ref={carouselRef}
-            className="overflow-hidden"
-            data-slot="carousel-content"
-        >
+        <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
             <div
-                className={cnUtil(
-                    "flex",
-                    orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-                    className,
-                )}
+                className={cnUtil("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
                 {...props}
             />
         </div>
     );
 }
 
-export function CarouselItemShadCN({
-    className,
-    ...props
-}: React.ComponentProps<"div">) {
+export function CarouselItemShadCN({ className, ...props }: React.ComponentProps<"div">) {
     const { orientation } = useCarousel();
 
     return (

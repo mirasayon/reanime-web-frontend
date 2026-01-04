@@ -26,4 +26,3 @@ export function useCurrentTheme() {
         is_system,
     } as const;
 }
-

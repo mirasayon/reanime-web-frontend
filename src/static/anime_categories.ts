@@ -31,4 +31,3 @@ export const _categories: categories[] = [
         link_url: "/list/this_year",
     },
 ];
-

@@ -11,4 +11,3 @@ export const Normalize_anime_status = ({ str }: { str?: string & {} }) => {
             return <span>{str}</span>;
     }
 };
-

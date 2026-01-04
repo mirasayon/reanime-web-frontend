@@ -43,4 +43,3 @@
 //         title: `${desc} | ${WebsiteConfigs.public_domain}`,
 //     } satisfies Metadata;
 // }
-

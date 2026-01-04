@@ -37,4 +37,3 @@ export function AnimePosterImage({ anime_title, image_src }: { anime_title: stri
         </>
     );
 }
-

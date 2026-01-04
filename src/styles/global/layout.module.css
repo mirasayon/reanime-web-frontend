@@ -4,8 +4,7 @@
     background: rgb(223, 247, 253);
     &:where([data-theme="dark"] *) {
         color: white;
-        background: linear-gradient(to bottom, transparent, rgb(0, 34, 47))
-            rgb(0, 41, 52);
+        background: linear-gradient(to bottom, transparent, rgb(0, 34, 47)) rgb(0, 41, 52);
     }
 }
 @media (max-width: 400px) {
