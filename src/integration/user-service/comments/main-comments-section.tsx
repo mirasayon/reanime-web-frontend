@@ -14,16 +14,13 @@ export async function MainCommentsSection({
     current_user: AuthenticatorType;
     shikimori_id: number;
 }): Promise<JSX.Element> {
-    if (current_user === 500) {
-        return <div>Ошибка при загрузке комментариев</div>;
-    }
     const all_comments = await fetchTheUserService<ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"]>(
         endpointsConfig.commentAboutAnime.baseUrl +
             endpointsConfig.commentAboutAnime.allCommentsForAnime(String(shikimori_id)) +
             "?page=1&limit=20",
         "GET",
     );
-    if (all_comments === 500 || !all_comments.ok || !all_comments?.data) {
+    if (!all_comments.ok || !all_comments?.data) {
         return <div>Ошибка при загрузке комментариев</div>;
     }
     return (

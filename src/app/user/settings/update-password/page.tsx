@@ -1,15 +1,12 @@
 "use server";
 import { UpdatePasswordFormComponent } from "#/components/security-settings-dashboard/update-password-component";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { rea_wrapper_border } from "#/styles/provider";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { BackToUserPageButtonComponent } from "../sessions/back-button-component";
 
 export default async function __UpdatePasswordPage() {
-    const auth = await sessionAuthenticator_S_A();
-    if (auth === 500) {
-        return notFound();
-    }
+    const auth = await sessionAuthenticator();
     if (auth) {
         return (
             <div className={` ${rea_wrapper_border} p-2 flex flex-col gap-2`}>

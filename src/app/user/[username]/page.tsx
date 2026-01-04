@@ -1,7 +1,6 @@
 "use server";
-import { ComingSoon } from "#/components/info/coming-soon";
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { rea_wrapper_border } from "#/styles/provider";
 import { notFound } from "next/navigation";
@@ -26,15 +25,12 @@ export default async function __User__Page({
     const _searchParams = await searchParams;
     const _params = await params;
     const _username = _params.username;
-    const auth = await sessionAuthenticator_S_A();
+    const auth = await sessionAuthenticator();
     const base_profile_data = await fetchTheUserService<ResponseTypesFor_UserProfile_Section["view_other_profiles"]>(
         endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.exploreOthersProfile(_username),
         "GET",
     );
-    if (!base_profile_data || base_profile_data === 500 || auth === 500) {
-        return notFound();
-    }
-    if (!base_profile_data.ok || !base_profile_data?.data) {
+    if (!base_profile_data || !base_profile_data.ok || !base_profile_data?.data) {
         return notFound();
     }
     const all_comments_from_this_user = await fetchTheUserService<
@@ -52,26 +48,15 @@ export default async function __User__Page({
         endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.viewMyProfile,
         "GET",
     );
-    if (!my_profile_data || my_profile_data === 500) {
+    if (!my_profile_data || my_profile_data.status_code === 404 || !my_profile_data.data) {
         return notFound();
     }
-    if (my_profile_data.status_code === 404) {
-        return notFound();
-    }
-    if (!my_profile_data.data) {
-        return notFound();
-    }
-
     const loggedUser = my_profile_data.data;
 
     const animeCollection = await fetchTheUserService<ResponseTypesFor_AnimeBookmark_Section["get_all_list"]>(
         endpointsConfig.animeBookmarks.baseUrl + endpointsConfig.animeBookmarks.getAllList,
         "GET",
     );
-    if (animeCollection === 500) {
-        return <ComingSoon />;
-    }
-
     const collectionData = animeCollection.data;
     const watchingIds =
         collectionData?.filter((item) => item.status === "WATCHING").map((item) => item.external_anime_id) || [];
@@ -86,7 +71,7 @@ export default async function __User__Page({
             <MyProfileDashboard data={loggedUser} />
             <div className={rea_wrapper_border}>
                 <SecuritySettingsDashboardComponent />
-                {all_comments_from_this_user !== 500 && all_comments_from_this_user ? (
+                {all_comments_from_this_user ? (
                     <CommentsFromUserList comments={all_comments_from_this_user?.data || []} />
                 ) : (
                     <div className=" p-2">Ошибка при загрузке комментариев</div>

@@ -6,7 +6,7 @@ export function CommentTextAndRating({
     current_user,
 }: {
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
-    current_user: Exclude<AuthenticatorType, 500>;
+    current_user: AuthenticatorType;
 }) {
     if (current_user) {
         const foundUserVote = comment.ratings.find((c) => c.by_profile_id === current_user.data.profile_id);

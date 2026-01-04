@@ -1,5 +1,5 @@
 "use server";
-import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { supported_pfp_format, UserServiceMediaConfigs } from "./config";
 import { internalErrTxt } from "#/integration/constants/messages-from-services";
@@ -9,8 +9,8 @@ import type { ResponseTypesFor_Media_Section } from "#user-service/user-service-
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 export async function setProfileAvatar_ServerAction(formData: FormData): ServerActionResponseWithPromise {
-    const auth = await sessionAuthenticator_S_A();
-    if (!auth || auth === 500) {
+    const auth = await sessionAuthenticator();
+    if (!auth) {
         return { ok: false, errors: [internalErrTxt] };
     }
     if (!auth) {
@@ -40,10 +40,9 @@ export async function setProfileAvatar_ServerAction(formData: FormData): ServerA
         "POST",
         { rawBody: forwardData },
     );
-    if (!res || res === 500) {
+    if (!res) {
         return { ok: false, errors: [internalErrTxt] };
     }
-
     if (res.errors.length) {
         return { errors: res.errors, ok: false };
     }

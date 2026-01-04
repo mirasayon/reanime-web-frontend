@@ -37,7 +37,7 @@ export function ShowCommentRatingComponent({
     const isLiked = userVote === 1;
     const isDisliked = userVote === -1;
 
-    if (!authCurrent || authCurrent === 500) {
+    if (!authCurrent) {
         <div className="font-medium text-gray-800 dark:text-slate-200 min-w-9 text-center ">{score}</div>;
     }
 

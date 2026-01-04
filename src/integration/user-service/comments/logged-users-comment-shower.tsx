@@ -11,7 +11,7 @@ export function LoggedProfileCommentShower({
     comment,
     current_user,
 }: {
-    current_user: Exclude<NonNullable<AuthenticatorType>, 500>;
+    current_user: NonNullable<AuthenticatorType>;
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
 }): React.JSX.Element {
     const [isEditing, setIsEditing] = useState(false);

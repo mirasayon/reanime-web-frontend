@@ -17,16 +17,12 @@ export function MainCreateCommentComponent({
     const toaster = useToaster();
     const [iWantToAddComment, setIWantToAddComment] = useState(false);
     const [pending, startTransition] = useTransition();
-
-    if (!profile || profile === 500) {
+    if (!profile) {
         return <Linker href="/auth/login">Войдите в свой аккаунт чтобы оставлять комментарии</Linker>;
     }
     function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
             event.preventDefault();
-            if (!profile || profile === 500) {
-                return;
-            }
             const comment_content = event.currentTarget.comment_content.value as string;
             if (comment_content?.length < 5) {
                 toaster.error("Минимальная длина комментария - 5 символов");

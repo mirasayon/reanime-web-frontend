@@ -6,26 +6,23 @@ import type {
 } from "#user-service/user-service-response-types-for-all.routes.ts";
 
 export function userServiceResponseHandler<
-    T extends
-        | {
-              message: string;
-              data: Y;
-              errors: string[];
-              ok: boolean;
-              response_code: UserServiceHttpResponseConventionalCodeType;
-              status_code: UserServiceHttpResponseStatusCodeType;
-          }
-        | 500
-        | null,
+    T extends {
+        message: string;
+        data: Y;
+        errors: string[];
+        ok: boolean;
+        response_code: UserServiceHttpResponseConventionalCodeType;
+        status_code: UserServiceHttpResponseStatusCodeType;
+    } | null,
     Y,
 >(
     res: T,
     after: {
-        onSuccessFunction?: (res: Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> }) => Promise<void> | void;
+        onSuccessFunction?: (res: NonNullable<T> & { data: NonNullable<Y> }) => Promise<void> | void;
         onFailFunction?: (data: T) => void;
     } = {},
 ): ServerActionResponse {
-    if (!res || res === 500) {
+    if (!res) {
         return { ok: false, errors: [internalErrTxt] };
     }
     if (res.errors.length || !res.data) {
@@ -36,7 +33,7 @@ export function userServiceResponseHandler<
     }
     if (res.ok) {
         if (after.onSuccessFunction) {
-            after.onSuccessFunction(res as Exclude<NonNullable<T>, 500> & { data: NonNullable<Y> });
+            after.onSuccessFunction(res as NonNullable<T> & { data: NonNullable<Y> });
         }
         return { ok: true, msg: res.message };
     }

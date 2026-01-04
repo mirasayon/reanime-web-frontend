@@ -11,11 +11,10 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
     url: string,
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     body?: RequestBodyType<B>,
-): Promise<UserServiceHttpResponseBodyPatternType<T> | 500> {
+): Promise<UserServiceHttpResponseBodyPatternType<T>> {
     try {
         const { jsonBody, rawBody } = body || {};
         const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
-
         if (rawBody && jsonBody) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }
@@ -42,8 +41,7 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
         });
         return (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
     } catch (error) {
-        console.error("[The error is not with the network]: ", fetchTheUserService.name, ": ", error);
-
-        return 500;
+        console.error("Error in fetchTheUserService: ", error);
+        throw new Error("Internal Server Error");
     }
 }

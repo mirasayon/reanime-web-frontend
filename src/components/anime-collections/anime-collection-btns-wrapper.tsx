@@ -4,7 +4,6 @@ import { fetchTheUserService } from "#/integration/user-service/user-service-fet
 import { rea_wrapper_border } from "#/styles/provider";
 import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";
 import type { ResponseTypesFor_AnimeBookmark_Section } from "#/user-service-shared-package/user-service-response-types-for-all.routes";
-import { ComingSoon } from "../info/coming-soon";
 import { Linker } from "../utilities/common/linker-utility-component";
 import {
     AddAnimeToPlannedForm,
@@ -25,9 +24,6 @@ export async function AnimeCollectionBtnsWrapper({ animeId, auth }: { animeId: n
         endpointsConfig.animeBookmarks.baseUrl + endpointsConfig.animeBookmarks.getStatusForAnime(String(animeId)),
         "GET",
     );
-    if (collectionData === 500) {
-        return <ComingSoon />;
-    }
     const animeStatus = collectionData.data?.status || null;
 
     return (
