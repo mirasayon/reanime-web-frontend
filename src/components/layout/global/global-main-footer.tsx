@@ -24,11 +24,8 @@ export function Layout_Footer() {
                     <Linker className={style} href={"/right/contacts"}>
                         Контакты и поддержка
                     </Linker>
-                    <Linker className={style} href={"/about/donate"}>
-                        Поддержать проект
-                    </Linker>
-                    <Linker className={style} href={websiteConstants.developer_website}>
-                        О разработчике
+                    <Linker className={style} href={"/about/project"}>
+                        О проекте
                     </Linker>
                     <Linker href={BUG_REPORT_FORM_LINK} className={style}>
                         Сообщить о баге

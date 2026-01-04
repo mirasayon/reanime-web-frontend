@@ -12,10 +12,6 @@ export const websiteConstants = {
     cyrillic_normalized_name: "РЕАниме",
     full_domain_URL: new URL("https://reanime.art"),
     developer_website: "https://mirasayon.com/",
-    donationLinks: {
-        crypto: "https://mirasayon.com/buy-me-ramen",
-        github: "https://github.com/sponsors/mirasayon",
-    },
 } as const;
 export const BUG_REPORT_FORM_LINK =
     "https://docs.google.com/forms/d/e/1FAIpQLScrDcErDFoZvrwD67tXtPJ01QgQX73IDPCmlWQl_df8accCsw/viewform?usp=dialog";
