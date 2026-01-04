@@ -1,7 +1,6 @@
 "use server";
 import { envServer } from "#/env/env-server";
 import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
-import consola from "consola";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
 import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
 import { envClient } from "#/env/env-client";
@@ -49,11 +48,8 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
         });
         return (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
     } catch (error) {
-        if (error instanceof TypeError) {
-            consola.fail(fetchTheUserService.name, ":", error.message);
-        } else {
-            consola.warn("[The error is not with the network]: ", fetchTheUserService.name, ": ", error);
-        }
+        console.error("[The error is not with the network]: ", fetchTheUserService.name, ": ", error);
+
         return 500;
     }
 }

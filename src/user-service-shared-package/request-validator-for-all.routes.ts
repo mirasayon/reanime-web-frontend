@@ -1,6 +1,5 @@
 import { strictObject, type z as Z, z } from "zod";
 import psl from "better-psl";
-import consola from "consola";
 /** Utility Zod schemas */
 class ZodRequiredSchemaBase {
     // prettier-ignore
@@ -63,7 +62,6 @@ class ZodRequiredSchemaBase {
                     const passes = !psl.rules.includes(parsed.parsed.tld);
                     return passes;
                 }
-                consola.error("Unexpected validation handle. input: ", val);
                 return false;
             },
             {
