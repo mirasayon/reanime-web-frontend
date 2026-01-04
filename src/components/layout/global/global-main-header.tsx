@@ -21,9 +21,7 @@ export function GlobalMainHeader({ username }: { username?: string }) {
                     <AnimeCategoriesComponent />
                     <UI_Menu />
                 </div>
-                <div className=" flex flex-wrap justify-end">
-                    <MainDropdownMenuInHeader username={username} />
-                </div>
+                <MainDropdownMenuInHeader username={username} />
             </header>
         </div>
     );

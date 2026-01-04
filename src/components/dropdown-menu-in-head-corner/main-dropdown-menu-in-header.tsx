@@ -1,3 +1,4 @@
+"use client";
 import { AvatarDashboardForLoggedInUser } from "./for-logged-users";
 import { LoginAndRegisterLinksAtAvatarPlace } from "./for-guests";
 import { AvatarOrLoginRegButtonForHeader } from "./avatar-or-login-reg-button-for-header";
