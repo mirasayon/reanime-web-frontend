@@ -1,5 +1,5 @@
 import { AnimeCardMainComponent } from "#/components/anime_page/main-anime-card-shower";
-import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
+import { ANIME_POSTER_404_IMAGE_LIGHT, ANIME_POSTER_404_IMAGE_DARK } from "#/constants/common.constants";
 import type { JSX } from "react";
 import { Linker } from "./linker-utility-component";
 import type { EntityDataObject } from "kodik/types";
@@ -36,5 +36,5 @@ export const GhostedUnknown = () => {
 };
 
 export const Default_poster = (is_dark = true) => {
-    return is_dark ? error_image_for_night_theme : error_image_for_light_theme;
+    return is_dark ? ANIME_POSTER_404_IMAGE_DARK : ANIME_POSTER_404_IMAGE_LIGHT;
 };

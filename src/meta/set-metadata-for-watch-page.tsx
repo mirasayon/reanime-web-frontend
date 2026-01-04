@@ -2,7 +2,6 @@
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { notFound } from "next/navigation";
 import { websiteConstants } from "#/configs/website-constants";
-import { metadata404 } from "#/constants/common.constants";
 import { kodikClient } from "#/providers/kodik-api";
 import type { Metadata } from "next/types";
 export async function setMetadataForWatchAnimePage(shikimori_id: string): Promise<Metadata> {
@@ -19,7 +18,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
     });
     const anime = res.results[0] || null;
     if (!anime) {
-        return metadata404;
+        return notFound();
     }
     const anime_title = `${anime.title} `;
     const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id);

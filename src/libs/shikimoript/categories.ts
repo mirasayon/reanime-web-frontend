@@ -1,4 +1,4 @@
-import { this_year } from "#/constants/common.constants";
+import { THIS_YEAR } from "#/constants/common.constants";
 import { shikimoriApi } from "#/providers/shikimori-api";
 import { userServiceConfig } from "#/settings/constants-user-service";
 import type { AwaitedNextSQ } from "#T/nextjs";
@@ -50,7 +50,7 @@ export const kodikCategories = new (class ResService_Categories {
     this_year = async (sq: AwaitedNextSQ): ResCateReturnTypes => {
         try {
             const input = ValidateSearchQuery(sq);
-            const data = await shikimoriApi.animes.list({ season: `${this_year}` });
+            const data = await shikimoriApi.animes.list({ season: `${THIS_YEAR}` });
             return { input, data };
         } catch (error) {
             return null;

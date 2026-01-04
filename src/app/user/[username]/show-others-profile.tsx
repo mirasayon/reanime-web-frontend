@@ -1,5 +1,5 @@
 import { OnlyShowOthersAvatar } from "#/components/avatars/only-show-avatar";
-import { Others_Profile_Dashboard } from "#/components/users/others-profile";
+import { OthersProfileComponent } from "#/components/users/others-profile";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 
 type Props = {
@@ -10,7 +10,7 @@ export function ShowOthersProfile({ data }: Props): React.JSX.Element {
         <>
             <h1 className="p-3 text-center">Профиль пользователя</h1>
             <OnlyShowOthersAvatar username={data.username} />
-            <Others_Profile_Dashboard data={data} />
+            <OthersProfileComponent data={data} />
         </>
     );
 }

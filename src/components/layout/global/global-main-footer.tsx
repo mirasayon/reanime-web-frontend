@@ -1,7 +1,7 @@
 import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
-import { birth_year, this_year } from "#/constants/common.constants";
+import { REANIME_BIRTH_YEAR, THIS_YEAR } from "#/constants/common.constants";
 import { rea_wrapper_border } from "#/styles/provider";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
@@ -12,7 +12,7 @@ export function Layout_Footer() {
                 <div className="flex flex-wrap p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>
-                            &copy; {birth_year} - {this_year} {websiteConstants.public_domain}
+                            &copy; {REANIME_BIRTH_YEAR} - {THIS_YEAR} {websiteConstants.public_domain}
                         </span>
                     </span>
                     <Linker className={style} href={"/right/terms"}>

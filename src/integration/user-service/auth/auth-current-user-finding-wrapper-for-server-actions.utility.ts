@@ -1,4 +1,4 @@
-import { notLoggedErrorTxt } from "#/constants/frequent-errors-from-client";
+import { NOT_LOGGED_ERROR_TEXT } from "#/constants/frequent-errors-from-client";
 import type { AuthenticatorType } from "./cookie-authenticator.integrator";
 type authCurrentUserFindingWrapperForServerActionsUtilityRT =
     | {
@@ -14,7 +14,7 @@ export function ensuredPassedUser_ForServerActions(
 ): authCurrentUserFindingWrapperForServerActionsUtilityRT {
     if (notProcessedAuthData === null) {
         return {
-            error: { errors: [notLoggedErrorTxt], ok: false },
+            error: { errors: [NOT_LOGGED_ERROR_TEXT], ok: false },
             data: null,
         };
     }

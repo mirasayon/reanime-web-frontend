@@ -1,7 +1,7 @@
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { Badge, Card, CardContent } from "./dashboard/common";
 
-export function Others_Profile_Dashboard({
+export function OthersProfileComponent({
     data,
 }: {
     data: ResponseTypesFor_UserProfile_Section["view_other_profiles"];

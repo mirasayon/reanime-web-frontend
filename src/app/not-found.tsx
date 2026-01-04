@@ -27,4 +27,5 @@ export default function __NotFoundPage() {
 }
 export const metadata: Metadata = {
     title: `Страница не найдена | ${websiteConstants.public_domain}`,
+    robots: "noindex, nofollow",
 };
