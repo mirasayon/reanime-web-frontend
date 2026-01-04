@@ -6,8 +6,8 @@
     "scripts": {
         "dev:webpack": "dotenv -e .env.development -- next dev --webpack --port 3641 --hostname 192.168.0.105",
         "dev": "node ./scripts/remove-build.ts && dotenv -e .env.development -- next dev --port 3641 --hostname 192.168.0.105",
-        "build:prod": "node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
-        "build:test": "node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
+        "build:prod": "node ./scripts/remove-build.ts && node --env-file=.env.production ./src/scripts/check-env.ts && dotenv -e .env.production -- next build",
+        "build:test": "node ./scripts/remove-build.ts && node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
         "start:dev": "dotenv -e .env.development -- next start --port 3641 --hostname 192.168.0.105",
         "format": "prettier --write src",
