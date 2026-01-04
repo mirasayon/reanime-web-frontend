@@ -8,9 +8,9 @@ const DONATE_URLS = [
 
 export default function __AboutPage() {
     return (
-        <main className=" py-12 px-6 sm:px-8 lg:px-24 bg-blue-100 dark:bg-slate-900 transition-colors">
+        <main className="m-5 py-10 px-6 sm:px-4 lg:px-24 bg-blue-100 dark:bg-slate-900 transition-colors">
             <div className="max-w-5xl mx-auto">
-                <header className="mb-8">
+                <header className="mb-4">
                     <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
                         О проекте — reanime.art
                     </h1>
