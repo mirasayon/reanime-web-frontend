@@ -1,6 +1,6 @@
 "use client";
 import { setProfileAvatar_ServerAction } from "#/actions/media/avatar-set.server-action";
-import { UserServiceMediaConfigs } from "#/actions/media/config";
+import { userServiceMediaConfigs } from "#/actions/media/config";
 import { useState, useTransition, type Dispatch, type SetStateAction } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
@@ -22,7 +22,7 @@ export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStat
 
     function UploadAvatarHandle(fd: FormData) {
         startTransition(async () => {
-            const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+            const imageFile = fd.get(userServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
 
             if (!imageFile?.size) {
                 toaster.error("Файл не найден");
@@ -43,7 +43,7 @@ export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStat
             <form action={UploadAvatarHandle} className="flex flex-col ">
                 <label
                     hidden={!!previewSrc}
-                    htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                    htmlFor={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                     className="flex flex-col dark:bg-blue-950 bg-blue-100 cursor-pointer"
                 >
                     <div className=" flex flex-col justify-center items-center rounded">
@@ -55,8 +55,8 @@ export function SetAvatarForm({ setIsEditing }: { setIsEditing: Dispatch<SetStat
                 </label>{" "}
                 <input
                     type="file"
-                    name={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
-                    id={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                    name={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                    id={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                     accept="image/png, image/jpeg, image/jpg"
                     onChange={handleFileChange}
                     lang="ru"

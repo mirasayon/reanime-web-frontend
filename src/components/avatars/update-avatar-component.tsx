@@ -1,6 +1,6 @@
 "use client";
 import { AvatarUpdate_ServerAction } from "#/actions/media/avatar-update.server-action";
-import { UserServiceMediaConfigs } from "#/actions/media/config";
+import { userServiceMediaConfigs } from "#/actions/media/config";
 import { useState, useTransition } from "react";
 import { IoIosCloudUpload } from "react-icons/io";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
@@ -24,7 +24,7 @@ export function UpdateAvatarForm() {
 
     function onSubmitUploadAvatarHandler(fd: FormData) {
         startTransition(async () => {
-            const imageFile = fd.get(UserServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
+            const imageFile = fd.get(userServiceMediaConfigs.avatar_file_HTML_INPUT_name) as File | null;
             if (!imageFile?.size) {
                 toaster.error("Нет файла для загрузки. Попробуйте другой файл");
                 return;
@@ -45,7 +45,7 @@ export function UpdateAvatarForm() {
             <div className="flex flex-col p-1">
                 {!previewSrc && (
                     <label
-                        htmlFor={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                        htmlFor={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                         className="p-1  flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
                     >
                         {/* <div>Обновить аватарку</div> */}
@@ -55,8 +55,8 @@ export function UpdateAvatarForm() {
                 <form action={onSubmitUploadAvatarHandler} className=" flex flex-col gap-2">
                     <input
                         type="file"
-                        name={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
-                        id={UserServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                        name={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
+                        id={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
                         accept="image/png, image/jpeg, image/jpg"
                         onChange={handleFileChange}
                         lang="ru"

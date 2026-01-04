@@ -1,4 +1,4 @@
-import { internalErrTxt } from "#/integration/constants/messages-from-services";
+import { INTERNAL_ERROR_TEXT } from "#/integration/constants/messages-from-services";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 import type {
     UserServiceHttpResponseConventionalCodeType,
@@ -23,7 +23,7 @@ export function userServiceResponseHandler<
     } = {},
 ): ServerActionResponse {
     if (!res) {
-        return { ok: false, errors: [internalErrTxt] };
+        return { ok: false, errors: [INTERNAL_ERROR_TEXT] };
     }
     if (res.errors.length || !res.data) {
         if (after.onFailFunction) {
