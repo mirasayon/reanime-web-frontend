@@ -9,19 +9,21 @@ import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
 import { MyProfileDashboard } from "./show-my-profile";
 import { ShowOthersProfile } from "./show-others-profile";
 import type {
+    ResponseTypesFor_AnimeBookmark_Section,
     ResponseTypesFor_CommentForAnime_Section,
     ResponseTypesFor_UserProfile_Section,
 } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
+import { AnimeBookmarkCollectionForProfile } from "../anime-collections-for-profile/anime-bookmark-collection-for-profile";
 export default async function __User__Page({
+    searchParams,
     params,
 }: {
     params: Promise<{ username: string }>;
+
+    searchParams: Promise<{ animeStatusTab: string | undefined }>;
 }): Promise<React.JSX.Element> {
-    if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
-        return <ComingSoon />;
-    }
+    const _searchParams = await searchParams;
     const _params = await params;
     const _username = _params.username;
     const auth = await sessionAuthenticator_S_A();
@@ -59,7 +61,26 @@ export default async function __User__Page({
     if (!my_profile_data.data) {
         return notFound();
     }
+
     const loggedUser = my_profile_data.data;
+
+    const animeCollection = await fetchTheUserService<ResponseTypesFor_AnimeBookmark_Section["get_all_list"]>(
+        endpointsConfig.animeBookmarks.baseUrl + endpointsConfig.animeBookmarks.getAllList,
+        "GET",
+    );
+    if (animeCollection === 500) {
+        return <ComingSoon />;
+    }
+
+    const collectionData = animeCollection.data;
+    const watchingIds =
+        collectionData?.filter((item) => item.status === "WATCHING").map((item) => item.external_anime_id) || [];
+    const abandonedIds =
+        collectionData?.filter((item) => item.status === "ABANDONED").map((item) => item.external_anime_id) || [];
+    const plannedIds =
+        collectionData?.filter((item) => item.status === "PLANNED").map((item) => item.external_anime_id) || [];
+    const completedIds =
+        collectionData?.filter((item) => item.status === "COMPLETED").map((item) => item.external_anime_id) || [];
     return (
         <>
             <MyProfileDashboard data={loggedUser} />
@@ -71,6 +92,13 @@ export default async function __User__Page({
                     <div className=" p-2">Ошибка при загрузке комментариев</div>
                 )}
             </div>
+            <AnimeBookmarkCollectionForProfile
+                tab={_searchParams.animeStatusTab}
+                abandonedIds={abandonedIds}
+                watchingIds={watchingIds}
+                plannedIds={plannedIds}
+                completedIds={completedIds}
+            />
         </>
     );
 }

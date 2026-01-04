@@ -2,23 +2,17 @@
 import { envServer } from "#/env/env-server";
 import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
-import { TEMPORARY_TURN_OFF_THE_USER_SERVICE } from "#/settings/user-service-static";
 import { envClient } from "#/env/env-client";
-type Props<B> =
-    | {
-          jsonBody?: B | undefined;
-          rawBody?: BodyInit | undefined;
-      }
-    | undefined;
+type RequestBodyType<B> = {
+    jsonBody?: B;
+    rawBody?: BodyInit;
+};
 export async function fetchTheUserService<T, B = { [key: string]: string }>(
     url: string,
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
-    body?: Props<B>,
+    body?: RequestBodyType<B>,
 ): Promise<UserServiceHttpResponseBodyPatternType<T> | 500> {
     try {
-        if (TEMPORARY_TURN_OFF_THE_USER_SERVICE) {
-            return 500;
-        }
         const { jsonBody, rawBody } = body || {};
         const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
 

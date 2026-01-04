@@ -1,4 +1,4 @@
-import { UIAnimeCardMain } from "#/components/anime_page/main-anime-card-shower";
+import { AnimeCardMainComponent } from "#/components/anime_page/main-anime-card-shower";
 import { error_image_for_light_theme, error_image_for_night_theme } from "#/constants/common.constants";
 import type { JSX } from "react";
 import { Linker } from "./linker-utility-component";
@@ -22,7 +22,7 @@ export function Anime_List_Component({ data: kodiks }: Anime_List_ComponentProps
     return (
         <div className=" flex flex-wrap justify-around ">
             {kodiks.map((kodik) => (
-                <UIAnimeCardMain key={kodik.id} data={kodik} />
+                <AnimeCardMainComponent key={kodik.id} data={kodik} />
             ))}
         </div>
     );

@@ -13,6 +13,7 @@ import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 import { MainCommentsSection } from "#/integration/user-service/comments/main-comments-section";
 import { sessionAuthenticator_S_A } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { AnimeCollectionBtnsWrapper } from "#/components/anime-collections/anime-collection-btns-wrapper";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;
 };
@@ -23,19 +24,21 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
     }
 
     const auth = await sessionAuthenticator_S_A();
-    const current_shikimori_id = Number(shikimori_id_web);
-    const anime = await getAnyByShikimoriFromKodikApi(current_shikimori_id);
+    const animeId = Number(shikimori_id_web);
+    const anime = await getAnyByShikimoriFromKodikApi(animeId);
     if (!anime) {
         return notFound();
     }
+
     return (
         <>
             <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
+            <AnimeCollectionBtnsWrapper animeId={animeId} auth={auth} />
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
             <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
-            <MainRelatedAnimesSection related={await GetRelatedAnimes(current_shikimori_id)} />
-            <MainCommentsSection shikimori_id={current_shikimori_id} current_user={auth} />
+            <MainRelatedAnimesSection related={await GetRelatedAnimes(animeId)} />
+            <MainCommentsSection shikimori_id={animeId} current_user={auth} />
         </>
     );
 }

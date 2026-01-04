@@ -4,7 +4,7 @@ import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smart-compone
 import type { EntityDataObject } from "kodik/types";
 import { AnimePosterImageForMainCard } from "./anime-cover-for-main-card";
 type Props = { data: EntityDataObject };
-export function UIAnimeCardMain({ data }: Props) {
+export function AnimeCardMainComponent({ data }: Props) {
     const imgUrl = getAnimePosterUrlByShikimoriId(data.shikimori_id);
     return (
         <Link
