@@ -1,7 +1,10 @@
 "use server";
 import { envServer } from "#/env/env-server";
 import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-service-response-types-for-all.routes.ts";
-import { getUserAgentAndIpFromCookies } from "../get-token-from-cookies";
+import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
+import { cookies as nextCookies } from "next/headers";
+import { headers as nextHeaders } from "next/headers";
+
 import { envClient } from "#/env/env-client";
 type RequestBodyType<B> = {
     jsonBody?: B;
@@ -14,7 +17,11 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
 ): Promise<UserServiceHttpResponseBodyPatternType<T>> {
     try {
         const { jsonBody, rawBody } = body || {};
-        const { ip, agent, token: session_token } = await getUserAgentAndIpFromCookies();
+        const _header = await nextHeaders();
+        const _cookie = await nextCookies();
+        const session_token = _cookie.get(SESSION_TOKEN_NAME)?.value;
+        const ip = _header.get("x-forwarded-for");
+        const agent = _header.get("user-agent");
         if (rawBody && jsonBody) {
             throw new Error("`raw_body` and `json_body` must not exist at the same time");
         }

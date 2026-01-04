@@ -1,8 +1,6 @@
-"use server";
 import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MainUserListShower } from "./admin-all-users-ui-component";
+import { MainUserListComponent } from "./admin-all-users-ui-component";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 export default async function __AdminAllUsersPage(): Promise<React.JSX.Element> {
@@ -13,8 +11,6 @@ export default async function __AdminAllUsersPage(): Promise<React.JSX.Element> 
     if (!allUsersData || allUsersData.status_code === 404 || !allUsersData.data) {
         return notFound();
     }
-    return <MainUserListShower initialUsers={allUsersData.data} />;
+    return <MainUserListComponent initialUsers={allUsersData.data} />;
 }
-export async function generateMetadata(): Promise<Metadata> {
-    return notFound();
-}
+export const dynamic = "force-dynamic";

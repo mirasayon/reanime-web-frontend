@@ -9,7 +9,6 @@ export type MainUserListShowerProps = {
 import { useCopyToClipboard } from "react-use";
 import { useState, type ReactNode } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
-import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
@@ -90,7 +89,7 @@ function getFilteredSorted(
     return list;
 }
 const arrSomeOptions = ["ID", "User", "Email", "Type", "Activated", "Created", "Actions"] as const;
-export function MainUserListShower({
+export function MainUserListComponent({
     initialUsers,
     pageSizeOptions = [10, 25, 50, 100, 1000],
 }: {
@@ -286,75 +285,3 @@ export function MainUserListShower({
 function TableDataWrapper({ children }: { children: ReactNode }) {
     return <td className="p-1">{children}</td>;
 }
-/**
-    const [modalUser, setModalUser] = useState<UserType | null>(null);
- *     <button
-                                        onClick={() => setModalUser(u)}
-                                        className={__styles.smallBtn}
-                                    >
-                                        View
-                                    </button>
- *    {modalUser && (
-                <div className={__styles.modalBackdrop}>
-                    <div className={__styles.modalSheet}>
-                        <div className="flex justify-between items-center mb-2">
-                            <h3 className="text-lg font-semibold">
-                                {modalUser.username} — profile
-                            </h3>
-                            <button
-                                onClick={() => setModalUser(null)}
-                                className="text-gray-500 cursor-pointer"
-                            >
-                                ✕
-                            </button>
-                        </div>
-
-                        <div className="space-y-2 text-sm">
-                            <div>
-                                <strong>ID:</strong> {modalUser.id}
-                            </div>
-                            <div>
-                                <strong>Email:</strong> {modalUser.email ?? "—"}
-                            </div>
-                            <div>
-                                <strong>Type:</strong> {modalUser.type}
-                            </div>
-                            <div>
-                                <strong>Activated:</strong>{" "}
-                                {modalUser.is_activated ? "Yes" : "No"}
-                            </div>
-                            <div>
-                                <strong>Created:</strong>{" "}
-                                {formatDate(modalUser.created_at)}
-                            </div>
-                            <div>
-                                <strong>Nickname:</strong>{" "}
-                                {modalUser.profile?.nickname ?? "—"}
-                            </div>
-                            <div>
-                                <strong>Bio:</strong>{" "}
-                                {modalUser.profile?.bio ?? "—"}
-                            </div>
-                        </div>
-
-                        <div className="mt-4 flex justify-end gap-2">
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    copyId(modalUser.id);
-                                }}
-                                className="px-3 py-1 border rounded cursor-pointer"
-                            >
-                                Copy ID
-                            </button>
-                            <button
-                                onClick={() => setModalUser(null)}
-                                className=" cursor-pointer px-3 py-1 bg-gray-200 dark:bg-slate-700 rounded"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
- */
