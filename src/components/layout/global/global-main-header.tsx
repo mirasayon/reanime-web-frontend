@@ -2,7 +2,7 @@
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { rea_wrapper_border } from "#/styles/provider";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ export function GlobalMainHeader({ username }: { username?: string }) {
                         <img
                             src={"/icon.png"}
                             className=" w-[30px] h-[30px] mx-3 object-cover"
-                            alt={`${WebsiteConfigs.name}'s icon`}
+                            alt={`${websiteConstants.name}'s icon`}
                         />
                     </Link>
                     <AnimeCategoriesComponent />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import Link from "next/link";
 export default function __NotFoundPage() {
     return (
@@ -26,5 +26,5 @@ export default function __NotFoundPage() {
     );
 }
 export const metadata: Metadata = {
-    title: `Страница не найдена | ${WebsiteConfigs.public_domain}`,
+    title: `Страница не найдена | ${websiteConstants.public_domain}`,
 };

@@ -1,5 +1,5 @@
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-import { constantDonationLinks } from "./constants.donate";
+import { websiteConstants } from "#/configs/website-constants";
 const linksStyles =
     "inline-flex items-center justify-center p-3 rounded-xl bg-slate-800 text-white font-bold hover:opacity-95 shadow-md dark:bg-slate-800 dark:text-white hover:text-white dark:hover:text-white";
 
@@ -21,7 +21,7 @@ export default function __SupportPage() {
                     <div>
                         <h2 className="text-lg font-medium">Через GitHub Sponsors</h2>
                         <Linker
-                            href={constantDonationLinks.github}
+                            href={websiteConstants.donationLinks.github}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={linksStyles}
@@ -30,7 +30,7 @@ export default function __SupportPage() {
                         </Linker>
                         <h2 className="text-lg font-medium">Через криптовалюты</h2>
                         <Linker
-                            href={constantDonationLinks.crypto}
+                            href={websiteConstants.donationLinks.crypto}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={linksStyles}

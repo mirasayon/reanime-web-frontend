@@ -1,7 +1,7 @@
 "use server";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
 import { notFound } from "next/navigation";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { metadata404 } from "#/constants/common.constants";
 import { kodikClient } from "#/providers/kodik-api";
 import type { Metadata } from "next/types";
@@ -25,8 +25,8 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
     const image_src = getAnimePosterUrlByShikimoriId(anime.shikimori_id);
     const names = anime.material_data?.other_titles || [];
     return {
-        title: `${anime_title} | ${WebsiteConfigs.public_domain}`,
-        description: `${anime_title} смотреть аниме онлайн на сайте ${WebsiteConfigs.public_domain}`,
+        title: `${anime_title} | ${websiteConstants.public_domain}`,
+        description: `${anime_title} смотреть аниме онлайн на сайте ${websiteConstants.public_domain}`,
         keywords: [
             anime_title,
             ...names,
@@ -34,9 +34,9 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
             "смотреть",
             "смотреть аниме",
             "аниме",
-            WebsiteConfigs.cyrillic_name,
-            WebsiteConfigs.name,
-            WebsiteConfigs.public_domain,
+            websiteConstants.cyrillic_name,
+            websiteConstants.name,
+            websiteConstants.public_domain,
         ],
         openGraph: {
             title: anime_title,
@@ -44,7 +44,7 @@ export async function setMetadataForWatchAnimePage(shikimori_id: string): Promis
             images: { url: image_src },
             locale: "ru_RU",
             type: "website",
-            url: `${WebsiteConfigs.public_full_domain}/anime/${anime.shikimori_id}`,
+            url: `${websiteConstants.public_full_domain}/anime/${anime.shikimori_id}`,
         },
         robots: {
             index: true,

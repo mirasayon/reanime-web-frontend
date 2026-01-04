@@ -1,7 +1,7 @@
 import { rea_wrapper_border } from "#/styles/provider";
 import type { JSX } from "react";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { _categories } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
@@ -47,6 +47,6 @@ export default async function GenresPage({ params }: GenresPageProps): Promise<J
 export async function generateMetadata({ params }: GenresPageProps): Promise<Metadata> {
     const genre = decodeURI((await params).genre);
     return {
-        title: `По жанру: ${genre} | ${WebsiteConfigs.public_domain}`,
+        title: `По жанру: ${genre} | ${websiteConstants.public_domain}`,
     } satisfies Metadata;
 }

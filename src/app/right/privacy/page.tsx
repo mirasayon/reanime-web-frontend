@@ -1,16 +1,16 @@
 import { rea_wrapper_border, rea_docs_wrapper } from "#/styles/provider";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 export const metadata: Metadata = {
-    title: `Политика конфиденциальности ${WebsiteConfigs.name}`,
-    description: `Политика конфиденциальности ${WebsiteConfigs.normalized_name}`,
-    keywords: ["Политика конфиденциальности", "конфиденциальность", WebsiteConfigs.name],
+    title: `Политика конфиденциальности ${websiteConstants.name}`,
+    description: `Политика конфиденциальности ${websiteConstants.normalized_name}`,
+    keywords: ["Политика конфиденциальности", "конфиденциальность", websiteConstants.name],
     robots: { index: true, follow: true },
 };
-const domain = WebsiteConfigs.public_domain;
-const name = WebsiteConfigs.name;
-const mail = WebsiteConfigs.mail;
+const domain = websiteConstants.public_domain;
+const name = websiteConstants.name;
+const mail = websiteConstants.mail;
 const curl = `/right/privacy`;
 export default function PrivacyPage() {
     return (

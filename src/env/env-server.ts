@@ -1,5 +1,5 @@
 import { validateEnvironment } from "safest-env";
-import { envVarConfig } from "../configs/env-config";
+import { envVarConfig } from "../configs/env-validator-config";
 
 const _env = validateEnvironment(envVarConfig);
 

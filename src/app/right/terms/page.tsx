@@ -1,18 +1,18 @@
 import { rea_docs_wrapper, rea_wrapper_border } from "#/styles/provider";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-const curl = `https://${WebsiteConfigs.public_domain}/right/terms`;
+const curl = `https://${websiteConstants.public_domain}/right/terms`;
 export const metadata: Metadata = {
-    title: `Пользовательское соглашение сайта ${WebsiteConfigs.name}`,
-    description: `Пользовательское соглашение сайта ${WebsiteConfigs.normalized_name}`,
+    title: `Пользовательское соглашение сайта ${websiteConstants.name}`,
+    description: `Пользовательское соглашение сайта ${websiteConstants.normalized_name}`,
     keywords: [
         "Пользовательское соглашение",
         "конфиденциальность",
         "anime",
         "аниме смотреть",
         "смотреть аниме",
-        WebsiteConfigs.name,
+        websiteConstants.name,
     ],
     robots: { index: true, follow: true },
 };
@@ -20,8 +20,8 @@ export default function TermsPage() {
     return (
         <main className={` ${rea_docs_wrapper} mx-4 p-6 ${rea_wrapper_border} `}>
             <h1 className={"h1"}>Пользовательское соглашение</h1>
-            Интернет - ресурс (сайт) {WebsiteConfigs.name} (в дальнейшем - Ресурс) является интернет-сайтом, позволяющим
-            пользователям обмениваться друг с другом информацией об аниме в свободной форме
+            Интернет - ресурс (сайт) {websiteConstants.name} (в дальнейшем - Ресурс) является интернет-сайтом,
+            позволяющим пользователям обмениваться друг с другом информацией об аниме в свободной форме
             <h2 className={"h2"}>1. О пользовательском соглашении</h2>
             Используя/посещая Ресурс (включая весь контент, размещенный на ресурсе), вы соглашаетесь с Настоящим
             ПОЛЬЗОВАТЕЛЬСКИМ СОГЛАШЕНИЕМ, размещенным по адресу <Linker href={curl}>{curl}</Linker> Если вы не согласны

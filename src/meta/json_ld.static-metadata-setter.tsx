@@ -1,4 +1,4 @@
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import type { JSX } from "react";
 
 const json_ld = {
@@ -9,7 +9,7 @@ const json_ld = {
     },
     name: "Reanime",
     image: "https://reanime.art/icon.png",
-    description: `Смотреть аниме онлайн бесплатно на сайте ${WebsiteConfigs.public_domain}`,
+    description: `Смотреть аниме онлайн бесплатно на сайте ${websiteConstants.public_domain}`,
 };
 
 const JsonLDStr = JSON.stringify(json_ld);

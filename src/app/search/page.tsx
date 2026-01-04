@@ -1,7 +1,7 @@
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import type { SearchParams } from "#T/nextjs";
 import type { Metadata } from "next";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { websiteConstants } from "#/configs/website-constants";
 import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { kodikClient } from "#/providers/kodik-api";
@@ -50,7 +50,7 @@ export async function generateMetadata({ searchParams }: SearchPageParams): Prom
     const search_query = getSearchQuery(await searchParams);
     if (!search_query) {
         return {
-            title: `Поиск аниме | ${WebsiteConfigs.public_domain}`,
+            title: `Поиск аниме | ${websiteConstants.public_domain}`,
         };
     }
     return {

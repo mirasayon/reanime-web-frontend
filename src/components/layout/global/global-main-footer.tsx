@@ -1,7 +1,6 @@
 import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-import { error_reporting_form_link } from "#/configs/test-mode-constants";
-import { WebsiteConfigs } from "#/configs/website-settings.app-config";
+import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
 import { birth_year, this_year } from "#/constants/common.constants";
 import { rea_wrapper_border } from "#/styles/provider";
 const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
@@ -13,7 +12,7 @@ export function Layout_Footer() {
                 <div className="flex flex-wrap p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>
-                            &copy; {birth_year} - {this_year} {WebsiteConfigs.public_domain}
+                            &copy; {birth_year} - {this_year} {websiteConstants.public_domain}
                         </span>
                     </span>
                     <Linker className={style} href={"/right/terms"}>
@@ -28,10 +27,10 @@ export function Layout_Footer() {
                     <Linker className={style} href={"/about/donate"}>
                         Поддержать проект
                     </Linker>
-                    <Linker className={style} href={WebsiteConfigs.developer_website}>
+                    <Linker className={style} href={websiteConstants.developer_website}>
                         О разработчике
                     </Linker>
-                    <Linker href={error_reporting_form_link} className={style}>
+                    <Linker href={BUG_REPORT_FORM_LINK} className={style}>
                         Сообщить о баге
                     </Linker>
                 </div>
