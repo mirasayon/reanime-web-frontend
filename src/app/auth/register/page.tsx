@@ -6,7 +6,7 @@ import { Register_Component } from "./register-component";
 export default async function __Registration() {
     const is_logged = await sessionAuthenticator();
     if (is_logged) {
-        return redirect(`/user/${is_logged.data.username}`);
+        return redirect(`/user/${is_logged.username}`);
     }
     return <Register_Component />;
 }

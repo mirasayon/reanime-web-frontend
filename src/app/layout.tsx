@@ -26,7 +26,7 @@ export default async function __Root_layout({ children }: __Root_layoutProps): P
             <body className={`${interFont.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
-                        <GlobalMainHeader username={auth?.data.username} />
+                        <GlobalMainHeader username={auth?.username} />
                         {children}
                         <Layout_Footer />
                         <CookieConsentBanner />

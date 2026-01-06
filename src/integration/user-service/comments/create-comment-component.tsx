@@ -44,10 +44,10 @@ export function MainCreateCommentComponent({
             id="comment_form"
             className={"dark:bg-slate-800 bg-blue-200 p-2 flex flex-wrap "}
         >
-            <Link href={`/user/${profile.data.username}`} className="flex p-2 flex-row items-center justify-between">
+            <Link href={`/user/${profile.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={viewAvatarByUsernameUrl(profile.data.username)}
-                    alt={profile.data.username + " avatar"}
+                    src={viewAvatarByUsernameUrl(profile.username)}
+                    alt={profile.username + " avatar"}
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />
             </Link>

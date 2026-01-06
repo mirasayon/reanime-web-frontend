@@ -11,8 +11,8 @@ export default async function __UpdatePasswordPage() {
         return (
             <div className={` ${BORDER} p-2 flex flex-col gap-2`}>
                 <h1>Обновить пароль пользователя</h1>
-                <BackToUserPageButtonComponent username={auth.data.username} />
-                <UpdatePasswordFormComponent username={auth.data.username} />
+                <BackToUserPageButtonComponent username={auth.username} />
+                <UpdatePasswordFormComponent username={auth.username} />
             </div>
         );
     }

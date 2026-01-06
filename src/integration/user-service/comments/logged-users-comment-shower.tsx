@@ -16,7 +16,7 @@ export function LoggedProfileCommentShower({
 }): React.JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
     const linkToComment = `comment-${comment.id}`;
-    const isOwner = current_user && current_user.data.profile_id === comment.by_profile_id;
+    const isOwner = current_user && current_user.profile_id === comment.by_profile_id;
     return (
         <div className="m-2 grid p-2 items-center" key={comment.id} id={linkToComment}>
             <div className=" flex items-center">
@@ -35,7 +35,7 @@ export function LoggedProfileCommentShower({
             {isEditing ? (
                 <MainEditFormCommentComponent setIsEditing={setIsEditing} comment={comment} />
             ) : (
-                <CommentTextAndRating comment={comment} current_user={current_user} />
+                <CommentTextAndRating comment={comment} auth={current_user} />
             )}
         </div>
     );

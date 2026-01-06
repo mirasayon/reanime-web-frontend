@@ -14,7 +14,7 @@ export function NotLoggedProfileCommentShower({
                 <JustShowMainDataAboutComment {...{ comment }} />
             </div>
 
-            <CommentTextAndRating comment={comment} current_user={null} />
+            <CommentTextAndRating comment={comment} auth={null} />
         </div>
     );
 }

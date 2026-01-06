@@ -3,13 +3,13 @@ import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrat
 import { ShowCommentRatingComponent } from "../ratings-of-comment/main-comment-rating-component";
 export function CommentTextAndRating({
     comment,
-    current_user,
+    auth,
 }: {
     comment: ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"][number];
-    current_user: AuthenticatorType;
+    auth: AuthenticatorType;
 }) {
-    if (current_user) {
-        const foundUserVote = comment.ratings.find((c) => c.by_profile_id === current_user.data.profile_id);
+    if (auth) {
+        const foundUserVote = comment.ratings.find((c) => c.by_profile_id === auth.profile_id);
         return (
             <div className="grid items-center">
                 <span
@@ -20,7 +20,7 @@ export function CommentTextAndRating({
                 <ShowCommentRatingComponent
                     comment={comment}
                     userVote={foundUserVote ? foundUserVote.value : null}
-                    authCurrent={current_user}
+                    authCurrent={auth}
                     currPath={"/anime/" + comment.external_anime_id}
                 />
             </div>
