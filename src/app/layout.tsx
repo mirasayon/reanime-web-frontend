@@ -7,16 +7,15 @@ import { GlobalMainHeader } from "#/components/layout/global/global-main-header"
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { envClient } from "#/env/env-client";
 import { interFont } from "#/fonts/main-font.provider";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import { rootLayoutMetadata } from "#/meta/root-layout.metadata";
 import layoutStyles from "#/styles/global/layout.module.css";
 import "#/styles/global/main.tailwind.css";
 import type { LayoutProps } from "#T/nextjs";
 import type { Metadata } from "next";
-type __Root_layoutProps = LayoutProps;
-export default async function __Root_layout({ children }: __Root_layoutProps): Promise<React.JSX.Element> {
-    const auth = await sessionAuthenticator();
+export default async function __RootLayout({ children }: LayoutProps): Promise<React.JSX.Element> {
+    const auth = await getAccountSession();
     return (
         <html lang="ru" suppressHydrationWarning>
             <head>
@@ -41,3 +40,5 @@ export default async function __Root_layout({ children }: __Root_layoutProps): P
 }
 
 export const metadata: Metadata = rootLayoutMetadata;
+
+export const dynamic = "force-dynamic";
