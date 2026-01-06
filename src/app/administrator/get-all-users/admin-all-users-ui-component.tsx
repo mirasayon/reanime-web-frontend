@@ -1,54 +1,35 @@
 "use client";
-import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { JustAvatarCircleComponent } from "#/components/users/dashboard/common";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 export type MainUserListShowerProps = {
     users: ResponseTypesForAdministratorSection["get_all_users"];
     pageSizeOptions?: number[];
 };
-import { useCopyToClipboard } from "react-use";
 import { useState, type ReactNode } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
-const __styles = {
+const STYLES = {
     wrapper: "p-2 dark:bg-slate-800 bg-slate-100 flex flex-col",
-    headerRow: "flex flex-col flex-wrap gap-2",
+    headerRow: "flex flex-col flex-wrap",
     title: "font-bold",
     controls: "flex flex-row  flex-wrap gap-2 items-center",
     input: "py-2 px-1 min-w-100 border outline-none rounded-md bg-slate-300 dark:bg-slate-700",
     select: "p-2 border rounded-md cursor-pointer bg-slate-300 dark:bg-slate-800",
     smallBtn: "p-1 border rounded text-sm cursor-pointer bg-slate-300 dark:bg-slate-700",
-    tableWrapper: "bg-transparent rounded-lg shadow-xl flex",
     table: "min-w-full text-xs my-3",
-    badgeBase: "px-2 py-1 rounded-full text-xs font-semibold",
+    badgeBase: "px-2 py-1 text-xs font-semibold text-center",
     nextPrevStyles: " cursor-pointer px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed",
-    modalBackdrop: "fixed inset-0 z-50 flex items-center justify-center bg-black/40",
-    modalSheet: "bg-slate-200 dark:bg-slate-900 rounded-lg w-11/12 md:w-1/2 p-4 shadow-lg",
 };
 
-const shortId = (id: string) => `${id.slice(0, 8)}...${id.slice(-4)}`;
-const parseDate = (d: Date | string) => {
+function parseDate(d: Date | string) {
     return typeof d === "string" ? new Date(d) : d;
-};
-const formatDate = (d?: Date | string) => {
-    if (!d) {
-        return "—";
-    }
+}
+function formatDate(d: Date) {
     const dt = parseDate(d);
     return dt.toLocaleString();
-};
-const map = {
-    ADMIN: "bg-red-100 dark:bg-red-950 dark:text-slate-300 text-red-800",
-    BANNED: "bg-red-300 dark:bg-red-950 dark:text-slate-300 text-red-800",
-    DEVELOPER: "bg-blue-100 dark:bg-blue-950 dark:text-slate-300 text-blue-800",
-    TESTER: "bg-yellow-100 dark:bg-yellow-950 dark:text-slate-300 text-yellow-800",
-    COMMON: "bg-gray-100 dark:bg-gray-950 dark:text-slate-300 text-gray-800",
-} as const;
-const typeBadgeClass = (t: ResponseTypesForAdministratorSection["get_all_users"][number]["account_type"]) => {
-    return `${__styles.badgeBase} ${map[t]}`;
-};
+}
 
 function getFilteredSorted(
     users: UserType[],
@@ -72,7 +53,7 @@ function getFilteredSorted(
                 u.username.toLowerCase().includes(q) ||
                 (u.email ?? "").toLowerCase().includes(q) ||
                 nickname.toLowerCase().includes(q) ||
-                shortId(u.id).toLowerCase().includes(q)
+                (u.id ?? "").toLowerCase().includes(q)
             );
         });
     }
@@ -88,7 +69,7 @@ function getFilteredSorted(
 
     return list;
 }
-const arrSomeOptions = ["ID", "User", "Email", "Type", "Activated", "Created", "Actions"] as const;
+const arrSomeOptions = ["User", "Email", "Type", "Created", "Updated"] as const;
 export function MainUserListComponent({
     initialUsers,
     pageSizeOptions = [10, 25, 50, 100, 1000],
@@ -96,7 +77,6 @@ export function MainUserListComponent({
     initialUsers: ResponseTypesForAdministratorSection["get_all_users"];
     pageSizeOptions?: number[];
 }) {
-    const toaster = useToaster();
     const [users] = useState<UserType[]>(initialUsers);
     const [query, setQuery] = useState("");
     const [filterType, setFilterType] = useState<
@@ -116,22 +96,12 @@ export function MainUserListComponent({
     const pages = Math.max(1, Math.ceil(total / pageSize));
     const pageSlice = filtered.slice((page - 1) * pageSize, page * pageSize);
 
-    const [, copyToClipboard] = useCopyToClipboard();
-    function copyId(id: string) {
-        try {
-            copyToClipboard(id);
-            return toaster.info("ID copied");
-        } catch {
-            return toaster.error("Error while copying");
-        }
-    }
-
     return (
-        <div className={__styles.wrapper}>
-            <div className={__styles.headerRow}>
-                <h2 className={__styles.title}>Users ({total})</h2>
+        <div className={STYLES.wrapper}>
+            <div className={STYLES.headerRow}>
+                <h2 className={STYLES.title}>Users ({total})</h2>
 
-                <div className={__styles.controls}>
+                <div className={STYLES.controls}>
                     <input
                         value={query}
                         onChange={(e) => {
@@ -140,7 +110,7 @@ export function MainUserListComponent({
                             return setPage(1);
                         }}
                         placeholder="Search by username / email / nickname / id"
-                        className={__styles.input}
+                        className={STYLES.input}
                     />
 
                     <select
@@ -149,7 +119,7 @@ export function MainUserListComponent({
                             setFilterType(e.target.value as any);
                             setPage(1);
                         }}
-                        className={__styles.select}
+                        className={STYLES.select}
                     >
                         <option value="ALL">All types</option>
                         <option value="USER">USER</option>
@@ -158,18 +128,14 @@ export function MainUserListComponent({
                         <option value="TESTER">TESTER</option>
                     </select>
 
-                    <select
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value as any)}
-                        className={__styles.select}
-                    >
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className={STYLES.select}>
                         <option value="created_at">Sort by created</option>
                         <option value="username">Sort by username</option>
                     </select>
 
                     <button
                         onClick={() => setSortDir((s) => (s === "asc" ? "desc" : "asc"))}
-                        className={__styles.smallBtn}
+                        className={STYLES.smallBtn}
                         title="Toggle sort direction"
                     >
                         {sortDir === "asc" ? "↑" : "↓"}
@@ -181,7 +147,7 @@ export function MainUserListComponent({
                             setPageSize(Number(e.target.value));
                             setPage(1);
                         }}
-                        className={__styles.select}
+                        className={STYLES.select}
                     >
                         {pageSizeOptions.map((s) => (
                             <option key={s} value={s}>
@@ -192,69 +158,54 @@ export function MainUserListComponent({
                 </div>
             </div>
 
-            <div className={__styles.tableWrapper}>
-                <table className={__styles.table}>
-                    <thead>
-                        <tr>
-                            {arrSomeOptions.map((item) => {
-                                return (
-                                    <th key={item} className="px-4 py-3 text-left">
-                                        {item}
-                                    </th>
-                                );
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody className="">
-                        {pageSlice.map((u) => (
-                            <tr key={u.id} className="border-y hover:bg-gray-50/80 dark:hover:bg-gray-50/10">
-                                <TableDataWrapper>{shortId(u.id)}</TableDataWrapper>
-                                <TableDataWrapper>
-                                    <div className="flex items-center gap-3">
-                                        <JustAvatarCircleComponent
-                                            altTitle={u.username + " avatar"}
-                                            avatarUrl={viewAvatarByUsernameUrl(u.username)}
-                                        />
-                                        <div className="flex flex-col">
-                                            <Linker
-                                                clearTheDefaultStylings
-                                                className="hover:underline"
-                                                href={`/user/${u.username}`}
-                                            >
-                                                <div className="font-mono">{"@" + u.username}</div>
-                                            </Linker>
-                                            <div className="text-xs text-gray-500">{u.nickname ?? "—"}</div>
-                                        </div>
+            <table className={STYLES.table}>
+                <thead>
+                    <tr>
+                        {arrSomeOptions.map((item) => {
+                            return (
+                                <th key={item} className="px-4 py-3 text-left">
+                                    {item}
+                                </th>
+                            );
+                        })}
+                    </tr>
+                </thead>
+                <tbody>
+                    {pageSlice.map((u) => (
+                        <tr key={u.id} className="border-y hover:bg-gray-50/80 dark:hover:bg-gray-50/10">
+                            <td className="">
+                                <div className="flex items-center gap-3">
+                                    <JustAvatarCircleComponent
+                                        altTitle={u.username + " avatar"}
+                                        avatarUrl={viewAvatarByUsernameUrl(u.username)}
+                                    />
+                                    <div className="flex flex-col">
+                                        <Linker
+                                            clearTheDefaultStylings
+                                            className="hover:underline"
+                                            href={`/user/${u.username}`}
+                                        >
+                                            <div className="font-mono">{"@" + u.username}</div>
+                                        </Linker>
+                                        <div className="text-xs text-gray-500">{u.nickname ?? "—"}</div>
                                     </div>
-                                </TableDataWrapper>
-                                <TableDataWrapper>{u.email ?? "—"}</TableDataWrapper>
-                                <TableDataWrapper>
-                                    <span className={typeBadgeClass(u.account_type)}>{u.account_type}</span>
-                                </TableDataWrapper>
-                                <TableDataWrapper>{formatDate(u.created_at)}</TableDataWrapper>
-                                <TableDataWrapper>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            copyId(u.id);
-                                        }}
-                                        className={__styles.smallBtn}
-                                    >
-                                        Copy ID
-                                    </button>
-                                </TableDataWrapper>
-                            </tr>
-                        ))}
-                        {pageSlice.length === 0 && (
-                            <tr>
-                                <td colSpan={7} className="px-4 py-6 text-center text-gray-500">
-                                    No users found
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                                </div>
+                            </td>
+                            <td className="p-1">{u.email ?? "No email"}</td>
+                            <td className={"p-1"}>{u.account_type}</td>
+                            <td className="p-1">{formatDate(u.created_at)}</td>
+                            <td className="p-1">{formatDate(u.updated_at)}</td>
+                        </tr>
+                    ))}
+                    {pageSlice.length === 0 && (
+                        <tr>
+                            <td colSpan={7} className="px-4 py-6 text-center text-gray-500">
+                                No users found
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
             <div className="flex items-center justify-between mt-4">
                 <div className="text-xs text-gray-600 dark:text-gray-200">
                     Showing {Math.min((page - 1) * pageSize + 1, total)} - {Math.min(page * pageSize, total)} of {total}
@@ -263,7 +214,7 @@ export function MainUserListComponent({
                     <button
                         disabled={page <= 1}
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
-                        className={__styles.nextPrevStyles}
+                        className={STYLES.nextPrevStyles}
                     >
                         Prev
                     </button>
@@ -273,7 +224,7 @@ export function MainUserListComponent({
                     <button
                         disabled={page >= pages}
                         onClick={() => setPage((p) => Math.min(pages, p + 1))}
-                        className={__styles.nextPrevStyles}
+                        className={STYLES.nextPrevStyles}
                     >
                         Next
                     </button>
@@ -281,7 +232,4 @@ export function MainUserListComponent({
             </div>
         </div>
     );
-}
-function TableDataWrapper({ children }: { children: ReactNode }) {
-    return <td className="p-1">{children}</td>;
 }
