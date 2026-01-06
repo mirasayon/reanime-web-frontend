@@ -5,7 +5,7 @@ export type MainUserListShowerProps = {
     users: ResponseTypesForAdministratorSection["get_all_users"];
     pageSizeOptions?: number[];
 };
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
@@ -69,7 +69,7 @@ function getFilteredSorted(
 
     return list;
 }
-const arrSomeOptions = ["User", "Email", "Type", "Created", "Updated"] as const;
+const optionsList = ["User", "Email", "Type", "Created", "Updated"] as const;
 export function MainUserListComponent({
     initialUsers,
     pageSizeOptions = [10, 25, 50, 100, 1000],
@@ -161,7 +161,7 @@ export function MainUserListComponent({
             <table className={STYLES.table}>
                 <thead>
                     <tr>
-                        {arrSomeOptions.map((item) => {
+                        {optionsList.map((item) => {
                             return (
                                 <th key={item} className="px-4 py-3 text-left">
                                     {item}

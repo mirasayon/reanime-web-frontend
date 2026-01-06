@@ -1,6 +1,6 @@
 "use server";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { redirect } from "next/navigation";
 import { SessionsViewerComponent } from "./session-viewer-component";
@@ -9,9 +9,9 @@ import type { ResponseTypesFor_Account_Section } from "#user-service/user-servic
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 export default async function __SettingSlashSessionsPage() {
-    const auth = await sessionAuthenticator();
+    const auth = await getAccountSession();
     if (auth) {
-        const all_sessions = await fetchTheUserService<ResponseTypesFor_Account_Section["get_sessions"]>(
+        const all_sessions = await userServiceRequest<ResponseTypesFor_Account_Section["get_sessions"]>(
             endpointsConfig.userAccount.baseUrl + endpointsConfig.userAccount.allSessions,
             "GET",
         );

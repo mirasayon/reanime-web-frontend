@@ -1,6 +1,6 @@
 "use server";
 import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { cookies } from "next/headers";
 import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
@@ -9,7 +9,7 @@ import { endpointsConfig } from "#user-service/endpoints-config.ts";
 
 export async function LogOutAccount_ServerAction(): ServerActionResponseWithPromise {
     const _cookies = await cookies();
-    const res = await fetchTheUserService<ResponseTypesForAuthentication["logout"]>(
+    const res = await userServiceRequest<ResponseTypesForAuthentication["logout"]>(
         endpointsConfig.authentication.baseUrl + endpointsConfig.authentication.logout,
         "DELETE",
     );

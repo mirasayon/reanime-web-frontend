@@ -14,21 +14,21 @@ import {
 } from "@radix-ui/react-alert-dialog";
 
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
-import { buttonVariantsShadCN } from "#/shadcn-ui/button";
+import { buttonVariantsShadCN } from "#/components/utilities/button";
 
-export function AlertDialog({ ...props }: React.ComponentProps<typeof Root>) {
+export function AlertDialog({ ...props }: React.ComponentPropsWithoutRef<typeof Root>) {
     return <Root data-slot="alert-dialog" {...props} />;
 }
 
-export function AlertDialogTriggerShadCN({ ...props }: React.ComponentProps<typeof Trigger>) {
+export function AlertDialogTriggerShadCN({ ...props }: React.ComponentPropsWithoutRef<typeof Trigger>) {
     return <Trigger data-slot="alert-dialog-trigger" {...props} />;
 }
 
-export function AlertDialogPortalShadCN({ ...props }: React.ComponentProps<typeof Portal>) {
+export function AlertDialogPortalShadCN({ ...props }: React.ComponentPropsWithoutRef<typeof Portal>) {
     return <Portal data-slot="alert-dialog-portal" {...props} />;
 }
 
-export function AlertDialogOverlayShadCN({ className, ...props }: React.ComponentProps<typeof Overlay>) {
+export function AlertDialogOverlayShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof Overlay>) {
     return (
         <Overlay
             data-slot="alert-dialog-overlay"
@@ -41,7 +41,7 @@ export function AlertDialogOverlayShadCN({ className, ...props }: React.Componen
     );
 }
 
-export function AlertDialogContentShadCN({ className, ...props }: React.ComponentProps<typeof Content>) {
+export function AlertDialogContentShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof Content>) {
     return (
         <AlertDialogPortalShadCN>
             <AlertDialogOverlayShadCN />
@@ -57,7 +57,7 @@ export function AlertDialogContentShadCN({ className, ...props }: React.Componen
     );
 }
 
-export function AlertDialogHeaderShadCN({ className, ...props }: React.ComponentProps<"div">) {
+export function AlertDialogHeaderShadCN({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
     return (
         <div
             data-slot="alert-dialog-header"
@@ -67,7 +67,7 @@ export function AlertDialogHeaderShadCN({ className, ...props }: React.Component
     );
 }
 
-export function AlertDialogFooterShadCN({ className, ...props }: React.ComponentProps<"div">) {
+export function AlertDialogFooterShadCN({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
     return (
         <div
             data-slot="alert-dialog-footer"
@@ -77,11 +77,14 @@ export function AlertDialogFooterShadCN({ className, ...props }: React.Component
     );
 }
 
-export function AlertDialogTitleShadCN({ className, ...props }: React.ComponentProps<typeof Title>) {
+export function AlertDialogTitleShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof Title>) {
     return <Title data-slot="alert-dialog-title" className={cnUtil("text-lg font-semibold", className)} {...props} />;
 }
 
-export function AlertDialogDescriptionShadCN({ className, ...props }: React.ComponentProps<typeof Description>) {
+export function AlertDialogDescriptionShadCN({
+    className,
+    ...props
+}: React.ComponentPropsWithoutRef<typeof Description>) {
     return (
         <Description
             data-slot="alert-dialog-description"
@@ -91,10 +94,10 @@ export function AlertDialogDescriptionShadCN({ className, ...props }: React.Comp
     );
 }
 
-export function AlertDialogActionShadCN({ className, ...props }: React.ComponentProps<typeof Action>) {
+export function AlertDialogActionShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof Action>) {
     return <Action className={cnUtil(buttonVariantsShadCN(), className)} {...props} />;
 }
 
-export function AlertDialogCancelShadCN({ className, ...props }: React.ComponentProps<typeof Cancel>) {
+export function AlertDialogCancelShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof Cancel>) {
     return <Cancel className={cnUtil(buttonVariantsShadCN({ variant: "outline" }), className)} {...props} />;
 }

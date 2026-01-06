@@ -3,6 +3,7 @@ import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categori
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
 import { websiteConstants } from "#/configs/website-constants";
+import { DropdownMenuShadCN } from "#/shadcn-ui/dropdown-menu";
 import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 
@@ -21,6 +22,7 @@ export function GlobalMainHeader({ username }: { username?: string }) {
                     <AnimeCategoriesComponent />
                     <UI_Menu />
                 </div>
+
                 <MainDropdownMenuInHeader username={username} />
             </header>
         </div>

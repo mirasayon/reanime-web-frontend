@@ -5,7 +5,7 @@ import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-reac
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
-import { ButtonShadCN } from "#/shadcn-ui/button";
+import { ButtonComponent } from "#/components/utilities/button";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 export type CarouselApi = UseEmblaCarouselType[1];
@@ -49,7 +49,7 @@ export function CarouselShadCN({
     className,
     children,
     ...props
-}: React.ComponentProps<"div"> & CarouselProps) {
+}: React.ComponentPropsWithoutRef<"div"> & CarouselProps) {
     const [carouselRef, api] = useEmblaCarousel(
         {
             ...opts,
@@ -130,7 +130,7 @@ export function CarouselShadCN({
     );
 }
 
-export function CarouselContentShadCN({ className, ...props }: React.ComponentProps<"div">) {
+export function CarouselContentShadCN({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
     const { carouselRef, orientation } = useCarousel();
 
     return (
@@ -143,7 +143,7 @@ export function CarouselContentShadCN({ className, ...props }: React.ComponentPr
     );
 }
 
-export function CarouselItemShadCN({ className, ...props }: React.ComponentProps<"div">) {
+export function CarouselItemShadCN({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
     const { orientation } = useCarousel();
 
     return (
@@ -166,11 +166,11 @@ export function CarouselPreviousShadCN({
     variant = "outline",
     size = "icon",
     ...props
-}: React.ComponentProps<typeof ButtonShadCN>) {
+}: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
     return (
-        <ButtonShadCN
+        <ButtonComponent
             data-slot="carousel-previous"
             variant={variant}
             size={size}
@@ -187,7 +187,7 @@ export function CarouselPreviousShadCN({
         >
             <ArrowLeft />
             <span className="sr-only">Previous slide</span>
-        </ButtonShadCN>
+        </ButtonComponent>
     );
 }
 
@@ -196,11 +196,11 @@ export function CarouselNextShadCN({
     variant = "outline",
     size = "icon",
     ...props
-}: React.ComponentProps<typeof ButtonShadCN>) {
+}: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
 
     return (
-        <ButtonShadCN
+        <ButtonComponent
             data-slot="carousel-next"
             variant={variant}
             size={size}
@@ -217,6 +217,6 @@ export function CarouselNextShadCN({
         >
             <ArrowRight />
             <span className="sr-only">Next slide</span>
-        </ButtonShadCN>
+        </ButtonComponent>
     );
 }

@@ -1,5 +1,5 @@
 "use server";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { SUPPORTED_AVATAR_IMAGE_FORMATS, userServiceMediaConfigs } from "./config";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import type { ResponseTypesFor_Media_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
@@ -16,7 +16,7 @@ export async function AvatarUpdate_ServerAction(imageFile: File): ServerActionRe
     const blob = new Blob([arrayBuffer], { type: imageFile.type });
     const forwardData = new FormData();
     forwardData.append(userServiceMediaConfigs.avatar_file_name_for_user_service, blob, imageFile.name);
-    const res = await fetchTheUserService<ResponseTypesFor_Media_Section["update_avatar"]>(
+    const res = await userServiceRequest<ResponseTypesFor_Media_Section["update_avatar"]>(
         endpointsConfig.media.baseUrl + endpointsConfig.media.updateAvatar,
         "PATCH",
         { rawBody: forwardData },

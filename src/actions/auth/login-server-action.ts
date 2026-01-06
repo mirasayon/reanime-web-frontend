@@ -1,5 +1,5 @@
 "use server";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies } from "next/headers";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
@@ -19,7 +19,7 @@ export async function loginTheUserServerAction(data: {
         return { ok: false, errors: errorList };
     }
     const _cookies = await cookies();
-    const res = await fetchTheUserService<ResponseTypesForAuthentication["login_via_username"]>(
+    const res = await userServiceRequest<ResponseTypesForAuthentication["login_via_username"]>(
         endpointsConfig.authentication.baseUrl + endpointsConfig.authentication.loginByUsername,
         "POST",
         {

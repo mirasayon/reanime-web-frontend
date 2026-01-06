@@ -1,6 +1,6 @@
 "use server";
 import type { AuthenticatorType } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";
 import type { ResponseTypesFor_AnimeBookmark_Section } from "#/user-service-shared-package/user-service-response-types-for-all.routes";
@@ -20,7 +20,7 @@ export async function AnimeCollectionBtnsWrapper({ animeId, auth }: { animeId: n
             </div>
         );
     }
-    const collectionData = await fetchTheUserService<ResponseTypesFor_AnimeBookmark_Section["get_for_anime"]>(
+    const collectionData = await userServiceRequest<ResponseTypesFor_AnimeBookmark_Section["get_for_anime"]>(
         endpointsConfig.animeBookmarks.baseUrl + endpointsConfig.animeBookmarks.getStatusForAnime(String(animeId)),
         "GET",
     );

@@ -2,7 +2,7 @@ import { BORDER } from "#/styles/style-constants";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import type { JSX } from "react";
 import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
-import { fetchTheUserService } from "../user-service-fetcher.integrator-util";
+import { userServiceRequest } from "../user-service-fetcher.integrator-util";
 import { MainCreateCommentComponent } from "./create-comment-component";
 import { LoggedProfileCommentShower } from "./logged-users-comment-shower";
 import { NotLoggedProfileCommentShower } from "./not-logged-users-comment-shower";
@@ -14,7 +14,7 @@ export async function MainCommentsSection({
     current_user: AuthenticatorType;
     shikimori_id: number;
 }): Promise<JSX.Element> {
-    const all_comments = await fetchTheUserService<ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"]>(
+    const all_comments = await userServiceRequest<ResponseTypesFor_CommentForAnime_Section["get_all_for_anime"]>(
         endpointsConfig.commentAboutAnime.baseUrl +
             endpointsConfig.commentAboutAnime.allCommentsForAnime(String(shikimori_id)) +
             "?page=1&limit=20",

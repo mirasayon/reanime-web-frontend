@@ -16,7 +16,7 @@ import {
     deleteFromCompletedAnimeServerAction,
     deleteFromCurrentAnimeServerAction,
     deletePlannedAnimeServerAction,
-} from "#/actions/anime-bookmarks/planned-anime-server-actions";
+} from "#/actions/anime-bookmarks/anime-bookmarks-server-actions";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
 import type { ServerActionResponse } from "#T/integrator-main-types";

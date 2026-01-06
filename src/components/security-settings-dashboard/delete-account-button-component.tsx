@@ -20,7 +20,7 @@ export function DeleteAccountPermanentlyComponent() {
     const [pending, startTransition] = useTransition();
     const toaster = useToaster();
     const _router = useRouter();
-    async function deleteAvatarHandle() {
+    async function onSubmitHandle() {
         startTransition(async () => {
             return handleSaResponseForClient({
                 success: toaster.success,
@@ -38,7 +38,7 @@ export function DeleteAccountPermanentlyComponent() {
                 <AlertDialogTriggerShadCN className="cursor-pointer">Удалить аккаунт</AlertDialogTriggerShadCN>
             </div>
             <AlertDialogContentShadCN className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
-                <form action={deleteAvatarHandle} className=" grid p-2 m-2 ">
+                <form action={onSubmitHandle} className=" grid p-2 m-2 ">
                     <AlertDialogHeaderShadCN>
                         <AlertDialogTitleShadCN>Вы абсолютно уверены?</AlertDialogTitleShadCN>
                         <AlertDialogDescriptionShadCN>

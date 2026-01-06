@@ -1,5 +1,5 @@
 "use server";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { cookies } from "next/headers";
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
@@ -21,7 +21,7 @@ export async function registerNewUser_ServerAction(
         return { ok: false, errors: errorList };
     }
     const _cookies = await cookies();
-    const res = await fetchTheUserService<ResponseTypesForAuthentication["registration"]>(
+    const res = await userServiceRequest<ResponseTypesForAuthentication["registration"]>(
         endpointsConfig.authentication.baseUrl + endpointsConfig.authentication.registration,
         "POST",
         { jsonBody: parsed.data },

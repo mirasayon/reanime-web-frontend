@@ -4,13 +4,12 @@ import type { UserServiceHttpResponseBodyPatternType } from "#user-service/user-
 import { SESSION_TOKEN_NAME } from "#/configs/user-service-config";
 import { cookies as nextCookies } from "next/headers";
 import { headers as nextHeaders } from "next/headers";
-
 import { envClient } from "#/env/env-client";
 type RequestBodyType<B> = {
     jsonBody?: B;
     rawBody?: BodyInit;
 };
-export async function fetchTheUserService<T, B = { [key: string]: string }>(
+export async function userServiceRequest<T, B = { [key: string]: string }>(
     url: string,
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     body?: RequestBodyType<B>,
@@ -23,9 +22,9 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
         const ip = _header.get("x-forwarded-for");
         const agent = _header.get("user-agent");
         if (rawBody && jsonBody) {
-            throw new Error("`raw_body` and `json_body` must not exist at the same time");
+            throw new Error(`"rawBody" and "jsonBody" are mutually exclusive`);
         }
-        const full_url = envClient.userServiceUrl + "/v1" + url;
+        const fullUrl = envClient.userServiceUrl + "/v1" + url;
         const headers: HeadersInit = {
             ...(jsonBody ? { "Content-Type": "application/json" } : {}),
         };
@@ -39,7 +38,7 @@ export async function fetchTheUserService<T, B = { [key: string]: string }>(
             headers["x-forwarded-for"] = ip;
         }
         headers["x-api-key"] = envServer.userServiceApiKey;
-        const response = await fetch(full_url, {
+        const response = await fetch(fullUrl, {
             method: method,
             headers: headers,
             ...(jsonBody ? { body: JSON.stringify(jsonBody) } : {}),

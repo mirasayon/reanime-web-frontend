@@ -1,9 +1,9 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuLabel,
+    DropdownMenuShadCN,
+    DropdownMenuContentShadCN,
+    DropdownMenuLabelShadCN,
     DropdownMenuSeparator,
-    DropdownMenuTrigger,
+    DropdownMenuTriggerShadCN,
 } from "#/shadcn-ui/dropdown-menu";
 import { UpdateAvatarForm } from "../update-avatar-component";
 import { DeleteAvatarForm } from "../delete-avatar-component";
@@ -11,17 +11,17 @@ import { IoMenuSharp } from "react-icons/io5";
 import type { JSX } from "react";
 export function DropdownMenuForEditAvatar(): React.JSX.Element {
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger className="dark:bg-blue-950 bg-blue-300 rounded">
+        <DropdownMenuShadCN>
+            <DropdownMenuTriggerShadCN className="dark:bg-blue-950 bg-blue-300 rounded">
                 <div className="p-1 cursor-pointer flex flex-row justify-center items-center gap-3">
                     <IoMenuSharp />
                     Меню аватара
                 </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className=" dark:bg-slate-900 bg-blue-200 dark:text-blue-100 text-black">
-                <DropdownMenuLabel>
+            </DropdownMenuTriggerShadCN>
+            <DropdownMenuContentShadCN className=" dark:bg-slate-900 bg-blue-200 dark:text-blue-100 text-black">
+                <DropdownMenuLabelShadCN>
                     <span>Настройки аватара</span>
-                </DropdownMenuLabel>
+                </DropdownMenuLabelShadCN>
 
                 <DropdownMenuSeparator />
                 {/* <DropdownMenuItem
@@ -30,9 +30,9 @@ export function DropdownMenuForEditAvatar(): React.JSX.Element {
                         e.preventDefault();
                         }}
                         > */}
-                <DropdownMenuLabel>
+                <DropdownMenuLabelShadCN>
                     <span>Обновить аватар</span>
-                </DropdownMenuLabel>
+                </DropdownMenuLabelShadCN>
 
                 <UpdateAvatarForm />
                 {/* </DropdownMenuItem> */}
@@ -45,7 +45,7 @@ export function DropdownMenuForEditAvatar(): React.JSX.Element {
                         > */}
                 <DeleteAvatarForm />
                 {/* </DropdownMenuItem> */}
-            </DropdownMenuContent>
-        </DropdownMenu>
+            </DropdownMenuContentShadCN>
+        </DropdownMenuShadCN>
     );
 }

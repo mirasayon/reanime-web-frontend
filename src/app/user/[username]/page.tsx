@@ -1,7 +1,7 @@
 "use server";
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
-import { fetchTheUserService } from "#/integration/user-service/user-service-fetcher.integrator-util";
+import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { notFound } from "next/navigation";
 import { CommentsFromUserList } from "./inside-profile-ui/comments-by-one-user";
@@ -25,15 +25,15 @@ export default async function __User__Page({
     const _searchParams = await searchParams;
     const _params = await params;
     const _username = _params.username;
-    const auth = await sessionAuthenticator();
-    const base_profile_data = await fetchTheUserService<ResponseTypesFor_UserProfile_Section["view_other_profiles"]>(
+    const auth = await getAccountSession();
+    const base_profile_data = await userServiceRequest<ResponseTypesFor_UserProfile_Section["view_other_profiles"]>(
         endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.exploreOthersProfile(_username),
         "GET",
     );
     if (!base_profile_data || !base_profile_data.ok || !base_profile_data?.data) {
         return notFound();
     }
-    const all_comments_from_this_user = await fetchTheUserService<
+    const all_comments_from_this_user = await userServiceRequest<
         ResponseTypesFor_CommentForAnime_Section["all_for_public_profile"]
     >(
         endpointsConfig.commentAboutAnime.baseUrl +
@@ -44,7 +44,7 @@ export default async function __User__Page({
     if (!auth || auth?.username !== base_profile_data.data.username) {
         return <ShowOthersProfile data={base_profile_data.data} />;
     }
-    const my_profile_data = await fetchTheUserService<ResponseTypesFor_UserProfile_Section["view_my_profile"]>(
+    const my_profile_data = await userServiceRequest<ResponseTypesFor_UserProfile_Section["view_my_profile"]>(
         endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.viewMyProfile,
         "GET",
     );
@@ -53,7 +53,7 @@ export default async function __User__Page({
     }
     const loggedUser = my_profile_data.data;
 
-    const animeCollection = await fetchTheUserService<ResponseTypesFor_AnimeBookmark_Section["get_all_list"]>(
+    const animeCollection = await userServiceRequest<ResponseTypesFor_AnimeBookmark_Section["get_all_list"]>(
         endpointsConfig.animeBookmarks.baseUrl + endpointsConfig.animeBookmarks.getAllList,
         "GET",
     );

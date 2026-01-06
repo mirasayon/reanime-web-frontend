@@ -1,12 +1,12 @@
 "use server";
 import { UpdatePasswordFormComponent } from "#/components/security-settings-dashboard/update-password-component";
-import { sessionAuthenticator } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
 import { BORDER } from "#/styles/style-constants";
 import { redirect } from "next/navigation";
 import { BackToUserPageButtonComponent } from "../sessions/back-button-component";
 
 export default async function __UpdatePasswordPage() {
-    const auth = await sessionAuthenticator();
+    const auth = await getAccountSession();
     if (auth) {
         return (
             <div className={` ${BORDER} p-2 flex flex-col gap-2`}>
