@@ -4,7 +4,7 @@ import { handleSaResponseForClient } from "#/integration/utils/server-actions-re
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useTransition } from "react";
-import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "../../auth/get-account-session";
 import {
     addDislikeToCommentForm_ServerAction,
     addLikeToCommentForm_ServerAction,

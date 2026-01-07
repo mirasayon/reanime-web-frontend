@@ -10,7 +10,7 @@ type SessionsViewerProps = {
     session: ResponseTypesFor_Account_Section["get_sessions"][number];
     isCurrentSession: boolean;
 };
-export function SessionsViewerComponent({ isCurrentSession, session: s }: SessionsViewerProps) {
+export function SessionsListComponent({ isCurrentSession, session: s }: SessionsViewerProps) {
     const [pending, startTransition] = useTransition();
     const [hideIpAddress, setHideIpAddress] = useState(true);
     const toaster = useToaster();

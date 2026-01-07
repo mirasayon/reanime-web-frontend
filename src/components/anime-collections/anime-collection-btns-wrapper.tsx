@@ -1,5 +1,5 @@
 "use server";
-import type { AuthenticatorType } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "#/integration/user-service/auth/get-account-session";
 import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";

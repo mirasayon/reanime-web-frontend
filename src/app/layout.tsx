@@ -7,7 +7,7 @@ import { GlobalMainHeader } from "#/components/layout/global/global-main-header"
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { envClient } from "#/env/env-client";
 import { interFont } from "#/fonts/main-font.provider";
-import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
 import { rootLayoutMetadata } from "#/meta/root-layout.metadata";
 import layoutStyles from "#/styles/global/layout.module.css";

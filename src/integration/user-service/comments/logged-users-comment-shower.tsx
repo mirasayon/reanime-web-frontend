@@ -1,7 +1,7 @@
 "use client";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { useState } from "react";
-import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "../auth/get-account-session";
 import { MenuCommentComponent } from "./comment-menu-component";
 import { CommentTextAndRating } from "./components-primitives/just-show-comment-contents";
 import { JustShowMainDataAboutComment } from "./components-primitives/show-main-data-about-comment";

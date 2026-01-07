@@ -1,9 +1,9 @@
 "use server";
-import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { redirect } from "next/navigation";
-import { SessionsViewerComponent } from "./session-viewer-component";
+import { SessionsListComponent } from "./session-viewer-component";
 import { BackToUserPageButtonComponent } from "./back-button-component";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
@@ -31,9 +31,7 @@ export default async function __SettingSlashSessionsPage() {
                     <div className="flex flex-row flex-wrap gap-4">
                         {sessions.map((s) => {
                             const isCurrentSession = s.selector === auth.selector;
-                            return (
-                                <SessionsViewerComponent key={s.id} session={s} isCurrentSession={isCurrentSession} />
-                            );
+                            return <SessionsListComponent key={s.id} session={s} isCurrentSession={isCurrentSession} />;
                         })}
                     </div>
                 </div>

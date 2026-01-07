@@ -12,7 +12,7 @@ import { MainRelatedAnimesSection } from "#/components/animes/related_animes";
 import { GetRelatedAnimes } from "#/libs/shikimoript/get-related-animes";
 import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page";
 import { MainCommentsSection } from "#/integration/user-service/comments/main-comments-section";
-import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { AnimeCollectionBtnsWrapper } from "#/components/anime-collections/anime-collection-btns-wrapper";
 type __AnimeSeriesPageProps = {
     params: Promise<{ shikimori_id: string }>;

@@ -1,5 +1,5 @@
 "use server";
-import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { redirect } from "next/navigation";
 import { MainLoginComponent } from "./login-component";
 

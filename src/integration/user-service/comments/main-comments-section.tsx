@@ -1,7 +1,7 @@
 import { BORDER } from "#/styles/style-constants";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import type { JSX } from "react";
-import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "../auth/get-account-session";
 import { userServiceRequest } from "../user-service-fetcher.integrator-util";
 import { MainCreateCommentComponent } from "./create-comment-component";
 import { LoggedProfileCommentShower } from "./logged-users-comment-shower";

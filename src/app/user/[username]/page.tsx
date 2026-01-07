@@ -1,6 +1,6 @@
 "use server";
 import { SecuritySettingsDashboardComponent } from "#/components/security-settings-dashboard/security-settings-list-component";
-import { getAccountSession } from "#/integration/user-service/auth/cookie-authenticator.integrator";
+import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { userServiceRequest } from "#/integration/user-service/user-service-fetcher.integrator-util";
 import { BORDER } from "#/styles/style-constants";
 import { notFound } from "next/navigation";

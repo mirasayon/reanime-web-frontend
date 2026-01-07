@@ -12,13 +12,14 @@ type RequestBodyType<B> = {
 export async function userServiceRequest<T, B = { [key: string]: string }>(
     url: string,
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+
     body?: RequestBodyType<B>,
+    sessionToken?: string,
 ): Promise<UserServiceHttpResponseBodyPatternType<T>> {
     try {
         const { jsonBody, rawBody } = body || {};
         const _header = await nextHeaders();
-        const _cookie = await nextCookies();
-        const session_token = _cookie.get(SESSION_TOKEN_NAME)?.value;
+        const userSessionToken = sessionToken || (await nextCookies()).get(SESSION_TOKEN_NAME)?.value;
         const ip = _header.get("x-forwarded-for");
         const agent = _header.get("user-agent");
         if (rawBody && jsonBody) {
@@ -31,8 +32,8 @@ export async function userServiceRequest<T, B = { [key: string]: string }>(
         if (agent) {
             headers["user-agent"] = agent;
         }
-        if (session_token) {
-            headers["Authorization"] = `Bearer ${session_token}`;
+        if (userSessionToken) {
+            headers["Authorization"] = `Bearer ${userSessionToken}`;
         }
         if (ip) {
             headers["x-forwarded-for"] = ip;

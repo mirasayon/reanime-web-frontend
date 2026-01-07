@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
-import type { AuthenticatorType } from "../auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "../auth/get-account-session";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent, useState } from "react";

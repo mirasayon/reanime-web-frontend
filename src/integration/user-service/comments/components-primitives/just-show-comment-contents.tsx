@@ -1,5 +1,5 @@
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
-import type { AuthenticatorType } from "../../auth/cookie-authenticator.integrator";
+import type { AuthenticatorType } from "../../auth/get-account-session";
 import { ShowCommentRatingComponent } from "../ratings-of-comment/main-comment-rating-component";
 export function CommentTextAndRating({
     comment,

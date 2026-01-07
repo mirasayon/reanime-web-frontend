@@ -1,5 +1,5 @@
 import { NOT_LOGGED_ERROR_TEXT } from "#/constants/frequent-errors-from-client";
-import type { AuthenticatorType } from "./cookie-authenticator.integrator";
+import type { AuthenticatorType } from "./get-account-session";
 type authCurrentUserFindingWrapperForServerActionsUtilityRT =
     | {
           data: NonNullable<AuthenticatorType>;
