@@ -1,11 +1,15 @@
 import { FaClipboardList } from "react-icons/fa6";
 import { IoCheckmarkDoneCircleOutline, IoCheckmarkDoneCircleSharp, IoEyeSharp } from "react-icons/io5";
 import { RiDeleteBin4Fill, RiDeleteBinLine } from "react-icons/ri";
-
 export function AddPlannedBtnComponent({ state }: { state: "create" | "delete" }) {
     return (
         <>
-            <FaClipboardList color={state === "create" ? "silver" : "blue"} size={55} className="p-2" />
+            <FaClipboardList
+                color={state === "create" ? "silver" : "blue"}
+                size={55}
+                className="p-2 hidden dark:block "
+            />
+            <FaClipboardList color={state === "create" ? "black" : "blue"} size={55} className="p-2 dark:hidden " />
             <div className="pr-4">
                 {state === "create" ? "Добавить в запланированный список" : "Удалить из в запланированного списка"}
             </div>
@@ -49,11 +53,15 @@ export function AddToCurrentWatchingListBtnComponent({ state }: { state: "create
     return (
         <>
             <IoEyeSharp
-                color={state === "create" ? "silver" : "violet"}
+                color={state === "create" ? "silver" : "blue"}
                 size={60}
-                className={` p-3 ${state === "delete" && "animate-pulse"} `}
+                className={` p-3 ${state === "delete" && "animate-pulse"} hidden dark:block`}
+            />{" "}
+            <IoEyeSharp
+                color={state === "create" ? "black" : "blue"}
+                size={60}
+                className={` p-3 ${state === "delete" && "animate-pulse"}  dark:hidden`}
             />
-
             <div className="pr-4">
                 {state === "create" ? "Добавить в текущий список просмотра" : "Удалить из текущего списка просмотра"}
             </div>
