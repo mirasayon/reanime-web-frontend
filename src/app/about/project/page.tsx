@@ -11,31 +11,19 @@ export default function __AboutPage() {
         <main className="m-5 py-10 px-6 sm:px-4 lg:px-24 bg-blue-100 dark:bg-slate-900 transition-colors">
             <div className="max-w-5xl mx-auto">
                 <header className="mb-4">
-                    <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
-                        О проекте — reanime.art
-                    </h1>
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">О проекте — reanime.art</h1>
                 </header>
 
                 <section className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed">
                     <p>
-                        <strong>reanime.art</strong> — Open Source проект. Весь код хранится на GitHub в публичных
-                        репозиториях. Изначально он создавался как учебный и экспериментальный, но со временем был
-                        развёрнут в продакшене и продолжает развиваться.
+                        <strong>reanime.art</strong> — Open Source проект. Весь код хранится на GitHub. Изначально он
+                        создавался как учебный и экспериментальный, но со временем был развёрнут в продакшене и
+                        продолжает развиваться.
                     </p>
 
                     <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-4 bg-slate-100 dark:bg-transparent">
-                        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Где найти код</h2>
+                        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Где найти код</h2>
                         <ul className="space-y-2 list-disc list-inside text-slate-700 dark:text-slate-300">
-                            <li>
-                                <a
-                                    href={websiteConstants.developer_github}
-                                    className="underline hover:text-blue-500"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Мой аккаунт GitHub
-                                </a>
-                            </li>
                             <li>
                                 <a
                                     href={FRONTEND_REPO_URL}
@@ -43,7 +31,7 @@ export default function __AboutPage() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Фронтенд (этот репозиторий)
+                                    Фронтенд
                                 </a>
                             </li>
                             <li>
@@ -53,71 +41,50 @@ export default function __AboutPage() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Бэкенд / Сервисы
+                                    Бэкенд
                                 </a>
                             </li>
                         </ul>
                     </div>
 
                     <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-4 bg-slate-100 dark:bg-transparent">
-                        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">
-                            Поддержка проекта
+                        <h2 className="text-slate-700 dark:text-slate-300 font-semibold">
+                            Буду очень благодарен за любую поддержку, в разработке и финансово
                         </h2>
-                        <p className="text-slate-700 dark:text-slate-300">
-                            Буду очень благодарен за любую поддержку — в разработке (issues, pull requests, идеи) и
-                            финансово. Это помогает окупать хостинг и домен.
-                        </p>
 
-                        <ul className="mt-3 space-y-2 text-slate-700 dark:text-slate-300 list-disc list-inside">
-                            <li>
-                                <strong>Код:</strong> открывайте issues или присылайте PR'ы в репозитории.
-                            </li>
-                            <ul className="mt-2 ml-4 space-y-1 list-disc list-inside">
-                                <details className="mt-4 group">
-                                    <summary className="cursor-pointer select-none font-medium text-slate-900 dark:text-slate-100">
-                                        Поддержать проект
-                                    </summary>{" "}
-                                    <p className="text-sm">
-                                        Если проект оказался полезным — вы можете поддержать его любым удобным способом:
-                                    </p>
-                                    <div>
-                                        <video autoPlay muted playsInline className="w-80 p-2">
-                                            <source
-                                                src="/_assets/pages/donation/naruto-thanks-you.mp4"
-                                                type="video/mp4"
-                                            />
-                                        </video>
-                                    </div>
-                                    <div className="mt-3 ml-4 space-y-2 text-slate-700 dark:text-slate-300">
-                                        <ul className="list-disc list-inside space-y-1">
-                                            {DONATE_URLS.map((d) => (
-                                                <li key={d.url}>
-                                                    <a
-                                                        href={d.url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="underline hover:text-blue-500"
-                                                    >
-                                                        {d.label}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </details>
-                            </ul>
-                        </ul>
+                        <div className="mt-3 space-y-2 text-slate-700 dark:text-slate-300">
+                            <p>
+                                <strong>В разработке:</strong> открывайте issues или присылайте PR'ы в репозитории.
+                            </p>
+                            <details className="mt-4 ">
+                                <summary className="cursor-pointer select-none font-medium text-slate-900 dark:text-slate-100">
+                                    Финансово: можете поддержать его любым удобным способом:
+                                </summary>
+
+                                <video autoPlay muted playsInline className="w-80 p-2">
+                                    <source src="/_assets/pages/donation/naruto-thanks-you.mp4" type="video/mp4" />
+                                </video>
+                                <div className="mt-3 ml-4 space-y-2 text-slate-700 dark:text-slate-300">
+                                    <ul className="list-disc list-inside space-y-1">
+                                        {DONATE_URLS.map((d) => (
+                                            <li key={d.url}>
+                                                <a
+                                                    href={d.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="underline hover:text-blue-500"
+                                                >
+                                                    {d.label}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
                     </div>
-
-                    <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-4 bg-slate-100 dark:bg-transparent">
-                        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Лицензия</h2>
-                        <p className="text-slate-700 dark:text-slate-300">
-                            Проект открыт под лицензией <strong>MIT</strong>
-                        </p>
-                    </div>
-
                     <div className="mt-6 text-slate-700 dark:text-slate-300">
-                        <p>Спасибо за внимание — если хотите, помогите сделать проект лучше💜</p>
+                        <p>Спасибо за внимание и поддержку💜</p>
                     </div>
                 </section>
             </div>
