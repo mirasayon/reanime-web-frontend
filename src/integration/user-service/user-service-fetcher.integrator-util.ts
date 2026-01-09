@@ -21,6 +21,9 @@ export async function userServiceRequest<T, B = { [key: string]: string }>(
         const _header = await nextHeaders();
         const userSessionToken = sessionToken || (await nextCookies()).get(SESSION_TOKEN_NAME)?.value;
         const ip = _header.get("x-forwarded-for");
+        if (!ip) {
+            throw new Error("No IP");
+        }
         const agent = _header.get("user-agent");
         if (rawBody && jsonBody) {
             throw new Error(`"rawBody" and "jsonBody" are mutually exclusive`);
@@ -30,14 +33,12 @@ export async function userServiceRequest<T, B = { [key: string]: string }>(
             ...(jsonBody ? { "Content-Type": "application/json" } : {}),
         };
         if (agent) {
-            headers["user-agent"] = agent;
+            headers["x-user-agent"] = agent;
         }
         if (userSessionToken) {
             headers["Authorization"] = `Bearer ${userSessionToken}`;
         }
-        if (ip) {
-            headers["x-forwarded-for"] = ip;
-        }
+        headers["x-user-ip"] = ip;
         headers["x-api-key"] = envServer.userServiceApiKey;
         const response = await fetch(fullUrl, {
             method: method,
