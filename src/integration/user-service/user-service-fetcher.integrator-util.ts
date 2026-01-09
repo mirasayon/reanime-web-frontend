@@ -45,7 +45,7 @@ export async function userServiceRequest<T, B = { [key: string]: string }>(
             headers: headers,
             ...(jsonBody ? { body: JSON.stringify(jsonBody) } : {}),
             ...(rawBody ? { body: rawBody } : {}),
-            cache: "no-cache",
+            cache: "no-store",
         });
         return (await response.json()) as UserServiceHttpResponseBodyPatternType<T>;
     } catch (error) {
