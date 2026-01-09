@@ -25,7 +25,11 @@ export default async function __RootLayout({ children }: LayoutProps): Promise<R
             <body className={`${interFont.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
-                        <GlobalMainHeader username={auth?.username} />
+                        <GlobalMainHeader
+                            avatar={auth?.avatar || null}
+                            logged={!!auth?.selector}
+                            username={auth?.username || null}
+                        />
                         {children}
                         <Layout_Footer />
                         <CookieConsentBanner />

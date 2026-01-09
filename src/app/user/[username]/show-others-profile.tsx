@@ -9,7 +9,7 @@ export function ShowOthersProfile({ data }: Props): React.JSX.Element {
     return (
         <>
             <h1 className="p-3 text-center">Профиль пользователя</h1>
-            <OnlyShowOthersAvatar username={data.username} />
+            <OnlyShowOthersAvatar avatar={data.avatar} />
             <OthersProfileComponent data={data} />
         </>
     );

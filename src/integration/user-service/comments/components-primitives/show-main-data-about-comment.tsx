@@ -1,4 +1,4 @@
-import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
+import { makeAvatarFullUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 import { calculateAndShowTimeAgo } from "#/utils/time-ago";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export function JustShowMainDataAboutComment({
         <>
             <Link className="flex items-center" href={`/user/${comment.username}`}>
                 <img
-                    src={viewAvatarByUsernameUrl(comment.username)}
+                    src={makeAvatarFullUrl(comment.avatar)}
                     alt="user avatar"
                     className="rounded-full object-cover w-[50px] h-[50px]"
                 />

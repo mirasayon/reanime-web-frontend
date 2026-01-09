@@ -37,7 +37,7 @@ export default async function __User__Page({
         ResponseTypesFor_CommentForAnime_Section["all_for_public_profile"]
     >(
         endpointsConfig.commentAboutAnime.baseUrl +
-            endpointsConfig.commentAboutAnime.getAllCommentsFromAnyProfile(_username) +
+            endpointsConfig.commentAboutAnime.getAllCommentsFromProfile(_username) +
             "?page=1&limit=100",
         "GET",
     );

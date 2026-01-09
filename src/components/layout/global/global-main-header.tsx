@@ -2,12 +2,20 @@
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
 import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
 import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
+import type { AvatarFSType } from "#/components/utilities/common/view-avatar-by-username-url";
 import { websiteConstants } from "#/configs/website-constants";
-import { DropdownMenuShadCN } from "#/shadcn-ui/dropdown-menu";
 import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 
-export function GlobalMainHeader({ username }: { username?: string }) {
+export function GlobalMainHeader({
+    avatar,
+    logged,
+    username,
+}: {
+    avatar: AvatarFSType;
+    logged: boolean;
+    username: string | null;
+}) {
     return (
         <div className=" flex flex-col">
             <header className={`flex flex-wrap justify-between ${BORDER} `} id="home">
@@ -23,7 +31,7 @@ export function GlobalMainHeader({ username }: { username?: string }) {
                     <UI_Menu />
                 </div>
 
-                <MainDropdownMenuInHeader username={username} />
+                <MainDropdownMenuInHeader avatar={avatar} logged={logged} username={username} />
             </header>
         </div>
     );

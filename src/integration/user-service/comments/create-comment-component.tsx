@@ -6,7 +6,7 @@ import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-b
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent, useState } from "react";
 import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
-import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
+import { makeAvatarFullUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 export function MainCreateCommentComponent({
     profile,
     animeId,
@@ -46,7 +46,7 @@ export function MainCreateCommentComponent({
         >
             <Link href={`/user/${profile.username}`} className="flex p-2 flex-row items-center justify-between">
                 <img
-                    src={viewAvatarByUsernameUrl(profile.username)}
+                    src={makeAvatarFullUrl(profile.avatar)}
                     alt={profile.username + " avatar"}
                     className="rounded-full object-cover w-[40px] h-[40px]"
                 />

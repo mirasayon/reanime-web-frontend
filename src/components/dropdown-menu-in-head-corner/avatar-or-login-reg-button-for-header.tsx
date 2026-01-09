@@ -1,11 +1,9 @@
 import { CgProfile } from "react-icons/cg";
-import { viewAvatarByUsernameUrl } from "../utilities/common/view-avatar-by-username-url";
-type Props = {
-    username?: string;
-};
-export function AvatarOrLoginRegButtonForHeader({ username }: Props) {
-    return username ? (
-        <img className="  w-10 h-10 rounded-full" src={viewAvatarByUsernameUrl(username)} />
+import { makeAvatarFullUrl, type AvatarFSType } from "../utilities/common/view-avatar-by-username-url";
+
+export function AvatarOrLoginRegButtonForHeader({ avatar, logged }: { avatar: AvatarFSType; logged: boolean }) {
+    return logged ? (
+        <img className="  w-10 h-10 rounded-full" src={makeAvatarFullUrl(avatar)} />
     ) : (
         <CgProfile size={40} />
     );

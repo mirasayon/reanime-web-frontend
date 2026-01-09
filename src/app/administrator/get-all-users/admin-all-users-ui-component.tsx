@@ -7,7 +7,7 @@ export type MainUserListShowerProps = {
 };
 import { useState } from "react";
 import type { ResponseTypesForAdministratorSection } from "#user-service/user-service-response-types-for-all.routes.ts";
-import { viewAvatarByUsernameUrl } from "#/components/utilities/common/view-avatar-by-username-url";
+import { makeAvatarFullUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 type UserType = ResponseTypesForAdministratorSection["get_all_users"][number];
 
 const STYLES = {
@@ -177,7 +177,7 @@ export function MainUserListComponent({
                                 <div className="flex items-center gap-3">
                                     <JustAvatarCircleComponent
                                         altTitle={u.username + " avatar"}
-                                        avatarUrl={viewAvatarByUsernameUrl(u.username)}
+                                        avatarUrl={makeAvatarFullUrl(u.avatar)}
                                     />
                                     <div className="flex flex-col">
                                         <Linker

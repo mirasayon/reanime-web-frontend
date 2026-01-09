@@ -91,8 +91,11 @@ export interface ResponseTypesForAuthentication {
         username: string;
         nickname: string | null;
         email: string | null;
-        avatar_url: string | null;
         selector: string;
+        avatar: {
+            path_dirname: string;
+            path_filename: string;
+        } | null;
     };
     /** `true` - если успех, `false` : если ошибка */
     logout: boolean;
