@@ -10,6 +10,7 @@ export function makeAvatarFullUrl(avatar: AvatarFSType) {
         "/v1" +
         endpointsConfig.media.baseUrl +
         endpointsConfig.media.viewAvatarByFs +
+        "/" +
         avatar.path_dirname +
         "/" +
         avatar.path_filename +
