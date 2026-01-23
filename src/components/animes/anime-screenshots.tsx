@@ -7,14 +7,14 @@ const COOKIE_NAME = "anime_screenshots_disabled";
 type Props = { screenshots: string[]; title_of_anime: string };
 export function AnimesScreenshotsComponent({ title_of_anime, screenshots }: Props) {
     const cookieValue = getCookie(COOKIE_NAME);
-    const disabled = cookieValue === "1" ? false : true;
+    const disabled = cookieValue === "1" ? true : false;
     return (
         <div className={"p-4 " + BORDER}>
             <button
                 onClick={(event) => {
                     event.preventDefault();
-                    setCookie(COOKIE_NAME, disabled ? "1" : "0", {
-                        maxAge: 31_536_000_000,
+                    setCookie(COOKIE_NAME, disabled ? "0" : "1", {
+                        maxAge: 31536000,
                         path: "/",
                         httpOnly: false,
                         secure: false,
