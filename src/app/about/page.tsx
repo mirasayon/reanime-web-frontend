@@ -1,4 +1,3 @@
-import { websiteConstants } from "#/configs/website-constants";
 const FRONTEND_REPO_URL = "https://github.com/mirasayon/reanime-web-frontend";
 const BACKEND_REPO_URL = "https://github.com/mirasayon/reanime-user-service";
 const DONATE_URLS = [
