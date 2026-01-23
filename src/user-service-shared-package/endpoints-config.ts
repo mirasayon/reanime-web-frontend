@@ -21,7 +21,8 @@ export const endpointsConfig = {
         updateUsername: <T extends string>(username: T) => `/update/username-to/${username}` as const,
         allSessions: "/get/all-sessions",
         terminateOtherSessions: "/sessions/terminate-other-sessions",
-        terminateSpecificSession: <T extends string>(sessionId: T) => `/sessions/terminate-specific-session/${sessionId}` as const,
+        terminateSpecificSession: <T extends string>(sessionId: T) =>
+            `/sessions/terminate-specific-session/${sessionId}` as const,
         deleteAccount: "/delete-account",
     },
     userProfile: {
@@ -35,7 +36,8 @@ export const endpointsConfig = {
         baseUrl: "/comment-about-anime",
         allCommentsForAnime: <T extends string>(animeId: T) => `/get/all-comments-for-anime/${animeId}` as const,
         getAllMyComments: "/get/all-my-comments",
-        getAllCommentsFromProfile: <T extends string>(username: T) => `/get/all-for-public-profile/${username}` as const,
+        getAllCommentsFromProfile: <T extends string>(username: T) =>
+            `/get/all-for-public-profile/${username}` as const,
         createComment: <T extends string>(animeId: T) => `/create/${animeId}` as const,
         updateComment: <T extends string>(commentId: T) => `/update/${commentId}` as const,
         deleteComment: <T extends string>(commentId: T) => `/delete/${commentId}` as const,

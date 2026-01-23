@@ -1,42 +1,51 @@
 "use client";
 import { BORDER } from "#/styles/style-constants";
-import { useState } from "react";
-type ShowAnimesScreenshotsComponentProps = { screenshots: string[]; title_of_anime: string };
-export function ShowAnimesScreenshotsComponent({ title_of_anime, screenshots }: ShowAnimesScreenshotsComponentProps) {
-    const [is_extended, set_is_extended] = useState(false);
-    const img_height = 360 / 1.5; //240 // 720 / 2;
-    const img_width = 640 / 1.5; // 1280 / 2;
+import { getCookie, setCookie } from "cookies-next/client";
+const imgHeight = 360 / 1.5;
+const imgWidth = 640 / 1.5;
+const COOKIE_NAME = "anime_screenshots_disabled";
+type Props = { screenshots: string[]; title_of_anime: string };
+export function AnimesScreenshotsComponent({ title_of_anime, screenshots }: Props) {
+    const cookieValue = getCookie(COOKIE_NAME);
+    const disabled = cookieValue === "1" ? false : true;
     return (
-        <div className={`p-2 ${BORDER} flex flex-col justify-center items-center`}>
-            <div>
-                <span className="text-lg px-3">Скриншоты</span>
-                <button
-                    type="button"
-                    className="p-2 cursor-pointer bg-blue-500/50"
-                    onClick={(e) => {
-                        set_is_extended((s) => !s);
-                    }}
-                >
-                    {!is_extended ? "Раскрыть" : "Скрыть"}
-                </button>
-            </div>
-            <div
-                className={`flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400 ${is_extended ? "h-max" : "h-0"}`}
+        <div className={"p-4 " + BORDER}>
+            <button
+                onClick={(event) => {
+                    event.preventDefault();
+                    setCookie(COOKIE_NAME, disabled ? "1" : "0", {
+                        maxAge: 31_536_000_000,
+                        path: "/",
+                        httpOnly: false,
+                        secure: false,
+                    });
+                    window?.location?.reload?.();
+                }}
+                type="button"
+                className={"cursor-pointer hover:underline text-slate-500/80"}
             >
-                {screenshots.map((img_url, ind) => {
-                    const alt_string: string = `кадры от ${title_of_anime}, N-${ind + 1}`;
-                    return (
-                        <img
-                            className="p-2 object-contain"
-                            height={img_height}
-                            key={img_url}
-                            width={img_width}
-                            src={img_url}
-                            alt={alt_string}
-                        />
-                    );
-                })}
-            </div>
+                {disabled
+                    ? "Нажмите, чтобы видеть скриншоты всегда автоматически"
+                    : "Нажмите, чтобы отключить автоматический показ скриншотов"}
+            </button>
+            <details open={!disabled}>
+                <summary className="cursor-pointer select-none text-slate-900 dark:text-slate-100">Скриншоты</summary>
+
+                <div className={"flex flex-wrap overflow-hidden scrollbar   ease-in-out duration-400"}>
+                    {screenshots.map((imgUrl, ind) => {
+                        return (
+                            <img
+                                className="p-2 object-contain"
+                                height={imgHeight}
+                                key={imgUrl}
+                                width={imgWidth}
+                                src={imgUrl}
+                                alt={`Скриншот от ${title_of_anime}, N-${ind + 1}`}
+                            />
+                        );
+                    })}
+                </div>
+            </details>
         </div>
     );
 }

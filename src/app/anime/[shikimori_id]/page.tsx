@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AnimeDescription } from "#/components/anime_page/anime-description";
-import { ShowAnimesScreenshotsComponent } from "#/components/animes/anime-screenshots";
+import { AnimesScreenshotsComponent } from "#/components/animes/anime-screenshots";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
@@ -36,7 +36,7 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
             <AnimeCollectionBtnsWrapper animeId={animeId} auth={auth} />
             <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
-            <ShowAnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
+            <AnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
             <MainRelatedAnimesSection related={await GetRelatedAnimes(animeId)} />
             <MainCommentsSection shikimori_id={animeId} current_user={auth} />
         </>
