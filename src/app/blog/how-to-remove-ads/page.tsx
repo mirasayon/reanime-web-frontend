@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export default function __HowToRemoveAds() {
     return (
-        <main className={`${BORDER} p-6 max-w-6xl mx-auto bg-white/60 dark:bg-slate-900/50 shadow-sm`}>
+        <main className={`${BORDER} p-2 max-w-6xl bg-white/60 dark:bg-slate-900/50 shadow-sm`}>
             <h1 className="text-2xl font-semibold mb-2 text-slate-900 dark:text-slate-100">
                 Как отключить рекламу в плеере
             </h1>
