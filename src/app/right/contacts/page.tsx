@@ -8,14 +8,14 @@ export default function __Contacts_page() {
         <div className={`${BORDER} h-80`}>
             <div className="p-5 flex  flex-col gap-2">
                 <h1 className="text-xl">Контакты:</h1>
-                <span>
-                    По вопросам сотрудничества или связь с администрацией сайта:{" "}
+                <span className="mt-3">
+                    Связь с администрацией сайта:{" "}
                     <Linker linkType="email" href={websiteConstants.mail}>
                         {websiteConstants.mail}
                     </Linker>
                 </span>
-                <span>
-                    Для поддержки пользователей или сообщению об ошибках (контакт разработчика):{" "}
+                <span className="mt-3">
+                    Для поддержки пользователей (контакт разработчика):{" "}
                     <Linker linkType="email" href={`${websiteConstants.devs_mail}`}>
                         {websiteConstants.devs_mail}
                     </Linker>

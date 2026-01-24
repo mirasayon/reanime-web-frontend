@@ -2,7 +2,7 @@ import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
 import { REANIME_BIRTH_YEAR, THIS_YEAR } from "#/constants/common.constants";
 import { BORDER } from "#/styles/style-constants";
-export function LayoutFooter() {
+export function LayoutFooter({ logged }: { logged: boolean }) {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col ${BORDER} `}>
@@ -14,11 +14,15 @@ export function LayoutFooter() {
                     </span>
                     <Linker href={"/right/terms"}>Соглашение</Linker>
                     <Linker href={"/right/privacy"}>Конфиденциальность</Linker>
-                    <Linker href={"/right/contacts"}>Контакты и поддержка</Linker>
-                    <Linker href={"/about"}>О проекте</Linker>
+                    <Linker href={"/right/contacts"}>Контакты</Linker>
                     <Linker href={BUG_REPORT_FORM_LINK}>Сообщить о баге</Linker>
 
-                    <Linker href={"/blog/how-to-remove-ads"}>О рекламе в плеере</Linker>
+                    {logged && (
+                        <>
+                            <Linker href={"/about"}>О проекте</Linker>
+                            <Linker href={"/blog/how-to-remove-ads"}>О рекламе в плеере</Linker>
+                        </>
+                    )}
                 </div>
                 <div className="m-1 grid">
                     <div className=" bg-slate-500/30 h-px m-1" />

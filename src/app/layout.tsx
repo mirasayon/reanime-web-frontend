@@ -31,7 +31,7 @@ export default async function __RootLayout({ children }: LayoutProps): Promise<R
                             username={auth?.username || null}
                         />
                         {children}
-                        <LayoutFooter />
+                        <LayoutFooter logged={!!auth?.selector} />
                         <CookieConsentBanner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>
