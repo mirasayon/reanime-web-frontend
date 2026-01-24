@@ -23,6 +23,7 @@ export function DisableAdsHintComponent() {
                         path: "/",
                         httpOnly: false,
                         secure: false,
+                        sameSite: "lax",
                     });
                     setHidden(true);
                 }}
