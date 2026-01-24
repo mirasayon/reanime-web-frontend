@@ -21,8 +21,8 @@ export function DisableAdsHintComponent() {
                     setCookie(COOKIE_NAME, "1", {
                         maxAge: COOKIE_MAX_AGE,
                         path: "/",
-                        secure: true,
-                        sameSite: "lax",
+                        httpOnly: false,
+                        secure: false,
                     });
                     setHidden(true);
                 }}
