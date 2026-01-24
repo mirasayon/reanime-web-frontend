@@ -1,3 +1,5 @@
+import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
+
 const FRONTEND_REPO_URL = "https://github.com/mirasayon/reanime-web-frontend";
 const BACKEND_REPO_URL = "https://github.com/mirasayon/reanime-user-service";
 const DONATE_URLS = [
@@ -15,7 +17,7 @@ export default function __AboutPage() {
 
                 <section className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed">
                     <p>
-                        <strong>reanime.art</strong> — Open Source проект. Весь код хранится на GitHub. Изначально он
+                        <strong>reanime.art</strong> — Open Source проект. Весь код хранится на GitHub. Изначально
                         создавался как учебный и экспериментальный, но со временем был развёрнут в продакшене и
                         продолжает развиваться.
                     </p>
@@ -85,6 +87,7 @@ export default function __AboutPage() {
                     <div className="mt-6 text-slate-700 dark:text-slate-300">
                         <p>Спасибо за внимание и поддержку💜</p>
                     </div>
+                    <AbuseIpDbContributorInfoBadge />
                 </section>
             </div>
         </main>

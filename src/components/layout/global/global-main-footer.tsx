@@ -1,9 +1,8 @@
-import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
 import { REANIME_BIRTH_YEAR, THIS_YEAR } from "#/constants/common.constants";
 import { BORDER } from "#/styles/style-constants";
-const style = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
+const LINK = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
 
 export function Layout_Footer() {
     return (
@@ -15,20 +14,24 @@ export function Layout_Footer() {
                             &copy; {REANIME_BIRTH_YEAR} - {THIS_YEAR} {websiteConstants.public_domain}
                         </span>
                     </span>
-                    <Linker className={style} href={"/right/terms"}>
+                    <Linker className={LINK} href={"/right/terms"}>
                         Соглашение
                     </Linker>
-                    <Linker className={style} href={"/right/privacy"}>
+                    <Linker className={LINK} href={"/right/privacy"}>
                         Конфиденциальность
                     </Linker>
-                    <Linker className={style} href={"/right/contacts"}>
+                    <Linker className={LINK} href={"/right/contacts"}>
                         Контакты и поддержка
                     </Linker>
-                    <Linker className={style} href={"/about"}>
+                    <Linker className={LINK} href={"/about"}>
                         О проекте
                     </Linker>
-                    <Linker href={BUG_REPORT_FORM_LINK} className={style}>
+                    <Linker href={BUG_REPORT_FORM_LINK} className={LINK}>
                         Сообщить о баге
+                    </Linker>
+
+                    <Linker href={"/blog/how-to-remove-ads"} className={LINK}>
+                        О рекламе в плеере
                     </Linker>
                 </div>
                 <div className="m-1 grid">
@@ -40,7 +43,6 @@ export function Layout_Footer() {
                         источников. Приятного просмотра аниме:3
                     </span>
                 </div>
-                <AbuseIpDbContributorInfoBadge />
             </div>
         </footer>
     );
