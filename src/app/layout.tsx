@@ -2,8 +2,8 @@ import { Google_Analytics, Google_TagManager } from "#/components/analytics/goog
 import { YandexMetrikaAnalytics } from "#/components/analytics/yandex_metrika";
 import { JotaiMainProvider } from "#/components/layout/atoms-toasts-components/jotai-main-provider";
 import { CookieConsentBanner } from "#/components/layout/cookie_consent-button";
-import { Layout_Footer } from "#/components/layout/global/global-main-footer";
-import { GlobalMainHeader } from "#/components/layout/global/global-main-header";
+import { LayoutFooter } from "#/components/layout/global/layout-footer";
+import { LayoutHeader } from "#/components/layout/global/layout-header";
 import { ThemeProviderCustom } from "#/components/themes/provider.themes";
 import { envClient } from "#/env/env-client";
 import { interFont } from "#/fonts/main-font.provider";
@@ -25,13 +25,13 @@ export default async function __RootLayout({ children }: LayoutProps): Promise<R
             <body className={`${interFont.className} ${layoutStyles.rootWeb}   `}>
                 <ThemeProviderCustom>
                     <JotaiMainProvider>
-                        <GlobalMainHeader
+                        <LayoutHeader
                             avatar={auth?.avatar || null}
                             logged={!!auth?.selector}
                             username={auth?.username || null}
                         />
                         {children}
-                        <Layout_Footer />
+                        <LayoutFooter />
                         <CookieConsentBanner />
                     </JotaiMainProvider>
                 </ThemeProviderCustom>

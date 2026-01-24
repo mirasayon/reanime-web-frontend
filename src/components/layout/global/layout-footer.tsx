@@ -2,37 +2,23 @@ import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { BUG_REPORT_FORM_LINK, websiteConstants } from "#/configs/website-constants";
 import { REANIME_BIRTH_YEAR, THIS_YEAR } from "#/constants/common.constants";
 import { BORDER } from "#/styles/style-constants";
-const LINK = "p-1 dark:hover:bg-violet-500/10 hover:bg-blue-300/40  ";
-
-export function Layout_Footer() {
+export function LayoutFooter() {
     return (
         <footer className={"dark:bg-transparent bg-blue-400/10"}>
             <div className={`flex flex-col ${BORDER} `}>
-                <div className="flex flex-wrap p-2 flex-row justify-between">
+                <div className="flex flex-wrap gap-1 p-2 flex-row justify-between">
                     <span className="m-1  flex  flex-row justify-between w-full">
                         <span>
                             &copy; {REANIME_BIRTH_YEAR} - {THIS_YEAR} {websiteConstants.public_domain}
                         </span>
                     </span>
-                    <Linker className={LINK} href={"/right/terms"}>
-                        Соглашение
-                    </Linker>
-                    <Linker className={LINK} href={"/right/privacy"}>
-                        Конфиденциальность
-                    </Linker>
-                    <Linker className={LINK} href={"/right/contacts"}>
-                        Контакты и поддержка
-                    </Linker>
-                    <Linker className={LINK} href={"/about"}>
-                        О проекте
-                    </Linker>
-                    <Linker href={BUG_REPORT_FORM_LINK} className={LINK}>
-                        Сообщить о баге
-                    </Linker>
+                    <Linker href={"/right/terms"}>Соглашение</Linker>
+                    <Linker href={"/right/privacy"}>Конфиденциальность</Linker>
+                    <Linker href={"/right/contacts"}>Контакты и поддержка</Linker>
+                    <Linker href={"/about"}>О проекте</Linker>
+                    <Linker href={BUG_REPORT_FORM_LINK}>Сообщить о баге</Linker>
 
-                    <Linker href={"/blog/how-to-remove-ads"} className={LINK}>
-                        О рекламе в плеере
-                    </Linker>
+                    <Linker href={"/blog/how-to-remove-ads"}>О рекламе в плеере</Linker>
                 </div>
                 <div className="m-1 grid">
                     <div className=" bg-slate-500/30 h-px m-1" />

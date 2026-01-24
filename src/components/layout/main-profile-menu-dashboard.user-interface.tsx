@@ -1,5 +1,5 @@
 "use client";
-import { type JSX, useState } from "react";
+import { useState } from "react";
 import { SwitchThemesButtonComponent } from "../themes/switch_themes";
 import { MdCancelPresentation } from "react-icons/md";
 import { Palette } from "lucide-react";

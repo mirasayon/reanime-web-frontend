@@ -6,10 +6,12 @@ export function Linker({
     className,
     target,
     rel,
+    noUnderlineOnHover = false,
     clearTheDefaultStylings = false,
 }: {
     className?: string | undefined;
     rel?: string;
+    noUnderlineOnHover?: boolean;
     clearTheDefaultStylings?: boolean;
     children: React.ReactNode;
     target?: string;
@@ -26,7 +28,7 @@ export function Linker({
             rel={rel}
             className={
                 !clearTheDefaultStylings
-                    ? `   dark:text-blue-400 dark:hover:text-blue-500  text-blue-800 hover:text-blue-900 ${
+                    ? ` ${!noUnderlineOnHover && "hover:underline"}  dark:text-blue-400 dark:hover:text-blue-500  text-blue-800 hover:text-blue-900 ${
                           className || ""
                       }`
                     : className || ""

@@ -7,7 +7,7 @@ import { websiteConstants } from "#/configs/website-constants";
 import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
 
-export function GlobalMainHeader({
+export function LayoutHeader({
     avatar,
     logged,
     username,
