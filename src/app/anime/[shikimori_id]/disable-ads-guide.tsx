@@ -3,16 +3,17 @@ import { Linker } from "#/components/utilities/common/linker-utility-component";
 import { getCookie, setCookie } from "cookies-next/client";
 const COOKIE_NAME = "remove_ads_guide_link_disabled";
 export function DisableAdsGuideComponent() {
-    const cookieValue = getCookie(COOKIE_NAME);
+    const disabled = getCookie(COOKIE_NAME) === "1";
     return (
-        <div className={" text-slate-500 py-3 flex flex-row"} hidden={!!cookieValue}>
+        <div className="text-slate-500 flex flex-row" hidden={disabled}>
             <span>
-                Чтобы отключить рекламу установите любое расширение браузера, который блокирует JavaScript, и оставьте
-                JS включенным только для этого сайта и самого плеера (то есть только для: kodik.info и reanime.art).
+                Рекламу можно отключить — просто установите расширение для блокировки JavaScript и разрешите JS только
+                для reanime.art и плеера.
                 <Linker href="/blog/how-to-remove-ads" linkType="internal" className="px-1 hover:underline">
-                    Подробнее🔗
+                    Подробнее
                 </Linker>
             </span>
+
             <button
                 onClick={(event) => {
                     event.preventDefault();
@@ -25,7 +26,7 @@ export function DisableAdsGuideComponent() {
                     window?.location?.reload?.();
                 }}
                 type="button"
-                className={"cursor-pointer hover:underline font-mono font-black p-2 text-xl"}
+                className={"cursor-pointer hover:underline font-mono font-black mb-3 text-2xl"}
             >
                 {"x"}
             </button>
