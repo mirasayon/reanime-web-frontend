@@ -10,7 +10,7 @@
         "build:test": "node ./scripts/remove-build.ts && node --env-file=.env.test ./src/scripts/check-env.ts && dotenv -e .env.test -- next build",
         "start:test": "dotenv -e .env.test -- next start --port 2641 --hostname 192.168.0.105",
         "start:dev": "dotenv -e .env.development -- next start --port 3641 --hostname 192.168.0.105",
-        "format": "prettier --write src",
+        "format": "prettier --ignore-unknown --write .",
         "format:dev": "onchange \"./src\" -- prettier ./src --write --ignore-unknown {{changed}}",
         "type:watch": "tsc --watch --noEmit --project ./tsconfig.json",
         "type:check": "tsc --noEmit --project ./tsconfig.json",
