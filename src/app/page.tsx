@@ -1,6 +1,8 @@
 import { AnimeMainPageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
 import { topChartAnimesStaticData } from "#/constants/anime-genres/top-chart-animes.static";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
+import type { Metadata } from "next/types";
+import { websiteConstants } from "#/configs/website-constants";
 
 export default function __HomePage() {
     return (
@@ -10,3 +12,7 @@ export default function __HomePage() {
         </div>
     );
 }
+export const metadata: Metadata = {
+    title: websiteConstants.public_domain,
+    description: "Главная страница",
+};

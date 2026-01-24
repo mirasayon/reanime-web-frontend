@@ -1,4 +1,5 @@
 import { AbuseIpDbContributorInfoBadge } from "#/components/badges/AbuseIPDB-Contributor";
+import type { Metadata } from "next/types";
 
 const FRONTEND_REPO_URL = "https://github.com/mirasayon/reanime-web-frontend";
 const BACKEND_REPO_URL = "https://github.com/mirasayon/reanime-user-service";
@@ -93,3 +94,13 @@ export default function __AboutPage() {
         </main>
     );
 }
+
+export const metadata: Metadata = {
+    title: "О проекте",
+    description: "О проекте reanime.art",
+    robots: {
+        follow: false,
+        index: false,
+        nocache: true,
+    },
+};

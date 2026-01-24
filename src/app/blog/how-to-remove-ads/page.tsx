@@ -70,6 +70,8 @@ export default function __HowToRemoveAds() {
     );
 }
 export const metadata: Metadata = {
+    title: "О рекламе в плеере",
+    description: "О рекламе в плеере",
     robots: {
         follow: false,
         index: false,

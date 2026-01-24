@@ -9,7 +9,7 @@ import { envClient } from "#/env/env-client";
 import { interFont } from "#/fonts/main-font.provider";
 import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { HtmlElementForJsonLD } from "#/meta/json_ld.static-metadata-setter";
-import { rootLayoutMetadata } from "#/meta/root-layout.metadata";
+import { layoutMetadata } from "#/meta/root-layout.metadata";
 import layoutStyles from "#/styles/global/layout.module.css";
 import "#/styles/global/main.tailwind.css";
 import type { LayoutProps } from "#T/nextjs";
@@ -43,6 +43,6 @@ export default async function __RootLayout({ children }: LayoutProps): Promise<R
     );
 }
 
-export const metadata: Metadata = rootLayoutMetadata;
+export const metadata: Metadata = layoutMetadata;
 
 export const dynamic = "force-dynamic";
