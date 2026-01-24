@@ -14,10 +14,11 @@ import { setMetadataForWatchAnimePage } from "#/meta/set-metadata-for-watch-page
 import { MainCommentsSection } from "#/integration/user-service/comments/main-comments-section";
 import { getAccountSession } from "#/integration/user-service/auth/get-account-session";
 import { AnimeCollectionBtnsWrapper } from "#/components/anime-collections/anime-collection-btns-wrapper";
-type __AnimeSeriesPageProps = {
+import { RequireLoginNotice } from "./require-login-notice";
+type Props = {
     params: Promise<{ shikimori_id: string }>;
 };
-export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPageProps): Promise<React.JSX.Element> {
+export default async function __AnimeSeriesPage({ params }: Props): Promise<React.JSX.Element> {
     const shikimori_id_web = (await params).shikimori_id;
     if (Number.isNaN(shikimori_id_web) || !hasOnlyNumericString(shikimori_id_web)) {
         return notFound();
@@ -35,7 +36,15 @@ export default async function __AnimeSeriesPage({ params }: __AnimeSeriesPagePro
             <AnimeDescription cover_image_src={getAnimePosterUrlByShikimoriId(anime.shikimori_id)} anime={anime} />
             {/* <AnimeWatchPagePromoVideos trailer={anime.promo} /> */}
             <AnimeCollectionBtnsWrapper animeId={animeId} auth={auth} />
-            <AnimePlayer vid_src={anime.link} nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)} />
+            {auth ? (
+                <AnimePlayer
+                    vid_src={anime.link}
+                    nextEpisodeAt={nextEpisodeSimple(anime.material_data?.next_episode_at)}
+                />
+            ) : (
+                <RequireLoginNotice />
+            )}
+
             <AnimesScreenshotsComponent screenshots={anime.screenshots} title_of_anime={anime.title} />
             <MainRelatedAnimesSection related={await GetRelatedAnimes(animeId)} />
             <MainCommentsSection shikimori_id={animeId} current_user={auth} />
