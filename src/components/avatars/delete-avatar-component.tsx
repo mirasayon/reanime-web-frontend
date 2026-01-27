@@ -2,7 +2,7 @@
 import { DeleteAvatar_ServerAction } from "#/actions/media/avatar-delete";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent } from "react";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 export function DeleteAvatarForm() {
     const toaster = useToaster();
     const [pending, startTransition] = useTransition();
@@ -10,7 +10,7 @@ export function DeleteAvatarForm() {
         startTransition(async () => {
             e.preventDefault();
             const res = await DeleteAvatar_ServerAction();
-            return handleSaResponseForClient({
+            return serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {

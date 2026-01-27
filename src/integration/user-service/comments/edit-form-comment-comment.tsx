@@ -1,6 +1,6 @@
 "use client";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { useTransition, type Dispatch, type FormEvent, type SetStateAction } from "react";
 import { updateComment_ServerAction } from "./actions-for-comments/update-comment-by-profile-server-action";
@@ -23,7 +23,7 @@ export function MainEditFormCommentComponent({
                 return;
             }
             const res = await updateComment_ServerAction(newText, comment.id, comment.external_anime_id);
-            handleSaResponseForClient({
+            serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
             });

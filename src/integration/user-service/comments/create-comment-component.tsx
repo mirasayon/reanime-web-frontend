@@ -5,7 +5,7 @@ import type { AuthenticatorType } from "../auth/get-account-session";
 import { CreateOneCommentToAnime } from "./actions-for-comments/create-comment-by-profile-server-action";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent, useState } from "react";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import { makeAvatarFullUrl } from "#/components/utilities/common/view-avatar-by-username-url";
 export function MainCreateCommentComponent({
     profile,
@@ -29,7 +29,7 @@ export function MainCreateCommentComponent({
                 return;
             }
             const res = await CreateOneCommentToAnime(comment_content, `/anime/${animeId}`, animeId);
-            handleSaResponseForClient({
+            serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
             });

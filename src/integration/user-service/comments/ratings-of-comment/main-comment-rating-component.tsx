@@ -1,6 +1,6 @@
 "use client";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import type { ResponseTypesFor_CommentForAnime_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import React, { useTransition } from "react";
@@ -46,7 +46,7 @@ export function ShowCommentRatingComponent({
             startTransition(async () => {
                 e.preventDefault();
                 const res = await deleteLikeToCommentForm_ServerAction(comment.id, currPath);
-                handleSaResponseForClient({
+                serverActionHandlerOnClient({
                     error: toaster.error,
                     res,
                 });
@@ -56,7 +56,7 @@ export function ShowCommentRatingComponent({
             startTransition(async () => {
                 e.preventDefault();
                 const res = await addLikeToCommentForm_ServerAction(comment.id, currPath);
-                handleSaResponseForClient({
+                serverActionHandlerOnClient({
                     error: toaster.error,
                     res,
                 });
@@ -70,7 +70,7 @@ export function ShowCommentRatingComponent({
             startTransition(async () => {
                 e.preventDefault();
                 const res = await deleteDislikeToCommentForm_ServerAction(comment.id, currPath);
-                handleSaResponseForClient({
+                serverActionHandlerOnClient({
                     error: toaster.error,
                     res,
                 });
@@ -80,7 +80,7 @@ export function ShowCommentRatingComponent({
             startTransition(async () => {
                 e.preventDefault();
                 const res = await addDislikeToCommentForm_ServerAction(comment.id, currPath);
-                handleSaResponseForClient({
+                serverActionHandlerOnClient({
                     error: toaster.error,
                     res,
                 });

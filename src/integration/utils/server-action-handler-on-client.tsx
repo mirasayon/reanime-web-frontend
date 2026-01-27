@@ -1,6 +1,6 @@
 import type { ServerActionResponse } from "#T/integrator-main-types";
 
-export function handleSaResponseForClient({
+export function serverActionHandlerOnClient({
     error,
     info,
     res,

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { SubmitButtonForAuthForms } from "../components-jsx-for-auth-forms/submit-button-for-auth-forms";
 import { FormWrapperForFormInputsForAuthForms } from "../components-jsx-for-auth-forms/form-wrapper-for-inputs-for-auth-forms";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import {
     authenticationSectionSchemas,
     type AuthenticationSectionValidatorSchemaType,
@@ -34,7 +34,7 @@ export function MainLoginComponent() {
             setServerErrors([]);
             const res = await loginTheUserServerAction(data);
             console.log(res);
-            handleSaResponseForClient({
+            serverActionHandlerOnClient({
                 success: toaster.success,
                 res,
                 onFailFunction: (errors) => {

@@ -3,7 +3,7 @@ import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-serve
 import { useRouter } from "next/navigation";
 import { useState, useTransition, type FormEvent } from "react";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import { styles5465 } from "../dropdown-menu-in-head-corner/for-logged-users";
 export function LogoutUserAtHeaderComponent() {
     const [confirm, set_confirm] = useState<boolean>(false);
@@ -15,7 +15,7 @@ export function LogoutUserAtHeaderComponent() {
         startTransition(async () => {
             e.preventDefault();
             const res = await LogOutAccount_ServerAction();
-            return handleSaResponseForClient({
+            return serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
                 onSuccessFunction: () => {

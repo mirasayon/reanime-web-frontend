@@ -18,7 +18,7 @@ import {
     deletePlannedAnimeServerAction,
 } from "#/actions/anime-bookmarks/anime-bookmarks-server-actions";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import type { ServerActionResponse } from "#T/integrator-main-types";
 
 export function AddAnimeToPlannedForm({ animeId, state }: { animeId: number; state: "delete" | "create" }) {
@@ -33,7 +33,7 @@ export function AddAnimeToPlannedForm({ animeId, state }: { animeId: number; sta
             } else {
                 res = await deletePlannedAnimeServerAction(animeId);
             }
-            return handleSaResponseForClient({ res, error: toaster.error });
+            return serverActionHandlerOnClient({ res, error: toaster.error });
         });
     }
     return (
@@ -55,7 +55,7 @@ export function AddAnimeToCompletedForm({ animeId, state }: { animeId: number; s
             } else {
                 res = await deleteFromCompletedAnimeServerAction(animeId);
             }
-            return handleSaResponseForClient({ res, error: toaster.error });
+            return serverActionHandlerOnClient({ res, error: toaster.error });
         });
     }
     return (
@@ -77,7 +77,7 @@ export function AddAnimeToWatchingForm({ animeId, state }: { animeId: number; st
             } else {
                 res = await deleteFromCurrentAnimeServerAction(animeId);
             }
-            return handleSaResponseForClient({ res, error: toaster.error });
+            return serverActionHandlerOnClient({ res, error: toaster.error });
         });
     }
     return (
@@ -99,7 +99,7 @@ export function AddAnimeToAbandonedForm({ animeId, state }: { animeId: number; s
             } else {
                 res = await deleteFromAbandonedAnimeServerAction(animeId);
             }
-            return handleSaResponseForClient({ res, error: toaster.error });
+            return serverActionHandlerOnClient({ res, error: toaster.error });
         });
     }
     return (

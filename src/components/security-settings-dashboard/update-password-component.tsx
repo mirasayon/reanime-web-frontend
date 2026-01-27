@@ -7,7 +7,7 @@ import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import { updatePassword_ServerAction } from "#/actions/user-settings/update-password-server-action";
 import {
     accountSectionSchemas,
@@ -31,7 +31,7 @@ export function UpdatePasswordFormComponent({ username }: { username: string }) 
         startTransition(async () => {
             e?.preventDefault();
             const res = await updatePassword_ServerAction(data);
-            handleSaResponseForClient({
+            serverActionHandlerOnClient({
                 success: toaster.success,
                 res,
                 error: toaster.error,

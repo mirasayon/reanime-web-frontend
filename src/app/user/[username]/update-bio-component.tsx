@@ -1,7 +1,7 @@
 "use client";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
 import { useTransition, type FormEvent } from "react";
-import { handleSaResponseForClient } from "#/integration/utils/server-actions-responses-processor-from-client-environment";
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
 import { UpdateBio_ServerAction } from "#/actions/profile/update-bio-server-action";
 export function UpdateBioComponent({
     username,
@@ -20,7 +20,7 @@ export function UpdateBioComponent({
             event.preventDefault();
             const newBio = event.currentTarget["bio-text-area"].value as string;
             const res = await UpdateBio_ServerAction(newBio, "/user/" + username);
-            handleSaResponseForClient({
+            serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
             });
