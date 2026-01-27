@@ -23,6 +23,6 @@ export function getAnimePosterUrlByShikimoriId(shikimori_id: number) {
     return envClient.resourceServiceUrl + `/get-anime-poster/${shikimori_id}`;
 }
 
-export function topAnimesPosterImageUrl(segment: string) {
+export function getCarouselAnimePosterUrl(segment: string) {
     return `/_animes/top-chart-anime-posters/${segment}`;
 }

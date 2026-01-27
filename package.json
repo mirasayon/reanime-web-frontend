@@ -20,12 +20,9 @@
         "@hookform/resolvers": "^5.2.2",
         "@next/third-parties": "^16.1.5",
         "better-psl": "^1.0.1",
-        "clsx": "^2.1.1",
         "cookies-next": "^6.1.1",
         "date-fns": "^4.1.0",
         "dotenv-cli": "^11.0.0",
-        "embla-carousel-autoplay": "^8.6.0",
-        "embla-carousel-react": "^8.6.0",
         "jotai": "^2.16.2",
         "kodik": "^0.0.2",
         "log-it-colored": "^0.0.3",
@@ -38,7 +35,6 @@
         "react-icons": "^5.5.0",
         "safest-env": "^0.0.1",
         "shikimoript": "^0.1.2",
-        "tailwind-merge": "^3.4.0",
         "zod": "^4.3.6"
     },
     "devDependencies": {

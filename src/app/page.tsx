@@ -1,4 +1,4 @@
-import { AnimeHomePageCarousel } from "#/components/anime-carousel-main-page/anime-carousel-show";
+import { AnimeHomePageCarousel } from "#/components/anime-carousel/anime-carousel-show";
 import { topChartAnimesStaticData } from "#/constants/anime-genres/top-chart-animes.static";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import type { Metadata } from "next/types";
