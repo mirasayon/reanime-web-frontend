@@ -8,7 +8,7 @@ import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import { userServiceResponseHandler } from "../server-actions-utils/user-service-raw-response-pre-handler";
 
 /** delete account */
-export async function deleteAccount_ServerAction(): ServerActionResponseWithPromise {
+export async function deleteAccountServerAction(): ServerActionResponseWithPromise {
     const res = await userServiceRequest<ResponseTypesFor_Account_Section["delete_account"]>(
         endpointsConfig.userAccount.baseUrl + endpointsConfig.userAccount.deleteAccount,
         "DELETE",

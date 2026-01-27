@@ -1,65 +1,67 @@
 "use client";
-import { deleteAccount_ServerAction } from "#/actions/account/delete-account";
-import {
-    AlertDialog,
-    AlertDialogActionShadCN,
-    AlertDialogCancelShadCN,
-    AlertDialogContentShadCN,
-    AlertDialogDescriptionShadCN,
-    AlertDialogFooterShadCN,
-    AlertDialogHeaderShadCN,
-    AlertDialogTitleShadCN,
-    AlertDialogTriggerShadCN,
-} from "#/shadcn-ui/alert-dialog";
+import { deleteAccountServerAction } from "#/actions/account/delete-account";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
-
+import {
+    DASHBOARD_LINKS_STYLE,
+    DASHBOARD_LINKS_STYLE_RED_BORDER,
+} from "../dropdown-menu-in-head-corner/for-logged-users";
 export function DeleteAccountPermanentlyComponent() {
+    const [openDialog, setOpenDialog] = useState(false);
     const [pending, startTransition] = useTransition();
     const toaster = useToaster();
-    const _router = useRouter();
+    const router = useRouter();
     async function onSubmitHandle() {
         startTransition(async () => {
             return serverActionHandlerOnClient({
                 success: toaster.success,
-                res: await deleteAccount_ServerAction(),
-                error: toaster.error,
-                onSuccessFunction: () => {
-                    _router.push("/auth/login");
-                },
+                res: await deleteAccountServerAction(),
+                onSuccessFunction: () => router.push("/auth/login"),
             });
         });
     }
     return (
-        <AlertDialog>
-            <div className="p-2 bg-red-600 rounded cursor-pointer">
-                <AlertDialogTriggerShadCN className="cursor-pointer">Удалить аккаунт</AlertDialogTriggerShadCN>
-            </div>
-            <AlertDialogContentShadCN className=" dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
-                <form action={onSubmitHandle} className=" grid p-2 m-2 ">
-                    <AlertDialogHeaderShadCN>
-                        <AlertDialogTitleShadCN>Вы абсолютно уверены?</AlertDialogTitleShadCN>
-                        <AlertDialogDescriptionShadCN>
-                            Это действие невозможно отменить. Это приведёт к безвозвратному удалению вашей учётной
-                            записи и ваших данных с наших серверов.
-                        </AlertDialogDescriptionShadCN>
-                    </AlertDialogHeaderShadCN>
-                    <AlertDialogFooterShadCN>
-                        <AlertDialogCancelShadCN className="cursor-pointer dark:bg-slate-800 bg-blue-200">
-                            Отмена
-                        </AlertDialogCancelShadCN>
+        <div className=" flex flex-col">
+            <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDialog((pv) => !pv);
+                }}
+                className="p-2 text-start border-red-600 border-2 hover:bg-red-500/50 rounded cursor-pointer"
+            >
+                Удалить аккаунт
+            </button>
+            {openDialog && (
+                <div className="p-3 w-max dark:bg-slate-900  bg-blue-300 dark:text-white text-black">
+                    <form action={onSubmitHandle} className=" grid p-2 m-2 ">
+                        <div className=" header">
+                            <div className=" py-2 text-lg">Вы абсолютно уверены?</div>
+                            <div className="">
+                                Это действие <strong>невозможно отменить</strong>. Это приведёт к безвозвратному
+                                удалению вашей учётной записи и ваших данных с наших серверов.
+                            </div>
+                        </div>
+                        <div className=" py-4 flex flex-row gap-6">
+                            <button
+                                type="reset"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setOpenDialog(false);
+                                }}
+                                className={DASHBOARD_LINKS_STYLE + "w-max"}
+                            >
+                                Отмена
+                            </button>
 
-                        <AlertDialogActionShadCN
-                            type="submit"
-                            className="cursor-pointer dark:bg-red-800 border  border-red-200 bg-blue-200"
-                        >
-                            {pending ? "Удаляю..." : "Подтвердить"}
-                        </AlertDialogActionShadCN>
-                    </AlertDialogFooterShadCN>{" "}
-                </form>
-            </AlertDialogContentShadCN>
-        </AlertDialog>
+                            <button type="submit" className={DASHBOARD_LINKS_STYLE_RED_BORDER + "w-max"}>
+                                {pending ? "Удаляю..." : "Подтвердить"}
+                            </button>
+                        </div>{" "}
+                    </form>
+                </div>
+            )}
+        </div>
     );
 }
