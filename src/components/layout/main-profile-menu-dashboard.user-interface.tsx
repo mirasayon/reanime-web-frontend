@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SwitchThemesButtonComponent } from "../themes/switch_themes";
 import { MdCancelPresentation } from "react-icons/md";
 import { Palette } from "lucide-react";
-export function UI_Menu(): React.JSX.Element {
+export function ThemeSwitcher(): React.JSX.Element {
     const [isOpen, setOpen] = useState(false);
     return (
         <div className={`flex flex-wrap  `}>

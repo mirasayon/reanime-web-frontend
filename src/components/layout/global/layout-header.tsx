@@ -1,7 +1,7 @@
 "use client";
 import { AnimeCategoriesComponent } from "#/components/anime_page/anime-categories-links-component";
-import { MainDropdownMenuInHeader } from "#/components/dropdown-menu-in-head-corner/main-dropdown-menu-in-header";
-import { UI_Menu } from "#/components/layout/main-profile-menu-dashboard.user-interface";
+import { DropdownMenuForHeader } from "#/components/dropdown-menu-in-head-corner/dropdown-menu-for-feader";
+import { ThemeSwitcher } from "#/components/layout/main-profile-menu-dashboard.user-interface";
 import type { AvatarFSType } from "#/components/utilities/common/view-avatar-by-username-url";
 import { websiteConstants } from "#/configs/website-constants";
 import { BORDER } from "#/styles/style-constants";
@@ -28,10 +28,10 @@ export function LayoutHeader({
                         />
                     </Link>
                     <AnimeCategoriesComponent />
-                    <UI_Menu />
+                    <ThemeSwitcher />
                 </div>
 
-                <MainDropdownMenuInHeader avatar={avatar} logged={logged} username={username} />
+                <DropdownMenuForHeader avatar={avatar} logged={logged} username={username} />
             </header>
         </div>
     );

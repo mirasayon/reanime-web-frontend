@@ -4,7 +4,7 @@ import { LoginAndRegisterLinksAtAvatarPlace } from "./for-guests";
 import { AvatarOrLoginRegButtonForHeader } from "./avatar-or-login-reg-button-for-header";
 import { DropdownMenuShadCN, DropdownMenuContentShadCN, DropdownMenuTriggerShadCN } from "#/shadcn-ui/dropdown-menu";
 import type { AvatarFSType } from "../utilities/common/view-avatar-by-username-url";
-export function MainDropdownMenuInHeader({
+export function DropdownMenuForHeader({
     avatar,
     logged,
     username,
