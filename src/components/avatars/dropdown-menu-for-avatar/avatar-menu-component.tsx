@@ -4,7 +4,7 @@ import { DeleteAvatarForm } from "../delete-avatar-component";
 import { IoMenuSharp } from "react-icons/io5";
 import { useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
-export function DropdownMenuForEditAvatar(): React.JSX.Element {
+export function AvatarMenuComponent(): React.JSX.Element {
     const [open, setOpen] = useState(false);
     return (
         <div className="flex flex-col text-sm p-1">

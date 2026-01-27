@@ -1,6 +1,5 @@
 "use client";
 import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-server-action";
-import { useRouter } from "next/navigation";
 import { useState, useTransition, type FormEvent } from "react";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";

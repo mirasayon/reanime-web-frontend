@@ -2,22 +2,18 @@
 import { Root, Portal, Content, Trigger, Label, Separator } from "@radix-ui/react-dropdown-menu";
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
 import type { ComponentPropsWithoutRef } from "react";
-export function DropdownMenuShadCN({ ...props }: ComponentPropsWithoutRef<typeof Root>) {
+function DropdownMenuShadCN({ ...props }: ComponentPropsWithoutRef<typeof Root>) {
     return <Root data-slot="dropdown-menu" {...props} />;
 }
 
-export function DropdownMenuPortalShadCN({ ...props }: ComponentPropsWithoutRef<typeof Portal>) {
+function DropdownMenuPortalShadCN({ ...props }: ComponentPropsWithoutRef<typeof Portal>) {
     return <Portal data-slot="dropdown-menu-portal" {...props} />;
 }
 
-export function DropdownMenuTriggerShadCN({ ...props }: ComponentPropsWithoutRef<typeof Trigger>) {
+function DropdownMenuTriggerShadCN({ ...props }: ComponentPropsWithoutRef<typeof Trigger>) {
     return <Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
-export function DropdownMenuContentShadCN({
-    className,
-    sideOffset = 4,
-    ...props
-}: ComponentPropsWithoutRef<typeof Content>) {
+function DropdownMenuContentShadCN({ className, sideOffset = 4, ...props }: ComponentPropsWithoutRef<typeof Content>) {
     return (
         <Portal>
             <Content
@@ -33,7 +29,7 @@ export function DropdownMenuContentShadCN({
     );
 }
 
-export function DropdownMenuLabelShadCN({
+function DropdownMenuLabelShadCN({
     className,
     inset,
     ...props
@@ -50,7 +46,7 @@ export function DropdownMenuLabelShadCN({
     );
 }
 
-export function DropdownMenuSeparator({ className, ...props }: React.ComponentPropsWithoutRef<typeof Separator>) {
+function DropdownMenuSeparator({ className, ...props }: React.ComponentPropsWithoutRef<typeof Separator>) {
     return (
         <Separator
             data-slot="dropdown-menu-separator"
