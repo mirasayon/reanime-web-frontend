@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 const DOMAIN = websiteConstants.public_domain;
 const NAME = websiteConstants.name;
 const MAIL = websiteConstants.mail;
-const _URL = `/right/privacy`;
+const ROUTE = `/right/privacy`;
+const _URL = websiteConstants.public_full_domain + ROUTE;
 export default function PrivacyPage() {
     return (
         <div className={`p-4 ${BORDER} `}>
@@ -162,7 +163,7 @@ export default function PrivacyPage() {
             </Linker>{" "}
             9.4. Действующая Политика конфиденциальности размещена на странице по адресу{" "}
             <Linker linkType="internal" href={_URL}>
-                {_URL}
+                {websiteConstants.public_domain + ROUTE}
             </Linker>
             <br />
             Обновлено: 28 Марта 2024 года

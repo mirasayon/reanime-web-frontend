@@ -3,7 +3,7 @@ import { websiteConstants } from "#/configs/website-constants";
 import type { Metadata } from "next";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 
-export default function __Contacts_page() {
+export default function __ContactsPage() {
     return (
         <div className={`${BORDER} h-80`}>
             <div className="p-5 flex  flex-col gap-2">
@@ -15,7 +15,7 @@ export default function __Contacts_page() {
                     </Linker>
                 </span>
                 <span className="mt-3">
-                    Для поддержки пользователей (контакт разработчика):{" "}
+                    Для поддержки пользователей:{" "}
                     <Linker linkType="email" href={`${websiteConstants.devs_mail}`}>
                         {websiteConstants.devs_mail}
                     </Linker>
@@ -25,5 +25,5 @@ export default function __Contacts_page() {
     );
 }
 export const metadata: Metadata = {
-    title: `Контакты и поддержка | ${websiteConstants.public_domain}`,
+    title: `Контакты | ${websiteConstants.public_domain}`,
 };
