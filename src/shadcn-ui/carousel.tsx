@@ -1,11 +1,8 @@
 "use client";
-
 import type React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
 import { cnUtil } from "#/shadcn-ui/tailwind-merge-utils";
-import { ButtonComponent } from "#/components/utilities/button";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 export type CarouselApi = UseEmblaCarouselType[1];
@@ -163,8 +160,6 @@ export function CarouselItemShadCN({ className, ...props }: React.ComponentProps
 
 export function CarouselPreviousShadCN({
     className,
-    variant = "outline",
-    size = "icon",
     ...props
 }: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
@@ -172,8 +167,6 @@ export function CarouselPreviousShadCN({
     return (
         <ButtonComponent
             data-slot="carousel-previous"
-            variant={variant}
-            size={size}
             className={cnUtil(
                 "absolute size-8 rounded-full",
                 orientation === "horizontal"
@@ -191,19 +184,12 @@ export function CarouselPreviousShadCN({
     );
 }
 
-export function CarouselNextShadCN({
-    className,
-    variant = "outline",
-    size = "icon",
-    ...props
-}: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
+export function CarouselNextShadCN({ className, ...props }: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
 
     return (
         <ButtonComponent
             data-slot="carousel-next"
-            variant={variant}
-            size={size}
             className={cnUtil(
                 "absolute size-8 rounded-full",
                 orientation === "horizontal"
@@ -219,4 +205,12 @@ export function CarouselNextShadCN({
             <span className="sr-only">Next slide</span>
         </ButtonComponent>
     );
+}
+
+import type { ComponentProps } from "react";
+const STYLE_BTN =
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 absolute size-8 rounded-full top-1/2 -right-12 -translate-y-1/2 cursor-pointer";
+
+export function ButtonComponent({ className, ...props }: ComponentProps<"button">) {
+    return <button data-slot="button" className={STYLE_BTN + " " + className} {...props} />;
 }
