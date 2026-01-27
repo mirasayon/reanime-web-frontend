@@ -2,7 +2,7 @@ import { UploadAvatarOrShowForLoggedAccountComponent } from "#/components/avatar
 import { envClient } from "#/env/env-client";
 import { endpointsConfig } from "#/user-service-shared-package/endpoints-config";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
-import { MainProfileDashboard } from "./strong-dashboard-for-logged-user";
+import { MainProfileDashboard } from "./profile-dashboard";
 
 export function MyProfileDashboard({ data }: { data: ResponseTypesFor_UserProfile_Section["view_my_profile"] }) {
     return (

@@ -6,7 +6,7 @@ import { UpdateProfileNickname } from "./forms-for-user-page-for-editing-profile
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
-import { UpdateBioComponent } from "./update-bio-component";
+import { UpdateBioForm } from "./update-bio-component";
 type ProfileDashboardProps = {
     user: ResponseTypesFor_UserProfile_Section["view_my_profile"];
 };
@@ -21,7 +21,7 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX
                 <h2 className="text-lg font-medium mb-2">О себе</h2>
                 <div>
                     {isEditingBio ? (
-                        <UpdateBioComponent
+                        <UpdateBioForm
                             setEditingFunction={setIsEditingBio}
                             username={user.username}
                             existingBio={user.bio}

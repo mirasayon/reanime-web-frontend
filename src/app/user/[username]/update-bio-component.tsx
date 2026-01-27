@@ -1,9 +1,9 @@
 "use client";
 import { useToaster } from "#/components/layout/atoms-toasts-components/useToast";
-import { useTransition, type FormEvent } from "react";
+import { useTransition, type SubmitEvent } from "react";
 import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
-import { UpdateBio_ServerAction } from "#/actions/profile/update-bio-server-action";
-export function UpdateBioComponent({
+import { updateBioServerAction } from "#/actions/profile/update-bio-server-action";
+export function UpdateBioForm({
     username,
     setEditingFunction,
     existingBio,
@@ -15,17 +15,17 @@ export function UpdateBioComponent({
     const toaster = useToaster();
     const [pending, startTransition] = useTransition();
 
-    function formOnSubmitHandler(event: FormEvent<HTMLFormElement>) {
+    function formOnSubmitHandler(event: SubmitEvent<HTMLFormElement>) {
         startTransition(async (): Promise<void> => {
             event.preventDefault();
             const newBio = event.currentTarget["bio-text-area"].value as string;
-            const res = await UpdateBio_ServerAction(newBio, "/user/" + username);
+            const res = await updateBioServerAction(newBio, "/user/" + username);
+            console.log(res);
             serverActionHandlerOnClient({
                 res,
                 error: toaster.error,
             });
-            setEditingFunction((pv) => false);
-            return;
+            setEditingFunction(false);
         });
         event.currentTarget.reset();
     }
@@ -42,6 +42,7 @@ export function UpdateBioComponent({
                     name="bio-text-area"
                     id="bio-text-area"
                     required
+                    minLength={1}
                     {...(existingBio ? { defaultValue: existingBio } : {})}
                     maxLength={400}
                 />

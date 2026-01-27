@@ -7,7 +7,7 @@ import { userServiceResponseHandler } from "../server-actions-utils/user-service
 import type { ServerActionResponseWithPromise } from "#T/integrator-main-types";
 
 /** Server Action */
-export async function UpdateBio_ServerAction(bioText: string, currPath: string): ServerActionResponseWithPromise {
+export async function updateBioServerAction(bioText: string, currPath: string): ServerActionResponseWithPromise {
     const url = endpointsConfig.userProfile.baseUrl + endpointsConfig.userProfile.updateBio;
 
     const res = await userServiceRequest<ResponseTypesFor_UserProfile_Section["update_bio"]>(url, "PATCH", {
