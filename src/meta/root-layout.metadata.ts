@@ -2,7 +2,7 @@ import { websiteConstants } from "#/configs/website-constants";
 import type { Metadata } from "next/types";
 
 export const layoutMetadata: Metadata = {
-    title: `Смотреть аниме онлайн — ${websiteConstants.public_domain}`,
+    title: websiteConstants.public_domain,
     description: `${websiteConstants.normalized_name} — бесплатный сайт для просмотра аниме онлайн`,
     keywords: [
         "аниме",
