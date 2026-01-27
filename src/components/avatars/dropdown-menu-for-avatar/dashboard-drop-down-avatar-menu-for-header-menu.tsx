@@ -8,7 +8,6 @@ import {
 import { UpdateAvatarForm } from "../update-avatar-component";
 import { DeleteAvatarForm } from "../delete-avatar-component";
 import { IoMenuSharp } from "react-icons/io5";
-import type { JSX } from "react";
 export function DropdownMenuForEditAvatar(): React.JSX.Element {
     return (
         <DropdownMenuShadCN>
@@ -24,27 +23,13 @@ export function DropdownMenuForEditAvatar(): React.JSX.Element {
                 </DropdownMenuLabelShadCN>
 
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem
-                    className=" hover:dark:bg-slate-900 hover:bg-blue-200"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        }}
-                        > */}
                 <DropdownMenuLabelShadCN>
                     <span>Обновить аватар</span>
                 </DropdownMenuLabelShadCN>
 
                 <UpdateAvatarForm />
-                {/* </DropdownMenuItem> */}
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem
-                    className=" hover:dark:bg-slate-900 hover:bg-blue-200"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        }}
-                        > */}
                 <DeleteAvatarForm />
-                {/* </DropdownMenuItem> */}
             </DropdownMenuContentShadCN>
         </DropdownMenuShadCN>
     );

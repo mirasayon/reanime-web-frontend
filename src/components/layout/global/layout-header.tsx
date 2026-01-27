@@ -24,7 +24,7 @@ export function LayoutHeader({
                         <img
                             src={"/icon.png"}
                             className=" w-[30px] h-[30px] mx-3 object-cover"
-                            alt={`${websiteConstants.name}'s icon`}
+                            alt={`${websiteConstants.name} icon`}
                         />
                     </Link>
                     <AnimeCategoriesComponent />
