@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { getCarouselAnimePosterUrl } from "#/utils";
+import { getCarouselAnimePosterUrl } from "#/utils/util-functions";
 import type { IStaticTopChartAnimes } from "#/constants/anime-genres/internal-statics";
 type Props = {
     animes: IStaticTopChartAnimes[];
@@ -45,9 +45,7 @@ export function AnimeHomePageCarousel({ animes, autoplayDelay = 10000 /* 10s del
                 role="region"
                 aria-roledescription="carousel"
             >
-                {/* Viewport: Hides the overflow */}
                 <div className="overflow-hidden rounded-md">
-                    {/* Track: Moves left/right based on current index */}
                     <div
                         className="flex transition-transform duration-500 ease-out"
                         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -57,7 +55,6 @@ export function AnimeHomePageCarousel({ animes, autoplayDelay = 10000 /* 10s del
                                 key={slide.shikimori_id}
                                 className="min-w-full shrink-0 grow-0 basis-full text-white dark:text-white"
                             >
-                                {/* --- Original Content Logic Starts Here --- */}
                                 <Link href={"/anime/" + slide.shikimori_id} className="flex flex-row">
                                     <div
                                         className="w-full"

@@ -1,4 +1,4 @@
-import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utility-components";
+import { BoldX } from "#/components/utilities/common/utility-components";
 import type { JSX } from "react";
 
 export function ShowRelationTypeForBothMangaAndAnime({ relation }: { relation: string }): React.JSX.Element {

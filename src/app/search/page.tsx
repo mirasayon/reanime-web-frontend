@@ -2,7 +2,7 @@ import { Found_no_animes } from "#/components/search_animes/found_no_animes";
 import type { SearchParams, SearchPageParams } from "#T/nextjs";
 import type { Metadata } from "next";
 import { websiteConstants } from "#/configs/website-constants";
-import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
+import { AnimeList } from "#/components/utilities/common/utility-components";
 import { SearchAnimeAddressBarInHeader } from "#/components/anime_page/search-anime-address-bar-in-header";
 import { kodikClient } from "#/providers/kodik-api";
 import { dedupeAnimes } from "#/utils/reducer-deduper";
@@ -35,7 +35,7 @@ export default async function __SearchPage({ searchParams }: SearchPageParams) {
         <div>
             <SearchAnimeAddressBarInHeader query={search_query} />
             {res?.results?.length ? (
-                <Anime_List_Component data={dedupeAnimes(res.results)} />
+                <AnimeList data={dedupeAnimes(res.results)} />
             ) : _inputted ? (
                 <Found_no_animes />
             ) : (

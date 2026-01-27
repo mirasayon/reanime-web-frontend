@@ -9,7 +9,7 @@ export function RequireLoginNotice() {
             {showNotice ? (
                 <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center text-white">
-                        <img src="/_assets/pages/_anime/oh-no.png" alt="oh-no.png" />
+                        <img src="/_assets/_pages/_anime/oh-no.png" alt="oh-no.png" />
                     </div>
                     <div className="flex-1">
                         <h3 className="">Просмотр доступен только после входа</h3>

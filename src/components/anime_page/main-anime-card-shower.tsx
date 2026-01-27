@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
+import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils/util-functions";
 import { ShowRatingShikimoriDataSmartX } from "./show-release-data.smart-components";
 import type { EntityDataObject } from "kodik/types";
 import { AnimePosterImageForMainCard } from "./anime-cover-for-main-card";

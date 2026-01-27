@@ -3,7 +3,7 @@ import { endpointsConfig } from "#/user-service-shared-package/endpoints-config"
 export type AvatarFSType = { path_dirname: string; path_filename: string } | null;
 export function makeAvatarFullUrl(avatar: AvatarFSType) {
     if (!avatar) {
-        return "/default-avatar/m.jpg";
+        return "/_assets/_users/_default-avatar/m.jpg";
     }
     return (
         envClient.userServiceUrl +

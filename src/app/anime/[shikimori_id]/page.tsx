@@ -5,7 +5,7 @@ import { AnimeDescription } from "#/components/anime_page/anime-description";
 import { AnimesScreenshotsComponent } from "#/components/animes/anime-screenshots";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
-import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
+import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils/util-functions";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 import { AnimePlayer } from "#/components/animes/anime-player";
 import { MainRelatedAnimesSection } from "#/components/animes/related_animes";

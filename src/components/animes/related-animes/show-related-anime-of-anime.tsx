@@ -1,7 +1,7 @@
-import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils";
+import { getTypeOfAnime, getAnimePosterUrlByShikimoriId } from "#/utils/util-functions";
 import Link from "next/link";
 import type { JSX } from "react";
-import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utility-components";
+import { BoldX } from "#/components/utilities/common/utility-components";
 import { getAnyByShikimoriFromKodikApi } from "#/libs/kodik/kodik-api-utils/get-any-by-id";
 export const relatedCardStyles =
     "w-[20rem] text-wrap bg-blue-100 dark:bg-slate-800 hover:bg-blue-200/80 hover:dark:bg-slate-700/80 h-[240px] flex m-1 rounded-sm p-1 text-sm";

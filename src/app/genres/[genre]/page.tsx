@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { websiteConstants } from "#/configs/website-constants";
 import { _categories } from "#/static/anime_categories";
 import { RadioGroupSelectGenre } from "./radio-group-select-genre";
-import { Anime_List_Component } from "#/components/utilities/common/assembler-of-utilities.utility-components";
+import { AnimeList } from "#/components/utilities/common/utility-components";
 import { kodikByGenre } from "#/libs/kodik/get-animes-list-for-inputted-genre.integrator";
 import { DescribeGenresStaticData, uiNeededGenres } from "#/constants/anime-genres/describe-genres.static";
 import { Found_no_animes } from "#/components/search_animes/found_no_animes";
@@ -39,7 +39,7 @@ export default async function GenresPage({ params }: GenresPageProps): Promise<J
                 </div>
             )}
             {is404 && <Found_no_animes />}
-            {results && <Anime_List_Component data={results} />}
+            {results && <AnimeList data={results} />}
         </>
     );
 }

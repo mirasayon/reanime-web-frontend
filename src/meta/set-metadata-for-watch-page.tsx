@@ -1,5 +1,5 @@
 "use server";
-import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils";
+import { hasOnlyNumericString, getAnimePosterUrlByShikimoriId } from "#/utils/util-functions";
 import { notFound } from "next/navigation";
 import { websiteConstants } from "#/configs/website-constants";
 import { kodikClient } from "#/providers/kodik-api";

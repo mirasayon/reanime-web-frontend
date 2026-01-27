@@ -1,4 +1,4 @@
-import { BoldX } from "#/components/utilities/common/assembler-of-utilities.utility-components";
+import { BoldX } from "#/components/utilities/common/utility-components";
 import { Linker } from "#/components/utilities/common/linker-utility-component";
 import type { AnimeRelationData } from "shikimoript/types/animes.d.ts";
 import {

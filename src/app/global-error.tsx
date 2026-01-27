@@ -54,14 +54,14 @@ export default function __GlobalErrorPage() {
 
                                 <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-700 bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
                                     <img
-                                        src="/_assets/icons/dark-500-error-icon.jpg"
+                                        src="/_assets/_icons/dark-500-error-icon.jpg"
                                         alt="error icon"
                                         className="w-full h-full object-cover hidden dark:block"
                                         loading="lazy"
                                     />
 
                                     <img
-                                        src="/_assets/icons/light-500-error-icon.jpg"
+                                        src="/_assets/_icons/light-500-error-icon.jpg"
                                         alt="error icon"
                                         className="w-full h-full object-cover dark:hidden"
                                         loading="lazy"

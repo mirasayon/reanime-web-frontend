@@ -2,7 +2,7 @@
 import React, { useState, type ReactNode } from "react";
 import { User as UserIcon, Mail, UserCircle } from "lucide-react";
 import { LogoutBtnForProfileDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
-import { UpdateProfileNickname } from "./forms-for-user-page-for-editing-profile/update-profile-name";
+import { UpdateProfileNickname } from "./edit-profile-forms/update-profile-name";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
 import type { ResponseTypesFor_UserProfile_Section } from "#user-service/user-service-response-types-for-all.routes.ts";

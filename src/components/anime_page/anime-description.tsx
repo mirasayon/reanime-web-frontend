@@ -3,10 +3,10 @@ import { SiShikimori } from "react-icons/si";
 import { AnimePosterImage } from "#/components/animes/anime-poster-image";
 import { BORDER } from "#/styles/style-constants";
 import Link from "next/link";
-import { BoldX, GhostedUnknown } from "../utilities/common/assembler-of-utilities.utility-components";
+import { BoldX, GhostedUnknown } from "../utilities/common/utility-components";
 import { Normalize_anime_status } from "../utilities/common/ru-anime-status";
 import type { EntityDataObject } from "kodik/types";
-import { getTypeOfAnime } from "#/utils";
+import { getTypeOfAnime } from "#/utils/util-functions";
 export function AnimeDescription({ anime, cover_image_src }: { cover_image_src: string; anime: EntityDataObject }) {
     const type_ru = getTypeOfAnime(anime.type);
     const dedupedNamesSet = new Set<string>();
