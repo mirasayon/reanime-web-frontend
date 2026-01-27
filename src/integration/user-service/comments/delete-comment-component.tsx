@@ -2,23 +2,27 @@
 import { MdDeleteForever } from "react-icons/md";
 import { deleteCommentServerAction } from "./actions-for-comments/delete-comment-server-action";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
-
-export function DeleteCommentBtnComponent({
-    comment_id,
+import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
+export function DeleteCommentBtn({
+    commentId,
     animeId,
     setShowMenuOptions,
 }: {
     animeId: number;
-    comment_id: string;
+    commentId: string;
     setShowMenuOptions: Dispatch<SetStateAction<boolean>>;
 }) {
     const [pending, startTransition] = useTransition();
     function deleteCommentFormHandler(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
         startTransition(async () => {
-            await deleteCommentServerAction(comment_id, animeId);
-
-            setShowMenuOptions(false);
+            event.preventDefault();
+            const res = await deleteCommentServerAction(commentId, animeId);
+            return serverActionHandlerOnClient({
+                res,
+                onSuccessFunction() {
+                    setShowMenuOptions(false);
+                },
+            });
         });
     }
     return (

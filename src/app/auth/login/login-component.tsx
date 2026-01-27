@@ -33,7 +33,6 @@ export function MainLoginComponent() {
             e?.preventDefault();
             setServerErrors([]);
             const res = await loginTheUserServerAction(data);
-            console.log(res);
             serverActionHandlerOnClient({
                 success: toaster.success,
                 res,

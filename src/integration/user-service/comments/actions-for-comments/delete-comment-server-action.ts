@@ -6,8 +6,8 @@ import { userServiceRequest } from "../../user-service-fetcher.integrator-util";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
 import { userServiceResponseHandler } from "#/actions/server-actions-utils/user-service-raw-response-pre-handler";
 /** Server action */
-export async function deleteCommentServerAction(comment_id: string, animeId: number): ServerActionResponseWithPromise {
-    const url = endpointsConfig.commentAboutAnime.baseUrl + endpointsConfig.commentAboutAnime.deleteComment(comment_id);
+export async function deleteCommentServerAction(commentId: string, animeId: number): ServerActionResponseWithPromise {
+    const url = endpointsConfig.commentAboutAnime.baseUrl + endpointsConfig.commentAboutAnime.deleteComment(commentId);
     const res = await userServiceRequest<ResponseTypesFor_CommentForAnime_Section["delete_comment"]>(url, "DELETE");
     return userServiceResponseHandler(res, {
         onSuccessFunction: () => {

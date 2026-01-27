@@ -25,7 +25,7 @@ export function LoggedProfileCommentShower({
                     <div className="relative">
                         <MenuCommentComponent
                             setIsEditing={setIsEditing}
-                            comment_id={comment.id}
+                            commentId={comment.id}
                             animeId={comment.external_anime_id}
                         />
                     </div>
