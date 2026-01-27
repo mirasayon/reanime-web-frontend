@@ -1,16 +1,17 @@
 "use client";
 import { LogOutAccount_ServerAction } from "#/actions/auth/log-out-account-server-action";
-import { useState, useTransition, type FormEvent } from "react";
+import { useState, useTransition, type SubmitEvent } from "react";
 import { useToaster } from "../layout/atoms-toasts-components/useToast";
 import { serverActionHandlerOnClient } from "#/integration/utils/server-action-handler-on-client";
-import { styles5465 } from "../dropdown-menu-in-head-corner/for-logged-users";
-export function LogoutUserAtHeaderComponent() {
+import {
+    DASHBOARD_LINKS_STYLE,
+    DASHBOARD_LINKS_STYLE_RED_BORDER,
+} from "../dropdown-menu-in-head-corner/for-logged-users";
+export function LogoutForHeaderComponent() {
     const [confirm, set_confirm] = useState<boolean>(false);
     const toaster = useToaster();
-
     const [pending, startTransition] = useTransition();
-
-    function LogOutAccountHandle(e: FormEvent<HTMLFormElement>) {
+    function LogOutAccountHandle(e: SubmitEvent<HTMLFormElement>) {
         startTransition(async () => {
             e.preventDefault();
             const res = await LogOutAccount_ServerAction();
@@ -27,24 +28,20 @@ export function LogoutUserAtHeaderComponent() {
         <form onSubmit={LogOutAccountHandle}>
             <button
                 type="button"
-                className={styles5465}
+                className={DASHBOARD_LINKS_STYLE}
                 onClick={(e) => {
                     e.preventDefault();
                     set_confirm((pr) => !pr);
                 }}
             >
-                {!confirm ? "Выйти" : "Отмена"}
+                {confirm ? "Отмена" : "Выйти"}
             </button>
 
-            <button
-                hidden={!confirm}
-                type={"submit"}
-                className={
-                    "cursor-pointer m-1 p-1 bg-red-500 dark:bg-red-700 hover:bg-red-700/80 text-black dark:text-white  "
-                }
-            >
-                {pending ? "Загрузка..." : "Подтвердить"}
-            </button>
+            {confirm && (
+                <button type={"submit"} className={DASHBOARD_LINKS_STYLE_RED_BORDER}>
+                    {pending ? "Загрузка..." : "Подтвердить"}
+                </button>
+            )}
         </form>
     );
 }
