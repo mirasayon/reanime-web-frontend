@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: /administrator/
-Disallow: /blog/how-to-remove-ads
+Disallow: /blog/about-ads-in-the-player
 
 Clean-param: /anime/*
 

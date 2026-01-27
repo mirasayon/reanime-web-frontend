@@ -20,7 +20,7 @@ export function LayoutFooter({ logged }: { logged: boolean }) {
                     {logged && (
                         <>
                             <Linker href={"/about"}>О проекте</Linker>
-                            <Linker href={"/blog/how-to-remove-ads"}>О рекламе в плеере</Linker>
+                            <Linker href={"/blog/about-ads-in-the-player"}>О рекламе в плеере</Linker>
                         </>
                     )}
                 </div>

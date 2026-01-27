@@ -34,7 +34,7 @@ export function DisableAdsHintComponent() {
             <p className="p-1">
                 Рекламу можно отключить — установите расширение для блокировки JavaScript и разрешите JS только для
                 reanime.art и плеера.
-                <Linker href="/blog/how-to-remove-ads" linkType="internal" className="ml-1 hover:underline">
+                <Linker href="/blog/about-ads-in-the-player" linkType="internal" className="ml-1 hover:underline">
                     Подробнее
                 </Linker>
             </p>
