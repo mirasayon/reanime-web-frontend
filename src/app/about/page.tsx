@@ -64,7 +64,7 @@ export default function __AboutPage() {
                                 </summary>
 
                                 <video autoPlay muted playsInline className="w-80 p-2">
-                                    <source src="/_assets/_pages/donation/naruto-thanks-you.mp4" type="video/mp4" />
+                                    <source src="/_assets/_pages/_donation/naruto-thanks-you.mp4" type="video/mp4" />
                                 </video>
                                 <div className="mt-3 ml-4 space-y-2 text-slate-700 dark:text-slate-300">
                                     <ul className="list-disc list-inside space-y-1">
