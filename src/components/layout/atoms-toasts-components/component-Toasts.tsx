@@ -1,6 +1,6 @@
 "use client";
 import { useAtomValue } from "jotai";
-import { uiToastsAtom } from "./main-user-service-messanger";
+import { uiToastsAtom } from "./main-user-service-messenger";
 import { useToaster } from "./useToast";
 import { useEffect, useRef } from "react";
 

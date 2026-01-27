@@ -1,6 +1,6 @@
 "use client";
 import { useSetAtom } from "jotai";
-import { uiToastsAtom, type ToastMessageType } from "./main-user-service-messanger";
+import { uiToastsAtom, type ToastMessageType } from "./main-user-service-messenger";
 
 const genRandId = () => Math.random().toString(36).slice(2);
 type useGToasterParams = {

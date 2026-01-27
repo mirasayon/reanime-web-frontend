@@ -9,6 +9,8 @@ export type ToastMessageType = {
     kind: ToastMessageKindType;
     title?: string;
     message: string;
-    /** мс, по умолчанию 3500 */
+    /**
+     * @defaultValue 3500ms
+     */
     duration?: number;
 };
