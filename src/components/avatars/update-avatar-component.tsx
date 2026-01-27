@@ -42,14 +42,15 @@ export function UpdateAvatarForm() {
     }
     return (
         <div>
-            <div className="flex flex-col p-1">
+            <div className="flex flex-col">
                 {!previewSrc && (
                     <label
                         htmlFor={userServiceMediaConfigs.avatar_file_HTML_INPUT_name}
-                        className="p-1  flex flex-col justify-center items-center dark:bg-blue-950 bg-blue-100 cursor-pointer"
+                        className="p-1 gap-2 flex flex-row justify-center items-center dark:bg-blue-950 bg-blue-300 cursor-pointer"
                     >
-                        {/* <div>Обновить аватарку</div> */}
-                        <IoIosCloudUpload size={30} color="violet" />
+                        {" "}
+                        <IoIosCloudUpload size={15} color="violet" />
+                        <span>Обновить</span>
                     </label>
                 )}
                 <form action={onSubmitUploadAvatarHandler} className=" flex flex-col gap-2">

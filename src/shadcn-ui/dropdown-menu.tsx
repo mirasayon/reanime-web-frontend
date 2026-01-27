@@ -13,7 +13,6 @@ export function DropdownMenuPortalShadCN({ ...props }: ComponentPropsWithoutRef<
 export function DropdownMenuTriggerShadCN({ ...props }: ComponentPropsWithoutRef<typeof Trigger>) {
     return <Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
-
 export function DropdownMenuContentShadCN({
     className,
     sideOffset = 4,

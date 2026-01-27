@@ -20,11 +20,11 @@ export function DeleteAvatarForm() {
         });
     }
     return (
-        <form onSubmit={deleteAvatarHandle} className="flex flex-col">
+        <form onSubmit={deleteAvatarHandle} className="flex flex-col dark:text-white text-white">
             <button
                 type="submit"
                 disabled={pending}
-                className="p-1 rounded cursor-pointer bg-red-600  active:bg-red-300"
+                className="p-1 rounded cursor-pointer bg-red-600 dark:bg-red-900 dark:hover:bg-red-700 active:bg-red-300"
             >
                 {pending ? "Загрузка..." : "Удалить аватар"}
             </button>
