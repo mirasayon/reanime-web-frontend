@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, type ReactNode } from "react";
 import { User as UserIcon, Mail, UserCircle } from "lucide-react";
-import { LogoutBtnForProfileDashboard } from "#/components/auth/log-out.user-interface-for-dashboard";
 import { UpdateProfileNickname } from "./edit-profile-forms/update-profile-name";
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
@@ -14,7 +13,7 @@ type ProfileDashboardProps = {
 export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX.Element {
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [isEditingNickname, setIsEditingNickname] = useState(false);
-    const [isEditingUsername, setIsEditingUsername] = useState(false);
+    // const [isEditingUsername, setIsEditingUsername] = useState(false);
     return (
         <div className="p-3  transition-colors ">
             <div className="p-4 rounded-2xl shadow">
@@ -68,10 +67,6 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX
                     </div>
                     <QuickItem icon={<UserIcon size={16} />} title="Юзернейм" desc={"@" + user.username} />
                     <QuickItem icon={<Mail size={16} />} title="Почта" desc={user.email || "Почта не добавлена"} />
-                </div>
-
-                <div className="mt-2 flex gap-2">
-                    <LogoutBtnForProfileDashboard />
                 </div>
             </div>
         </div>

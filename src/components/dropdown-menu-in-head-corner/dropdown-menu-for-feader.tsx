@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { AvatarDashboardForLoggedInUser } from "./for-logged-users";
-import { LoginAndRegisterLinksAtAvatarPlace } from "./for-guests";
+import { LoginLinksForDropdownMenu } from "./for-guests";
 import { AvatarOrLoginRegButtonForHeader } from "./avatar-or-login-reg-button-for-header";
 import type { AvatarFSType } from "../utilities/common/view-avatar-by-username-url";
 export function DropdownMenuForHeader({
@@ -61,7 +61,7 @@ export function DropdownMenuForHeader({
                                 {username ? (
                                     <AvatarDashboardForLoggedInUser username={username} />
                                 ) : (
-                                    <LoginAndRegisterLinksAtAvatarPlace />
+                                    <LoginLinksForDropdownMenu />
                                 )}
                             </div>
                         </div>
