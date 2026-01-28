@@ -23,14 +23,14 @@ export function SecuritySettingsDashboardComponent() {
             <div className={` ${!isOpen && "hidden"} gap-2 flex flex-col w-60 py-2`}>
                 <DeleteAccountPermanentlyComponent />
                 <Linker
-                    href="/user/settings/update-password"
+                    href="/user-settings/update-password"
                     clearTheDefaultStylings
                     className=" border-2 p-2 rounded "
                 >
-                    Обновить пароль🔗
+                    Обновить пароль
                 </Linker>
 
-                <Linker href="/user/settings/sessions" clearTheDefaultStylings className=" border-2 p-2 rounded ">
+                <Linker href="/user-settings/sessions" clearTheDefaultStylings className=" border-2 p-2 rounded ">
                     Активные сессии
                 </Linker>
             </div>

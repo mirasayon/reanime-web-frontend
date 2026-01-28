@@ -13,7 +13,7 @@ export async function terminateSpecificSessionSA(session_id: string): ServerActi
     );
     return userServiceResponseHandler(res, {
         onSuccessFunction: () => {
-            revalidatePath("/user/settings/sessions");
+            revalidatePath("/user-settings/sessions");
         },
     });
 }

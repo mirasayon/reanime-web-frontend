@@ -71,9 +71,7 @@ export function MainProfileDashboard({ user }: ProfileDashboardProps): React.JSX
                 </div>
 
                 <div className="mt-2 flex gap-2">
-                    <div>
-                        <LogoutBtnForProfileDashboard />
-                    </div>
+                    <LogoutBtnForProfileDashboard />
                 </div>
             </div>
         </div>

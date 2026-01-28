@@ -7,6 +7,7 @@ import { SessionsListComponent } from "./session-viewer-component";
 import { BackToUserPageButtonComponent } from "./back-button-component";
 import type { ResponseTypesFor_Account_Section } from "#user-service/user-service-response-types-for-all.routes.ts";
 import { endpointsConfig } from "#user-service/endpoints-config.ts";
+import type { Metadata } from "next";
 
 export default async function __SettingSlashSessionsPage() {
     const auth = await getAccountSession();
@@ -39,4 +40,10 @@ export default async function __SettingSlashSessionsPage() {
         );
     }
     return redirect("/auth/login");
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "Активные сессии",
+    };
 }

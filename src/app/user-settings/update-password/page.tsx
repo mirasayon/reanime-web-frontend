@@ -4,6 +4,7 @@ import { getAccountSession } from "#/integration/user-service/auth/get-account-s
 import { BORDER } from "#/styles/style-constants";
 import { redirect } from "next/navigation";
 import { BackToUserPageButtonComponent } from "../sessions/back-button-component";
+import type { Metadata } from "next/types";
 
 export default async function __UpdatePasswordPage() {
     const auth = await getAccountSession();
@@ -17,4 +18,10 @@ export default async function __UpdatePasswordPage() {
         );
     }
     return redirect("/auth/login");
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "Обновить пароль",
+    };
 }
